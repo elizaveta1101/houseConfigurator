@@ -1,0 +1,59 @@
+/* stylelint-disable */
+@mixin adaptive($device) {
+  @if ($device == mobile) {
+    @media (max-width: 575px) {
+      @content;
+    }
+  } @else if ($device == smartphone) {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if ($device == tablet) {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if ($device == notebook) {
+    @media (max-width: 1135px) {
+      @content;
+    }
+  }
+}
+/* stylelint-enable */
+
+@mixin wrapper() {
+  width: 91vw;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+@mixin flex-element($direction: row, $justify: normal, $align: normal, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin absolute-element-center() {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+@mixin animation(
+  $name: none,
+  $duration: 0.5s,
+  $delay: 0s,
+  $fill-mode: both,
+  $timing: ease,
+  $iteration: initial
+) {
+  animation-delay: $delay;
+  animation-duration: $duration;
+  animation-fill-mode: $fill-mode;
+  animation-iteration-count: $iteration;
+  animation-name: $name;
+  animation-timing-function: $timing;
+}

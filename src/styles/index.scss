@@ -1,0 +1,44 @@
+@import './payloads.scss';
+@import './mixins.scss';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  color: $textColor;
+  font-family: 'OpenSans', sans-serif;
+}
+
+body {
+  background-color: $bodyColor;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+a {
+  color: $textColor;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    color: $blueAccnet;
+  }
+}
+
+.app {
+  font-size: 0.875rem;
+
+  @include wrapper();
+}

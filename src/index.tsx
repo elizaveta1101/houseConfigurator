@@ -1,13 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { createHashHistory, History } from 'history'
+import { Router } from 'react-router-dom'
 
 import App from './App'
-import GlobalStyles from './styles/'
+
+const history: History = createHashHistory()
 
 ReactDOM.render(
-  <>
-    <GlobalStyles />
+  <Router history={history}>
     <App />
-  </>,
+  </Router>,
   document.getElementById('root')
 )

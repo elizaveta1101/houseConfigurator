@@ -1,9 +1,15 @@
 import React from 'react'
 
+import Header from './comonents/header/header'
+
+import './styles/animation.scss'
+import './styles/fonts.scss'
+import './styles/index.scss'
+
 const App: React.FC = () => {
   return (
     <div className="app">
-      <a className="">Hello world!</a>
+      <Header />
     </div>
   )
 }
