@@ -1,0 +1,17 @@
+@import '../../styles/payloads.scss';
+@import '../../styles/mixins.scss';
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  background-color: $overlayColor;
+
+  &_show {
+    @include flex-element(_, center, center);
+    @include animation(fadeIn, 0.5s);
+  }
+}

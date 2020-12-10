@@ -9,6 +9,10 @@
   height: 3.75rem;
   background-color: $backgroundColor;
   box-shadow: $boxShadow;
+
+  @include adaptive(notebook) {
+    position: fixed;
+  }
 }
 
 .header__wrapper {
@@ -19,7 +23,7 @@
   @include flex-element(_, space-between, center);
 
   @include adaptive(notebook) {
-    position: initial;
+    position: static;
   }
 }
 
@@ -28,12 +32,9 @@
 }
 
 .header__logo {
-  cursor: pointer;
-}
-
-.header__logo-image {
   width: 2.5rem;
-  height: auto;
+  height: 2.5rem;
+  cursor: pointer;
 }
 
 .header__link {
@@ -41,17 +42,15 @@
 }
 
 .header__auth-icon {
-  cursor: pointer;
-}
-
-.header__auth-icon-image {
   width: 1.5rem;
-  height: auto;
+  height: 1.5rem;
+  cursor: pointer;
 }
 
 .header__auth-button {
   position: relative;
   padding: 0.25rem;
+  margin-right: 0.75rem;
   font-size: 0.75rem;
 
   &::after {
@@ -70,7 +69,7 @@
     transform: rotate(190deg);
   }
 
-  @include adaptive(notebook) {
+  @include adaptive(tablet) {
     display: none;
   }
 }
@@ -82,9 +81,7 @@
   margin-left: 1.5rem;
   cursor: pointer;
 
-  @include adaptive(notebook) {
-    display: flex;
-
+  @include adaptive(tablet) {
     @include flex-element(column, center, center);
   }
 }
@@ -132,15 +129,19 @@
   position: absolute;
   top: 3.0625rem;
   right: -6rem;
+  display: none;
   padding: 1rem 1.5rem;
   background-color: $backgroundColor;
   box-shadow: 0 0.25rem 0.625rem 0 #bdbdbd30;
 
   @include animation(fadeIn, 0.2s);
-  @include flex-element(column);
 
   @include adaptive(notebook) {
     right: 0;
+  }
+
+  &_active {
+    @include flex-element(column);
   }
 }
 
@@ -148,4 +149,12 @@
 .header__logout-link {
   color: black;
   text-decoration: none;
+}
+
+.menu_header {
+  position: absolute;
+  top: 4.25rem;
+  right: 1rem;
+
+  @include animation(openMenuHeader, 0.9s);
 }

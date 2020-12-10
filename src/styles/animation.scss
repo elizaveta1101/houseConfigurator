@@ -15,3 +15,19 @@
     filter: opacity(0);
   }
 }
+
+@keyframes openMenuHeader {
+  0% {
+    top: -20rem;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  50% {
+    top: 5.5rem;
+    opacity: 1;
+  }
+}
