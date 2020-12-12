@@ -1,11 +1,26 @@
+$blueAccnet: #325fff;
+$redWarning: #ff3232;
+$textColor: #2e2e2e;
+$formsTextColor: #444444;
+$formsBorderColor: #989898;
+$inActiveButtonsColor: #c8c8c8;
+$isActiveBackFormsColor: #ececec;
+$selectHoverColor: #f3f3f3;
+$bodyColor: #e5e5e5;
+$backgroundColor: #ffffff;
+$overlayColor: #4b4b4ba1;
+
+$boxShadow: 0 0.625rem 1.25rem 0 #adadad12;
+$contentBorderRadius: 0.25rem;
+
 /* stylelint-disable */
 @mixin adaptive($device) {
   @if ($device == mobile) {
-    @media (max-width: 575px) {
+    @media (max-width: 394px) {
       @content;
     }
   } @else if ($device == smartphone) {
-    @media (max-width: 767px) {
+    @media (max-width: 669px) {
       @content;
     }
   } @else if ($device == tablet) {

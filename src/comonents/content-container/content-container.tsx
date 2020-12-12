@@ -5,7 +5,7 @@ import './styles.scss'
 
 interface IContentContainer {
   modifier?: string
-  children?: React.ReactNode
+  children: React.ReactNode
 }
 
 const ContentContainer: React.FC<IContentContainer> = ({

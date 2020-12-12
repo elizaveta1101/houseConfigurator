@@ -1,0 +1,21 @@
+@import '../../styles/mixins.scss';
+
+.popup {
+  width: 100%;
+  max-width: 400px;
+  height: 9.3125rem;
+  background-color: $backgroundColor;
+  border-radius: 2px;
+
+  @include flex-element(column, space-evenly, center);
+}
+
+.popup__buttons-wrapper {
+  width: 100%;
+
+  @include flex-element(_, space-evenly, center);
+}
+
+.button_popup {
+  max-width: 145px;
+}

@@ -1,15 +1,12 @@
-@import '../../styles/payloads.scss';
 @import '../../styles/mixins.scss';
 
 .content-container {
-  width: 700px;
-  height: 502px;
-  padding: 24px 40px;
+  position: relative;
+  width: 100%;
+  max-width: 43.75rem;
+  height: 31.375rem;
+  padding: 1.5rem 2.5rem;
   background-color: $backgroundColor;
   border-radius: $contentBorderRadius;
   box-shadow: $boxShadow;
-
-  @include adaptive(tablet) {
-    @include wrapper();
-  }
 }

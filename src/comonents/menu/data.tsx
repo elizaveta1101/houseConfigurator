@@ -27,7 +27,7 @@ export const data: IData[] = [
     id: '2',
     text: 'Главная страница',
     icon: homePage,
-    link: '/',
+    link: '/main-page',
   },
   {
     id: '3',
@@ -69,7 +69,7 @@ export const data: IData[] = [
     id: '9',
     text: 'Клиентские данные',
     icon: clientData,
-    link: '/client-data',
+    link: '/profile',
   },
   {
     id: '10',

@@ -1,0 +1,41 @@
+@import '../../../styles/mixins.scss';
+
+.auth-page {
+  height: auto;
+  margin: 0 auto;
+}
+
+.auth-page__title {
+  text-align: center;
+
+  @include adaptive(mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+.auth-page__form {
+  width: 100%;
+  max-width: 18.75rem;
+  margin: 2.5rem auto 0;
+
+  @include adaptive(smartphone) {
+    width: 100%;
+  }
+}
+
+.auth-page__input {
+  color: $textColor;
+
+  @include flex-element(column, _, baseline);
+
+  .ant-form-item-control {
+    width: 100%;
+  }
+
+  .ant-form-item-required {
+    &::after,
+    &::before {
+      display: none !important;
+    }
+  }
+}

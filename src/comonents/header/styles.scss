@@ -1,8 +1,8 @@
-@import '../../styles/payloads.scss';
 @import '../../styles/mixins.scss';
 
 .header {
   position: absolute;
+  z-index: 1;
   right: 0;
   left: 0;
   width: 100%;
@@ -29,6 +29,10 @@
 
 .header__side-wrapper {
   @include flex-element(_, _, center);
+
+  &_hide {
+    display: none;
+  }
 }
 
 .header__logo {

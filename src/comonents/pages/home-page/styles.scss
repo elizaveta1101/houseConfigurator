@@ -1,3 +1,69 @@
+@import '../../../styles/mixins.scss';
+
 .home-page {
-  display: block;
+  height: 31.375rem;
+
+  @include adaptive(tablet) {
+    height: 18.25rem;
+    margin: 0 auto;
+  }
+
+  @include adaptive(smartphone) {
+    height: auto;
+  }
+}
+
+.menu_home-page {
+  display: none;
+  width: 100%;
+  background-color: transparent;
+  box-shadow: none;
+
+  @include adaptive(tablet) {
+    @include flex-element(_, center);
+
+    .menu__wrapper {
+      padding: 24px 0 0 0;
+
+      @include flex-element(_, space-evenly, _, wrap);
+    }
+
+    .menu__link-wrapper {
+      flex-basis: 35%;
+      margin: 0.4375rem 0;
+    }
+  }
+
+  @include adaptive(smartphone) {
+    .menu__wrapper {
+      margin-left: -1.875rem;
+
+      @include flex-element(column);
+    }
+  }
+}
+
+.home-page__menu-title {
+  display: none;
+
+  @include adaptive(tablet) {
+    display: block;
+  }
+
+  @include adaptive(smartphone) {
+    margin-left: -0.625rem;
+    text-align: center;
+  }
+}
+
+.home-page__text {
+  margin-top: 0.5rem;
+  font-size: 1.125rem;
+}
+
+.home-page__title,
+.home-page__text {
+  @include adaptive(tablet) {
+    display: none;
+  }
 }

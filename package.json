@@ -26,14 +26,15 @@
     ]
   },
   "dependencies": {
+    "antd": "^4.9.2",
     "archiver": "^3.1.1",
     "axios": "^0.19.2",
     "babel-plugin-styled-components": "^1.10.7",
     "caniuse-lite": "^1.0.30001154",
+    "classnames": "^2.2.6",
     "fontfaceobserver": "^2.1.0",
     "history": "^4.10.1",
     "jest-enzyme": "^7.1.2",
-    "classnames": "^2.2.6",
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
     "ramda": "^0.27.0",

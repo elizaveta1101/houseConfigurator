@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import 'antd/dist/antd.css'
 
 import Header from './comonents/header/header'
 import Menu from './comonents/menu/menu'
 import Overlay from './comonents/overlay/overlay'
-import HomePage from './comonents/pages/home-page/home-page'
+import { AppContext } from './context'
+import { useRoutes } from './routes'
 
 import './styles/animation.scss'
 import './styles/fonts.scss'
@@ -14,6 +15,9 @@ const App: React.FC = () => {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false)
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false)
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
+
+  const isAuth = false
+  const routes = useRoutes(isAuth)
 
   const authHandler = (): void => setIsAuthMenuOpen(!isAuthMenuOpen)
 
@@ -29,23 +33,26 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="app">
-      <Overlay isOpen={isOverlayOpen} overlayHandler={allHideHandler} />
-
-      <Header
-        navMenuHandler={navMenuHandler}
-        authHandler={authHandler}
-        allHideHandler={allHideHandler}
-        isNavMenuOpen={isNavMenuOpen}
-        isAuthMenuOpen={isAuthMenuOpen}
-      />
-      <div className="content">
-        <Menu modifier={'menu_content'} />
-        <Switch>
-          <Route path={'/'} exact component={HomePage} />
-        </Switch>
+    <AppContext.Provider
+      value={{
+        isAuth,
+        isNavMenuOpen,
+        isAuthMenuOpen,
+        isOverlayOpen,
+        authHandler,
+        navMenuHandler,
+        allHideHandler,
+      }}
+    >
+      <div className="app">
+        <Overlay isOpen={isOverlayOpen} overlayHandler={allHideHandler} />
+        <Header />
+        <div className="content">
+          <Menu modifier={'menu_content'} isOpen={isAuth} />
+          {routes}
+        </div>
       </div>
-    </div>
+    </AppContext.Provider>
   )
 }
 
