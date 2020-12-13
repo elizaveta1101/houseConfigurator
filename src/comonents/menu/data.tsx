@@ -69,7 +69,7 @@ export const data: IData[] = [
     id: '9',
     text: 'Клиентские данные',
     icon: clientData,
-    link: '/profile',
+    link: '/client-data',
   },
   {
     id: '10',

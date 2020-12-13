@@ -9,4 +9,8 @@
   background-color: $backgroundColor;
   border-radius: $contentBorderRadius;
   box-shadow: $boxShadow;
+
+  @include adaptive(tablet) {
+    margin: 0 auto;
+  }
 }

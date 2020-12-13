@@ -2,7 +2,6 @@ import React from 'react'
 import cx from 'classnames'
 
 import './styles.scss'
-
 interface IOverlayProps {
   isOpen: boolean
   overlayHandler: () => void

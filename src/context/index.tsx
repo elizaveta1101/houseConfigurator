@@ -1,23 +1,13 @@
-import { createContext } from 'react'
+import { createContext, SyntheticEvent } from 'react'
 
 interface IAppContext {
-  isAuth: boolean
-  isNavMenuOpen: boolean
-  isAuthMenuOpen: boolean
-  isOverlayOpen: boolean
-  authHandler: () => void
-  navMenuHandler: () => void
-  allHideHandler: () => void
+  isAuth?: boolean
+  isNavMenuOpen?: boolean
+  isAuthMenuOpen?: boolean
+  isOverlayOpen?: boolean
+  activeLink?: string
+  headerHandler?: (e: SyntheticEvent) => void
+  hideAll?: () => void
 }
 
-const noop = () => console.log('tslint, я пустая функция!')
-
-export const AppContext = createContext<IAppContext>({
-  isAuth: false,
-  isNavMenuOpen: false,
-  isAuthMenuOpen: false,
-  isOverlayOpen: false,
-  authHandler: noop,
-  navMenuHandler: noop,
-  allHideHandler: noop,
-})
+export const AppContext = createContext<IAppContext>({})

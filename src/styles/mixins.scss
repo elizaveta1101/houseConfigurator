@@ -16,7 +16,7 @@ $contentBorderRadius: 0.25rem;
 /* stylelint-disable */
 @mixin adaptive($device) {
   @if ($device == mobile) {
-    @media (max-width: 394px) {
+    @media (max-width: 422px) {
       @content;
     }
   } @else if ($device == smartphone) {

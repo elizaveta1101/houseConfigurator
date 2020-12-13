@@ -10,6 +10,7 @@ import OrdersPage from '../comonents/pages/orders-page/orders-page'
 import MainPage from '../comonents/pages/main-page/main-page'
 import PollPage from '../comonents/pages/poll-page/poll-page'
 import ProfilePage from '../comonents/pages/profile-page/profile-page'
+import ClientDataPage from '../comonents/pages/client-data-page/client-data-page'
 import ProjectFinishPage from '../comonents/pages/project-finish-page/project-finish-page'
 import ProjectInvestPage from '../comonents/pages/project-invest-page/project-invest-page'
 import ThroughElementsPage from '../comonents/pages/through-elements-page/through-elements-page'
@@ -24,6 +25,7 @@ export const useRoutes: React.FC<boolean> = (isAuth: boolean) =>
       <Route path={'/main-page'} component={MainPage} />
       <Route path={'/project-invest'} component={ProjectInvestPage} />
       <Route path={'/info-poll'} component={InfoPollPage} />
+      <Route path={'/client-data'} component={ClientDataPage} />
       <Route path={'/poll'} component={PollPage} />
       <Route path={'/orders'} component={OrdersPage} />
       <Route path={'/profile'} component={ProfilePage} />

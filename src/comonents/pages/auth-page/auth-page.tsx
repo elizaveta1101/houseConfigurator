@@ -1,7 +1,8 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input } from 'antd'
 
 import ContentContainer from '../../content-container/content-container'
+import CustomButton from '../../button/button'
 
 import './styles.scss'
 
@@ -43,9 +44,7 @@ const AuthPage: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Войти
-          </Button>
+          <CustomButton text="Войти" htmlType="submit" />
         </Form.Item>
       </Form>
     </ContentContainer>

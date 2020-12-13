@@ -1,30 +1,37 @@
 import React from 'react'
+import { Button } from 'antd'
 import cx from 'classnames'
 
 import './styles.scss'
 
-interface IButtonProps {
-  clickHandler: () => void
+interface ICustomButtonProps {
+  clickHandler?: () => void
   modifier?: string
-  disable?: boolean
+  disabled?: boolean
+  type?: 'primary' | 'default'
+  htmlType?: 'button' | 'submit'
   text: string
 }
 
-const Button: React.FC<IButtonProps> = ({
+const CustomButton: React.FC<ICustomButtonProps> = ({
   clickHandler,
   modifier,
-  disable,
+  disabled = false,
+  htmlType = 'button',
+  type = 'primary',
   text,
-}: IButtonProps) => (
-  <button
-    className={cx('button', {
+}: ICustomButtonProps) => (
+  <Button
+    className={cx('custom-button', `custom-button_${type}`, {
       [modifier as string]: modifier,
-      inactive: disable,
     })}
+    type={type}
+    htmlType={htmlType}
+    disabled={disabled}
     onClick={clickHandler}
   >
-    <span>{text}</span>
-  </button>
+    {text}
+  </Button>
 )
 
-export default Button
+export default CustomButton

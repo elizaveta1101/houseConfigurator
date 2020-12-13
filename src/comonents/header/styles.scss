@@ -39,10 +39,24 @@
   width: 2.5rem;
   height: 2.5rem;
   cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1.1);
+  }
 }
 
 .header__link {
   margin-left: 2.5rem;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .header__auth-icon {
@@ -56,6 +70,11 @@
   padding: 0.25rem;
   margin-right: 0.75rem;
   font-size: 0.75rem;
+  transition: 0.2s;
+
+  &:hover {
+    color: $blueAccnet;
+  }
 
   &::after {
     position: absolute;
@@ -70,7 +89,7 @@
   }
 
   &_active::after {
-    transform: rotate(190deg);
+    transform: rotate(180deg);
   }
 
   @include adaptive(tablet) {
@@ -96,6 +115,7 @@
   height: 0.143em;
   background-color: $blueAccnet;
   border-radius: 0.0715em;
+  pointer-events: none;
   transition: 0.5s;
 
   &::after,

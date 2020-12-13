@@ -5,7 +5,6 @@
 
   @include adaptive(tablet) {
     height: 18.25rem;
-    margin: 0 auto;
   }
 
   @include adaptive(smartphone) {

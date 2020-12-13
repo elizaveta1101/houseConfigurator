@@ -1,52 +1,45 @@
 import React from 'react'
 import cx from 'classnames'
 
-import Overlay from '../overlay/overlay'
 import Button from '../button/button'
 import { data } from './data'
 
 import './styles.scss'
-
 interface IPopupProps {
   modifier?: string
   type: string
   isOpen: boolean
   popupHandler: () => void
-  leftHandler: () => void
-  rightHandler: () => void
+  negativeHandler: () => void
+  positiveHandler: () => void
 }
-
-console.log(data)
 
 const Popup: React.FC<IPopupProps> = ({
   modifier,
   type,
-  isOpen,
-  popupHandler,
-  leftHandler,
-  rightHandler,
+  negativeHandler,
+  positiveHandler,
 }: IPopupProps) => (
-  <Overlay isOpen={isOpen} overlayHandler={popupHandler}>
-    <div
-      className={cx('popup', {
-        [modifier as string]: modifier,
-      })}
-    >
-      <h3 className="popup__title">{data[type].title}</h3>
-      <div className="popup__buttons-wrapper">
-        <Button
-          modifier={'button_popup'}
-          text={data[type].leftButtonText}
-          clickHandler={leftHandler}
-        />
-        <Button
-          modifier={'button_popup'}
-          text={data[type].rightButtonText}
-          clickHandler={rightHandler}
-        />
-      </div>
+  <div
+    className={cx('popup', {
+      [modifier as string]: modifier,
+    })}
+  >
+    <h3 className="popup__title">{data[type].title}</h3>
+    <div className="popup__buttons-wrapper">
+      <Button
+        type="default"
+        modifier={'button_popup'}
+        text={data[type].leftButtonText}
+        clickHandler={negativeHandler}
+      />
+      <Button
+        modifier={'button_popup'}
+        text={data[type].rightButtonText}
+        clickHandler={positiveHandler}
+      />
     </div>
-  </Overlay>
+  </div>
 )
 
 export default Popup
