@@ -8,10 +8,8 @@ import './styles.scss'
 interface IPopupProps {
   modifier?: string
   type: string
-  isOpen: boolean
-  popupHandler: () => void
-  negativeHandler: () => void
-  positiveHandler: () => void
+  negativeHandler?: () => void
+  positiveHandler?: () => void
 }
 
 const Popup: React.FC<IPopupProps> = ({

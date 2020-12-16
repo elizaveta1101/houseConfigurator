@@ -20,10 +20,6 @@
 }
 
 .auth-page__input {
-  color: $textColor;
-
-  @include flex-element(column, _, baseline);
-
   .ant-form-item-control {
     width: 100%;
   }

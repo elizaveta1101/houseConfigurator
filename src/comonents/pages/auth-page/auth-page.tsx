@@ -22,6 +22,7 @@ const AuthPage: React.FC = () => {
       <Form
         className="auth-page__form"
         name="basic"
+        layout="vertical"
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >

@@ -14,26 +14,27 @@ import ClientDataPage from '../comonents/pages/client-data-page/client-data-page
 import ProjectFinishPage from '../comonents/pages/project-finish-page/project-finish-page'
 import ProjectInvestPage from '../comonents/pages/project-invest-page/project-invest-page'
 import ThroughElementsPage from '../comonents/pages/through-elements-page/through-elements-page'
+import { MenuLinkPaths } from '../data'
 
 export const useRoutes: React.FC<boolean> = (isAuth: boolean) =>
   isAuth ? (
     <Switch>
-      <Route path={'/'} exact component={HomePage} />
-      <Route path={'/through-elements'} component={ThroughElementsPage} />
-      <Route path={'/houses-finish'} component={HousesFinishPage} />
-      <Route path={'/project-finish'} component={ProjectFinishPage} />
-      <Route path={'/main-page'} component={MainPage} />
-      <Route path={'/project-invest'} component={ProjectInvestPage} />
-      <Route path={'/info-poll'} component={InfoPollPage} />
-      <Route path={'/client-data'} component={ClientDataPage} />
-      <Route path={'/poll'} component={PollPage} />
-      <Route path={'/orders'} component={OrdersPage} />
-      <Route path={'/profile'} component={ProfilePage} />
-      <Route path={'/admins-site'} component={AdminsSitePage} />
+      <Route path={MenuLinkPaths.homePath} exact component={HomePage} />
+      <Route path={MenuLinkPaths.throughElementsPath} component={ThroughElementsPage} />
+      <Route path={MenuLinkPaths.housesFinishPath} component={HousesFinishPage} />
+      <Route path={MenuLinkPaths.projectFinishPath} component={ProjectFinishPage} />
+      <Route path={MenuLinkPaths.mainPagePath} component={MainPage} />
+      <Route path={MenuLinkPaths.projectInvestPath} component={ProjectInvestPage} />
+      <Route path={MenuLinkPaths.infoPollPath} component={InfoPollPage} />
+      <Route path={MenuLinkPaths.clientDataPath} component={ClientDataPage} />
+      <Route path={MenuLinkPaths.pollPath} component={PollPage} />
+      <Route path={MenuLinkPaths.ordersPath} component={OrdersPage} />
+      <Route path={MenuLinkPaths.profilePath} component={ProfilePage} />
+      <Route path={MenuLinkPaths.adminsSitePath} component={AdminsSitePage} />
     </Switch>
   ) : (
     <Switch>
-      <Route path={'/auth'} exact component={AuthPage} />
-      <Redirect to={'/auth'} />
+      <Route path={MenuLinkPaths.authPath} exact component={AuthPage} />
+      <Redirect to={MenuLinkPaths.authPath} />
     </Switch>
   )

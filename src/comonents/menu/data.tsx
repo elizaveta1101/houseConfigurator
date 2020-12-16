@@ -8,73 +8,74 @@ import poll from '../../assets/icons/menu/poll.svg'
 import orders from '../../assets/icons/menu/orders.svg'
 import clientData from '../../assets/icons/menu/client-data.svg'
 import adminsSite from '../../assets/icons/menu/admins-site.svg'
+import { MenuLinkPaths } from '../../data'
 
-interface IData {
+interface ILinksData {
   id: string
   text: string
   icon: string
-  link: string
+  linkPath: string
 }
 
-export const data: IData[] = [
+export const linksdata: ILinksData[] = [
   {
     id: '1',
     text: 'Сквозные элементы',
     icon: throughElements,
-    link: '/through-elements',
+    linkPath: MenuLinkPaths.throughElementsPath,
   },
   {
     id: '2',
     text: 'Главная страница',
     icon: homePage,
-    link: '/main-page',
+    linkPath: MenuLinkPaths.mainPagePath,
   },
   {
     id: '3',
     text: 'Готовые дома',
     icon: housesFinish,
-    link: '/houses-finish',
+    linkPath: MenuLinkPaths.housesFinishPath,
   },
   {
     id: '4',
     text: 'Готовые проекты',
     icon: projectFinish,
-    link: '/project-finish',
+    linkPath: MenuLinkPaths.projectFinishPath,
   },
   {
     id: '5',
     text: 'Проекты инвестиций',
     icon: projectInvest,
-    link: '/project-invest',
+    linkPath: MenuLinkPaths.projectInvestPath,
   },
   {
     id: '6',
     text: 'Инфо об опросе',
     icon: infoPoll,
-    link: '/info-poll',
+    linkPath: MenuLinkPaths.infoPollPath,
   },
   {
     id: '7',
     text: 'Опрос',
     icon: poll,
-    link: '/poll',
+    linkPath: MenuLinkPaths.pollPath,
   },
   {
     id: '8',
     text: 'Заказы',
     icon: orders,
-    link: '/orders',
+    linkPath: MenuLinkPaths.ordersPath,
   },
   {
     id: '9',
     text: 'Клиентские данные',
     icon: clientData,
-    link: '/client-data',
+    linkPath: MenuLinkPaths.clientDataPath,
   },
   {
     id: '10',
     text: 'Администраторы сайта',
     icon: adminsSite,
-    link: '/admins-site',
+    linkPath: MenuLinkPaths.adminsSitePath,
   },
 ]

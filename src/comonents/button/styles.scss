@@ -6,13 +6,13 @@
   height: 2.5rem;
 
   &_primary {
-    border-color: $blueAccnet;
-    background-color: $blueAccnet;
+    border-color: $blueAccent;
+    background-color: $blueAccent;
   }
 
   &_default {
     border-width: 2px;
-    border-color: $blueAccnet;
-    color: $blueAccnet;
+    border-color: $blueAccent;
+    color: $blueAccent;
   }
 }

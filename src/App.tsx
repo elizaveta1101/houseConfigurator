@@ -6,7 +6,7 @@ import Menu from './comonents/menu/menu'
 import Overlay from './comonents/overlay/overlay'
 import { AppContext } from './context'
 import { useRoutes } from './routes'
-import { HeaderPayloads } from './data/data'
+import { HeaderPayloads } from './data'
 
 import './styles/animation.scss'
 import './styles/fonts.scss'
@@ -23,7 +23,7 @@ const App: React.FC = () => {
   const isAuth = true
   const routes = useRoutes(isAuth)
 
-  const headerHandler = (e: SyntheticEvent): void => {
+  const headerHandler = (e: SyntheticEvent) => {
     hideAll()
 
     const { element, link } = (e.target as HTMLElement).dataset
@@ -39,7 +39,7 @@ const App: React.FC = () => {
     }
   }
 
-  const hideAll = (): void => {
+  const hideAll = () => {
     setIsNavMenuOpen(false)
     setIsAuthMenuOpen(false)
     setIsOverlayOpen(false)

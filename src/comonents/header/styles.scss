@@ -73,7 +73,7 @@
   transition: 0.2s;
 
   &:hover {
-    color: $blueAccnet;
+    color: $blueAccent;
   }
 
   &::after {
@@ -113,7 +113,7 @@
   position: relative;
   width: 100%;
   height: 0.143em;
-  background-color: $blueAccnet;
+  background-color: $blueAccent;
   border-radius: 0.0715em;
   pointer-events: none;
   transition: 0.5s;

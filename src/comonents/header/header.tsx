@@ -6,7 +6,7 @@ import logo from '../../assets/icons/logo.svg'
 import authIcon from '../../assets/icons/auth-icon.svg'
 import Menu from '../menu/menu'
 import { AppContext } from '../../context'
-import { HeaderPayloads } from '../../data/data'
+import { HeaderPayloads, MenuLinkPaths } from '../../data'
 
 import './styles.scss'
 
@@ -17,9 +17,9 @@ const Header: React.FC = () => {
       <div className="header__wrapper">
         <div className="header__side-wrapper">
           <Link
-            to={HeaderPayloads.homeLink}
+            to={MenuLinkPaths.homePath}
             className="header__logo"
-            data-link={HeaderPayloads.homeLink}
+            data-link={MenuLinkPaths.homePath}
           >
             <img className="header__logo-image" src={logo} alt="logo" />
           </Link>
@@ -60,14 +60,14 @@ const Header: React.FC = () => {
           })}
         >
           <Link
-            to={HeaderPayloads.profileLink}
+            to={MenuLinkPaths.profilePath}
             className="header__profile-link"
-            data-link={HeaderPayloads.profileLink}
+            data-link={MenuLinkPaths.profilePath}
           >
             Профиль
           </Link>
           <Link
-            to={HeaderPayloads.authLink}
+            to={MenuLinkPaths.authPath}
             className="header__logout-link"
             data-element={HeaderPayloads.logoutLink}
             onClick={headerHandler}

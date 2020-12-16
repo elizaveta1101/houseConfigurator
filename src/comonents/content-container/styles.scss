@@ -11,6 +11,7 @@
   box-shadow: $boxShadow;
 
   @include adaptive(tablet) {
+    position: static;
     margin: 0 auto;
   }
 }
