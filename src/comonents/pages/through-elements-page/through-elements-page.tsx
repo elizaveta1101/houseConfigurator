@@ -13,22 +13,10 @@ interface IInputState {
   [key: string]: string
 }
 
-const getPhoneNumber = (value: string) => {
-  const phoneNumber = value.replace(/\D/g, '').slice(1, 20)
-  console.log(phoneNumber.substring(0, 3))
-
-  const a = phoneNumber.substring(0, 3) || ''
-  const b = phoneNumber.substring(3, 6) || ''
-  const c = phoneNumber.substring(6, 8) || ''
-  const d = phoneNumber.substring(8, 10) || ''
-
-  return `+ 7 (${a})-${b}-${c}-${d}`
-}
-
 const ThroughElementsPage: React.FC = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const [inputState, setInputState] = useState<IInputState>({
-    phone: '+ 7 (___)-___-__-__',
+    phone: '',
     mail: '',
   })
 
@@ -38,14 +26,12 @@ const ThroughElementsPage: React.FC = () => {
 
     if (nameInput === 'phone') {
       value = e.target.value
-      // .slice(3, 18)
-      // .replace(/\D/g, '')
-      // .replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '($1)-$2-$3-$4')
+        .slice(3, 18)
+        .replace(/\D/g, '')
+        .replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '($1)-$2-$3-$4')
     } else value = e.target.value
 
-    const phoneNumber = getPhoneNumber(value)
-
-    setInputState({ ...inputState, [nameInput]: phoneNumber })
+    setInputState({ ...inputState, [nameInput]: value })
   }
 
   const popupHandler = () => {
@@ -64,7 +50,7 @@ const ThroughElementsPage: React.FC = () => {
     <ContentContainer>
       <Form layout={'vertical'} validateMessages={validateMessages}>
         <Form.Item label="Номер телефона" className="through-elements-page__phone-input">
-          <Input name="phone" value={`${phone}`} onChange={onChangeInput} />
+          <Input name="phone" value={`+7 ${phone}`} onChange={onChangeInput} />
         </Form.Item>
         <Form.Item
           className="through-elements-page__mail-input"
