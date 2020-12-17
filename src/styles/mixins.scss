@@ -24,7 +24,7 @@ $contentBorderRadius: 0.25rem;
       @content;
     }
   } @else if ($device == tablet) {
-    @media (max-width: 991px) {
+    @media (max-width: 1014px) {
       @content;
     }
   } @else if ($device == notebook) {

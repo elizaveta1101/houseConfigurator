@@ -1,1 +1,51 @@
 @import '../../../styles/mixins.scss';
+
+.main-page__add-video-wrapper {
+  max-width: 70%;
+  margin-top: 0.5rem;
+
+  @include adaptive(smartphone) {
+    max-width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.main-page__upload-button {
+  max-width: 8.75rem;
+  margin-left: 1.25rem;
+}
+
+.main-page__video-item {
+  margin: 0.5rem 0;
+
+  @include flex-element(_, space-between, center);
+}
+
+.main-page__video-buttons-wrapper {
+  display: flex;
+}
+
+.main-page__video-status-error {
+  color: $redWarning;
+}
+
+.main-page__video-name {
+  margin-top: 0.3125rem;
+}
+
+.main-page__util-button {
+  width: auto;
+  margin: 0 0.625rem;
+}
+
+.main-page__description-service {
+  margin: 1.5rem 0 2.5rem;
+}
+
+.main-page__description-service-wrapper {
+  margin-top: 0.75rem;
+}
+
+.main-page__description-service-subtitle {
+  margin-bottom: 0.25rem;
+}

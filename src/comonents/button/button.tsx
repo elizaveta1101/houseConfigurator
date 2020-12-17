@@ -10,16 +10,18 @@ interface ICustomButtonProps {
   disabled?: boolean
   type?: 'primary' | 'default'
   htmlType?: 'button' | 'submit'
-  text: string
+  danger?: boolean
+  text?: string | React.ReactElement
 }
 
 const CustomButton: React.FC<ICustomButtonProps> = ({
   clickHandler,
   modifier,
+  danger = false,
   disabled = false,
   htmlType = 'button',
   type = 'primary',
-  text,
+  text = 'кнопка',
 }: ICustomButtonProps) => (
   <Button
     className={cx('custom-button', `custom-button_${type}`, {
@@ -28,6 +30,7 @@ const CustomButton: React.FC<ICustomButtonProps> = ({
     type={type}
     htmlType={htmlType}
     disabled={disabled}
+    danger={danger}
     onClick={clickHandler}
   >
     {text}

@@ -45,7 +45,7 @@ const AuthPage: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <CustomButton text="Войти" htmlType="submit" />
+          <CustomButton text="Войти" />
         </Form.Item>
       </Form>
     </ContentContainer>

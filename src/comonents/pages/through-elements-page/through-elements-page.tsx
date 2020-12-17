@@ -79,7 +79,7 @@ const ThroughElementsPage: React.FC = () => {
           ))}
         </Form.Item>
         <Form.Item>
-          <CustomButton type="primary" text={'Применить изменения'} clickHandler={popupHandler} />
+          <CustomButton text={'Применить изменения'} clickHandler={popupHandler} />
         </Form.Item>
       </Form>
       <Overlay isOpen={isOpenPopup} overlayHandler={popupHandler}>
