@@ -14,4 +14,8 @@
     position: static;
     margin: 0 auto;
   }
+
+  @include adaptive(smartphone) {
+    padding: 1.5rem;
+  }
 }

@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useState } from 'react'
-import { Form, Input, Upload } from 'antd'
+import React, { useState } from 'react'
+import { Input, Upload } from 'antd'
 import { UploadOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import ContentContainer from '../../content-container/content-container'

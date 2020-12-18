@@ -1,1 +1,93 @@
 @import '../../../styles/mixins.scss';
+
+.profile-page__subtitle {
+  max-width: 33.75rem;
+  margin-top: 1.5rem;
+
+  @include flex-element(_, space-between);
+}
+
+.profile-page__subtitle-status {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.profile-page__subtitle-substatus {
+  @include adaptive(smartphone) {
+    display: none;
+  }
+}
+
+.profile-page__wrapper {
+  margin-top: 1rem;
+}
+
+.profile-page__inputs-wrapper {
+  @include flex-element(_, space-between);
+
+  @include adaptive(smartphone) {
+    display: block;
+  }
+}
+
+.profile-page__label {
+  position: relative;
+
+  @include flex-element(_, space-between);
+}
+
+.profile-page__copy-button {
+  text-decoration: underline;
+
+  @include adaptive(mobile) {
+    position: absolute;
+    top: 3.125rem;
+    right: 0;
+  }
+}
+
+.profile-page__input {
+  width: 100%;
+  margin-bottom: 1rem;
+
+  &_id {
+    max-width: 8.75rem;
+    margin-right: 1.25rem;
+  }
+
+  &_fio {
+    max-width: 28.75rem;
+  }
+
+  &_login {
+    max-width: 13.75rem;
+
+    @include adaptive(mobile) {
+      max-width: 100%;
+    }
+  }
+
+  &_korpmail {
+    max-width: 23.75rem;
+  }
+}
+
+.profile-page__acces-wrapper {
+  max-width: 33.75rem;
+  margin: 1.5rem 0 2.25rem;
+
+  @include flex-element(_, _, _, wrap);
+
+  @include adaptive(mobile) {
+    @include flex-element(column);
+  }
+}
+
+.profile-page__acces-checkbox {
+  width: 50%;
+  margin: 0.25rem 0;
+
+  @include adaptive(mobile) {
+    width: 100%;
+  }
+}
