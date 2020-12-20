@@ -1,11 +1,9 @@
 @import '../../../styles/mixins.scss';
 
 .main-page__add-video-wrapper {
-  max-width: 70%;
   margin-top: 0.5rem;
 
   @include adaptive(smartphone) {
-    max-width: 100%;
     justify-content: space-between;
   }
 }
@@ -34,8 +32,7 @@
 }
 
 .main-page__util-button {
-  width: auto;
-  margin: 0 0.625rem;
+  max-width: 13.75rem;
 }
 
 .main-page__description-service {

@@ -1,4 +1,4 @@
-import { Checkbox, Form, Input } from 'antd'
+import { Checkbox, Input } from 'antd'
 import React, { useState, useRef } from 'react'
 
 import ContentContainer from '../../content-container/content-container'

@@ -1,0 +1,48 @@
+@import '../../styles/mixins.scss';
+
+.creating-layout__inputs-group {
+  display: flex;
+  margin-top: 1rem;
+
+  @include adaptive(mobile) {
+    flex-wrap: wrap;
+  }
+}
+
+.creating-layout__input-label {
+  white-space: nowrap;
+}
+
+.creating-layout__input-wrapper {
+  width: 100%;
+
+  &_small {
+    max-width: 8.75rem;
+    margin-right: 1.25rem;
+
+    @include adaptive(mobile) {
+      max-width: calc(51% - 0.5rem);
+      margin-right: 0;
+
+      &:first-child {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  &_middle {
+    max-width: 18.75rem;
+
+    @include adaptive(mobile) {
+      max-width: 100%;
+    }
+  }
+
+  &_big {
+    max-width: 100%;
+  }
+}
+
+.creating-layout__input {
+  width: 100%;
+}

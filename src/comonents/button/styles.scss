@@ -3,7 +3,7 @@
 .custom-button {
   width: 100%;
   max-width: 18.75rem;
-  height: 2.5rem;
+  height: 2.25rem;
 
   &_primary {
     border-color: $blueAccent;
@@ -14,5 +14,20 @@
     border-width: 2px;
     border-color: $blueAccent;
     color: $blueAccent;
+  }
+
+  &_delete {
+    max-width: 13.75rem;
+    border: none;
+    background: transparent !important;
+    color: $redWarning;
+
+    span {
+      text-decoration: underline;
+    }
+  }
+
+  @include adaptive(mobile) {
+    max-width: 100%;
   }
 }

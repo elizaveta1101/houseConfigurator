@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Input, Upload } from 'antd'
-import { UploadOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import ContentContainer from '../../content-container/content-container'
 import CustomButton from '../../button/button'
@@ -86,15 +85,15 @@ const MainPage: React.FC = () => {
                   >
                     <CustomButton
                       danger={status === 'error'}
-                      modifier={'main-page__util-button'}
-                      text={<UploadOutlined />}
+                      modifier={'main-page__util-button main-page__util-button_upload'}
+                      text={'Загрузить новый'}
                       type="default"
                     />
                   </Upload>
                   <CustomButton
                     danger={status === 'error'}
-                    modifier={'main-page__util-button'}
-                    text={<DeleteOutlined />}
+                    modifier={'custom-button_delete'}
+                    text={'Удалить'}
                     type="default"
                     clickHandler={() => removeVideoHandler(index)}
                   />
