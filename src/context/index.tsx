@@ -1,13 +1,4 @@
-import { createContext, SyntheticEvent } from 'react'
+import { AppContext } from './app.context'
+import { AuthContext } from './auth.context'
 
-interface IAppContext {
-  isAuth?: boolean
-  isNavMenuOpen?: boolean
-  isAuthMenuOpen?: boolean
-  isOverlayOpen?: boolean
-  activeLink?: string
-  headerHandler?: (e: SyntheticEvent) => void
-  hideAll?: () => void
-}
-
-export const AppContext = createContext<IAppContext>({})
+export { AppContext, AuthContext }

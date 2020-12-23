@@ -17,12 +17,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,tsx}": [
-      "pretty-quick --staged",
-      "eslint --ext .js,.jsx,.ts,.tsx src --color  --fix",
-      "git add"
     ],
     "*.{css,scss}": [
-      "stylelint src/**/*.{css,scss} --fix"
     ]
   },
   "dependencies": {
