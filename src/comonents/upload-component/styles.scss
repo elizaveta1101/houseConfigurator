@@ -1,1 +1,20 @@
 @import '../../styles/mixins.scss';
+
+.upload-video {
+  .ant-upload {
+    width: 100%;
+
+    @include flex-element(_, _, center);
+  }
+}
+
+.upload-video__button {
+  max-width: 8.75rem;
+  flex-basis: 80%;
+  margin-left: 1.25rem;
+
+  @include adaptive(smartphone) {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}

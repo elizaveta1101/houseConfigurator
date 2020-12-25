@@ -14,8 +14,7 @@
     "eslint": "eslint --fix src/",
     "stylelint": "stylelint **/*.js --fix",
     "zip": "node archiver"
-  },
-
+  },  
   "lint-staged": {
     "*.{js,jsx,tsx}": [
 

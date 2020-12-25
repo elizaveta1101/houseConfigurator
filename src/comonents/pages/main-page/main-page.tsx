@@ -36,6 +36,7 @@ const MainPage: React.FC = () => {
 
   return (
     <ContentContainer>
+      <h3 className="main-page__title">Видео</h3>
       <UploadComponent data={videoItem} uploadHandler={uploadVideoHandler} type="video" />
 
       <div className="main-page__description-service">

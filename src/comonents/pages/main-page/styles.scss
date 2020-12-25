@@ -1,38 +1,7 @@
 @import '../../../styles/mixins.scss';
 
-.main-page__add-video-wrapper {
-  margin-top: 0.5rem;
-
-  @include adaptive(smartphone) {
-    justify-content: space-between;
-  }
-}
-
-.main-page__upload-button {
-  max-width: 8.75rem;
-  margin-left: 1.25rem;
-}
-
-.main-page__video-item {
-  margin: 0.5rem 0;
-
-  @include flex-element(_, space-between, center);
-}
-
-.main-page__video-buttons-wrapper {
-  display: flex;
-}
-
-.main-page__video-status-error {
-  color: $redWarning;
-}
-
-.main-page__video-name {
-  margin-top: 0.3125rem;
-}
-
-.main-page__util-button {
-  max-width: 13.75rem;
+.main-page__title {
+  margin-bottom: 0.5rem;
 }
 
 .main-page__description-service {
