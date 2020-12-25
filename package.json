@@ -15,10 +15,15 @@
     "stylelint": "stylelint **/*.js --fix",
     "zip": "node archiver"
   },
+
   "lint-staged": {
     "*.{js,jsx,tsx}": [
+
+
+
     ],
     "*.{css,scss}": [
+
     ]
   },
   "dependencies": {

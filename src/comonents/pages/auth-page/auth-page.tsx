@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form, Input } from 'antd'
 
 import ContentContainer from '../../content-container/content-container'
 import CustomButton from '../../button/button'
+import { AuthContext } from '../../../context'
+import { useHttp } from '../../../hooks/http.hook'
 
 import './styles.scss'
 
+interface IAuthValues {
+  login: string
+  password: string
+}
+
 const AuthPage: React.FC = () => {
-  const onFinish = (values: string) => {
-    console.log('Success:', values)
+  const { login } = useContext(AuthContext)
+  const { request } = useHttp()
+
+  const onFinish = async (values: IAuthValues) => {
+    try {
+      const data = await request('http://127.0.0.1:5000/auth', 'POST', { ...values })
+      console.log(data)
+
+      login(data.token, data.id)
+    } catch (e) {}
   }
 
   const onFinishFailed = (errorInfo: React.ReactNode) => {
@@ -45,7 +60,7 @@ const AuthPage: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <CustomButton text="Войти" />
+          <CustomButton text="Войти" htmlType="submit" />
         </Form.Item>
       </Form>
     </ContentContainer>

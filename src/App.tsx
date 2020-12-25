@@ -22,7 +22,7 @@ const App: React.FC = ({}) => {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
   const [activeLink, setActiveLink] = useState(currentPage)
 
-  const isAuth = !token
+  const isAuth = !!token
   const routes = useRoutes(isAuth)
 
   const headerHandler = (e: SyntheticEvent) => {

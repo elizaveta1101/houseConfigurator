@@ -57,7 +57,7 @@ const ThroughElementsPage: React.FC = () => {
           label="Адрес электронной почты"
           rules={[{ type: 'email' }]}
         >
-          <Input name="mail" value={mail} onChange={onChangeInput} />
+          <Input name="email" value={mail} onChange={onChangeInput} />
         </Form.Item>
         <Form.Item label="Ссылки на соцети">
           {socialInputsData.map(({ id, name, icon }) => (

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Input, Upload } from 'antd'
+import { Input } from 'antd'
 
 import ContentContainer from '../../content-container/content-container'
 import CustomButton from '../../button/button'
 import Overlay from '../../overlay/overlay'
 import Popup from '../../popup/popup'
+import UploadComponent from '../../upload-component/upload-component'
 import { textareasData } from './data'
 
 import './styles.scss'
@@ -15,24 +16,11 @@ interface IInputState {
 
 const MainPage: React.FC = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
-  const [mainState, setMainState] = useState<any[]>([])
+  const [videoItem, setVideoItem] = useState<any[]>([])
   const [inputState, setInputState] = useState<IInputState>({})
 
   const uploadVideoHandler = (e: any) => {
-    setMainState(e.fileList)
-  }
-  const onChangeVideoHandler = (e: any, index: number) => {
-    const arrMap = mainState.map((item: any, itemIndex: number) =>
-      index === itemIndex ? e.fileList[e.fileList.length - 1] : item
-    )
-
-    setMainState(arrMap)
-  }
-
-  const removeVideoHandler = (index: number) => {
-    const filtredArr = mainState.filter((item: any, i: number) => index !== i)
-
-    setMainState(filtredArr)
+    setVideoItem(e.fileList)
   }
 
   const onMessageHandler = (e: any) => {
@@ -48,60 +36,7 @@ const MainPage: React.FC = () => {
 
   return (
     <ContentContainer>
-      <div className="main-page__add-video-wrapper">
-        <h3 className="main-page__add-video-title">Видео</h3>
-        <span className="main-page__add-video-lable">Видео не выбрано</span>
-        <Upload
-          onChange={uploadVideoHandler}
-          multiple
-          fileList={mainState}
-          accept="video/*"
-          name="video"
-          action="/upload.do"
-          listType="text"
-        >
-          <CustomButton text={'Загрузить'} type={'default'} modifier={'main-page__upload-button'} />
-        </Upload>
-      </div>
-
-      <div className="main-page__add-video-wrapper">
-        {Boolean(mainState.length) &&
-          mainState.map(({ uid, name, status }: any, index: number) => {
-            return (
-              <div className="main-page__video-item" key={uid}>
-                <div className="main-page__video-name-wrapper">
-                  <p className={`main-page__video-status-${status}`}>
-                    {status === 'error' ? 'Ошибка загрузки файла' : 'Загружен файл:'}
-                  </p>
-                  <p className="main-page__video-name">{name}</p>
-                </div>
-                <div className="main-page__video-buttons-wrapper">
-                  <Upload
-                    onChange={(e) => onChangeVideoHandler(e, index)}
-                    accept="video/*"
-                    name="video"
-                    action="/upload.do"
-                    listType="text"
-                  >
-                    <CustomButton
-                      danger={status === 'error'}
-                      modifier={'main-page__util-button main-page__util-button_upload'}
-                      text={'Загрузить новый'}
-                      type="default"
-                    />
-                  </Upload>
-                  <CustomButton
-                    danger={status === 'error'}
-                    modifier={'custom-button_delete'}
-                    text={'Удалить'}
-                    type="default"
-                    clickHandler={() => removeVideoHandler(index)}
-                  />
-                </div>
-              </div>
-            )
-          })}
-      </div>
+      <UploadComponent data={videoItem} uploadHandler={uploadVideoHandler} type="video" />
 
       <div className="main-page__description-service">
         <h3 className="main-page__description-service-title">Описание услуг сервиса</h3>
@@ -118,6 +53,7 @@ const MainPage: React.FC = () => {
           </div>
         ))}
       </div>
+
       <CustomButton text={'Применить изменения'} clickHandler={popupHandler} />
 
       <Overlay isOpen={isOpenPopup} overlayHandler={popupHandler}>
