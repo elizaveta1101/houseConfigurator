@@ -20,11 +20,9 @@
     "jsx": "react",
     "typeRoots" : [
       "node_modules/@types/",
-      "./declaration.d.ts",
     ]
   },
   "include": [
     "src",
-    "./declaration.d.ts",
   ]
 }

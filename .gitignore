@@ -7,7 +7,6 @@
 /node_modules
 /homies
 /methods-info
-/cors-anywhere
 
 # testing
 /coverage

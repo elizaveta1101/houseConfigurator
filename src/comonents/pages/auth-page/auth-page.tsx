@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import axios from 'axios'
 import { Form, Input } from 'antd'
 
 import ContentContainer from '../../content-container/content-container'
@@ -18,8 +19,9 @@ const AuthPage: React.FC = () => {
   const { request } = useHttp()
 
   const onFinish = async (values: IAuthValues) => {
+    const url = 'http://127.0.0.1:5000/auth'
     try {
-      const data = await request('http://127.0.0.1:5000/auth', 'POST', { ...values })
+      const data = await request(url, 'POST', { ...values })
       console.log(data)
 
       login(data.token, data.id)
