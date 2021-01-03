@@ -2,10 +2,10 @@ import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
-import { stateReducer } from './stateReducer'
+import { Store } from './store'
 
 const rootReducer = combineReducers({
-  state: stateReducer,
+  state: Store.reducer,
 })
 
 const store = createStore(

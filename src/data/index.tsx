@@ -11,7 +11,7 @@ export enum MenuLinkPaths {
   ordersPath = '/orders',
   profilePath = '/profile',
   adminsSitePath = '/admins-site',
-  authPath = '/auth',
+  authPath = '/',
 }
 
 export enum HeaderPayloads {

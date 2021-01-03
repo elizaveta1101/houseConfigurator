@@ -12,6 +12,7 @@ interface ICustomButtonProps {
   htmlType?: 'button' | 'submit'
   danger?: boolean
   text?: string | React.ReactElement
+  loading?: boolean
 }
 
 const CustomButton: React.FC<ICustomButtonProps> = ({
@@ -22,6 +23,7 @@ const CustomButton: React.FC<ICustomButtonProps> = ({
   htmlType = 'button',
   type = 'primary',
   text = 'кнопка',
+  loading = false,
 }: ICustomButtonProps) => (
   <Button
     className={cx('custom-button', `custom-button_${type}`, {
@@ -32,6 +34,7 @@ const CustomButton: React.FC<ICustomButtonProps> = ({
     disabled={disabled}
     danger={danger}
     onClick={clickHandler}
+    loading={loading}
   >
     {text}
   </Button>

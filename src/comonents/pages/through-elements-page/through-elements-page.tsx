@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Form, Input } from 'antd'
 
+import { socialInputsData } from './data'
+
 import ContentContainer from '../../content-container/content-container'
 import CustomButton from '../../button/button'
 import Popup from '../../popup/popup'
 import Overlay from '../../overlay/overlay'
-import { socialInputsData } from './data'
 
 import './styles.scss'
 

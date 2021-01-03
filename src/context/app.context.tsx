@@ -10,4 +10,4 @@ interface IAppContext {
   hideAll?: () => void
 }
 
-export const AppContext = createContext<IAppContext>({})
+export const AppContext = createContext<any>({})

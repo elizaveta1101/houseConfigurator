@@ -31,3 +31,17 @@
     opacity: 1;
   }
 }
+
+@keyframes showAlert {
+  20% {
+    top: 4.0625rem;
+    height: 2.5rem;
+    opacity: 1;
+  }
+
+  80% {
+    top: 4.0625rem;
+    height: 2.5rem;
+    opacity: 1;
+  }
+}

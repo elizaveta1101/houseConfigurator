@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 
 export const useHttp = () => {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState('')
 
   const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
     setLoading(true)
@@ -11,7 +11,7 @@ export const useHttp = () => {
     try {
       if (body) {
         body = JSON.stringify(body)
-        headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        headers['Content-Type'] = 'application/json'
       }
 
       const response = await fetch(url, { method, body, headers })
@@ -22,7 +22,6 @@ export const useHttp = () => {
       }
 
       setLoading(false)
-
       return data
     } catch (e) {
       setLoading(false)
@@ -31,7 +30,7 @@ export const useHttp = () => {
     }
   }, [])
 
-  const clearError = useCallback(() => setError(null), [])
+  const clearError = useCallback(() => setError(''), [])
 
   return { loading, request, error, clearError }
 }

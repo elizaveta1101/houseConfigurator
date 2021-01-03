@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import axios from 'axios'
 import { Form, Input } from 'antd'
+
+import { AppContext, AuthContext } from '../../../context'
+import { useHttp } from '../../../hooks/http.hook'
 
 import ContentContainer from '../../content-container/content-container'
 import CustomButton from '../../button/button'
-import { AuthContext } from '../../../context'
-import { useHttp } from '../../../hooks/http.hook'
 
 import './styles.scss'
 
@@ -16,15 +16,17 @@ interface IAuthValues {
 
 const AuthPage: React.FC = () => {
   const { login } = useContext(AuthContext)
-  const { request } = useHttp()
+  const { alertHandler } = useContext(AppContext)
+  const { request, loading } = useHttp()
 
   const onFinish = async (values: IAuthValues) => {
-    const url = 'http://127.0.0.1:5000/auth'
+    const url = '/api/auth'
     try {
-      const data = await request(url, 'POST', { ...values })
-      console.log(data)
+      const { data, success } = await request(url, 'POST', { ...values })
 
       login(data.token, data.id)
+      !success &&
+        alertHandler({ visible: true, type: 'error', message: 'Неверный логин или пароль' })
     } catch (e) {}
   }
 
@@ -62,7 +64,7 @@ const AuthPage: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <CustomButton text="Войти" htmlType="submit" />
+          <CustomButton text="Войти" htmlType="submit" loading={loading} />
         </Form.Item>
       </Form>
     </ContentContainer>
