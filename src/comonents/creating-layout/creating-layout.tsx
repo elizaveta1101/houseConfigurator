@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { Input, Select } from 'antd'
 
 import './styles.scss'
@@ -13,6 +13,8 @@ interface ICreatingLayoutProps {
       name: string
       className: string
       label: string
+      value?: string
+      copyMode?: boolean
     }[]
   }[]
   mode: 'disable' | 'edit' | 'create'
@@ -22,21 +24,42 @@ const CreatingLayout: React.FC<ICreatingLayoutProps> = ({
   data,
   mode = 'disable',
 }: ICreatingLayoutProps) => {
+  const [isDisableInput, setIsDisableInput] = useState(true)
+  const inputEl = useRef<any>(null)
+
+  const copyHandler = () => {
+    setIsDisableInput(false)
+    setTimeout(() => {
+      inputEl.current.select()
+      document.execCommand('copy')
+      setIsDisableInput(true)
+    }, 100)
+  }
   return (
     <div className="creating-layout">
       {data.map(({ id, inputsGroup }) => (
         <div className="creating-layout__inputs-group" key={id}>
-          {inputsGroup.map(({ id, type, size, name, className, label }) => (
+          {inputsGroup.map(({ id, type, size, name, className, label, copyMode, value }) => (
             <div
               className={`creating-layout__input-wrapper creating-layout__input-wrapper_${size}`}
               key={id}
             >
-              <h4 className="creating-layout__input-label">{label}</h4>
+              <h4 className="creating-layout__input-label">
+                {label}
+                {copyMode && (
+                  <button onClick={copyHandler} className="creating-layout__copy-button">
+                    Копировать
+                  </button>
+                )}
+              </h4>
+
               {type === 'input' && (
                 <Input
-                  disabled={mode === 'disable'}
+                  disabled={copyMode ? isDisableInput : mode === 'disable'}
                   key={id}
                   name={name}
+                  value={value}
+                  ref={copyMode ? inputEl : null}
                   className={`creating-layout__input creating-layout__input_${className}`}
                 />
               )}

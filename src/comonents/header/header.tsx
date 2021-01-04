@@ -2,16 +2,18 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
 
-import logo from '../../assets/icons/logo.svg'
-import authIcon from '../../assets/icons/auth-icon.svg'
-import Menu from '../menu/menu'
-import { AppContext } from '../../context'
+import { AppContext, AuthContext } from '../../context'
 import { HeaderPayloads, MenuLinkPaths } from '../../data'
 
+import authIcon from '../../assets/icons/auth-icon.svg'
+import Menu from '../menu/menu'
+
+import logo from '../../assets/icons/logo.svg'
 import './styles.scss'
 
 const Header: React.FC = () => {
-  const { isAuth, headerHandler, isNavMenuOpen, isAuthMenuOpen } = useContext(AppContext)
+  const { headerHandler, isNavMenuOpen, isAuthMenuOpen } = useContext(AppContext)
+  const { isAuth } = useContext(AuthContext)
   return (
     <div className="header" onClick={headerHandler}>
       <div className="header__wrapper">
@@ -23,7 +25,7 @@ const Header: React.FC = () => {
           >
             <img className="header__logo-image" src={logo} alt="logo" />
           </Link>
-          <a href="#" className="header__link">
+          <a href="/#" className="header__link">
             Перейти на сайт
           </a>
         </div>

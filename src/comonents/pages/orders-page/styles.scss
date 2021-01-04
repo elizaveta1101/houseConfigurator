@@ -1,1 +1,22 @@
 @import '../../../styles/mixins.scss';
+
+.orders-page__tabel {
+  margin-top: 2.25rem;
+  box-shadow: 0 0 1rem #00000012;
+}
+
+.orders-page__table-row {
+  cursor: pointer;
+}
+
+.orders-page__subtitle {
+  margin-top: 2.25rem;
+}
+
+.orders-page__button {
+  margin-top: 1.5rem;
+}
+
+.house-finish-page__search_client {
+  max-width: 18.75rem;
+}

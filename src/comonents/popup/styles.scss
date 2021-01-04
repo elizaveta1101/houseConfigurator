@@ -10,6 +10,13 @@
   border-radius: 2px;
 
   @include flex-element(column, space-evenly, center);
+
+  @include adaptive(notebook) {
+    position: fixed;
+    padding: 2.5rem;
+
+    @include absolute-element-center();
+  }
 }
 
 .popup__buttons-wrapper {

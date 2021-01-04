@@ -10,7 +10,10 @@
 }
 
 .creating-layout__input-label {
+  position: relative;
   white-space: nowrap;
+
+  @include flex-element(_, space-between);
 }
 
 .creating-layout__input-wrapper {
@@ -30,8 +33,32 @@
     }
   }
 
+  &_pre-middle {
+    max-width: 13.75rem;
+
+    &:first-child {
+      margin-right: 1.25rem;
+    }
+
+    @include adaptive(mobile) {
+      max-width: 100%;
+
+      &:first-child {
+        margin-right: 0;
+      }
+    }
+  }
+
   &_middle {
     max-width: 18.75rem;
+
+    @include adaptive(mobile) {
+      max-width: 100%;
+    }
+  }
+
+  &_height-middle {
+    max-width: 23.75rem;
 
     @include adaptive(mobile) {
       max-width: 100%;
@@ -45,4 +72,14 @@
 
 .creating-layout__input {
   width: 100%;
+}
+
+.creating-layout__copy-button {
+  text-decoration: underline;
+
+  @include adaptive(mobile) {
+    position: absolute;
+    top: 3.125rem;
+    right: 0;
+  }
 }

@@ -1,4 +1,4 @@
-import ActionType from './action-type'
+import {ActionTypes} from './action-types'
 import { IPayloads } from './actions'
 
 interface IReducerData {
@@ -10,7 +10,7 @@ const initialState = {}
 
 export const reducer = (state = initialState, { type, payload }: IReducerData) => {
   switch (type) {
-    case ActionType.SET_ITEM:
+    case ActionTypes.SET_ITEM:
       return {
         ...state,
         [payload.code]: payload.value,

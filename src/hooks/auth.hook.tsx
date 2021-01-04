@@ -1,41 +1,37 @@
 import { useCallback, useEffect, useState } from 'react'
 
-const storageName = 'userData'
+import { storageKeys } from '../data'
 
 export const useAuth = () => {
   const [token, setToken] = useState(null)
   const [ready, setReady] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAuth, setIsAuth] = useState(false)
   const [userId, setUserId] = useState(null)
 
-  const login = useCallback((token, id) => {
+  const login = useCallback((token, id, isAdmin) => {
     setToken(token)
     setUserId(id)
-
-    localStorage.setItem(
-      storageName,
-      JSON.stringify({
-        userId: id,
-        token: token,
-      })
-    )
+    setIsAdmin(isAdmin)
+    token && setIsAuth(true)
   }, [])
 
   const logout = useCallback(() => {
     setToken(null)
     setUserId(null)
 
-    localStorage.removeItem(storageName)
+    sessionStorage.removeItem(storageKeys.USER_DATA)
   }, [])
 
   useEffect(() => {
-    const userData = localStorage.getItem(storageName)
+    const userData = sessionStorage.getItem(storageKeys.USER_DATA)
     const data = userData && JSON.parse(userData)
 
     if (data && data.token) {
-      login(data.token, data.userId)
+      login(data.token, data.id, data.isAdmin)
     }
     setReady(true)
   }, [login])
 
-  return { login, logout, token, userId, ready }
+  return { login, logout, token, userId, isAdmin, isAuth, ready }
 }

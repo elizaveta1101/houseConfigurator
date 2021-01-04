@@ -37,4 +37,19 @@ export const data: IData = {
     leftButtonText: 'Не удалять',
     rightButtonText: 'Удалить',
   },
+  rights: {
+    title: 'Доступ',
+    leftButtonText: 'Отменить',
+    rightButtonText: 'Сохранить',
+  },
+  addition: {
+    title: 'Новый администратор',
+    leftButtonText: 'Отменить',
+    rightButtonText: 'Добавить',
+  },
+  confirm: {
+    title: 'Введите пароль для подтверждения действия',
+    leftButtonText: 'Отменить',
+    rightButtonText: 'Подтвердить',
+  },
 }

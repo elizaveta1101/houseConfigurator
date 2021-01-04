@@ -1,0 +1,21 @@
+@import '../../styles/mixins.scss';
+
+.rights-wrapper {
+  max-width: 33.75rem;
+  margin: 1.5rem 0 2.25rem;
+
+  @include flex-element(_, _, _, wrap);
+
+  @include adaptive(mobile) {
+    @include flex-element(column);
+  }
+}
+
+.rights-checkbox {
+  width: 50%;
+  margin: 0.25rem 0;
+
+  @include adaptive(mobile) {
+    width: 100%;
+  }
+}

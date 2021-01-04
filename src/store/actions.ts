@@ -1,15 +1,13 @@
-import ActionType from './action-type'
+import {ActionTypes} from './action-types'
 
 export interface IPayloads {
   code: string
   value: any
 }
 
-const ActionCreator = {
+export const ActionCreator = {
   setItem: ({ code, value }: IPayloads) => ({
-    type: ActionType.SET_ITEM,
+    type: ActionTypes.SET_ITEM,
     payload: { code, value },
   }),
 }
-
-export { ActionCreator }

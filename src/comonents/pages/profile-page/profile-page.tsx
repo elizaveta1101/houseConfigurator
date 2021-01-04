@@ -1,8 +1,12 @@
-import { Checkbox, Input } from 'antd'
-import React, { useState, useRef } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import axios from 'axios'
+
+import { AppContext, AuthContext } from '../../../context'
+import { formData } from './data'
 
 import ContentContainer from '../../content-container/content-container'
-import { radioButtonsData } from './data'
+import RightsComponent from '../../rights-component/rights-component'
+import CreatingLayout from '../../creating-layout/creating-layout'
 import CustomButton from '../../button/button'
 import Overlay from '../../overlay/overlay'
 import Popup from '../../popup/popup'
@@ -10,86 +14,61 @@ import Popup from '../../popup/popup'
 import './styles.scss'
 
 const ProfilePage: React.FC = () => {
+  const { logout } = useContext(AuthContext)
+  const { userData, isAdmin } = useContext(AppContext)
+  const [updatedFormData, setUpdatedFormData] = useState<any[]>([])
   const [isOpenPopup, setIsOpenPopup] = useState(false)
-  const [isDisableInput, setIsDisableInput] = useState(true)
-  const [state, setState] = useState({
-    id: '0000',
-    fio: 'Киров Тирамису Валерьевич',
-    login: 'adminadminov',
-    korpmail: 'kiir@house.ru',
-  })
-
-  const accesStatus = 'Полный доступ'
-  const accesSubStatus = '(старший администратор)'
-  const inputEl = useRef<any>(null)
-
-  const copyHandler = () => {
-    setIsDisableInput(false)
-    setTimeout(() => {
-      inputEl.current.select()
-      document.execCommand('copy')
-      setIsDisableInput(true)
-    }, 100)
-  }
+  const accesStatus = isAdmin ? 'Полный доступ' : 'Частичный доступ'
+  const accesSubStatus = isAdmin ? '(старший администратор)' : '(Администратор)'
 
   const popupHandler = () => {
     setIsOpenPopup(!isOpenPopup)
   }
+
+  const logoutHandler = () => {
+    axios.get('/api/logout')
+    logout()
+  }
+
+  const updateData = (data: any, admin: any) => {
+    const resData = data.map(({ id, inputsGroup }: any) => {
+      const resInputsGroup = inputsGroup.map((input: any) => {
+        Object.keys(admin).forEach((key: string) => {
+          if (input.name === key) input['value'] = admin[key]
+          if (input.name === 'fio')
+            input['value'] = `${admin.name} ${admin.surname} ${admin.otchestvo}`
+        })
+        return input
+      })
+      return { id, inputsGroup: resInputsGroup }
+    })
+    return resData
+  }
+
+  useEffect(() => {
+    const data = updateData(formData, userData)
+    setUpdatedFormData(data)
+  }, [userData])
 
   return (
     <ContentContainer>
       <h2 className="profile-page__title">Личный кабинет</h2>
       <h3 className="profile-page__subtitle">Персональная информация</h3>
 
-      <div className="profile-page__wrapper">
-        <div className="profile-page__inputs-wrapper">
-          <div className="profile-page__input profile-page__input_id">
-            <h4 className="profile-page__label">Ваш id</h4>
-            <Input disabled value={state.id} />
-          </div>
-          <div className="profile-page__input profile-page__input_fio">
-            <h4 className="profile-page__label">ФИО</h4>
-            <Input disabled value={state.fio} />
-          </div>
-        </div>
-        <div className="profile-page__input profile-page__input_login">
-          <h4 className="profile-page__label">Логин</h4>
-          <Input disabled value={state.login} />
-        </div>
-        <div className="profile-page__input profile-page__input_korpmail">
-          <h4 className="profile-page__label">
-            Корпоративная почта
-            <button onClick={copyHandler} className="profile-page__copy-button">
-              Копировать
-            </button>
-          </h4>
-          <Input disabled={isDisableInput} value={state.korpmail} ref={inputEl} />
-        </div>
-      </div>
+      <CreatingLayout data={updatedFormData.length ? updatedFormData : formData} mode={'disable'} />
 
       <h3 className="profile-page__subtitle">
         Доступ
         <span className="profile-page__subtitle-status">
-          {accesStatus}
-          <span className="profile-page__subtitle-substatus">{accesSubStatus}</span>
+          {accesStatus} <span className="profile-page__subtitle-substatus">{accesSubStatus}</span>
         </span>
       </h3>
-      <div className="profile-page__acces-wrapper">
-        {radioButtonsData.map(({ id, text, checked }) => (
-          <Checkbox.Group
-            key={id}
-            defaultValue={checked ? [text] : ['']}
-            disabled
-            options={[text]}
-            className="profile-page__acces-checkbox"
-          />
-        ))}
-      </div>
+      <RightsComponent />
 
       <CustomButton type="default" text={'Выйти из системы'} clickHandler={popupHandler} />
 
       <Overlay isOpen={isOpenPopup} overlayHandler={popupHandler}>
-        <Popup type={'logout'} negativeHandler={popupHandler} />
+        <Popup type={'logout'} negativeHandler={popupHandler} positiveHandler={logoutHandler} />
       </Overlay>
     </ContentContainer>
   )

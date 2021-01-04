@@ -6,6 +6,7 @@ import { data } from './data'
 
 import './styles.scss'
 interface IPopupProps {
+  children?: React.ReactNode
   modifier?: string
   type: string
   negativeHandler?: () => void
@@ -13,6 +14,7 @@ interface IPopupProps {
 }
 
 const Popup: React.FC<IPopupProps> = ({
+  children,
   modifier,
   type,
   negativeHandler,
@@ -24,6 +26,7 @@ const Popup: React.FC<IPopupProps> = ({
     })}
   >
     <h3 className="popup__title">{data[type].title}</h3>
+    {children}
     <div className="popup__buttons-wrapper">
       <Button
         type="default"

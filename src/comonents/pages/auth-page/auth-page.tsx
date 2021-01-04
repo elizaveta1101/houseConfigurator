@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import { Form, Input } from 'antd'
 
-import { AppContext, AuthContext } from '../../../context'
-import { useHttp } from '../../../hooks/http.hook'
+import { AuthContext } from '../../../context'
+import { useHttp, useStore } from '../../../hooks'
+import { ActionTypes } from '../../../store'
+import { storageKeys } from '../../../data'
 
 import ContentContainer from '../../content-container/content-container'
 import CustomButton from '../../button/button'
@@ -15,8 +17,8 @@ interface IAuthValues {
 }
 
 const AuthPage: React.FC = () => {
+  const { setItem } = useStore()
   const { login } = useContext(AuthContext)
-  const { alertHandler } = useContext(AppContext)
   const { request, loading } = useHttp()
 
   const onFinish = async (values: IAuthValues) => {
@@ -24,10 +26,21 @@ const AuthPage: React.FC = () => {
     try {
       const { data, success } = await request(url, 'POST', { ...values })
 
-      login(data.token, data.id)
-      !success &&
-        alertHandler({ visible: true, type: 'error', message: 'Неверный логин или пароль' })
-    } catch (e) {}
+      login(data.token, data.id, data.admin)
+      success
+        ? sessionStorage.setItem(storageKeys.USER_DATA, JSON.stringify(data))
+        : setItem(ActionTypes.ALERT, {
+            visible: true,
+            type: 'error',
+            message: 'Неверный логин или пароль',
+          })
+    } catch (e) {
+      setItem(ActionTypes.ALERT, {
+        visible: true,
+        type: 'error',
+        message: 'Что-то пошло не так',
+      })
+    }
   }
 
   const onFinishFailed = (errorInfo: React.ReactNode) => {

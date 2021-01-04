@@ -4,7 +4,7 @@ import cx from 'classnames'
 import './styles.scss'
 interface IOverlayProps {
   isOpen: boolean
-  overlayHandler: () => void
+  overlayHandler?: () => void
   children?: React.ReactNode
 }
 

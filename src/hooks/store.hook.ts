@@ -1,12 +1,11 @@
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { ActionCreator } from './actions'
-import { getAllItems as getAllItemsSelector } from './selectors'
+import { ActionCreator } from '../store/actions'
 
 export const useStore = () => {
   const dispatch = useDispatch()
-  const allItems = useSelector(getAllItemsSelector)
+  const allItems = useSelector((state: any) => state.state)
   
   const setItem = useCallback((code, value) => dispatch(ActionCreator.setItem({ code, value })), [
     dispatch,

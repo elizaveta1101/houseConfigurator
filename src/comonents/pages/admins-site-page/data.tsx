@@ -1,3 +1,32 @@
+export const tableColumns = [
+  {
+    title: 'Id',
+    dataIndex: 'id',
+    sorter: true,
+    width: 50,
+  },
+  {
+    title: 'ФИО',
+    dataIndex: 'fio',
+    width: 150,
+  },
+  {
+    title: 'Логин',
+    dataIndex: 'login',
+    width: 130,
+  },
+  {
+    title: 'Пароль',
+    dataIndex: 'password',
+    width: 130,
+  },
+  {
+    title: 'Корп. почта',
+    dataIndex: 'email',
+    width: 150,
+  },
+]
+
 export const formData = [
   {
     id: '1',
@@ -8,7 +37,7 @@ export const formData = [
         size: 'small',
         name: 'id',
         className: 'id',
-        label: 'Ваш Id',
+        label: 'Id администратора',
       },
       {
         id: '2',
@@ -30,6 +59,14 @@ export const formData = [
         name: 'login',
         className: 'login',
         label: 'Логин',
+      },
+      {
+        id: '2',
+        type: 'input',
+        size: 'pre-middle',
+        name: 'password',
+        className: 'password',
+        label: 'Пароль',
       },
     ],
   },

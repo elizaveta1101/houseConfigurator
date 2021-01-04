@@ -4,7 +4,7 @@ import 'antd/dist/antd.css'
 
 import { AppContext, AuthContext } from './context'
 import { useAuth, useRoutes } from './hooks'
-import { HeaderPayloads } from './data'
+import { HeaderPayloads, storageKeys } from './data'
 
 import Header from './comonents/header/header'
 import Menu from './comonents/menu/menu'
@@ -17,27 +17,13 @@ import './styles/index.scss'
 
 const currentPage = window.location.pathname
 
-interface IAlert {
-  modifier?: string
-  type: 'success' | 'info' | 'warning' | 'error'
-  message: string
-  visible: boolean
-}
-
 const App: React.FC = ({}) => {
-  const { token, login, logout, userId, ready } = useAuth()
+  const userData = sessionStorage.getItem(storageKeys.USER_DATA)
+  const { token, login, logout, userId, isAdmin, isAuth, ready } = useAuth()
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false)
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false)
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
   const [activeLink, setActiveLink] = useState(currentPage)
-  const [alert, setAlert] = useState<IAlert>({
-    visible: false,
-    type: 'success',
-    message: '',
-  })
-
-  const isAuth = !!token
-
   const routes = useRoutes(isAuth)
 
   const headerHandler = (e: SyntheticEvent) => {
@@ -63,31 +49,22 @@ const App: React.FC = ({}) => {
     setIsOverlayOpen(false)
   }
 
-  const alertHandler = (values: any) => {
-    setAlert(values)
-
-    setTimeout(() => {
-      setAlert({ ...alert, visible: false })
-    }, 2500)
-  }
-
   return (
-    <AuthContext.Provider value={{ token, login, logout, userId, isAuth }}>
+    <AuthContext.Provider value={{ token, login, logout, userId, isAdmin, isAuth }}>
       <AppContext.Provider
         value={{
-          isAuth,
+          userData: userData && JSON.parse(userData),
           isNavMenuOpen,
           isAuthMenuOpen,
           isOverlayOpen,
           activeLink,
           hideAll,
           headerHandler,
-          alertHandler,
         }}
       >
         <div className="app">
           <Overlay isOpen={isOverlayOpen} overlayHandler={hideAll} />
-          <CustomAlert {...alert} />
+          <CustomAlert />
           <Header />
           <div className="content">
             <Menu modifier={'menu_content'} isOpen={isAuth} />

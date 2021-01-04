@@ -12,18 +12,18 @@ interface ISocialInputsData {
 export const socialInputsData: ISocialInputsData[] = [
   {
     id: '1',
-    name: 'vk',
-    icon: vk,
-  },
-  {
-    id: '2',
     name: 'fb',
     icon: fb,
   },
   {
-    id: '3',
+    id: '2',
     name: 'inst',
     icon: inst,
+  },
+  {
+    id: '3',
+    name: 'vk',
+    icon: vk,
   },
   {
     id: '4',
