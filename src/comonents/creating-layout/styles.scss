@@ -1,5 +1,9 @@
 @import '../../styles/mixins.scss';
 
+.creating-layout {
+  width: 100%;
+}
+
 .creating-layout__inputs-group {
   display: flex;
   margin-top: 1rem;
@@ -67,6 +71,10 @@
 
   &_big {
     max-width: 100%;
+  }
+
+  .ant-form-item {
+    margin: 0;
   }
 }
 

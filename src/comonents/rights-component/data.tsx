@@ -1,67 +1,71 @@
-interface IData {
-  id: string
-  text: string
-  checked: boolean
-}
-
-export const data: IData[] = [
+export const data = [
   {
     id: '1',
-    text: 'Сквозные элементы',
+    label: 'Сквозные элементы',
+    value: 'throughEl',
     checked: true,
   },
 
   {
     id: '2',
-    text: 'Главная страница',
+    label: 'Главная страница',
+    value: 'homePage',
     checked: true,
   },
 
   {
     id: '3',
-    text: 'Готовые дома',
+    label: 'Готовые дома',
+    value: 'finishHouses',
     checked: true,
   },
 
   {
     id: '4',
-    text: 'Готовые проекты',
+    label: 'Готовые проекты',
+    value: 'finishProj',
     checked: true,
   },
 
   {
     id: '5',
-    text: 'Проекты инвестиций',
+    label: 'Проекты инвестиций',
+    value: 'investProj',
     checked: true,
   },
 
   {
     id: '6',
-    text: 'Инфо об опросе',
+    label: 'Инфо об опросе',
+    value: 'infoPoll',
     checked: true,
   },
 
   {
     id: '7',
-    text: 'Опрос',
+    label: 'Опрос',
+    value: 'poll',
     checked: true,
   },
 
   {
     id: '8',
-    text: 'Заказы',
+    label: 'Заказы',
+    value: 'orders',
     checked: true,
   },
 
   {
     id: '9',
-    text: 'Клиентские данные',
+    label: 'Клиентские данные',
+    value: 'clients',
     checked: true,
   },
 
   {
     id: '10',
-    text: 'База администраторов',
+    label: 'База администраторов',
+    value: 'admins',
     checked: true,
   },
 ]

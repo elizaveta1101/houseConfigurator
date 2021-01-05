@@ -90,11 +90,17 @@ img {
 }
 
 .ant-input,
-.ant-input-password {
+.ant-input-password,
+.ant-input-affix-wrapper {
   color: $formsTextColor;
 
   &:hover,
   &:focus {
     border-color: $blueAccent;
   }
+}
+
+.ant-input-search-button {
+  border-color: $blueAccent;
+  background: $blueAccent;
 }

@@ -43,21 +43,11 @@ const AuthPage: React.FC = () => {
     }
   }
 
-  const onFinishFailed = (errorInfo: React.ReactNode) => {
-    console.log('Failed:', errorInfo)
-  }
-
   return (
     <ContentContainer modifier={'auth-page'}>
       <h1 className="auth-page__title">Войти в систему</h1>
 
-      <Form
-        className="auth-page__form"
-        name="basic"
-        layout="vertical"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
+      <Form className="auth-page__form" name="basic" layout="vertical" onFinish={onFinish}>
         <Form.Item
           className="auth-page__input"
           label="Логин"

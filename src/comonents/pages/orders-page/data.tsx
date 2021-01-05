@@ -61,6 +61,7 @@ export const formData = [
         name: 'email',
         className: 'email',
         label: 'Электронная почта',
+        copyMode: true,
       },
     ],
   },

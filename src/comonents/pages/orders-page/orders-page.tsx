@@ -22,19 +22,18 @@ const OrdersPage: React.FC = () => {
     })
   }
 
-  const onSearch = (e: any) => console.log(e.target.value)
+  const onSearch = (value: string) => console.log(value)
 
   return (
     <ContentContainer>
       <h3 className="orders-page__title">Поиск заказа</h3>
-      <div className="house-finish-page__search-wrapper">
-        <Input placeholder="Введите любой параметр заказа" onChange={onSearch} />
-        <CustomButton
-          modifier={'house-finish-page__search-button'}
-          text={'Найти'}
-          clickHandler={() => {}}
-        />
-      </div>
+      <Input.Search
+        placeholder="Введите любой параметр заказа"
+        className="orders-page__search"
+        allowClear
+        enterButton="Найти"
+        onSearch={onSearch}
+      />
 
       <Table
         className="orders-page__tabel"
@@ -47,14 +46,13 @@ const OrdersPage: React.FC = () => {
       />
 
       <h3 className="orders-page__subtitle">Поиск клиента по id</h3>
-      <div className="house-finish-page__search-wrapper house-finish-page__search_client">
-        <Input placeholder="0000" onChange={onSearch} />
-        <CustomButton
-          modifier={'house-finish-page__search-button'}
-          text={'Найти'}
-          clickHandler={() => {}}
-        />
-      </div>
+      <Input.Search
+        className="orders-page__client-search"
+        placeholder="0000"
+        allowClear
+        enterButton="Найти"
+        onSearch={onSearch}
+      />
 
       <h3 className="orders-page__subtitle">Результаты поиска</h3>
       <CreatingLayout data={formData} mode={'disable'} />

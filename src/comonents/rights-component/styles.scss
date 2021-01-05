@@ -11,8 +11,12 @@
   }
 }
 
+.ant-checkbox-wrapper + .ant-checkbox-wrapper {
+  margin-left: 0;
+}
+
 .rights-checkbox {
-  width: 50%;
+  width: 48%;
   margin: 0.25rem 0;
 
   @include adaptive(mobile) {

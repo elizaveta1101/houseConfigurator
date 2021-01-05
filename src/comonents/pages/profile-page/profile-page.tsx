@@ -16,6 +16,7 @@ import './styles.scss'
 const ProfilePage: React.FC = () => {
   const { logout } = useContext(AuthContext)
   const { userData, isAdmin } = useContext(AppContext)
+  const { rights } = userData
   const [updatedFormData, setUpdatedFormData] = useState<any[]>([])
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const accesStatus = isAdmin ? 'Полный доступ' : 'Частичный доступ'
@@ -63,7 +64,7 @@ const ProfilePage: React.FC = () => {
           {accesStatus} <span className="profile-page__subtitle-substatus">{accesSubStatus}</span>
         </span>
       </h3>
-      <RightsComponent />
+      <RightsComponent rightsCode={rights} />
 
       <CustomButton type="default" text={'Выйти из системы'} clickHandler={popupHandler} />
 
