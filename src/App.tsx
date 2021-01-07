@@ -1,32 +1,32 @@
-import React, { useState, SyntheticEvent } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
 import 'antd/dist/antd.css'
+import axios from 'axios'
 
+import { HeaderPayloads, storageKeys } from './data'
 import { AppContext, AuthContext } from './context'
 import { useAuth, useRoutes } from './hooks'
-import { HeaderPayloads, storageKeys } from './data'
 
-import Header from './comonents/header/header'
-import Menu from './comonents/menu/menu'
 import Overlay from './comonents/overlay/overlay'
-import CustomAlert from './comonents/alert/alert'
+import Header from './comonents/header/header'
+import Alert from './comonents/alert/alert'
+import Menu from './comonents/menu/menu'
 
-import './styles/fonts.scss'
 import './styles/animation.scss'
+import './styles/fonts.scss'
 import './styles/index.scss'
 
 const currentPage = window.location.pathname
 
 const App: React.FC = ({}) => {
   const userData = sessionStorage.getItem(storageKeys.USER_DATA)
-  const { token, login, logout, userId, isAdmin, isAuth, ready } = useAuth()
+  const { token, login, logout, userId, isAuth, ready } = useAuth()
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false)
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false)
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
   const [activeLink, setActiveLink] = useState(currentPage)
   const routes = useRoutes(isAuth)
 
-  const headerHandler = (e: SyntheticEvent) => {
+  const headerHandler = (e: React.SyntheticEvent<HTMLElement>) => {
     hideAll()
 
     const { element, link } = (e.target as HTMLElement).dataset
@@ -50,7 +50,7 @@ const App: React.FC = ({}) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, userId, isAdmin, isAuth }}>
+    <AuthContext.Provider value={{ token, login, logout, userId, isAuth }}>
       <AppContext.Provider
         value={{
           userData: userData && JSON.parse(userData),
@@ -64,7 +64,7 @@ const App: React.FC = ({}) => {
       >
         <div className="app">
           <Overlay isOpen={isOverlayOpen} overlayHandler={hideAll} />
-          <CustomAlert />
+          <Alert />
           <Header />
           <div className="content">
             <Menu modifier={'menu_content'} isOpen={isAuth} />

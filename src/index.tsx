@@ -4,9 +4,9 @@ import { BrowserRouter, Router } from 'react-router-dom'
 import { createHashHistory, History } from 'history'
 import { Provider } from 'react-redux'
 
-import App from './App'
-
 import store from './store'
+
+import App from './App'
 
 const history: History = createHashHistory()
 

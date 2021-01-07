@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Alert } from 'antd'
 import cx from 'classnames'
 
-import { useStore } from '../../hooks'
 import { ActionTypes } from '../../store'
+import { useStore } from '../../hooks'
 
 import './styles.scss'
 
@@ -14,7 +14,7 @@ interface IAlert {
 }
 
 const CustomAlert: React.FC = () => {
-  const { getItem } = useStore()
+  const { getItem, setItem } = useStore()
   const alertValues = getItem(ActionTypes.ALERT)
   const [alert, setAlert] = useState<IAlert>({
     visible: false,
@@ -26,9 +26,15 @@ const CustomAlert: React.FC = () => {
     alertValues && setAlert(alertValues)
 
     setTimeout(() => {
-      alertValues && setAlert({ ...alert, visible: false })
+      setAlert({ ...alert, visible: false })
     }, 2500)
   }, [alertValues])
+
+  useEffect(() => {
+    setTimeout(() => {
+      alert.visible && setItem(ActionTypes.ALERT, {})
+    }, 2500)
+  }, [alert.visible])
 
   const { visible, message, type } = alert
 

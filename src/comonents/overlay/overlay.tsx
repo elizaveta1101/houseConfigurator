@@ -3,12 +3,12 @@ import cx from 'classnames'
 
 import './styles.scss'
 interface IOverlayProps {
-  isOpen: boolean
   overlayHandler?: () => void
   children?: React.ReactNode
+  isOpen: boolean
 }
 
-const Overlay: React.FC<IOverlayProps> = ({ isOpen, overlayHandler, children }: IOverlayProps) => {
+const Overlay: React.FC<IOverlayProps> = ({ isOpen, overlayHandler, children }) => {
   return (
     <div
       className={cx('overlay', {

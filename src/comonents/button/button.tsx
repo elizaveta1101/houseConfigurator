@@ -4,37 +4,37 @@ import cx from 'classnames'
 
 import './styles.scss'
 
-interface ICustomButtonProps {
-  clickHandler?: () => void
-  modifier?: string
-  disabled?: boolean
-  type?: 'primary' | 'default'
-  htmlType?: 'button' | 'submit'
-  danger?: boolean
+interface IButtonProps {
   text?: string | React.ReactElement
+  htmlType?: 'button' | 'submit'
+  type?: 'primary' | 'default'
+  clickHandler?: () => void
+  disabled?: boolean
+  modifier?: string
   loading?: boolean
+  danger?: boolean
 }
 
-const CustomButton: React.FC<ICustomButtonProps> = ({
-  clickHandler,
-  modifier,
-  danger = false,
-  disabled = false,
+const CustomButton: React.FC<IButtonProps> = ({
   htmlType = 'button',
   type = 'primary',
-  text = 'кнопка',
+  disabled = false,
   loading = false,
-}: ICustomButtonProps) => (
+  text = 'кнопка',
+  danger = false,
+  clickHandler,
+  modifier,
+}) => (
   <Button
     className={cx('custom-button', `custom-button_${type}`, {
       [modifier as string]: modifier,
     })}
-    type={type}
+    onClick={clickHandler}
     htmlType={htmlType}
     disabled={disabled}
-    danger={danger}
-    onClick={clickHandler}
     loading={loading}
+    danger={danger}
+    type={type}
   >
     {text}
   </Button>

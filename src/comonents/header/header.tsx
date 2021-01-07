@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
 
-import { AppContext, AuthContext } from '../../context'
 import { HeaderPayloads, MenuLinkPaths } from '../../data'
+import { AppContext, AuthContext } from '../../context'
 
-import authIcon from '../../assets/icons/auth-icon.svg'
 import Menu from '../menu/menu'
 
+import authIcon from '../../assets/icons/auth-icon.svg'
 import logo from '../../assets/icons/logo.svg'
 import './styles.scss'
 

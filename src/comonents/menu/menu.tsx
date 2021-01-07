@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
 
-import { linksdata } from './data'
 import { AppContext } from '../../context'
+import { linksdata } from './data'
 
 import './styles.scss'
 interface IMenuProps {
-  isOpen?: boolean
   modifier?: string
+  isOpen?: boolean
 }
 
-const Menu: React.FC<IMenuProps> = ({ isOpen = true, modifier }: IMenuProps) => {
+const Menu: React.FC<IMenuProps> = ({ isOpen = true, modifier }) => {
   const { activeLink, headerHandler } = useContext(AppContext)
   return (
     <div
@@ -23,13 +23,13 @@ const Menu: React.FC<IMenuProps> = ({ isOpen = true, modifier }: IMenuProps) => 
       <div className="menu__wrapper">
         {linksdata.map(({ id, text, icon, linkPath }) => (
           <Link
-            to={linkPath}
             className={cx('menu__link-wrapper', {
               'menu__link-wrapper_active': linkPath === activeLink,
             })}
-            key={id}
-            data-link={linkPath}
             onClick={headerHandler}
+            data-link={linkPath}
+            to={linkPath}
+            key={id}
           >
             <div className="menu__link-icon">
               <img className="menu__link-icon-image" src={icon} alt={`icon-${id}`} />

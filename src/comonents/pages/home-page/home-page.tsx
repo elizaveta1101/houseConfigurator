@@ -1,12 +1,12 @@
 import React from 'react'
 
+import Container from '../../container/container'
 import Menu from '../../menu/menu'
-import ContentContainer from '../../content-container/content-container'
 
 import './styles.scss'
 
 const HomePage: React.FC = () => (
-  <ContentContainer modifier={'home-page'}>
+  <Container modifier={'home-page'}>
     <h2 className="home-page__menu-title">Перейти в раздел</h2>
 
     <Menu modifier={'menu_home-page'} />
@@ -15,7 +15,7 @@ const HomePage: React.FC = () => (
     <p className="home-page__text">
       Вся информация по интересующему вас разделу <br /> будет показываться здесь
     </p>
-  </ContentContainer>
+  </Container>
 )
 
 export default HomePage

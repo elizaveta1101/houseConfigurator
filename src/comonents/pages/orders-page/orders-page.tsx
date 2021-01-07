@@ -3,9 +3,9 @@ import { Input, Table } from 'antd'
 
 import { formData, tableColumns } from './data'
 
-import ContentContainer from '../../content-container/content-container'
-import CreatingLayout from '../../creating-layout/creating-layout'
-import CustomButton from '../../button/button'
+import Container from '../../container/container'
+import Button from '../../button/button'
+import Form from '../../form/form'
 
 import './styles.scss'
 
@@ -25,7 +25,7 @@ const OrdersPage: React.FC = () => {
   const onSearch = (value: string) => console.log(value)
 
   return (
-    <ContentContainer>
+    <Container>
       <h3 className="orders-page__title">Поиск заказа</h3>
       <Input.Search
         placeholder="Введите любой параметр заказа"
@@ -55,14 +55,10 @@ const OrdersPage: React.FC = () => {
       />
 
       <h3 className="orders-page__subtitle">Результаты поиска</h3>
-      <CreatingLayout data={formData} mode={'disable'} />
+      <Form data={formData} mode={'disable'} />
 
-      <CustomButton
-        modifier={'orders-page__button'}
-        text={'Написать письмо'}
-        clickHandler={() => {}}
-      />
-    </ContentContainer>
+      <Button modifier={'orders-page__button'} text={'Написать письмо'} clickHandler={() => {}} />
+    </Container>
   )
 }
 

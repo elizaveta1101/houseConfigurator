@@ -1,0 +1,27 @@
+@import '../../../styles/mixins.scss';
+
+.throughs-page__phone-input {
+  max-width: 13.75rem;
+}
+
+.throughs-page__mail-input {
+  max-width: 23.75rem;
+}
+
+.throughs-page__input-wrapper {
+  @include flex-element(_, _, center);
+  margin: 0.5rem 0;
+}
+
+.throughs-page__social-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.throughs-page__link-input {
+  margin-left: 2.5rem;
+
+  @include adaptive(mobile) {
+    margin-left: 1.5rem;
+  }
+}

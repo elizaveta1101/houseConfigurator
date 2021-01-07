@@ -6,22 +6,26 @@ import { data } from './data'
 
 import './styles.scss'
 interface IPopupProps {
-  children?: React.ReactNode
-  modifier?: string
-  visible?: boolean
-  type: string
   negativeHandler?: () => void
   positiveHandler?: () => void
+  children?: React.ReactNode
+  disableButton?: boolean
+  modifier?: string
+  visible?: boolean
+  loading?: boolean
+  type: string
 }
 
 const Popup: React.FC<IPopupProps> = ({
-  children,
-  modifier,
-  visible = true,
-  type,
   negativeHandler,
   positiveHandler,
-}: IPopupProps) => (
+  visible = true,
+  disableButton,
+  children,
+  modifier,
+  loading,
+  type,
+}) => (
   <div
     className={cx('popup', {
       [modifier as string]: modifier,
@@ -40,9 +44,11 @@ const Popup: React.FC<IPopupProps> = ({
             clickHandler={negativeHandler}
           />
           <Button
+            disabled={disableButton}
             modifier={'button_popup'}
             text={data[type].rightButtonText}
             clickHandler={positiveHandler}
+            loading={loading}
           />
         </div>
       )}

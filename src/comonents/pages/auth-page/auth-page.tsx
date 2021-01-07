@@ -1,53 +1,44 @@
 import React, { useContext } from 'react'
 import { Form, Input } from 'antd'
 
-import { AuthContext } from '../../../context'
 import { useHttp, useStore } from '../../../hooks'
+import { AuthContext } from '../../../context'
 import { ActionTypes } from '../../../store'
+import { alertData } from '../../alert/data'
 import { storageKeys } from '../../../data'
 
-import ContentContainer from '../../content-container/content-container'
-import CustomButton from '../../button/button'
+import Container from '../../container/container'
+import Button from '../../button/button'
 
 import './styles.scss'
 
-interface IAuthValues {
-  login: string
+type AuthValues = {
   password: string
+  login: string
 }
 
 const AuthPage: React.FC = () => {
-  const { setItem } = useStore()
   const { login } = useContext(AuthContext)
   const { request, loading } = useHttp()
+  const { setItem } = useStore()
 
-  const onFinish = async (values: IAuthValues) => {
+  const onFinish = async (values: AuthValues) => {
     const url = '/api/auth'
-    try {
-      const { data, success } = await request(url, 'POST', { ...values })
-
-      login(data.token, data.id, data.admin)
-      success
-        ? sessionStorage.setItem(storageKeys.USER_DATA, JSON.stringify(data))
-        : setItem(ActionTypes.ALERT, {
-            visible: true,
-            type: 'error',
-            message: 'Неверный логин или пароль',
-          })
-    } catch (e) {
-      setItem(ActionTypes.ALERT, {
-        visible: true,
-        type: 'error',
-        message: 'Что-то пошло не так',
+    request(url, 'POST', { ...values })
+      .then(({ data, success }) => {
+        login(data.token, data.id, data.admin)
+        success
+          ? sessionStorage.setItem(storageKeys.USER_DATA, JSON.stringify(data))
+          : setItem(ActionTypes.ALERT, alertData.loginError)
       })
-    }
+      .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
   }
 
   return (
-    <ContentContainer modifier={'auth-page'}>
+    <Container modifier={'auth-page'}>
       <h1 className="auth-page__title">Войти в систему</h1>
 
-      <Form className="auth-page__form" name="basic" layout="vertical" onFinish={onFinish}>
+      <Form className="auth-page__form" name="auth" layout="vertical" onFinish={onFinish}>
         <Form.Item
           className="auth-page__input"
           label="Логин"
@@ -67,10 +58,10 @@ const AuthPage: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <CustomButton text="Войти" htmlType="submit" loading={loading} />
+          <Button text="Войти" htmlType="submit" loading={loading} />
         </Form.Item>
       </Form>
-    </ContentContainer>
+    </Container>
   )
 }
 

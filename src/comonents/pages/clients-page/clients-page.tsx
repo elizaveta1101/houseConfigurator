@@ -4,12 +4,12 @@ import Container from '../../container/container'
 
 import './styles.scss'
 
-const PollPage: React.FC = () => {
+const ClientsPage: React.FC = () => {
   return (
     <Container>
-      <h1>PollPage</h1>
+      <h1>ClientDataPage</h1>
     </Container>
   )
 }
 
-export default PollPage
+export default ClientsPage
