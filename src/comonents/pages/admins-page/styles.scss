@@ -74,3 +74,15 @@
     }
   }
 }
+
+.admins-page__refresh-button {
+  position: relative;
+  top: -1.25rem;
+  width: 1rem;
+  height: 1rem;
+  float: right;
+
+  &_loading {
+    @include animation(refresh, 1s, 0, both, ease, infinite);
+  }
+}

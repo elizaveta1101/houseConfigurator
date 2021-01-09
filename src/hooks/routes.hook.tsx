@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import HomePage from '../comonents/pages/home-page/home-page'
 import AuthPage from '../comonents/pages/auth-page/auth-page'
-import AdminsSitePage from '../comonents/pages/admins-page/admins-page'
+import AdminsPage from '../comonents/pages/admins-page/admins-page'
 import HousesFinishPage from '../comonents/pages/houses-page/houses-page'
 import InfoPollPage from '../comonents/pages/info-page/info-page'
 import OrdersPage from '../comonents/pages/orders-page/orders-page'
@@ -30,7 +30,7 @@ export const useRoutes: React.FC<boolean> = (isAuth: boolean) =>
       <Route path={MenuLinkPaths.pollPath} component={PollPage} />
       <Route path={MenuLinkPaths.ordersPath} component={OrdersPage} />
       <Route path={MenuLinkPaths.profilePath} component={ProfilePage} />
-      <Route path={MenuLinkPaths.adminsSitePath} component={AdminsSitePage} />
+      <Route path={MenuLinkPaths.adminsSitePath} component={AdminsPage} />
     </Switch>
   ) : (
     <Switch>

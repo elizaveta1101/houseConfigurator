@@ -10,11 +10,11 @@ import './styles.scss'
 
 interface IAccessFormProps {
   disabled?: boolean
-  rightsCode: number
 }
 
-const AccessForm: React.FC<IAccessFormProps> = ({ disabled = true, rightsCode }) => {
-  const { setItem } = useStore()
+const AccessForm: React.FC<IAccessFormProps> = ({ disabled = true }) => {
+  const { setItem, getItem } = useStore()
+  const prevCode = getItem(ActionTypes.RIGHTS_CODE)
   const [updatedData, setUpdatedData] = useState(data)
 
   const onChange = (e: any) => {
@@ -27,9 +27,11 @@ const AccessForm: React.FC<IAccessFormProps> = ({ disabled = true, rightsCode })
   }
 
   useMemo(() => {
-    const newData = updateData(rightsCode, updatedData)
-    setUpdatedData(newData)
-  }, [rightsCode])
+    if (prevCode >= 0) {
+      const newData = updateData(prevCode, updatedData)
+      setUpdatedData(newData)
+    }
+  }, [prevCode])
 
   return (
     <div className="rights-wrapper">

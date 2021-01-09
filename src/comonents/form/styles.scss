@@ -1,10 +1,10 @@
 @import '../../styles/mixins.scss';
 
-.creating-layout {
+.form-layout {
   width: 100%;
 }
 
-.creating-layout__inputs-group {
+.form-layout__inputs-group {
   display: flex;
   margin-top: 1rem;
 
@@ -13,14 +13,14 @@
   }
 }
 
-.creating-layout__input-label {
+.form-layout__input-label {
   position: relative;
   white-space: nowrap;
 
   @include flex-element(_, space-between);
 }
 
-.creating-layout__input-wrapper {
+.form-layout__input-wrapper {
   width: 100%;
 
   &_small {
@@ -78,11 +78,11 @@
   }
 }
 
-.creating-layout__input {
+.form-layout__input {
   width: 100%;
 }
 
-.creating-layout__copy-button {
+.form-layout__copy-button {
   text-decoration: underline;
 
   @include adaptive(mobile) {

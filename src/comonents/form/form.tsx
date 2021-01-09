@@ -1,139 +1,117 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Form, Input, Select } from 'antd'
 
-import { FormValues, IAdmin, IFormData } from '../../data/types'
+import { IFormData } from '../../data/types'
 import { ActionTypes } from '../../store'
-import { getFromValues } from './utils'
 import { useStore } from '../../hooks'
 
-import AccessForm from '../access-form/access-form'
-import Button from '../button/button'
+import FormLabel from './form.label'
 
 import './styles.scss'
 
 interface IFormProps {
-  mode: 'disable' | 'edit' | 'create'
-  negativeHandler?: () => void
-  positiveHandler?: () => void
   data: IFormData[]
+  mode?: string
+  type?: string
+  values?: any
 }
 
-const FormLayout: React.FC<IFormProps> = ({
-  mode = 'disable',
-  negativeHandler,
-  positiveHandler,
-  data,
-}) => {
+const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type }) => {
   const { getItem, setItem } = useStore()
-  const [formValues, setFormValues] = useState<FormValues[]>([])
-  const [isDisableInput, setIsDisableInput] = useState(true)
+
   const inputEl = useRef<any>(null)
+  const refForm = useRef<any>(null)
 
-  const formHandler = (values: IAdmin) => {
-    const code = getItem(ActionTypes.RIGHTS_CODE)
-    values['rights'] = code
+  const [isDisableInput, setIsDisableInput] = useState(true)
 
-    setItem(ActionTypes.NEW_ADMIN, values)
-    positiveHandler && positiveHandler()
-  }
-
-  const copyHandler = () => {
-    setIsDisableInput(false)
-    setTimeout(() => {
-      inputEl.current.select()
-      document.execCommand('copy')
-      setIsDisableInput(true)
-    }, 100)
+  const formHandler = (values: any) => {
+    if (type === 'admin') {
+      const [name, surname, otchestvo] = values.fio.split(' ')
+      const code = getItem(ActionTypes.RIGHTS_CODE)
+      values.rights = code
+      values['name'] = name
+      values['surname'] = surname
+      values['otchestvo'] = otchestvo
+      setItem(ActionTypes.NEW_ADMIN, values)
+    }
   }
 
   useEffect(() => {
-    const newData = getFromValues(data)
-    setFormValues(newData)
-  }, [data])
+    if (values && type === 'admin')
+      values['fio'] = `${values.name} ${values.surname} ${values.otchestvo}`
+    values && refForm.current.setFieldsValue(values)
+  }, [values])
+
+  useEffect(() => {
+    setItem(ActionTypes.REF_FORM, refForm)
+  }, [])
 
   return (
-    <Form
-      className="creating-layout"
-      onFinish={formHandler}
-      fields={formValues}
-      layout="vertical"
-      name="add-admin"
-    >
+    <Form className="form-layout" onFinish={formHandler} layout="vertical" ref={refForm}>
       {data.map(({ id, inputsGroup }) => (
-        <div className="creating-layout__inputs-group" key={id}>
+        <div className="form-layout__inputs-group" key={id}>
           {inputsGroup.map(({ id, type, size, name, className, label, copyMode, required }) => (
             <div
-              className={`creating-layout__input-wrapper creating-layout__input-wrapper_${size}`}
+              className={`form-layout__input-wrapper form-layout__input-wrapper_${size}`}
               key={id}
             >
-              <h4 className="creating-layout__input-label">
-                {label}
-                {copyMode && (
-                  <button onClick={copyHandler} className="creating-layout__copy-button">
-                    Копировать
-                  </button>
-                )}
-              </h4>
+              <FormLabel
+                labelHandler={setIsDisableInput}
+                copyMode={Boolean(copyMode)}
+                element={inputEl}
+                label={label}
+              />
 
-              {type === 'input' && (
-                <Form.Item
-                  key={id}
-                  name={name}
-                  rules={
-                    name === 'email'
-                      ? [
-                          {
-                            type: 'email',
-                            message: 'Введите корректрный email example@example.com',
-                          },
-                          { required: required, message: `Пожалуйста, заполните поле!` },
-                        ]
-                      : [{ required: required, message: `Пожалуйста, заполните поле!` }]
-                  }
-                >
-                  <Input
-                    disabled={copyMode ? isDisableInput : mode === 'disable'}
-                    ref={copyMode ? inputEl : null}
-                    className={`creating-layout__input creating-layout__input_${className}`}
+              <Form.Item
+                key={id}
+                name={name}
+                rules={
+                  name === 'email'
+                    ? [
+                        {
+                          type: 'email',
+                          message: 'Введите корректрный email example@example.com',
+                        },
+                        { required: required, message: `Пожалуйста, заполните поле!` },
+                      ]
+                    : [{ required: required, message: `Пожалуйста, заполните поле!` }]
+                }
+              >
+                {type === 'select' ? (
+                  <Select
+                    className={`form-layout__input form-layout__input_${className}`}
+                    disabled={mode === 'disable'}
+                    key={id}
+                  >
+                    <Select.Option value="demo">Demo</Select.Option>
+                  </Select>
+                ) : type === 'textarea' ? (
+                  <Input.TextArea
+                    className={`form-layout__input form-layout__input_${className}`}
+                    disabled={mode === 'disable'}
+                    key={id}
+                    rows={4}
                   />
-                </Form.Item>
-              )}
-              {type === 'select' && (
-                <Select
-                  disabled={mode === 'disable'}
-                  key={id}
-                  className={`creating-layout__input creating-layout__input_${className}`}
-                >
-                  <Select.Option value="demo">Demo</Select.Option>
-                </Select>
-              )}
-              {type === 'textarea' && (
-                <Input.TextArea
-                  disabled={mode === 'disable'}
-                  key={id}
-                  rows={4}
-                  name={name}
-                  className={`creating-layout__input creating-layout__input_${className}`}
-                />
-              )}
+                ) : (
+                  <Input
+                    className={`form-layout__input form-layout__input_${className}`}
+                    disabled={
+                      name === 'id'
+                        ? true
+                        : mode === 'create'
+                        ? false
+                        : copyMode
+                        ? isDisableInput
+                        : mode === 'disable'
+                    }
+                    ref={copyMode ? inputEl : null}
+                  />
+                )}
+              </Form.Item>
             </div>
           ))}
         </div>
       ))}
-      {mode === 'create' && (
-        <>
-          <AccessForm disabled={false} rightsCode={0} />
-          <div className="popup__buttons-wrapper">
-            <Button
-              clickHandler={negativeHandler}
-              modifier={'button_popup'}
-              text={'Отменить'}
-              type="default"
-            />
-            <Button modifier={'button_popup'} text={'Добавить'} htmlType="submit" />
-          </div>
-        </>
-      )}
     </Form>
   )
 }

@@ -1,39 +1,38 @@
 export interface IAdmin {
-  admin: boolean
-  email: string
-  fio?: string
-  id: number
-  key?: number
-  login: string
-  name?: string
   otchestvo?: string
   password: string
-  phone: number
+  admin: boolean
   rights: number
+  email: string
+  login: string
+  name?: string
+  phone: number
+  fio?: string
+  key?: number
+  id: number
   socials?: {
-    id: number
-    link: string
     profile_id: number
+    link: string
     text: string
     type: string
+    id: number
   }[]
   surname?: string
   token?: string
 }
 
+export type InputType = {
+  copyMode?: boolean
+  required?: boolean
+  className: string
+  value?: string
+  label: string
+  type: string
+  size: string
+  name: string
+  id: string
+}
 export interface IFormData {
   id: string
-  inputsGroup: {
-    id: string
-    type: string
-    size: string
-    name: string
-    className: string
-    label: string
-    value?: string
-    copyMode?: boolean
-    required?: boolean
-  }[]
+  inputsGroup: InputType[]
 }
-
-export type FormValues = { name: string[]; value: string }

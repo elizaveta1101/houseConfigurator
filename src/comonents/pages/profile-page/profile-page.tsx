@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 
 import { AppContext, AuthContext } from '../../../context'
-import { updateData } from './utils'
+import { ActionTypes } from '../../../store'
+import { useStore } from '../../../hooks'
 import { formData } from './data'
 
 import AccessForm from '../../access-form/access-form'
@@ -15,13 +16,12 @@ import Form from '../../form/form'
 import './styles.scss'
 
 const ProfilePage: React.FC = () => {
-  const { userData, isAdmin } = useContext(AppContext)
+  const { userData } = useContext(AppContext)
   const { logout } = useContext(AuthContext)
-  const { rights } = userData
-  const [updatedFormData, setUpdatedFormData] = useState<any[]>([])
+  const { setItem } = useStore()
   const [isOpenPopup, setIsOpenPopup] = useState(false)
-  const accesSubStatus = isAdmin ? '(старший администратор)' : '(Администратор)'
-  const accesStatus = isAdmin ? 'Полный доступ' : 'Частичный доступ'
+  const accesSubStatus = userData.rights === 1023 ? '(Главный администратор)' : '(Администратор)'
+  const accesStatus = userData.rights === 1023 ? 'Полный доступ' : 'Частичный доступ'
 
   const popupHandler = () => {
     setIsOpenPopup(!isOpenPopup)
@@ -33,8 +33,7 @@ const ProfilePage: React.FC = () => {
   }
 
   useEffect(() => {
-    const data = updateData(formData, userData)
-    setUpdatedFormData(data)
+    setItem(ActionTypes.RIGHTS_CODE, userData.rights)
   }, [userData])
 
   return (
@@ -42,7 +41,7 @@ const ProfilePage: React.FC = () => {
       <h2 className="profile-page__title">Личный кабинет</h2>
       <h3 className="profile-page__subtitle">Персональная информация</h3>
 
-      <Form data={updatedFormData.length ? updatedFormData : formData} mode={'disable'} />
+      <Form data={formData} values={userData} />
 
       <h3 className="profile-page__subtitle">
         Доступ
@@ -50,7 +49,7 @@ const ProfilePage: React.FC = () => {
           {accesStatus} <span className="profile-page__subtitle-substatus">{accesSubStatus}</span>
         </span>
       </h3>
-      <AccessForm rightsCode={rights} />
+      <AccessForm />
 
       <Button type="default" text={'Выйти из системы'} clickHandler={popupHandler} />
 

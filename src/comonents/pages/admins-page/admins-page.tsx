@@ -1,42 +1,45 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Input, Pagination, Table } from 'antd'
 
-import { IAdmin, IFormData } from '../../../data/types'
 import { useHttp, useStore } from '../../../hooks'
+import { formData, tableColumns } from './data'
 import { AuthContext } from '../../../context'
 import { ActionTypes } from '../../../store'
+import { IAdmin } from '../../../data/types'
 import { alertData } from '../../alert/data'
-import { updateFormData } from './utils'
-import { formData } from './data'
 
+import AccessForm from '../../access-form/access-form'
 import Container from '../../container/container'
-import AdminsPopups from './admins.popups'
-import AdminsTable from './admins.table'
+import Overlay from '../../overlay/overlay'
 import Button from '../../button/button'
-import AdminsForm from './admins.form'
+import Popup from '../../popup/popup'
+import Form from '../../form/form'
 
+import refreshIcon from '../../../assets/icons/refresh.svg'
 import './styles.scss'
+import { loadavg } from 'os'
 
-const AdminsSitePage: React.FC = () => {
+const AdminsPage: React.FC = () => {
+  const { token, userId } = useContext(AuthContext)
   const { setItem, getItem } = useStore()
   const { request, loading } = useHttp()
-  const { token, userId } = useContext(AuthContext)
+
   const adminsData = getItem(ActionTypes.ADMINS_DATA) || []
-  const [updatedFormData, setUpdatedFormData] = useState<IFormData[]>([])
-  const [currAdmin, setCurrAdmin] = useState<IAdmin>()
-  const [popupType, setPopupType] = useState('')
+  const refForm = getItem(ActionTypes.REF_FORM)
+
+  const [pagination, setPagination] = useState({ total: 0, currentPage: 1 })
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [isOpenPopup, setIsOpenPopup] = useState(false)
+  const [currAdmin, setCurrAdmin] = useState<IAdmin>()
   const [editMode, setEditMode] = useState(false)
-  const [pagination, setPagination] = useState({
-    total: 0,
-    currentPage: 1,
-  })
+  const [mode, setMode] = useState('disable')
 
   const adminHandler = (admin: IAdmin) => {
-    const data = updateFormData(formData, admin)
-
-    setEditMode(true)
+    setItem(ActionTypes.RIGHTS_CODE, admin.rights)
+    refForm.current.setFieldsValue(admin)
     setCurrAdmin(admin)
-    setUpdatedFormData(data)
+    setMode('disable')
+    setEditMode(true)
   }
 
   const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,34 +50,69 @@ const AdminsSitePage: React.FC = () => {
     setPagination({ ...pagination, currentPage: pageNumber })
   }
 
+  const popupHandler = () => {
+    mode === 'access' && setItem(ActionTypes.RIGHTS_CODE, currAdmin?.rights)
+    mode !== 'create' && setMode('disable')
+    setConfirmPassword('')
+    setIsOpenPopup(false)
+  }
+
+  const leftButtonHandler = () => {
+    if (mode === 'disable') setMode('access')
+    else if (mode === 'access') {
+      setItem(ActionTypes.RIGHTS_CODE, currAdmin?.rights)
+      setMode('disable')
+    } else if (mode === 'create') {
+      setItem(ActionTypes.RIGHTS_CODE, 0)
+      setMode('disable')
+    }
+  }
+  const rightButtonHandler = () => {
+    if (mode === 'disable') {
+      refForm.current.resetFields()
+      setItem(ActionTypes.RIGHTS_CODE, 0)
+      setMode('create')
+    } else {
+      refForm.current.submit()
+      setIsOpenPopup(true)
+    }
+  }
+
   const confirmHandler = async () => {
     const url = '/api/admin'
     const code: number = getItem(ActionTypes.RIGHTS_CODE)
-    if (popupType === 'rights' && currAdmin) {
+    if (mode === 'access' && currAdmin) {
       currAdmin.rights = code
+      console.log(currAdmin)
+
       request(url, 'POST', currAdmin, {
         ['Authorization']: token,
       })
-        .then(({ data, success }) => {
+        .then(({ success }) => {
           if (success) {
-            requestAdminsData()
-            setCurrAdmin(data)
             setItem(ActionTypes.ALERT, alertData.changeUp)
+            requestAdminsData()
+            popupHandler()
           } else setItem(ActionTypes.ALERT, alertData.error)
         })
         .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
-    } else if (popupType === 'addition') {
+    } else if (mode === 'create') {
       const newAdmin = getItem(ActionTypes.NEW_ADMIN)
+      console.log(newAdmin)
+
       request(url, 'POST', newAdmin, { ['Authorization']: token })
         .then(({ success }) => {
           if (success) {
-            requestAdminsData()
             setItem(ActionTypes.ALERT, alertData.addUp)
+            setItem(ActionTypes.RIGHTS_CODE, 0)
+            refForm.current.resetFields()
+            requestAdminsData()
+            setMode('disable')
+            popupHandler()
           } else setItem(ActionTypes.ALERT, alertData.error)
         })
         .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
     }
-    setPopupType('')
   }
 
   const requestAdminsData = async () => {
@@ -97,41 +135,79 @@ const AdminsSitePage: React.FC = () => {
     requestAdminsData()
   }, [pagination.currentPage])
 
+  useEffect(() => {
+    setItem(ActionTypes.RIGHTS_CODE, 0)
+  }, [])
+
   return (
     <Container modifier={'admins-page'}>
-      <AdminsTable
-        data={adminsData}
-        adminHandler={adminHandler}
+      <Table
+        onRow={(admin) => {
+          return {
+            onClick: () => adminHandler(admin),
+          }
+        }}
+        pagination={{ position: ['bottomLeft'] }}
+        rowClassName="admins-page__table-row"
+        className="admins-page__tabel"
+        scroll={{ x: '100%', y: 320 }}
+        dataSource={adminsData}
+        columns={tableColumns}
         loading={loading}
-        total={pagination.total}
-        paginationHandler={paginationHandler}
+        size="small"
+      />
+      <Pagination size="small" total={pagination.total} onChange={paginationHandler} />
+      <button
+        className={`admins-page__refresh-button ${
+          loading ? 'admins-page__refresh-button_loading' : ''
+        }`}
+        onClick={requestAdminsData}
+      >
+        <img src={refreshIcon} alt="refresh" />
+      </button>
+
+      <h3 className="admins-page__subtitle">Информация об администраторе</h3>
+      <Form
+        data={formData}
+        values={currAdmin}
+        mode={mode === 'access' ? 'disable' : mode}
+        type={'admin'}
       />
 
-      <AdminsForm
-        data={updatedFormData.length ? updatedFormData : formData}
-        code={currAdmin ? currAdmin.rights : 0}
-      />
+      <h3 className="admins-page__subtitle">Доступ</h3>
+      <AccessForm disabled={mode === 'disable'} />
 
       <div className="admins-page__buttons-wrapper">
         <Button
           type={'default'}
-          text={'Редактировать доступ'}
+          text={mode !== 'disable' ? 'Отменить' : 'Редактировать доступ'}
           disabled={!editMode}
-          clickHandler={() => setPopupType('rights')}
+          clickHandler={leftButtonHandler}
         />
-        <Button text={'Добавить администратора'} clickHandler={() => setPopupType('addition')} />
+        <Button
+          text={mode !== 'disable' ? 'Сохранить' : 'Добавить администратора'}
+          clickHandler={rightButtonHandler}
+        />
       </div>
 
-      <AdminsPopups
-        popupType={popupType}
-        loading={loading}
-        disableConfirm={!Boolean(confirmPassword.length)}
-        code={currAdmin ? currAdmin.rights : 0}
-        confirmHandler={confirmHandler}
-        passwordHandler={passwordHandler}
-      />
+      <Overlay isOpen={isOpenPopup}>
+        <Popup
+          disableButton={!Boolean(confirmPassword.length)}
+          modifier={'admins-page__popup-confirm'}
+          positiveHandler={confirmHandler}
+          negativeHandler={popupHandler}
+          loading={loading}
+          type={'confirm'}
+        >
+          <Input.Password
+            placeholder="Введите пароль"
+            value={confirmPassword}
+            onChange={passwordHandler}
+          />
+        </Popup>
+      </Overlay>
     </Container>
   )
 }
 
-export default AdminsSitePage
+export default AdminsPage

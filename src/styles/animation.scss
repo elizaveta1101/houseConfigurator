@@ -45,3 +45,9 @@
     opacity: 1;
   }
 }
+
+@keyframes refresh {
+  to {
+    transform: rotate(360deg);
+  }
+}
