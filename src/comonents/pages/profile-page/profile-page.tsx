@@ -41,7 +41,7 @@ const ProfilePage: React.FC = () => {
       <h2 className="profile-page__title">Личный кабинет</h2>
       <h3 className="profile-page__subtitle">Персональная информация</h3>
 
-      <Form data={formData} values={userData} />
+      <Form data={formData} values={userData} type={'admin'} />
 
       <h3 className="profile-page__subtitle">
         Доступ

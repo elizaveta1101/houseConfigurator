@@ -1,29 +1,20 @@
 @import '../../../styles/mixins.scss';
 
-.house-finish-page__subtitle {
+.houses-page__subtitle {
   margin-top: 1rem;
 }
 
-.house-finish-page__search-wrapper {
-  max-width: 28.75rem;
+.houses-page__search {
+  max-width: 18.75rem;
   margin-top: 0.5rem;
+}
+
+.houses-page__buttons-wrapper {
+  margin-top: 3.125rem;
 
   @include flex-element(_, space-between);
 }
 
-.house-finish-page__search-button {
-  max-width: 8.75rem;
-  margin-left: 1.25rem;
-
-  @include adaptive(mobile) {
-    margin-left: 0.5rem;
-  }
-}
-
-.house-finish-page__buttons-wrapper {
-  margin-top: 3.125rem;
-}
-
-.house-finish-page__upload-wrapper .house-finish-page__subtitle {
+.houses-page__upload-wrapper .houses-page__subtitle {
   margin-bottom: 0.5rem;
 }

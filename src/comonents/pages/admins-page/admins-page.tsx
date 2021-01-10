@@ -17,7 +17,6 @@ import Form from '../../form/form'
 
 import refreshIcon from '../../../assets/icons/refresh.svg'
 import './styles.scss'
-import { loadavg } from 'os'
 
 const AdminsPage: React.FC = () => {
   const { token, userId } = useContext(AuthContext)
@@ -36,7 +35,6 @@ const AdminsPage: React.FC = () => {
 
   const adminHandler = (admin: IAdmin) => {
     setItem(ActionTypes.RIGHTS_CODE, admin.rights)
-    refForm.current.setFieldsValue(admin)
     setCurrAdmin(admin)
     setMode('disable')
     setEditMode(true)
@@ -64,17 +62,22 @@ const AdminsPage: React.FC = () => {
       setMode('disable')
     } else if (mode === 'create') {
       setItem(ActionTypes.RIGHTS_CODE, 0)
+      !currAdmin && setEditMode(false)
+      refForm.current.resetFields()
       setMode('disable')
     }
   }
   const rightButtonHandler = () => {
     if (mode === 'disable') {
-      refForm.current.resetFields()
       setItem(ActionTypes.RIGHTS_CODE, 0)
+      refForm.current.resetFields()
+      setCurrAdmin(undefined)
       setMode('create')
+      setEditMode(true)
     } else {
       refForm.current.submit()
-      setIsOpenPopup(true)
+      const newAdmin = getItem(ActionTypes.NEW_ADMIN)
+      newAdmin && setIsOpenPopup(true)
     }
   }
 
@@ -156,7 +159,12 @@ const AdminsPage: React.FC = () => {
         loading={loading}
         size="small"
       />
-      <Pagination size="small" total={pagination.total} onChange={paginationHandler} />
+      <Pagination
+        style={{ marginTop: '0.5rem' }}
+        onChange={paginationHandler}
+        total={pagination.total}
+        size="small"
+      />
       <button
         className={`admins-page__refresh-button ${
           loading ? 'admins-page__refresh-button_loading' : ''

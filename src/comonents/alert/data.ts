@@ -7,7 +7,12 @@ export const alertData = {
   addUp: {
     visible: true,
     type: 'success',
-    message: 'Администратор успешно добавлен',
+    message: 'Добавлено успешно',
+  },
+  deleteUp: {
+    visible: true,
+    type: 'success',
+    message: 'Удалено успешно',
   },
   error: {
     visible: true,
@@ -19,4 +24,9 @@ export const alertData = {
     type: 'error',
     message: 'Неверный логин или пароль',
   },
+  noSearch: {
+    visible: true,
+    type: 'error',
+    message: 'Не найдено',
+  }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Form, Input, Select } from 'antd'
+import { Form, Input, Row, Select, Tag } from 'antd'
 
 import { IFormData } from '../../data/types'
 import { ActionTypes } from '../../store'
@@ -19,35 +19,66 @@ interface IFormProps {
 const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type }) => {
   const { getItem, setItem } = useStore()
 
+  const stylesData: { id: number; info: string }[] = getItem(ActionTypes.HOUSE_STYLES)
+
   const inputEl = useRef<any>(null)
   const refForm = useRef<any>(null)
 
   const [isDisableInput, setIsDisableInput] = useState(true)
+  const [materials, setMaterials] = useState<string[]>()
 
-  const formHandler = (values: any) => {
+  const onSubmit = (formValues: any) => {
     if (type === 'admin') {
-      const [name, surname, otchestvo] = values.fio.split(' ')
+      const [name, surname, otchestvo] = formValues.fio.split(' ')
       const code = getItem(ActionTypes.RIGHTS_CODE)
-      values.rights = code
-      values['name'] = name
-      values['surname'] = surname
-      values['otchestvo'] = otchestvo
-      setItem(ActionTypes.NEW_ADMIN, values)
+      formValues.rights = code
+      formValues['name'] = name
+      formValues['surname'] = surname
+      formValues['otchestvo'] = otchestvo
+      setItem(ActionTypes.NEW_ADMIN, formValues)
+    } else if (type === 'house') {
+      formValues.materials = `${materials}`
+      formValues['codename'] = values.codename
+      setItem(ActionTypes.EDITED_HOUSE, formValues)
+    }
+  }
+
+  const materialsHandler = (e: any, tag?: string) => {
+    if (tag) {
+      const data = materials?.filter((tagItem) => tag !== tagItem)
+      setMaterials(data)
+    } else if (e.key === 'Enter' && materials) {
+      const value = e.target.value
+      setMaterials([...materials, value])
     }
   }
 
   useEffect(() => {
-    if (values && type === 'admin')
-      values['fio'] = `${values.name} ${values.surname} ${values.otchestvo}`
-    values && refForm.current.setFieldsValue(values)
-  }, [values])
+    if (values) {
+      if (type === 'house' && stylesData) {
+        const materials = values.materials.split(',')
+        setMaterials(materials)
+        values.materials = ''
+      } else if (type === 'admin' && !values.fio)
+        values['fio'] = `${values.name} ${values.surname} ${values.surname}`
+
+      refForm.current.setFieldsValue(values)
+    }
+  }, [values, type, stylesData])
+
+  useEffect(() => {
+    if (mode === 'create') {
+      refForm.current.resetFields()
+      setMaterials([])
+    }
+  }, [mode])
 
   useEffect(() => {
     setItem(ActionTypes.REF_FORM, refForm)
   }, [])
 
   return (
-    <Form className="form-layout" onFinish={formHandler} layout="vertical" ref={refForm}>
+    <Form className="form-layout" onFinish={onSubmit} layout="vertical" ref={refForm}>
       {data.map(({ id, inputsGroup }) => (
         <div className="form-layout__inputs-group" key={id}>
           {inputsGroup.map(({ id, type, size, name, className, label, copyMode, required }) => (
@@ -61,6 +92,22 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
                 element={inputEl}
                 label={label}
               />
+
+              {name === 'materials' && (
+                <Row style={{ marginBottom: '0.5rem' }}>
+                  {materials &&
+                    materials.map((tag, index) => (
+                      <Tag
+                        key={index}
+                        closable={mode !== 'disable'}
+                        style={{ marginBottom: '0.5rem' }}
+                        onClose={(e) => materialsHandler(e, tag)}
+                      >
+                        {tag}
+                      </Tag>
+                    ))}
+                </Row>
+              )}
 
               <Form.Item
                 key={id}
@@ -82,15 +129,28 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
                     className={`form-layout__input form-layout__input_${className}`}
                     disabled={mode === 'disable'}
                     key={id}
+                    // defaultValue={values.style}
                   >
-                    <Select.Option value="demo">Demo</Select.Option>
+                    {stylesData &&
+                      stylesData.map(({ id, info }) => (
+                        <Select.Option key={id} value={info}>
+                          {info}
+                        </Select.Option>
+                      ))}
                   </Select>
                 ) : type === 'textarea' ? (
                   <Input.TextArea
                     className={`form-layout__input form-layout__input_${className}`}
                     disabled={mode === 'disable'}
                     key={id}
-                    rows={4}
+                    autoSize={{ minRows: 4 }}
+                  />
+                ) : name === 'materials' ? (
+                  <Input
+                    className={`form-layout__input form-layout__input_${className}`}
+                    disabled={mode === 'disable'}
+                    onKeyPress={materialsHandler}
+                    onChange={materialsHandler}
                   />
                 ) : (
                   <Input

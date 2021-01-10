@@ -7,7 +7,7 @@ import './styles.scss'
 interface IButtonProps {
   text?: string | React.ReactElement
   htmlType?: 'button' | 'submit'
-  type?: 'primary' | 'default'
+  type?: 'primary' | 'default' | 'text'
   clickHandler?: () => void
   disabled?: boolean
   modifier?: string

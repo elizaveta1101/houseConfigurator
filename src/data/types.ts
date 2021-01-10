@@ -21,11 +21,34 @@ export interface IAdmin {
   token?: string
 }
 
+export interface IHouse {
+  infrastructure: string
+  short_info: string
+  conditions: string
+  bathrooms: number
+  long_info: string
+  materials: string
+  bedrooms: number
+  codename: string
+  style_id: number
+  address: string
+  author_id: null
+  square: number
+  floors: number
+  cords: string
+  cost: number
+  name: string
+  size: string
+  time:string
+  type: null
+  id: number
+}
+
 export type InputType = {
   copyMode?: boolean
   required?: boolean
   className: string
-  value?: string
+  value?: string | string[]
   label: string
   type: string
   size: string

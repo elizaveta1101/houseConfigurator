@@ -56,6 +56,7 @@ export const formData = [
         name: 'fio',
         className: 'fio',
         label: 'ФИО',
+        required: true,
       },
     ],
   },
@@ -69,6 +70,7 @@ export const formData = [
         name: 'login',
         className: 'login',
         label: 'Логин',
+        required: true,
       },
       {
         id: '2',
@@ -77,6 +79,7 @@ export const formData = [
         name: 'password',
         className: 'password',
         label: 'Пароль',
+        required: true,
       },
     ],
   },
@@ -91,92 +94,6 @@ export const formData = [
         className: 'email',
         label: 'Корпоративная почта',
         copyMode: true,
-      },
-    ],
-  },
-]
-
-export const adminAddForm = [
-  {
-    id: '1',
-    inputsGroup: [
-      {
-        id: '1',
-        type: 'input',
-        size: 'big',
-        name: 'name',
-        className: 'name',
-        label: 'Имя',
-        required: true,
-      },
-    ],
-  },
-  {
-    id: '2',
-    inputsGroup: [
-      {
-        id: '1',
-        type: 'input',
-        size: 'big',
-        name: 'surname',
-        className: 'surname',
-        label: 'Фамилия',
-        required: true,
-      },
-    ],
-  },
-  {
-    id: '3',
-    inputsGroup: [
-      {
-        id: '1',
-        type: 'input',
-        size: 'big',
-        name: 'otchestvo',
-        className: 'otchestvo',
-        label: 'Отчество',
-        required: true,
-      },
-    ],
-  },
-  {
-    id: '4',
-    inputsGroup: [
-      {
-        id: '1',
-        type: 'input',
-        size: 'big',
-        name: 'email',
-        className: 'email',
-        label: 'Корпоративная почта',
-        required: true,
-      },
-    ],
-  },
-  {
-    id: '5',
-    inputsGroup: [
-      {
-        id: '1',
-        type: 'input',
-        size: 'big',
-        name: 'login',
-        className: 'login',
-        label: 'Логин',
-        required: true,
-      },
-    ],
-  },
-  {
-    id: '6',
-    inputsGroup: [
-      {
-        id: '1',
-        type: 'input',
-        size: 'big',
-        name: 'password',
-        className: 'password',
-        label: 'Пароль',
         required: true,
       },
     ],
