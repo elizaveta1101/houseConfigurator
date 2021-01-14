@@ -74,10 +74,12 @@ const AdminsPage: React.FC = () => {
       setCurrAdmin(undefined)
       setMode('create')
       setEditMode(true)
-    } else {
+    } else if (mode === 'create') {
       refForm.current.submit()
       const newAdmin = getItem(ActionTypes.NEW_ADMIN)
       newAdmin && setIsOpenPopup(true)
+    } else if (mode === 'access') {
+      setIsOpenPopup(true)
     }
   }
 

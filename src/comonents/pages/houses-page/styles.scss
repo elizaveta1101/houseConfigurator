@@ -7,12 +7,20 @@
 .houses-page__search {
   max-width: 18.75rem;
   margin-top: 0.5rem;
+
+  @include adaptive(mobile) {
+    max-width: 100%;
+  }
 }
 
 .houses-page__buttons-wrapper {
   margin-top: 3.125rem;
 
-  @include flex-element(_, space-between);
+  @include flex-element(_, space-between, _, wrap);
+
+  @include adaptive(mobile) {
+    height: 5rem;
+  }
 }
 
 .houses-page__upload-wrapper .houses-page__subtitle {

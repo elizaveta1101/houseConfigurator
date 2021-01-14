@@ -21,7 +21,6 @@ const HousesPage: React.FC = () => {
   const { request, loading } = useHttp()
 
   const refForm = getItem(ActionTypes.REF_FORM)
-  const editedHouse = getItem(ActionTypes.EDITED_HOUSE)
 
   const [isDisableButton, setIsDisableButton] = useState(true)
   const [imagesData, setImagesData] = useState([])
@@ -50,6 +49,7 @@ const HousesPage: React.FC = () => {
       setMode('disable')
     } else if (mode === 'create') {
       refForm.current.resetFields()
+      setIsDisableButton(true)
       setMode('disable')
     }
   }
@@ -94,14 +94,9 @@ const HousesPage: React.FC = () => {
         })
         .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
     } else if (mode === 'create') {
-      request(
-        url,
-        'POST',
-        { data: houseData },
-        {
-          ['Authorization']: token,
-        }
-      )
+      request(url, 'POST', JSON.stringify(houseData), {
+        ['Authorization']: token,
+      })
         .then(({ success }) => {
           if (success) {
             setItem(ActionTypes.ALERT, alertData.addUp)
@@ -116,7 +111,7 @@ const HousesPage: React.FC = () => {
   }
 
   const onSearch = async (value: string) => {
-    const url = `/api/house?id=${value}`
+    const url = `/api/codename?type=house&codename=${value}`
     request(url)
       .then(({ data, success }) => {
         if (success) {
@@ -132,22 +127,28 @@ const HousesPage: React.FC = () => {
   useEffect(() => {
     const url = '/api/styles'
     request(url)
-      .then(({ data, success }) => success && setItem('HOUSE_STYLES', data))
+      .then(({ data, success }) => success && setItem(ActionTypes.HOUSE_STYLES, data))
       .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
   }, [])
 
   return (
     <Container>
-      <Button text={'Создать новый дом'} clickHandler={createHandelr} />
-      <h3 className="houses-page__subtitle">Поиск проекта по id</h3>
-      <Input.Search
-        placeholder="Id проекта"
-        className="houses-page__search"
-        enterButton="Найти"
-        onSearch={onSearch}
-        loading={loading}
-        // allowClear
-      />
+      {mode === 'create' ? (
+        <h3 className="houses-page__subtitle">Создание нового дома</h3>
+      ) : (
+        <>
+          <Button text={'Создать новый дом'} clickHandler={createHandelr} />
+          <h3 className="houses-page__subtitle">Поиск проекта по id</h3>
+          <Input.Search
+            placeholder="Id проекта"
+            className="houses-page__search"
+            enterButton="Найти"
+            onSearch={onSearch}
+            loading={loading}
+            // allowClear
+          />
+        </>
+      )}
 
       <h3 className="houses-page__subtitle">Результат поиска:</h3>
       <Form data={formData} values={house} mode={mode} type={'house'} />

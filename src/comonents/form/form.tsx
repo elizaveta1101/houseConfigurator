@@ -81,95 +81,101 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
     <Form className="form-layout" onFinish={onSubmit} layout="vertical" ref={refForm}>
       {data.map(({ id, inputsGroup }) => (
         <div className="form-layout__inputs-group" key={id}>
-          {inputsGroup.map(({ id, type, size, name, className, label, copyMode, required }) => (
-            <div
-              className={`form-layout__input-wrapper form-layout__input-wrapper_${size}`}
-              key={id}
-            >
-              <FormLabel
-                labelHandler={setIsDisableInput}
-                copyMode={Boolean(copyMode)}
-                element={inputEl}
-                label={label}
-              />
-
-              {name === 'materials' && (
-                <Row style={{ marginBottom: '0.5rem' }}>
-                  {materials &&
-                    materials.map((tag, index) => (
-                      <Tag
-                        key={index}
-                        closable={mode !== 'disable'}
-                        style={{ marginBottom: '0.5rem' }}
-                        onClose={(e) => materialsHandler(e, tag)}
-                      >
-                        {tag}
-                      </Tag>
-                    ))}
-                </Row>
-              )}
-
-              <Form.Item
+          {inputsGroup.map(
+            ({ id, type, size, name, className, label, placeholder, copyMode, required }) => (
+              <div
+                className={`form-layout__input-wrapper form-layout__input-wrapper_${size}`}
                 key={id}
-                name={name}
-                rules={
-                  name === 'email'
-                    ? [
-                        {
-                          type: 'email',
-                          message: 'Введите корректрный email example@example.com',
-                        },
-                        { required: required, message: `Пожалуйста, заполните поле!` },
-                      ]
-                    : [{ required: required, message: `Пожалуйста, заполните поле!` }]
-                }
               >
-                {type === 'select' ? (
-                  <Select
-                    className={`form-layout__input form-layout__input_${className}`}
-                    disabled={mode === 'disable'}
-                    key={id}
-                    // defaultValue={values.style}
-                  >
-                    {stylesData &&
-                      stylesData.map(({ id, info }) => (
-                        <Select.Option key={id} value={info}>
-                          {info}
-                        </Select.Option>
+                <FormLabel
+                  labelHandler={setIsDisableInput}
+                  copyMode={Boolean(copyMode)}
+                  element={inputEl}
+                  label={label}
+                />
+
+                {name === 'materials' && (
+                  <Row style={{ marginBottom: '0.5rem' }}>
+                    {materials &&
+                      materials.map((tag, index) => (
+                        <Tag
+                          key={index}
+                          closable={mode !== 'disable'}
+                          style={{ marginBottom: '0.5rem' }}
+                          onClose={(e) => materialsHandler(e, tag)}
+                        >
+                          {tag}
+                        </Tag>
                       ))}
-                  </Select>
-                ) : type === 'textarea' ? (
-                  <Input.TextArea
-                    className={`form-layout__input form-layout__input_${className}`}
-                    disabled={mode === 'disable'}
-                    key={id}
-                    autoSize={{ minRows: 4 }}
-                  />
-                ) : name === 'materials' ? (
-                  <Input
-                    className={`form-layout__input form-layout__input_${className}`}
-                    disabled={mode === 'disable'}
-                    onKeyPress={materialsHandler}
-                    onChange={materialsHandler}
-                  />
-                ) : (
-                  <Input
-                    className={`form-layout__input form-layout__input_${className}`}
-                    disabled={
-                      name === 'id'
-                        ? true
-                        : mode === 'create'
-                        ? false
-                        : copyMode
-                        ? isDisableInput
-                        : mode === 'disable'
-                    }
-                    ref={copyMode ? inputEl : null}
-                  />
+                  </Row>
                 )}
-              </Form.Item>
-            </div>
-          ))}
+
+                <Form.Item
+                  key={id}
+                  name={name}
+                  rules={
+                    name === 'email'
+                      ? [
+                          {
+                            type: 'email',
+                            message: 'Введите корректрный email example@example.com',
+                          },
+                          { required: required, message: `Пожалуйста, заполните поле!` },
+                        ]
+                      : [{ required: required, message: `Пожалуйста, заполните поле!` }]
+                  }
+                >
+                  {type === 'select' ? (
+                    <Select
+                      className={`form-layout__input form-layout__input_${className}`}
+                      disabled={mode === 'disable'}
+                      key={id}
+                      placeholder={mode === 'create' ? placeholder : ''}
+                      // defaultValue={values.style}
+                    >
+                      {stylesData &&
+                        stylesData.map(({ id, info }) => (
+                          <Select.Option key={id} value={info}>
+                            {info}
+                          </Select.Option>
+                        ))}
+                    </Select>
+                  ) : type === 'textarea' ? (
+                    <Input.TextArea
+                      className={`form-layout__input form-layout__input_${className}`}
+                      disabled={mode === 'disable'}
+                      key={id}
+                      autoSize={{ minRows: 4 }}
+                      placeholder={mode === 'create' ? placeholder : ''}
+                    />
+                  ) : name === 'materials' ? (
+                    <Input
+                      className={`form-layout__input form-layout__input_${className}`}
+                      disabled={mode === 'disable'}
+                      onKeyPress={materialsHandler}
+                      onChange={materialsHandler}
+                      placeholder={mode === 'create' ? placeholder : ''}
+                    />
+                  ) : (
+                    <Input
+                      className={`form-layout__input form-layout__input_${className}`}
+                      disabled={
+                        name === 'id'
+                          ? true
+                          : mode === 'create'
+                          ? false
+                          : copyMode
+                          ? isDisableInput
+                          : mode === 'disable'
+                      }
+                      ref={copyMode ? inputEl : null}
+                      placeholder={mode === 'create' ? placeholder : ''}
+                    />
+                  )}
+                </Form.Item>
+              </div>
+            )
+          )}
         </div>
       ))}
     </Form>

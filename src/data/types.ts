@@ -45,10 +45,11 @@ export interface IHouse {
 }
 
 export type InputType = {
+  placeholder?: string
   copyMode?: boolean
   required?: boolean
   className: string
-  value?: string | string[]
+  value?: string
   label: string
   type: string
   size: string
