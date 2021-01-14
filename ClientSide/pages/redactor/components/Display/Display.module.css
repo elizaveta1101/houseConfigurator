@@ -1,0 +1,25 @@
+.content {
+    display: grid;
+    grid-auto-flow: column;
+    /* grid-template-columns: [content] 1fr;
+    grid-template-rows: [interview] minmax(min-content, max-content) [interactive] minmax(100vw, max-content) [materialList] minmax(min-content, 150px); */
+    width: 130vw;
+    height: calc(100vh - 60px);
+    max-height: 100vh;
+  }
+  @media (min-width: 768px) {
+    .content {
+        grid-template-areas: 
+            "interview interactive"
+            "materialList materialList";
+        grid-gap: 0px;
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: minmax(max-content, 100%) minmax(0, max-content);
+        grid-auto-flow: row;
+    }
+  }
+
+.display_box{
+    width: 120vw;
+    margin-left: -500px;
+}

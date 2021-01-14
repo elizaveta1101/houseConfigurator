@@ -1,0 +1,564 @@
+.house-project-page-wrapper{
+    width: 1420px;
+    margin-left: -20px;
+
+    justify-self: center;
+    align-self: center;
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.display-wrapper{
+}
+
+.house-project-page__info{
+    align-items: center;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+
+    width: 460px;
+
+    background-color: white;
+}
+.investors-house-project-page__info{
+    align-items: center;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+
+    width: 460px;
+    height: 200px;
+
+    background-color: white;
+}
+.investors-house-project-page__info h1{
+    margin-top: -40px;
+    align-self: center;
+    width: 236px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 130%;
+    /* or 31px */
+
+    text-align: center;
+    letter-spacing: 0.03em;
+
+    /* Черный */
+
+    color: #444444;
+}
+
+.house-project-page__slider{
+    display: flex;
+
+    width: 960px;
+    height: max-content;
+}
+
+.house-project-page__right-block{
+    display: flex;
+    flex-direction: column;
+    width: 460px;
+    height: max-content;
+}
+
+
+.house-project-page__info-header{
+    position: absolute;
+    z-index: -1;
+
+    background-color: white;
+
+    clip-path: polygon(13% 1%, 86% 0, 100% 100%, 100% 100%, 0 100%, 0 100%);
+
+    margin-top: -50px;
+    width: 318px;
+    height: 61px;
+
+    align-self: center;
+    justify-self: center;
+}
+
+.info-params_style a{
+    text-decoration: underline;
+    color: #325FFF;
+}
+
+.house-project-page__info h1{
+    margin-top: -40px;
+    align-self: center;
+    width: 236px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 130%;
+    /* or 31px */
+
+    text-align: center;
+    letter-spacing: 0.03em;
+
+    /* Черный */
+
+    color: #444444;
+}
+
+.house-project-page__main-block{
+    display: flex;
+    flex-direction: row;
+}
+
+.house-project-page__info-params{
+    margin-top: 16px;
+    height: 365px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+
+    width: 380px;
+    padding: 10px;
+
+    justify-self: center;
+    align-self: center;
+}
+.house-project-page__info-params::-webkit-scrollbar { width: 0; }
+
+
+.info-params{
+    margin-top: 24px;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+}
+
+.info-params p{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    /* identical to box height */
+
+
+    /* Черный */
+
+    color: #444444;
+}
+
+.info-params span{
+    max-width: 150px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+
+    text-align: right;
+    letter-spacing: -0.02em;
+
+    /* Черный */
+
+    color: #444444;
+}
+
+.investors-page-button{
+    margin-top: 340px;
+}
+
+.condition_of_terms{
+    width: 412px;
+    height: 314px;
+    padding: 24px;
+    margin-left: 20px;
+
+    background-color: #FFFFFF;
+    margin-top: 110px;
+}
+
+
+.condition_of_terms h1{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: #444444;
+}
+
+
+.condition_of_terms p{
+    overflow-y: scroll;
+    height: 268px;
+    margin-top: 16px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 160%;
+
+    color: #444444;
+}
+
+.condition_of_terms p::-webkit-scrollbar { width: 0; }
+
+.info-params h2{
+    max-width: 230px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+
+    text-align: right;
+    letter-spacing: -0.02em;
+
+    /* Черный */
+
+    color: #444444;
+}
+
+.house-project-page__pre-btn-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.house-project-page__pre-btn-text h2{
+    margin-top: 87px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+
+    color: #444444;
+}
+.house-project-page__pre-btn-text ul{
+    margin-left: 12px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    margin-top: 7px;
+
+    color: #444444;
+}
+.house-project-page__pre-btn-text ul li{
+    list-style-type: "- ";
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+
+    color: #444444;
+}
+.house-project-page__pre-btn-text p{
+    margin-top: 5px;
+    align-self: flex-end;
+    max-width: 300px;
+
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #444444;
+}
+
+.house-project-page__pre-btn-text span{
+    max-width: 100px;
+    word-wrap: break-word;
+
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: right;
+    letter-spacing: -0.02em;
+    color: #444444;
+}
+
+.house-card__checkout{
+    display: flex;
+    flex-direction: row;
+
+    align-self: flex-start;
+}
+
+.house-project-page__info-header__small{
+    position: absolute;
+    clip-path: polygon(6% 0, 94% 0, 100% 100%, 100% 100%, 0 100%, 0 100%);
+    width: 670px;
+    height: 35px;
+    margin-top: -535px;
+    margin-left: 210px;
+
+    background-color: #FFFFFF;
+
+    display: none;
+}
+
+.house-card__checkout-price p{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+
+    color: #444444;
+}
+
+
+.house-card__checkout-price span{
+    margin-right: 16px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+
+    color: #444444;
+}
+
+.house-card__checkout-price h1{
+    margin-top: 22px;
+    font-family: Gotham Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 34px;
+    letter-spacing: -0.02em;
+
+    color: #444444;
+}
+
+.relis-date p{
+    margin-top: 25px;
+    margin-left: 89px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #444444;
+}
+.heart1{
+    position: absolute;
+    margin-top: 570px;
+    margin-left: 905px;
+    z-index: 22;
+    cursor: pointer;
+}
+
+.relis-date span{
+    margin-left: 89px;
+    margin-top: 5px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #444444;
+}
+
+.project-desription{
+    padding: 16px 24px;
+    background-color: #FFFFFF;
+
+    width: 900px;
+    height: max-content;
+
+    clip-path: polygon(92% 0, 100% 16%, 100% 100%, 0 100%, 0 0);
+
+    align-self: flex-start;
+    margin-top: 40px;
+}
+
+.project-desription h1{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+
+    color: #444444;
+}
+
+.investors-descriptions{
+    margin-top: 0px;
+}
+
+
+.project-desription p{
+    overflow-y: scroll;
+    height: 352px;
+    margin-top: 16px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 160%;
+
+    color: #444444;
+}
+.project-desription p::-webkit-scrollbar { width: 0; }
+
+
+.house-project-page__pre-btn-text h1{
+    font-family: Gotham Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 34px;
+    letter-spacing: -0.02em;
+
+    color: #444444;
+}
+
+.project-desription__placeholder{
+    margin-top: 80px;
+    margin-left: 20px;
+}
+
+.project-desription__placeholder h1{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+
+    color: #444444;
+}
+
+.pre-btn-investors-ellipse{
+    position: absolute;
+
+    margin-left: 200px;
+}
+
+.project-desription__placeholder p{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 160%;
+
+    color: #444444;
+}
+
+.map{
+    margin-top: 45px;
+    width: 460px;
+    height: 289px;
+
+    background-color: #444444;
+}
+
+.completed-page__info{
+    margin-top: -60px;
+    margin-left: 13px;
+    display: flex;
+}
+
+.completed-page__ifrostructure{
+    margin-left: 13px;
+    margin-top: 24px;
+    width: 900px;
+    padding: 24px 24px;
+    background-color: #FFFFFF;
+
+    align-self: flex-start;
+}
+.completed-page__ifrostructure h1{
+    margin-bottom: 20px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+
+    color: #444444;
+}
+
+.completed-page__ifrostructure p{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 160%;
+
+    color: #444444;
+}
+
+
+
+
+.pre-btn-ellipse{
+    position: absolute;
+    display: flex;
+    margin-left: 1010px;
+    margin-top: 110px;
+
+    z-index: -1;
+}
+
+.completed-pre-btn-ellipse{
+    position: absolute;
+    display: flex;
+    margin-left: 965px;
+    margin-top: -700px;
+
+    z-index: -1;
+}
+.investors-pre-btn-ellipse{
+    position: absolute;
+    display: flex;
+    margin-left: 965px;
+    margin-top: 200px;
+
+    z-index: -1;
+}
+
+
+.pre-btn-ellipse-abs{
+    margin-left: 30px;
+    margin-top: -25px;
+    position: absolute;
+}
+
+.pre-btn-ellipse-abs-2{
+    position: absolute;
+    margin-left: 320px;
+    margin-top: 55px;
+}
+
+
+
+@media (max-width: 1818px){
+
+}
+
+
+
+
+

@@ -1,0 +1,15 @@
+.favorite-wrapper{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.favorite-catalog{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 1820px;
+}

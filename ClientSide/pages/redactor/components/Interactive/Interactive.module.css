@@ -1,0 +1,12 @@
+.interactive {
+    /* grid-column: content;
+    grid-row: interactive; */
+    position: relative;
+    min-height: min-content;
+  }
+  @media (min-width: 768px) {
+    .interactive {
+      grid-area: interactive;
+      
+    }
+  }

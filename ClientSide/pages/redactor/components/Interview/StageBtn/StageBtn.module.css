@@ -1,0 +1,57 @@
+.nextStageBtn {
+    position: absolute;
+    bottom: 3vh;
+    right: 3vh;
+    padding: 3px 6px;
+  cursor: pointer;
+  outline: none;
+  width: 80px;
+  height: 40px;
+
+  background-color: white;
+  border: 1px solid #325FFF;
+
+  font-family: Open Sans Light;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #325FFF;
+  }
+  @media (min-width: 768px) {
+    .nextStageBtn {
+      bottom: 20px;
+      right: 20px;
+      padding: 5px 10px;
+    }
+  }
+  .prevStageBtn {
+    cursor: pointer;
+    outline: none;
+    position: absolute;
+    bottom: 3vh;
+    left: 3vh;
+    padding: 3px 6px;
+
+    width: 80px;
+    height: 40px;
+
+    background-color: white;
+    border: 1px solid #325FFF;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #325FFF;
+  }
+  @media (min-width: 768px) {
+    .prevStageBtn {
+      bottom: 20px;
+      left: 20px;
+      padding: 5px 10px;
+    }
+  }

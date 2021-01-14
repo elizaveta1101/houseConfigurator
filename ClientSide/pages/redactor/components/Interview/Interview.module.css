@@ -1,0 +1,26 @@
+.interview {
+    /* grid-column: content;
+    grid-row: interview; */
+    padding: 10px 20px 60px 20px;
+    background-color: #fff;
+    position: relative;
+    margin-top: 8px;
+
+    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.75);
+    z-index: 5;
+    display: flex;
+    margin-left: 547px;
+
+    width: 256px;
+    height: 600px;
+  }
+  @media (min-width: 768px) {
+    .interview {
+      grid-area: interview;
+    }
+  }
+
+
+.interviewdiv{
+    position: absolute;
+}
