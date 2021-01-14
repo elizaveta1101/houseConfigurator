@@ -76,8 +76,7 @@ const AdminsPage: React.FC = () => {
       setEditMode(true)
     } else if (mode === 'create') {
       refForm.current.submit()
-      const newAdmin = getItem(ActionTypes.NEW_ADMIN)
-      newAdmin && setIsOpenPopup(true)
+      setIsOpenPopup(true)
     } else if (mode === 'access') {
       setIsOpenPopup(true)
     }
@@ -88,7 +87,6 @@ const AdminsPage: React.FC = () => {
     const code: number = getItem(ActionTypes.RIGHTS_CODE)
     if (mode === 'access' && currAdmin) {
       currAdmin.rights = code
-      console.log(currAdmin)
 
       request(url, 'POST', currAdmin, {
         ['Authorization']: token,
@@ -103,7 +101,6 @@ const AdminsPage: React.FC = () => {
         .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
     } else if (mode === 'create') {
       const newAdmin = getItem(ActionTypes.NEW_ADMIN)
-      console.log(newAdmin)
 
       request(url, 'POST', newAdmin, { ['Authorization']: token })
         .then(({ success }) => {
@@ -114,9 +111,9 @@ const AdminsPage: React.FC = () => {
             requestAdminsData()
             setMode('disable')
             popupHandler()
-          } else setItem(ActionTypes.ALERT, alertData.error)
+          } else setItem(ActionTypes.ALERT, alertData.noUnic)
         })
-        .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+        .catch((e) => setItem(ActionTypes.ALERT, alertData.noUnic))
     }
   }
 

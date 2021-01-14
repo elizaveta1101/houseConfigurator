@@ -77,14 +77,9 @@ const HousesPage: React.FC = () => {
         })
         .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
     } else if (mode === 'edite') {
-      request(
-        url,
-        'POST',
-        { id: house?.id, data: houseData },
-        {
-          ['Authorization']: token,
-        }
-      )
+      request(url, 'POST', houseData, {
+        ['Authorization']: token,
+      })
         .then(({ success }) => {
           if (success) {
             setItem(ActionTypes.ALERT, alertData.changeUp)
