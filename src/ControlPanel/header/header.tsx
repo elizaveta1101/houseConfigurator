@@ -25,7 +25,7 @@ const Header: React.FC = () => {
           >
             <img className="header__logo-image" src={logo} alt="logo" />
           </Link>
-          <a href="/#" className="header__link">
+          <a href={MenuLinkPaths.clientSide} className="header__link">
             Перейти на сайт
           </a>
         </div>

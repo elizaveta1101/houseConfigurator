@@ -2,7 +2,7 @@ import React from 'react'
 import './CentralCircle.css'
 import classNames from 'class-names'
 import { Link } from 'react-router-dom'
-import GifVideo from '../../assets/video//main-gif.gif'
+import GifVideo from '../../../assets/video//main-gif.gif'
 
 import RegistrationForm from '../components/RegistrationForm'
 import CentralButton from './CentralBtn'

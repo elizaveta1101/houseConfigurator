@@ -1,51 +1,43 @@
 @import './mixins.scss';
 
 * {
-  box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-body {
-  background-color: $bodyColor;
-  color: $textColor;
-  font-family: 'OpenSans', sans-serif;
-  line-height: normal;
-}
-
-h1 {
+.control-panel h1 {
   margin: 0;
   color: $textColor !important;
   font-size: 2.25rem;
 }
 
-h2 {
+.control-panel h2 {
   margin: 0;
   color: $textColor !important;
   font-size: 1.5rem;
 }
 
-h3 {
+.control-panel h3 {
   margin: 0;
   color: $textColor !important;
   font-size: 1.125rem;
 }
 
-h4 {
+.control-panel h4 {
   margin: 0;
   color: $textColor !important;
   font-size: 0.875rem;
 }
 
-p {
+.control-panel p {
   margin: 0;
 }
 
-li {
+.control-panel li {
   list-style: none;
 }
 
-button {
+.control-panel button {
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -53,7 +45,7 @@ button {
   outline: none;
 }
 
-a {
+.control-panel a {
   color: $textColor;
   cursor: pointer;
   transition: 0.2s;
@@ -63,27 +55,62 @@ a {
   }
 }
 
-img {
+.control-panel img {
   width: 100%;
   height: 100%;
   pointer-events: none;
   vertical-align: initial;
 }
 
-.app {
+.global-wrapper {
+  position: absolute;
+  overflow: hidden;
+  min-height: 100vh;
+
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto Condenced', sans-serif;
+}
+
+.main-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow-x: hidden;
+}
+
+.control-panel {
   position: relative;
   min-height: 100vh;
   font-size: 0.875rem;
+  box-sizing: border-box;
+  background-color: $bodyColor;
+  color: $textColor;
+  font-family: 'OpenSans', sans-serif;
+  line-height: normal;
 }
 
-.content {
+.control-panel__content {
   padding-top: 5rem;
 
   @include wrapper();
   @include flex-element(_, space-between);
 }
 
-.menu_content {
+.control-panel__menu_content {
   @include adaptive(tablet) {
     display: none;
   }

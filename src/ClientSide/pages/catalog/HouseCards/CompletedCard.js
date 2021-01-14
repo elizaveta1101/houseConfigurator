@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import './HouseCard.css'
 import './CompletedCard.css'
-import CompletedHouseImg from '../../../assets/img/CompletedHouse.png'
+import CompletedHouseImg from '../../../../assets/img/CompletedHouse.png'
 import CheckoutButton from '../../components/CheckoutButton'
 import { useSelector } from 'react-redux'
 

@@ -5,9 +5,9 @@ import cx from 'classnames'
 import './styles.scss'
 
 interface IButtonProps {
+  type?: 'primary' | 'default' | 'text'
   text?: string | React.ReactElement
   htmlType?: 'button' | 'submit'
-  type?: 'primary' | 'default' | 'text'
   clickHandler?: () => void
   disabled?: boolean
   modifier?: string

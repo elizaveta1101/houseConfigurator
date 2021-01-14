@@ -1,19 +1,14 @@
 import React, { useState } from 'react'
-import 'antd/dist/antd.css'
 import axios from 'axios'
 
-import { HeaderPayloads, storageKeys } from './data'
-import { AppContext, AuthContext } from './context'
-import { useAuth, useRoutes } from './hooks'
+import { HeaderPayloads, storageKeys } from '../data'
+import { AppContext, AuthContext } from '../context'
+import { useAuth, useRoutes } from '../hooks'
 
-import Overlay from './comonents/overlay/overlay'
-import Header from './comonents/header/header'
-import Alert from './comonents/alert/alert'
-import Menu from './comonents/menu/menu'
-
-import './styles/animation.scss'
-import './styles/fonts.scss'
-import './styles/index.scss'
+import Overlay from './overlay/overlay'
+import Header from './header/header'
+import Alert from './alert/alert'
+import Menu from './menu/menu'
 
 const currentPage = window.location.pathname
 
@@ -62,12 +57,12 @@ const App: React.FC = ({}) => {
           headerHandler,
         }}
       >
-        <div className="app">
+        <div className="control-panel">
           <Overlay isOpen={isOverlayOpen} overlayHandler={hideAll} />
           <Alert />
           <Header />
-          <div className="content">
-            <Menu modifier={'menu_content'} isOpen={isAuth} />
+          <div className="control-panel__content">
+            <Menu modifier={'control-panel__menu_content'} isOpen={isAuth} />
             {routes}
           </div>
         </div>
