@@ -10,6 +10,8 @@ import Header from './header/header'
 import Alert from './alert/alert'
 import Menu from './menu/menu'
 
+import './styles.scss'
+
 const currentPage = window.location.pathname
 
 const App: React.FC = ({}) => {

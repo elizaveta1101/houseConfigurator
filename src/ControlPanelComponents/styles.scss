@@ -1,0 +1,90 @@
+@import '../styles/mixins.scss';
+
+.control-panel {
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: $bodyColor;
+  color: $textColor;
+  font-family: 'OpenSans', sans-serif;
+  font-size: 0.875rem;
+  line-height: normal;
+}
+
+.control-panel__content {
+  padding-top: 5rem;
+
+  @include wrapper();
+  @include flex-element(_, space-between);
+}
+
+.control-panel__menu_content {
+  @include adaptive(tablet) {
+    display: none;
+  }
+}
+
+.control-panel h1 {
+  margin: 0;
+  color: $textColor;
+  font-size: 2.25rem;
+}
+
+.control-panel h2 {
+  margin: 0;
+  color: $textColor;
+  font-size: 1.5rem;
+}
+
+.control-panel h3 {
+  margin: 0;
+  color: $textColor;
+  font-size: 1.125rem;
+}
+
+.control-panel h4 {
+  margin: 0;
+  color: $textColor;
+  font-size: 0.875rem;
+}
+
+.control-panel button {
+  font-family: 'OpenSans', sans-serif;
+}
+
+.control-panel a {
+  color: $textColor;
+  transition: 0.2s;
+
+  &:hover {
+    color: $blueAccent;
+  }
+}
+
+.control-panel img {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  vertical-align: initial;
+}
+
+.ant-input,
+.ant-input-password,
+.ant-input-affix-wrapper {
+  color: $formsTextColor;
+
+  &:hover,
+  &:focus {
+    border-color: $blueAccent;
+  }
+}
+
+.ant-input-search-button {
+  border-color: $blueAccent;
+  background: $blueAccent;
+}
+
+.ant-table-pagination,
+.ant-pagination-options {
+  display: none;
+}

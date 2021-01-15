@@ -23,6 +23,8 @@ import FavoriteInvestors from './pages/private-office/favorite-pages/FavoriteInv
 import Constructor from './pages/redactor/Constructor'
 import RedactorHeader from './pages/redactor/RedactorHeader'
 
+import './styles.scss'
+
 function App() {
   const shouldShowHeader = useLocation().pathname !== '/'
   const shouldShowRedactorHeader = useLocation().pathname !== '/constructor'
