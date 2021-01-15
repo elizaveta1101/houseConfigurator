@@ -21,6 +21,7 @@ const HousesPage: React.FC = () => {
   const { request, loading } = useHttp()
 
   const refForm = getItem(ActionTypes.REF_FORM)
+  const currHouse = getItem(ActionTypes.EDITED_HOUSE)
 
   const [isDisableButton, setIsDisableButton] = useState(true)
   const [imagesData, setImagesData] = useState([])
@@ -55,10 +56,29 @@ const HousesPage: React.FC = () => {
   }
 
   const rightButtonHandler = async () => {
-    const url = '/api/house'
-    const houseData = refForm.current.getFieldValue()
+    refForm.current.submit()
+    setMode('send')
+  }
 
-    if (mode === 'disable') {
+  const onSearch = async (value: string) => {
+    const url = `/api/codename?type=house&codename=${value}`
+    request(url)
+      .then(({ data, success }) => {
+        if (success) {
+          console.log(data)
+
+          setIsDisableButton(false)
+          setHouse(data)
+        } else setItem(ActionTypes.ALERT, alertData.noSearch)
+      })
+      .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+  }
+
+  useEffect(() => {
+    const url = '/api/house'
+    console.log(currHouse)
+
+    if (mode === 'delete') {
       request(
         url,
         'POST',
@@ -76,8 +96,13 @@ const HousesPage: React.FC = () => {
           }
         })
         .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
-    } else if (mode === 'edite') {
-      request(url, 'POST', houseData, {
+    } else if (mode === 'send' && currHouse) {
+      currHouse['author_id'] = userId
+      currHouse['conditions'] = null
+      currHouse['short_info'] = null
+      currHouse['style_id'] = 1
+      currHouse['time'] = null
+      request(url, 'POST', currHouse, {
         ['Authorization']: token,
       })
         .then(({ success }) => {
@@ -88,36 +113,8 @@ const HousesPage: React.FC = () => {
           }
         })
         .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
-    } else if (mode === 'create') {
-      request(url, 'POST', houseData, {
-        ['Authorization']: token,
-      })
-        .then(({ success }) => {
-          if (success) {
-            setItem(ActionTypes.ALERT, alertData.addUp)
-            refForm.current.resetFields()
-            setIsDisableButton(true)
-            setHouse(undefined)
-            setMode('disable')
-          }
-        })
-        .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
     }
-  }
-
-  const onSearch = async (value: string) => {
-    const url = `/api/codename?type=house&codename=${value}`
-    request(url)
-      .then(({ data, success }) => {
-        if (success) {
-          console.log(data)
-
-          setIsDisableButton(false)
-          setHouse(data)
-        } else setItem(ActionTypes.ALERT, alertData.noSearch)
-      })
-      .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
-  }
+  }, [mode, currHouse])
 
   useEffect(() => {
     const url = '/api/styles'
