@@ -89,7 +89,7 @@ const HousesPage: React.FC = () => {
         })
         .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
     } else if (mode === 'create') {
-      request(url, 'POST', JSON.stringify(houseData), {
+      request(url, 'POST', houseData, {
         ['Authorization']: token,
       })
         .then(({ success }) => {
