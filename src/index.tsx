@@ -6,10 +6,10 @@ import { Provider } from 'react-redux'
 import 'antd/dist/antd.css'
 
 import store from './store'
-import ClientSideStore from './ClientSide/redux/store'
+import ClientSideStore from './ClientSideComponents/redux/store'
 
-import ControlPanel from './ControlPanel/Control-panel'
-import ClientSide from './ClientSide/App'
+import ControlPanel from './ControlPanelComponents/Control-panel'
+import ClientSide from './ClientSideComponents/App'
 
 import './styles/animation.scss'
 import './styles/fonts.scss'
