@@ -27,6 +27,7 @@ const HousesPage: React.FC = () => {
   const [imagesData, setImagesData] = useState([])
   const [mainImage, setMainImage] = useState([])
   const [house, setHouse] = useState<IHouse>()
+  const [isSend, setIsSend] = useState(false)
   const [mode, setMode] = useState('disable')
 
   const imagesHandler = ({ fileList }: any) => {
@@ -46,6 +47,7 @@ const HousesPage: React.FC = () => {
     if (mode === 'disable') {
       setMode('edite')
     } else if (mode === 'edite') {
+      setItem(ActionTypes.MATERIALS, house?.materials === '' ? [] : house?.materials.split(','))
       refForm.current.setFieldsValue(house)
       setMode('disable')
     } else if (mode === 'create') {
@@ -55,13 +57,16 @@ const HousesPage: React.FC = () => {
     }
   }
 
-  const rightButtonHandler = async () => {
+  const rightButtonHandler = () => {
+    mode === 'disable' && setMode('delete')
     refForm.current.submit()
-    setMode('send')
+    setIsSend(true)
   }
 
   const onSearch = async (value: string) => {
     const url = `/api/codename?type=house&codename=${value}`
+    setIsDisableButton(true)
+    setMode('disable')
     request(url)
       .then(({ data, success }) => {
         if (success) {
@@ -76,45 +81,72 @@ const HousesPage: React.FC = () => {
 
   useEffect(() => {
     const url = '/api/house'
-    console.log(currHouse)
+    console.log(currHouse, mode, isSend)
 
-    if (mode === 'delete') {
-      request(
-        url,
-        'POST',
-        { id: house?.id },
-        {
+    if (isSend) {
+      if (mode === 'delete') {
+        request(
+          url,
+          'POST',
+          { id: house?.id },
+          {
+            ['Authorization']: token,
+          }
+        )
+          .then(({ success }) => {
+            if (success) {
+              setItem(ActionTypes.ALERT, alertData.deleteUp)
+              refForm.current.resetFields()
+              setIsDisableButton(true)
+              setMode('disable')
+              setIsSend(false)
+            }
+          })
+          .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+      } else if (mode === 'edite' && currHouse) {
+        currHouse['author_id'] = userId
+        currHouse['conditions'] = null
+        currHouse['short_info'] = null
+        currHouse['style_id'] = 1
+        currHouse['time'] = null
+        request(url, 'POST', currHouse, {
           ['Authorization']: token,
-        }
-      )
-        .then(({ success }) => {
-          if (success) {
-            setItem(ActionTypes.ALERT, alertData.deleteUp)
-            refForm.current.resetFields()
-            setIsDisableButton(true)
-            setMode('disable')
-          }
         })
-        .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
-    } else if (mode === 'send' && currHouse) {
-      currHouse['author_id'] = userId
-      currHouse['conditions'] = null
-      currHouse['short_info'] = null
-      currHouse['style_id'] = 1
-      currHouse['time'] = null
-      request(url, 'POST', currHouse, {
-        ['Authorization']: token,
-      })
-        .then(({ success }) => {
-          if (success) {
-            setItem(ActionTypes.ALERT, alertData.changeUp)
-            setIsDisableButton(true)
-            setMode('disable')
-          }
+          .then(({ success }) => {
+            if (success) {
+              setItem(ActionTypes.ALERT, alertData.changeUp)
+              setItem(ActionTypes.MATERIALS, [])
+              setIsDisableButton(true)
+              setMode('disable')
+              setIsSend(false)
+            } else setIsSend(false)
+          })
+          .catch((e) => {
+            setItem(ActionTypes.ALERT, alertData.error)
+            setIsSend(false)
+          })
+      } else if (mode === 'create' && currHouse) {
+        currHouse['author_id'] = userId
+        currHouse['conditions'] = null
+        currHouse['short_info'] = null
+        currHouse['style_id'] = 1
+        currHouse['time'] = null
+        request(url, 'POST', currHouse, {
+          ['Authorization']: token,
         })
-        .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+          .then(({ success }) => {
+            if (success) {
+              setItem(ActionTypes.ALERT, alertData.addUp)
+              setItem(ActionTypes.MATERIALS, [])
+              refForm.current.resetFields()
+              setIsDisableButton(true)
+              setMode('disable')
+            }
+          })
+          .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+      }
     }
-  }, [mode, currHouse])
+  }, [mode, isSend, currHouse])
 
   useEffect(() => {
     const url = '/api/styles'

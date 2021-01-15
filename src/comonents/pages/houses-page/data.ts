@@ -10,6 +10,7 @@ export const formData = [
         className: 'codename',
         placeholder: 'id',
         label: 'Id дома',
+        required: true
       },
       {
         id: '2',
@@ -19,6 +20,7 @@ export const formData = [
         className: 'cost',
         placeholder: 'Укажите цену',
         label: 'Стоимость',
+        required: true
       },
       {
         id: '3',
@@ -28,6 +30,7 @@ export const formData = [
         className: 'style',
         placeholder: 'Стиль',
         label: 'Стиль дома',
+        required: true
       },
     ],
   },
@@ -42,6 +45,7 @@ export const formData = [
         className: 'name',
         placeholder: 'Название дома',
         label: 'Название',
+        required: true
       },
     ],
   },
@@ -56,6 +60,7 @@ export const formData = [
         className: 'square',
         placeholder: 'Площадь кв м',
         label: 'Площадь дома',
+        required: true
       },
       {
         id: '2',
@@ -65,6 +70,7 @@ export const formData = [
         className: 'size',
         placeholder: 'ШхД',
         label: 'Габариты(ШхД)',
+        required: true
       },
       {
         id: '3',
@@ -74,6 +80,7 @@ export const formData = [
         className: 'floors',
         placeholder: 'Кол-во этажей',
         label: 'Кол-во этажей',
+        required: true
       },
     ],
   },
@@ -88,6 +95,7 @@ export const formData = [
         className: 'bedrooms',
         placeholder: 'Кол-во спален',
         label: 'Кол-во спален',
+        required: true
       },
       {
         id: '2',
@@ -97,6 +105,7 @@ export const formData = [
         className: 'bathrooms',
         placeholder: 'Число',
         label: 'Кол-во санузлов',
+        required: true
       },
     ],
   },
@@ -111,6 +120,7 @@ export const formData = [
         className: 'address',
         placeholder: 'Адрес в формате город, улица, дом',
         label: 'Местоположение',
+        required: true
       },
     ],
   },
@@ -125,6 +135,7 @@ export const formData = [
         className: 'cords',
         placeholder: 'Формат хх.хххххх, хх.хххххх',
         label: 'Координаты на карте(через запятую)',
+        required: true
       },
     ],
   },
@@ -139,6 +150,7 @@ export const formData = [
         className: 'materials',
         placeholder: 'Материалы через запятую',
         label: 'Материалы',
+        required: true
       },
     ],
   },
@@ -153,6 +165,7 @@ export const formData = [
         className: 'infrastructure',
         placeholder: 'Описание инфраструктуры',
         label: 'Инфраструктура',
+        required: true
       },
     ],
   },
@@ -167,6 +180,7 @@ export const formData = [
         className: 'long_info',
         placeholder: 'Описание проекта',
         label: 'Описание дома',
+        required: true
       },
     ],
   },

@@ -20,12 +20,13 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
   const { getItem, setItem } = useStore()
 
   const stylesData: { id: number; info: string }[] = getItem(ActionTypes.HOUSE_STYLES)
+  const materials: string[] = getItem(ActionTypes.MATERIALS)
 
   const inputEl = useRef<any>(null)
   const refForm = useRef<any>(null)
 
   const [isDisableInput, setIsDisableInput] = useState(true)
-  const [materials, setMaterials] = useState<string[]>()
+  // const [materials, setMaterials] = useState<string[]>()
 
   const onSubmit = (formValues: any) => {
     if (type === 'admin') {
@@ -38,7 +39,6 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
       setItem(ActionTypes.NEW_ADMIN, formValues)
     } else if (type === 'house') {
       formValues.materials = `${materials}`
-      // formValues['codename'] = values.codename || formValues.codename
       setItem(ActionTypes.EDITED_HOUSE, formValues)
     }
   }
@@ -46,10 +46,10 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
   const materialsHandler = (e: any, tag?: string) => {
     if (tag) {
       const data = materials?.filter((tagItem) => tag !== tagItem)
-      setMaterials(data)
+      setItem(ActionTypes.MATERIALS, data)
     } else if (e.key === 'Enter' && materials) {
       const value = e.target.value
-      setMaterials([...materials, value])
+      setItem(ActionTypes.MATERIALS, [...materials, value])
     }
   }
 
@@ -57,7 +57,7 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
     if (values) {
       if (type === 'house' && stylesData) {
         const materials = values.materials.split(',')
-        setMaterials(materials)
+        setItem(ActionTypes.MATERIALS, materials)
         values.materials = ''
       } else if (type === 'admin' && !values.fio)
         values['fio'] = `${values.name} ${values.surname} ${values.surname}`
@@ -69,7 +69,7 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
   useEffect(() => {
     if (mode === 'create') {
       refForm.current.resetFields()
-      setMaterials([])
+      setItem(ActionTypes.MATERIALS, [])
     }
   }, [mode])
 
