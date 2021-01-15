@@ -5,6 +5,7 @@ const initialState = {
     investorshouses: [],
 
     postinfo:[],
+    userinfo:[],
 
     pageid: [],
 
@@ -29,6 +30,12 @@ const houses = (state = initialState, action) => {
         return {
             ...state,
             postinfo: action.payload.data.token,
+        }
+    }
+    if(action.type === 'SET_USER_INFO'){
+        return {
+            ...state,
+            userinfo: action.payload,
         }
     }
     if(action.type === 'SET_COMPLETED_PROJECTS'){

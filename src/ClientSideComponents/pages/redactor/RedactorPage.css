@@ -11,7 +11,7 @@
 }
 
 .redactor-description p{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -43,7 +43,7 @@
 
 .redactor-description-header{
     clip-path: polygon(11% 0, 89% 0, 100% 100%, 0% 100%);
-    margin-top: -540px;
+    margin-top: -510px;
     margin-left: 200px;
     background-color: #FFFFFF;
     position: absolute;
@@ -57,7 +57,7 @@
 }
 
 .redactor-description-header h1{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;

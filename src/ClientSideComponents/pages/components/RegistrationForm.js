@@ -1,5 +1,9 @@
 import React from 'react';
 import {Form, Input, Button} from 'antd';
+import axios from "axios";
+
+import {setUserInfo} from "../../redux/actions/houses";
+import {useDispatch} from "react-redux";
 
 import './RegistrationForm.css';
 
@@ -35,11 +39,23 @@ const tailFormItemLayout = {
     },
 };
 
+
 const RegistrationForm = () => {
     const [form] = Form.useForm();
+    const dispatch = useDispatch()
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+
+        axios
+            .post(
+                'http://127.0.0.1:5000/register',
+                { login: values.email, password: values.password },
+                { headers: { 'Content-Type': 'application/json' } }
+            )
+            .then(({ data }) => {
+                dispatch(setUserInfo(data))
+            })
     };
 
     return (

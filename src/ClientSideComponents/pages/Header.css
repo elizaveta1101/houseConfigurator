@@ -25,7 +25,7 @@
 .header-wrapper ul li {
     height: 38px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -38,7 +38,7 @@
 
 .header-wrapper ul li a {
     text-decoration: none;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -169,7 +169,7 @@
     cursor: pointer;
     margin-top: 20px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -224,7 +224,7 @@
     width: 121px;
     height: 126px;
     margin-top: 45px;
-    margin-left: 455px;
+    margin-left: 410px;
 
     z-index: 222;
     padding: 18px 24px;
@@ -239,7 +239,7 @@
 }
 
 .info-popup__points p {
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -276,7 +276,7 @@
 }
 
 .cab-popup__points p {
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;

@@ -40,7 +40,12 @@
     font-size: 16px;
     line-height: 24px;
 
+    width: max-content;
     color: #444444;
+}
+
+.back-to-site a{
+    text-decoration: none;
 }
 
 .choose-floor{

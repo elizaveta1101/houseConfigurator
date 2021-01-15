@@ -19,6 +19,11 @@ export const setPostInfo = (postinfo) => ({
     payload: postinfo,
 });
 
+export const setUserInfo = (userinfo) => ({
+    type: 'SET_USER_INFO',
+    payload: userinfo,
+});
+
 export const setPostCost = (costinfo) => ({
     type: 'SET_POST_COST',
     payload: costinfo,

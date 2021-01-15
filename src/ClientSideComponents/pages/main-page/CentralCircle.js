@@ -8,6 +8,9 @@ import CentralButton from './CentralBtn'
 import GifVideo from '../../../assets/video/main-gif.gif'
 
 import './CentralCircle.css'
+import axios from "axios";
+import { setUserInfo } from "../../redux/actions/houses";
+import {useDispatch, useSelector} from "react-redux";
 
 
 function CentralCircle() {
@@ -90,6 +93,7 @@ function CentralCircle() {
       document.body.addEventListener('click', closeFormRegistr)
     }, 500)
   }, [])
+
 
   return (
     <>
@@ -629,7 +633,6 @@ function CentralCircle() {
           <div className="right-text-block__item third-right-text">
             <h1>13</h1>
             <p>
-              {' '}
               Ответственных <br />
               подрядчиков - партнеров
             </p>

@@ -37,7 +37,7 @@
 
 .footer-wrapper h1{
     margin-top: 10px;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -50,7 +50,7 @@
 .footer-wrapper h1 a{
     text-decoration: none;
     margin-top: 10px;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -142,7 +142,7 @@
     align-items: center;
 
     border: 1px solid #325FFF;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -217,7 +217,7 @@
 
     .footer-wrapper-768 h1{
         margin-top: 16px;
-        font-family: Open Sans;
+        font-family: Open Sans Light;
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
@@ -274,7 +274,7 @@
         align-items: center;
 
         border: 1px solid #325FFF;
-        font-family: Open Sans;
+        font-family: Open Sans Light;
         font-style: normal;
         font-weight: 600;
         font-size: 14px;

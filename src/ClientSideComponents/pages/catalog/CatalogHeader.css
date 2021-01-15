@@ -113,7 +113,7 @@
 .choose-catalog h1{
     margin-left: 22px;
     margin-top: 85px;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 13px;
@@ -137,7 +137,7 @@
 }
 
 .project-value p{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 13px;
@@ -155,7 +155,7 @@
 }
 
 .house-area p{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 13px;
@@ -166,13 +166,14 @@
 
 .floors{
     margin-left: 20px;
-    margin-top: 85px;
+    margin-top: 81px;
     width: 250px;
     display: flex;
     flex-direction: column;
 }
 .floors h1{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
+    margin-bottom: 4px;
     font-style: normal;
     font-weight: 600;
     font-size: 13px;
@@ -354,7 +355,7 @@
 }
 
 .more-parameters p{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;

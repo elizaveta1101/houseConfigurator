@@ -12,7 +12,9 @@
     flex-direction: column;
     align-items: center;
 }
-.display-wrapper{
+
+.house-project-page-wrapper a {
+    text-decoration: none;
 }
 
 .house-project-page__info{
@@ -41,7 +43,7 @@
     align-self: center;
     width: 236px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -63,7 +65,7 @@
     height: max-content;
 }
 
-.house-project-page__right-block{
+.house-project-page__right-block {
     display: flex;
     flex-direction: column;
     width: 460px;
@@ -71,9 +73,8 @@
 }
 
 
-.house-project-page__info-header{
+.house-project-page__info-header {
     position: absolute;
-    z-index: -1;
 
     background-color: white;
 
@@ -93,11 +94,12 @@
 }
 
 .house-project-page__info h1{
+    z-index: 22;
     margin-top: -40px;
     align-self: center;
     width: 236px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -143,7 +145,7 @@
 }
 
 .info-params p{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -189,7 +191,7 @@
 
 
 .condition_of_terms h1{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -237,7 +239,7 @@
 
 .house-project-page__pre-btn-text h2{
     margin-top: 87px;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -286,7 +288,7 @@
     word-wrap: break-word;
 
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -317,7 +319,7 @@
 }
 
 .house-card__checkout-price p{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -329,7 +331,7 @@
 
 .house-card__checkout-price span{
     margin-right: 16px;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -353,7 +355,7 @@
 .relis-date p{
     margin-top: 25px;
     margin-left: 89px;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -395,7 +397,7 @@
 }
 
 .project-desription h1{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -441,7 +443,7 @@
 }
 
 .project-desription__placeholder h1{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -491,7 +493,7 @@
 }
 .completed-page__ifrostructure h1{
     margin-bottom: 20px;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;

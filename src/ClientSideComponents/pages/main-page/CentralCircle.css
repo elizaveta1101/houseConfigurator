@@ -464,7 +464,7 @@
     margin-top: -16px;
 }
 .main-menu-popup ul li{
-    font-family: Angry;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -477,7 +477,7 @@
 }
 .main-menu-popup ul li a{
     text-decoration: none;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -718,7 +718,7 @@
     margin-top: -65px;
     margin-left: 90px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
@@ -733,7 +733,7 @@
     margin-left: 90px;
 
     position: absolute;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -789,7 +789,7 @@
     margin-top: -70px;
     margin-left: 90px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
@@ -802,7 +802,7 @@
     margin-top: -55px;
     margin-left: 90px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -985,7 +985,7 @@
     margin-top: -70px;
     margin-left: 20px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1003,7 +1003,7 @@
     margin-top: -50px;
     margin-left: 40px;
 
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 32px;
@@ -1043,12 +1043,9 @@
 
 
 .left-text-block{
-    margin-left: -500px;
-    margin-top: -100px;
     position: absolute;
     display: flex;
     flex-direction: column;
-    z-index: -1;
 }
 @keyframes main-text {
     from {margin-left: -1500px; opacity: 0}
@@ -1069,7 +1066,7 @@
 }
 .left-text-block p{
     width: 206px;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1128,7 +1125,7 @@
     -moz-uzer-select:none;
     -ms-user-select: none;
     user-select: none;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     margin-left: -390px;
     font-style: normal;
     font-weight: 600;
