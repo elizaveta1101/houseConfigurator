@@ -20,8 +20,9 @@ const ProfilePage: React.FC = () => {
   const { logout } = useContext(AuthContext)
   const { setItem } = useStore()
   const [isOpenPopup, setIsOpenPopup] = useState(false)
-  const accesSubStatus = userData.rights === 1023 ? '(Главный администратор)' : '(Администратор)'
-  const accesStatus = userData.rights === 1023 ? 'Полный доступ' : 'Частичный доступ'
+  const accesSubStatus =
+    userData && userData.rights === 1023 ? '(Главный администратор)' : '(Администратор)'
+  const accesStatus = userData && userData.rights === 1023 ? 'Полный доступ' : 'Частичный доступ'
 
   const popupHandler = () => {
     setIsOpenPopup(!isOpenPopup)
@@ -33,7 +34,7 @@ const ProfilePage: React.FC = () => {
   }
 
   useEffect(() => {
-    setItem(ActionTypes.RIGHTS_CODE, userData.rights)
+    userData && setItem(ActionTypes.RIGHTS_CODE, userData.rights)
   }, [userData])
 
   return (

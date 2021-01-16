@@ -14,7 +14,7 @@ interface IAccessFormProps {
 
 const AccessForm: React.FC<IAccessFormProps> = ({ disabled = true }) => {
   const { setItem, getItem } = useStore()
-  const prevCode = getItem(ActionTypes.RIGHTS_CODE)
+  const prevCode = getItem(ActionTypes.RIGHTS_CODE) || 0
   const [updatedData, setUpdatedData] = useState(data)
 
   const onChange = (e: any) => {
