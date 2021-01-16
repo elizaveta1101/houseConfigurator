@@ -64,7 +64,7 @@ const App: React.FC = ({}) => {
           <Alert />
           <Header />
           <div className="control-panel__content">
-            <Menu modifier={'control-panel__menu_content'} isOpen={isAuth} />
+            <Menu modifier={'control-panel__menu_content'} isOpen={!isAuth} />
             {routes}
           </div>
         </div>
