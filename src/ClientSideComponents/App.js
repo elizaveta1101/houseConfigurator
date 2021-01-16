@@ -104,6 +104,8 @@ function App() {
         {shouldShowHeader && shouldShowRedactorHeader && <Header />}
         {!shouldShowRedactorHeader && <RedactorHeader />}
 
+
+        <div className="main">
         <div className="main-wrapper">
           <Route exact path="/" component={MainPage} />
         </div>
@@ -126,7 +128,7 @@ function App() {
 
         <Route exact path="/constructor" component={Constructor} />
 
-        <main role="main" />
+        </div>
 
         {shouldShowFooter && shouldShowRedactorFooter && <Footer />}
       </div>

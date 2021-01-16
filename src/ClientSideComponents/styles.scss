@@ -16,6 +16,13 @@
   height: 100%;
 }
 
+.main{
+  width: 100vw;
+  min-height:calc(100vh - 400px);
+  justify-self: flex-end;
+}
+
+
 .wrapper {
   display: flex;
   width: 100%;
