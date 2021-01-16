@@ -6,8 +6,7 @@
     flex-direction: row;
     margin-right: 21px;
     justify-content: center;
-
-    clip-path: polygon(0 0, 90% 0, 100% 19%, 100% 81%, 90% 100%, 0 100%);
+    z-index: 22;
 }
 
 .redactor-description p{
@@ -16,6 +15,8 @@
     font-weight: normal;
     font-size: 16px;
     line-height: 160%;
+    width: 800px;
+    margin-left: -50px;
 
     letter-spacing: 0.03em;
 
@@ -69,6 +70,26 @@
     color: #444444;
 }
 
+.redactor-description__triangle1{
+    position: absolute;
+    border: 50px solid transparent;
+    border-top: 50px solid #f4f4f4;
+    border-right: 50px solid #f4f4f4;
+
+    margin-left: 840px;
+    margin-top: -50px;
+}
+.redactor-description__triangle2{
+    position: absolute;
+
+    border: 50px solid transparent;
+    border-right: 50px solid #f4f4f4;
+    border-bottom: 50px solid #f4f4f4;
+
+    margin-left: 840px;
+    margin-top:340px;
+}
+
 
 
 @media (max-width: 1470px){
@@ -80,16 +101,73 @@
         width: 600px;
 
     }
+    .redactor-description p{
+        font-family: Open Sans Light;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 160%;
+        width: 550px;
+
+        letter-spacing: 0.03em;
+
+        color: #000000;
+    }
+
+
+    .redactor-description-header{
+        margin-top: -700px;
+        margin-left: 70px;
+    }
+    .redactor-pre-btn-circle{
+        margin-left: 670px;
+    }
+
+    .redactor-description__triangle1{
+        display: none;
+    }
+    .redactor-description__triangle2{
+        display: none;
+    }
 }
-@media (max-width: 1168px){
+@media (max-width: 1300px){
+    .redactor-description p{
+        font-family: Open Sans Light;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 160%;
+        width: 550px;
+        margin-left: 30px;
+
+        letter-spacing: 0.03em;
+
+        color: #000000;
+    }
     .redactor-wrapper{
         flex-direction: column;
         justify-self: center;
         align-self: center;
+
+    }
+    .redactor-description-header{
+        margin-top: -700px;
+        margin-left: -20px;
+    }
+    .redactor-description{
+        background-color: #FFFFFF;
+        width: 560px;
+        padding: 40px;
+        display: flex;
+        flex-direction: row;
+        margin-right: 21px;
+        justify-content: center;
     }
     .redactor-description-header{
         margin-top: -60px;
-        margin-left: 10px;
+    }
+    .redactor-pre-btn-circle{
+       display: none;
     }
 }
 
