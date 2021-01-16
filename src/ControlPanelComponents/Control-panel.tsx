@@ -21,7 +21,7 @@ const App: React.FC = ({}) => {
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false)
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
   const [activeLink, setActiveLink] = useState(currentPage)
-  const routes = useRoutes(isAuth)
+  const routes = useRoutes(!isAuth)
 
   const headerHandler = (e: React.SyntheticEvent<HTMLElement>) => {
     hideAll()

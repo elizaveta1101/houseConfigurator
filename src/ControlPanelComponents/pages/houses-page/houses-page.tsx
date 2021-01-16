@@ -38,7 +38,7 @@ const HousesPage: React.FC = () => {
     setMainImage(fileList)
   }
 
-  const createHandelr = () => {
+  const createHandler = () => {
     setIsDisableButton(false)
     setMode('create')
   }
@@ -76,7 +76,7 @@ const HousesPage: React.FC = () => {
           setHouse(data)
         } else setItem(ActionTypes.ALERT, alertData.noSearch)
       })
-      .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+      .catch(() => setItem(ActionTypes.ALERT, alertData.error))
   }
 
   useEffect(() => {
@@ -102,7 +102,7 @@ const HousesPage: React.FC = () => {
               setIsSend(false)
             }
           })
-          .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+          .catch(() => setItem(ActionTypes.ALERT, alertData.error))
       } else if (mode === 'edite' && currHouse) {
         currHouse['author_id'] = userId
         currHouse['conditions'] = null
@@ -121,7 +121,7 @@ const HousesPage: React.FC = () => {
               setIsSend(false)
             } else setIsSend(false)
           })
-          .catch((e) => {
+          .catch(() => {
             setItem(ActionTypes.ALERT, alertData.error)
             setIsSend(false)
           })
@@ -143,7 +143,7 @@ const HousesPage: React.FC = () => {
               setMode('disable')
             }
           })
-          .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+          .catch(() => setItem(ActionTypes.ALERT, alertData.error))
       }
     }
   }, [mode, isSend, currHouse])
@@ -152,7 +152,7 @@ const HousesPage: React.FC = () => {
     const url = '/api/styles'
     request(url)
       .then(({ data, success }) => success && setItem(ActionTypes.HOUSE_STYLES, data))
-      .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+      .catch(() => setItem(ActionTypes.ALERT, alertData.error))
   }, [])
 
   return (
@@ -161,7 +161,7 @@ const HousesPage: React.FC = () => {
         <h3 className="houses-page__subtitle">Создание нового дома</h3>
       ) : (
         <>
-          <Button text={'Создать новый дом'} clickHandler={createHandelr} />
+          <Button text={'Создать новый дом'} clickHandler={createHandler} />
           <h3 className="houses-page__subtitle">Поиск проекта по id</h3>
           <Input.Search
             placeholder="Id проекта"
@@ -186,7 +186,7 @@ const HousesPage: React.FC = () => {
           uploadHandler={mainImagesHandler}
         />
 
-        <h4 className="houses-page__subtitle">Дополнительные изабражения</h4>
+        <h4 className="houses-page__subtitle">Дополнительные изображения</h4>
         <Upload disabled={mode === 'disable'} data={imagesData} uploadHandler={imagesHandler} />
       </div>
 

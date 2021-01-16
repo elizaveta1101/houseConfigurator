@@ -33,7 +33,7 @@ const Header: React.FC = () => {
 
         <div
           className={cx('header__side-wrapper', {
-            'header__side-wrapper_hide': !isAuth,
+            'header__side-wrapper_hide': isAuth,
           })}
         >
           <div className="header__auth-icon" data-element={HeaderPayloads.authButton}>

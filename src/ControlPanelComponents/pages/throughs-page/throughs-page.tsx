@@ -28,7 +28,10 @@ const ThroughsPage: React.FC = () => {
   const { userData } = useContext(AppContext)
   const { request, loading } = useHttp()
   const { setItem } = useStore()
-  const [inputState, setInputState] = useState<InputState>({})
+  const [inputState, setInputState] = useState<InputState>({
+    phone: '',
+    email: '',
+  })
   const [isOpenPopup, setIsOpenPopup] = useState(false)
 
   const { phone, email, socials } = inputState
@@ -68,8 +71,10 @@ const ThroughsPage: React.FC = () => {
   }
 
   useEffect(() => {
-    const { phone, email, socials } = userData
-    setInputState({ phone, email, socials })
+    if (userData) {
+      const { phone, email, socials } = userData
+      setInputState({ phone, email, socials })
+    }
   }, [userData])
 
   return (
@@ -83,7 +88,7 @@ const ThroughsPage: React.FC = () => {
           label="Адрес электронной почты"
           rules={[{ type: 'email' }]}
         >
-          <Input name="email" value={email} onChange={onChangeInput} />
+          <Input name="email" value={email} placeholder="Почта" onChange={onChangeInput} />
         </Form.Item>
         <Form.Item label="Ссылки на соцети">
           {socialInputsData.map(({ id, name, icon }, index) => (
