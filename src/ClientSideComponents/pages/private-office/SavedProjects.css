@@ -5,7 +5,7 @@
     justify-self: flex-start;
     align-self: flex-start;
 }
-.saved-projects h1{
+.saved-projects-header{
     font-family: Open Sans;
     font-style: normal;
     font-weight: bold;

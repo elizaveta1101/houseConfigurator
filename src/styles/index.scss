@@ -19,3 +19,10 @@ button {
   cursor: pointer;
   outline: none;
 }
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}

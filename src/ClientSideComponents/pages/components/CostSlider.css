@@ -1,6 +1,7 @@
 .slider-input{
     width: 191px;
     margin-left: -3px;
+    margin-bottom: -2px;
     height: 40px;
     outline: none;
     display: flex;
@@ -44,7 +45,7 @@
 }
 
 .cost-slider{
-    margin-top: -15px;
+    margin-top: -30px;
 }
 
 .input[type="value"]{

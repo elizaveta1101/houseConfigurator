@@ -246,6 +246,17 @@
 }
 
 
+@media (max-width: 1440px) {
+    .completed-circle{
+        width: 519px;
+        height: 519px;
+
+        margin-top: -760px;
+        margin-left: -1080px;
+    }
+}
+
+
 
 
 

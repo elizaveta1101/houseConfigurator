@@ -10,7 +10,7 @@ function SavedProjects() {
     return (
         <div className="house-project-page-wrapper">
             <div className="saved-projects">
-                <h1>Сохранённые проекты</h1>
+                <h1 className="saved-projects-header">Сохранённые проекты</h1>
                 <div className="saved-projects-line">
                     <SavedCard />
                     <SavedCard />
