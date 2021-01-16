@@ -1,0 +1,46 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+}
+@media tablet {
+  body {
+    font-size: 16px;
+  }
+}
+.field {
+  margin-top: 15px;
+  max-width: 200px;
+}
+.field .select,
+.field .text {
+  width: 150px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.label {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .label {
+    font-size: 14px;
+  }
+}
+input[type='radio'],
+input[type='checkbox'] {
+  margin-right: 5px;
+}
+input[type='radio']:focus,
+input[type='checkbox']:focus {
+  outline: none;
+}
+button {
+  padding: 3px 10px;
+  margin: 10px 0 0;
+}
+hr {
+  width: 100%;
+}

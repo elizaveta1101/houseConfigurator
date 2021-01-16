@@ -1,111 +1,21 @@
 @import './mixins.scss';
 
 * {
-  box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-body {
-  background-color: $bodyColor;
-  color: $textColor;
-  font-family: 'OpenSans', sans-serif;
-  line-height: normal;
-}
-
-h1 {
-  margin: 0;
-  color: $textColor !important;
-  font-size: 2.25rem;
-}
-
-h2 {
-  margin: 0;
-  color: $textColor !important;
-  font-size: 1.5rem;
-}
-
-h3 {
-  margin: 0;
-  color: $textColor !important;
-  font-size: 1.125rem;
-}
-
-h4 {
-  margin: 0;
-  color: $textColor !important;
-  font-size: 0.875rem;
-}
-
+h1,
+h2,
+h3,
+h4,
 p {
   margin: 0;
-}
-
-li {
-  list-style: none;
 }
 
 button {
   border: none;
   background-color: transparent;
   cursor: pointer;
-  font-family: 'OpenSans', sans-serif;
   outline: none;
-}
-
-a {
-  color: $textColor;
-  cursor: pointer;
-  transition: 0.2s;
-
-  &:hover {
-    color: $blueAccent;
-  }
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  vertical-align: initial;
-}
-
-.app {
-  position: relative;
-  min-height: 100vh;
-  font-size: 0.875rem;
-}
-
-.content {
-  padding-top: 5rem;
-
-  @include wrapper();
-  @include flex-element(_, space-between);
-}
-
-.menu_content {
-  @include adaptive(tablet) {
-    display: none;
-  }
-}
-
-.ant-input,
-.ant-input-password,
-.ant-input-affix-wrapper {
-  color: $formsTextColor;
-
-  &:hover,
-  &:focus {
-    border-color: $blueAccent;
-  }
-}
-
-.ant-input-search-button {
-  border-color: $blueAccent;
-  background: $blueAccent;
-}
-
-.ant-table-pagination,
-.ant-pagination-options {
-  display: none;
 }

@@ -1,0 +1,32 @@
+.list {
+    /* grid-column-start: interview;
+    grid-column-end: interactive;
+    grid-row: materialList; */
+    grid-area: materialList;
+    position: relative;
+    background-color: #fff;
+    z-index: 5;
+    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.75);
+    display: grid;
+    grid-template-areas:
+    "prev card1 card2 card3 next";
+    grid-template-columns: 30px repeat(3, 1fr) 30px;
+    grid-template-rows: 130px;
+    grid-column-gap: 10px;
+    align-content: center;
+    padding: 0px 30px;
+    width: 90vw;
+    margin-left: 547px;
+    height: 259px;
+    margin-top: -100px;
+  }
+  @media (min-width: 768px) {
+    .list {
+      grid-area: materialList;
+    }
+  }
+
+.matlist{
+    position: absolute;
+    margin-top: 78vh;
+}

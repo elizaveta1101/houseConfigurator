@@ -1,0 +1,346 @@
+
+.white-checkout-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+
+    clip-path: polygon(10% 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 0% 50%);
+
+
+    padding: 5px;
+
+    width: 177px;
+    height: 36px;
+
+    margin-left: -20px;
+
+    outline: none;
+    border: none;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+
+    cursor: pointer;
+
+    color: #444444;
+}
+.white-checkout-btn:hover{
+    color: #325FFF;
+}
+
+.blue-checkout-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #325FFF;
+
+    padding: 5px;
+
+    width: 177px;
+    height: 36px;
+
+    clip-path: polygon(7% 0, 100% 0, 100% 65%, 93% 100%, 0 100%, 0% 35%);
+
+    outline: none;
+    border: none;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+
+    cursor: pointer;
+
+    color: white;
+}
+.blue-checkout-btn:hover{
+    color: #fff;
+}
+
+.house-page__open-project-btn{
+    margin-top: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #325FFF;
+
+
+    clip-path: polygon(3% 0, 97% 0, 100% 22%, 100% 78%, 97% 100%, 3% 100%, 0 76%, 0% 22%);
+    padding: 5px;
+
+    width: 460px;
+    height: 64px;
+
+    outline: none;
+    border: none;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+
+    cursor: pointer;
+
+    color: white;
+}
+.redactor-page-btn{
+    margin-top: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #325FFF;
+
+
+    clip-path: polygon(3% 0, 97% 0, 100% 22%, 100% 78%, 97% 100%, 3% 100%, 0 76%, 0% 22%);
+    padding: 5px;
+
+    width: 460px;
+    height: 64px;
+
+    outline: none;
+    border: none;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+
+    cursor: pointer;
+
+    color: white;
+}
+
+.open-redactor-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #325FFF;
+
+    clip-path: polygon(7% 0, 100% 0, 100% 55%, 93% 100%, 0 100%, 0% 45%);
+
+    padding: 5px;
+
+    margin-top: 7px;
+    width: 220px;
+    height: 36px;
+
+    outline: none;
+    border: none;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+
+    cursor: pointer;
+
+    color: white;
+}
+
+.house-card__checkout-btn{
+    background-color: transparent;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+
+    border: #325FFF solid 1px;
+
+    width: 300px;
+    height: 48px;
+    margin-left: 40px;
+    margin-top: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+
+
+    color: #325FFF;
+}
+.house-card__checkout-btn:hover{
+    background-color: #325FFF;
+
+    color: #FFFFFF;
+}
+
+.lk-btn{
+    width: 220px;
+    height: 40px;
+
+
+
+    background-color: transparent;
+    border: 1px solid #325FFF;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    cursor: pointer;
+    margin-top: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    color: #325FFF;
+}
+.lk-btn:hover{
+    background-color: #325FFF;
+    color: white;
+}
+
+.saved-projects-card-1{
+    width: 160px;
+    height: 36px;
+    border: 1px solid #325FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8px;
+
+    background-color: #FFFFFF;
+    cursor: pointer;
+    outline: none;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #325FFF;
+}
+
+.saved-projects-card-2{
+    clip-path: polygon(8% 0, 100% 0, 100% 66%, 100% 100%, 0 100%, 0 50%);
+
+    width: 200px;
+    height: 36px;
+    border: 1px solid #325FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8px;
+
+    background-color: #325FFF;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+
+    cursor: pointer;
+    outline: none;
+
+    color: white;
+}
+.look-all-saved-btn{
+    margin-top: 30px;
+
+    width: 340px;
+    height: 44px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #FFFFFF;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+
+    border: 1px solid #325FFF;
+    outline: none;
+    cursor: pointer;
+
+
+    color: #325FFF;
+}
+.look-all-saved-btn:hover{
+    background-color: #325FFF;
+    color: #FFFFFF;
+}
+
+.map-btn{
+    display: none;
+    background-color: transparent;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+
+    border: #325FFF solid 1px;
+
+    width: 220px;
+    height: 48px;
+    margin-left: 40px;
+    margin-top: 18px;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+
+
+    color: #325FFF;
+}
+.map-btn:hover{
+    background-color: #325FFF;
+    color: #FFFFFF;
+}
+
+@media (max-width: 1168px){
+    .house-page__open-project-btn{
+        clip-path: polygon(13% 0, 87% 0, 100% 22%, 100% 78%, 87% 100%, 13% 100%, 0 76%, 0% 22%);
+        width: 170px;
+        height: 100px;
+    }
+    .house-card__checkout-btn{
+        margin-top: 40px;
+    }
+    .map-btn{
+        display: flex;
+    }
+}
