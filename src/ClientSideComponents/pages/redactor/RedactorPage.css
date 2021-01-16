@@ -71,14 +71,14 @@
 
 
 
-@media (max-width: 1818px){
+@media (max-width: 1470px){
     .redactor-description-header{
         margin-top: -720px;
-        margin-left: 150px;
+
     }
     .redactor-description{
         width: 600px;
-        margin-left: 100px;
+
     }
 }
 @media (max-width: 1168px){
@@ -86,7 +86,6 @@
         flex-direction: column;
         justify-self: center;
         align-self: center;
-        margin-left: -100px;
     }
     .redactor-description-header{
         margin-top: -60px;

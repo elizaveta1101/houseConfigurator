@@ -5,7 +5,6 @@ import CheckoutButton from "../components/CheckoutButton";
 
 import './HouseProjectPage.css';
 
-
 function InvestorsHousePage() {
     return (
         <div className="house-project-page-wrapper">
