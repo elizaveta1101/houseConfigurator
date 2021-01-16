@@ -171,3 +171,31 @@
 }
 
 
+@media (max-width: 1470px){
+    .house-page__open-project-btn-block{
+        margin-left: -80px;
+    }
+    .private-cab-info{
+        width: 660px;
+        margin-right: 20px;
+        background-color: #FFFFFF;
+        padding: 40px;
+    }
+    .lk-btns__right{
+        margin-left: -110px;
+        width: 310px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+}
+
+@media (max-width: 1300px){
+    .house-page__open-project-btn-block{
+        position: absolute;
+        margin-left: 283px;
+        margin-top: 260px;
+    }
+}
+
+

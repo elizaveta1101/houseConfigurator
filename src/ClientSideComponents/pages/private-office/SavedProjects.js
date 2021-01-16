@@ -16,9 +16,9 @@ function SavedProjects() {
                     <SavedCard />
                     <SavedCard />
                 </div>
-            </div>
-            <div className="look-all-saved-btn-box">
-                <CheckoutButton className="look-all-saved-btn" children={'Посмотреть все сохраненные проекты'} active={true}/>
+                <div className="look-all-saved-btn-box">
+                    <CheckoutButton className="look-all-saved-btn" children={'Посмотреть все сохраненные проекты'} active={true}/>
+                </div>
             </div>
         </div>
     );

@@ -12,4 +12,19 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 1820px;
+
+    justify-content: center;
+
+}
+
+@media (max-width: 1818px){
+    .favorite-catalog {
+        width: 1600px;
+    }
+}
+
+@media (max-width: 1168px){
+    .favorite-catalog {
+        width: 1100px;
+    }
 }

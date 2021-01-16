@@ -335,7 +335,7 @@
     color: #FFFFFF;
 }
 
-@media (max-width: 1168px){
+@media (max-width: 1300px){
     .house-page__open-project-btn{
         clip-path: polygon(13% 0, 87% 0, 100% 22%, 100% 78%, 87% 100%, 13% 100%, 0 76%, 0% 22%);
         width: 170px;

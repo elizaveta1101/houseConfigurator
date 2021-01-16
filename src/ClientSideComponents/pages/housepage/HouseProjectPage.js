@@ -70,7 +70,9 @@ class HouseProjectPage extends Component{
                     </div>
                 </div>
                     <div className="house-project-page__pre-btn-text">
-                        <p>id проекта:<span>{house && house.id}</span></p>
+                        <div className="project-page-id">
+                            <p>id проекта:<span>{house && house.id}</span></p>
+                        </div>
                         <h2>Вы можете настроить данный проект для себя</h2>
                         <ul>
                             <li>моментальный расчет стоимости</li>

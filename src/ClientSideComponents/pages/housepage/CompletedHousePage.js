@@ -22,9 +22,9 @@ function CompletedHousePage() {
                     <HousePageSlider />
                 </div>
                 <div className="house-project-page__right-block">
-                    <div className="house-project-page__info">
-                        <div className="house-project-page__info-header" />
-                        <div className="house-project-page__info-header__small" />
+                    <div className="house-page__info">
+                        <div className="house-page__info-header" />
+                        <div className="house-page__info-header__small" />
                         <h1>Дом из кирпича “Дельпаче”</h1>
                         <div className="house-project-page__info-params">
                             <div className="info-params">
@@ -58,7 +58,9 @@ function CompletedHousePage() {
                         </div>
                     </div>
                     <div className="house-project-page__pre-btn-text">
-                        <p>id проекта:<span> 00000002</span></p>
+                        <div className="house-page-id">
+                            <p>id проекта:<span> 00000002</span></p>
+                        </div>
                         <h2>Стоимость дома</h2>
                         <h1>4 490 000 ₽</h1>
                         <CheckoutButton className="house-page__open-project-btn" children={'Оформить заказ'} active={true}/>

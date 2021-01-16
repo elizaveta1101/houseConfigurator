@@ -1,6 +1,8 @@
 .favorites{
-    align-self: flex-start;
-    justify-self: flex-start;
+    align-self: center;
+    justify-self: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     margin-top: 40px;
     display: flex;
     flex-direction: column;
@@ -35,4 +37,30 @@
 }
 .look-all-favorites-btn-box a{
     text-decoration: none;
+}
+
+@media (max-width: 1470px){
+    .favorites-cards{
+        margin-left: -20px;
+        margin-top: -64px;
+        display: flex;
+        flex-direction: row;
+        width: 1220px;
+        flex-wrap: wrap;
+        justify-self: center;
+        align-self: center;
+    }
+}
+
+@media (max-width: 1300px){
+    .favorites-cards{
+        margin-left: -20px;
+        margin-top: -64px;
+        display: flex;
+        flex-direction: row;
+        width: 800px;
+        flex-wrap: wrap;
+        justify-self: center;
+        align-self: center;
+    }
 }

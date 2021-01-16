@@ -46,9 +46,9 @@ function Favorites() {
                         addedInvestHouses.map(obj => <InvestorsCard {...obj} />)
                     }
                 </div>
-            </div>
-            <div className="look-all-favorites-btn-box">
-                <Link to="/saved_projects"><CheckoutButton className="look-all-saved-btn" children={'Посмотреть все избранное'} active={true}/></Link>
+                <div className="look-all-favorites-btn-box">
+                    <Link to="/saved_projects"><CheckoutButton className="look-all-saved-btn" children={'Посмотреть все избранное'} active={true}/></Link>
+                </div>
             </div>
         </div>
     );
