@@ -15,13 +15,7 @@ function StageHeading(props) {
 
     return (
         <h3 className={classes.heading}>
-            <Checkbox
-                className="checkbox"
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
+
             {props.value}
         </h3>
     );
