@@ -12,7 +12,7 @@
     padding: 5px;
 
     width: 177px;
-    height: 36px;
+    height: 26px;
 
     margin-left: -20px;
 
@@ -44,7 +44,7 @@
     padding: 5px;
 
     width: 177px;
-    height: 36px;
+    height: 26px;
 
     clip-path: polygon(7% 0, 100% 0, 100% 65%, 93% 100%, 0 100%, 0% 35%);
 
@@ -136,7 +136,7 @@
 
     margin-top: 7px;
     width: 220px;
-    height: 36px;
+    height: 26px;
 
     outline: none;
     border: none;
@@ -219,8 +219,8 @@
 }
 
 .saved-projects-card-1{
-    width: 160px;
-    height: 36px;
+    width: 140px;
+    height: 16px;
     border: 1px solid #325FFF;
     display: flex;
     justify-content: center;
@@ -243,12 +243,16 @@
 
     color: #325FFF;
 }
+.saved-projects-card-1:hover{
+    background-color: #325FFF;
+    color: white;
+}
 
 .saved-projects-card-2{
     clip-path: polygon(8% 0, 100% 0, 100% 66%, 100% 100%, 0 100%, 0 50%);
 
-    width: 200px;
-    height: 36px;
+    width: 180px;
+    height: 20px;
     border: 1px solid #325FFF;
     display: flex;
     justify-content: center;
@@ -331,7 +335,7 @@
     color: #FFFFFF;
 }
 
-@media (max-width: 1168px){
+@media (max-width: 1300px){
     .house-page__open-project-btn{
         clip-path: polygon(13% 0, 87% 0, 100% 22%, 100% 78%, 87% 100%, 13% 100%, 0 76%, 0% 22%);
         width: 170px;

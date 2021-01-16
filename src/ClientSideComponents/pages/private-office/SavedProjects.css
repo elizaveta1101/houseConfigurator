@@ -5,7 +5,7 @@
     justify-self: flex-start;
     align-self: flex-start;
 }
-.saved-projects h1{
+.saved-projects-header{
     font-family: Open Sans;
     font-style: normal;
     font-weight: bold;
@@ -22,4 +22,57 @@
 .look-all-saved-btn-box{
     align-self: flex-start;
     margin-top: 36px;
+}
+
+
+@media (max-width: 1470px){
+    .saved-projects-line{
+        justify-content: flex-start;
+        display: flex;
+        flex-direction: row;
+        margin-left: -20px;
+        flex-wrap: wrap;
+        width: 1200px;
+    }
+    .saved-projects{
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        align-self: center;
+        width: 1200px;
+    }
+    .look-all-saved-btn-box{
+        align-self: flex-start;
+        margin-top: 36px;
+    }
+    .house-project-page-wrapper{
+        width: 1182px;
+    }
+}
+
+@media (max-width: 1300px){
+    .saved-projects-line{
+        justify-content: flex-start;
+        display: flex;
+        flex-direction: row;
+        margin-left: -20px;
+        flex-wrap: wrap;
+        width: 800px;
+    }
+    .saved-projects{
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        align-self: center;
+        width: 800px;
+    }
+    .look-all-saved-btn-box{
+        align-self: flex-start;
+        margin-top: 36px;
+    }
+    .house-project-page-wrapper{
+        width: 700px;
+    }
 }

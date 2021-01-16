@@ -19,8 +19,6 @@ function CatalogInvestors() {
     const dispatch = useDispatch();
     const investorshouses = useSelector(({houses}) => houses.investorshouses);
     const posts = useSelector(({houses}) => houses.postinfo)
-    const maxcost = useSelector(({filters}) => filters.sortByCost)
-    const maxsquare = useSelector(({filters}) => filters.sortBySquare)
 
     const handleAddHouseToCart = (obj) => {
         dispatch(addInvestorsHouseToCart(obj))

@@ -23,8 +23,8 @@ function InvestorsHousePage() {
                 </div>
                 <div className="house-project-page__right-block">
                     <div className="investors-house-project-page__info">
-                        <div className="house-project-page__info-header" />
-                        <div className="house-project-page__info-header__small" />
+                        <div className="invest-page__info-header" />
+                        <div className="invest-page__info-header__small" />
                         <h1>Дом из кирпича “Дельпаче”</h1>
                         <div className="house-project-page__info-params">
                             <div className="info-params">
