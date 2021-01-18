@@ -1,4 +1,5 @@
 import houseTextures from '../assets/Textures/houseTextures.js';
+import houseModels from '../assets/Models/houseModels.js';
 const stages = [
     {
         id: 0,
@@ -42,39 +43,7 @@ const stages = [
                 show: true,
                 depended: {}
             },
-            // {
-            //     label: 'Подвал',
-            //     type: 'checkbox',
-            //     fieldId: 'basementCellar',
-            //     options: ['Добавить подвал в доме'],
-            //     value: '-1',
-            //     show: true,
-            //     depended: {}
-            // },
-            // {
-            //     label: 'Высота потолков',
-            //     type: 'text',
-            //     fieldId: 'basementCellarHeight',
-            //     options: [],
-            //     value: '',
-            //     show: false,
-            //     depended: {
-            //         fieldId: 'basementCellar',
-            //         value: 'Добавить подвал в доме'
-            //     }
-            // },
-            // {
-            //     label: '',
-            //     type: 'checkbox',
-            //     fieldId: 'basementCellarIsolated',
-            //     options: ['Изолированный?'],
-            //     value: '-1',
-            //     show: false,
-            //     depended: {
-            //         fieldId: 'basementCellar',
-            //         value: 'Добавить подвал в доме'
-            //     }
-            // },
+            
             // {
             //     label: 'Гараж',
             //     type: 'checkbox',
@@ -127,7 +96,7 @@ const stages = [
             },
             {
                 label: 'Внешняя отделка стен',
-                type: 'radio',
+                type: 'select',
                 fieldId: 'outerWallsMaterial',
                 options: houseTextures.outerWalls, 
                 value: 0, 
@@ -140,7 +109,7 @@ const stages = [
         id: 2,
         name: 'floors',
         heading: 'Этажи',
-        description: 'Выберете количество этажей в доме',
+        description: 'Выберите количество этажей в доме',
         fields: [
             {
                 label: null,
@@ -165,13 +134,208 @@ const stages = [
     },
     {
         id: 3,
+        name: 'roof',
+        heading: 'Крыша',
+        description: 'Выберите тип крыши и материалы для отделки',
+        fields: [
+            {
+                label: 'Форма крыши',
+                type: 'select',
+                fieldId: 'roofShape',
+                options: ['1', '2'],
+                value: '1',
+                show: true,
+                depended: {}
+            },
+            {
+                label: 'Материал',
+                type: 'select',
+                fieldId: 'roofMaterial',
+                options: houseTextures.roof, 
+                value: 0, 
+                show: true,
+                depended: {}
+            },
+        ],
+        condition: null,
+    },
+    {
+        //подвал
+        id: 4,
+        name: 'cellar',
+        heading: 'Подвал',
+        description: 'Задайте параметры для подвала или пропустите стадию',
+        fields: [
+            {
+                label: '',
+                type: 'checkbox',
+                fieldId: 'cellarExistence',
+                options: ['Добавить подвал в доме'],
+                value: '-1',
+                show: true,
+                depended: {}
+            },
+            {
+                label: 'Высота потолков',
+                type: 'text',
+                fieldId: 'cellarHeight',
+                options: [],
+                value: '',
+                show: false,
+                depended: {
+                    fieldId: 'cellarExistence',
+                    value: 'Добавить подвал в доме'
+                }
+            },
+            {
+                label: '',
+                type: 'checkbox',
+                fieldId: 'cellarIsolation',
+                options: ['Изолированный?'],
+                value: '-1',
+                show: false,
+                depended: {
+                    fieldId: 'cellarExistence',
+                    value: 'Добавить подвал в доме'
+                }
+            },
+        ],
+        condition: null,
+    },
+    {
+        //мансарда
+        id: 5,
+        name: 'mansard',
+        heading: 'Мансарда',
+        description: 'Задайте параметры для мансарды или пропустите стадию',
+        fields: [
+            {
+                label: '',
+                type: 'checkbox',
+                fieldId: 'mansardExistence',
+                options: ['Добавить мансарду в доме'],
+                value: '-1',
+                show: true,
+                depended: {}
+            },
+            // {
+            //     label: '',
+            //     type: 'checkbox',
+            //     fieldId: 'mansardLiving',
+            //     options: ['Жилая?'],
+            //     value: '-1',
+            //     show: false,
+            //     depended: {
+            //         fieldId: 'mansardExistence',
+            //         value: 'Добавить мансарду в доме'
+            //     }
+            // },
+        ],
+        condition: null,
+    },  
+    {
+        id: 6,
         name: 'innerWalls',
         heading: 'Межкомнатные стены',
-        description: 'Укажите положение межкомнатных стен. !!!!Пока не работали над логикой для построения межкомнатных стен.',
-        fields: [],
+        description: 'Укажите положение межкомнатных стен. Выберите этаж, для которого хотите сделать планировку, и перейдите в режим редактирования. Управление в режиме редактирования: кликните по нужной точке и перетащите ее в нужную позицию. Управление в режиме добавления: чтобы добавить точку - кликните левой кнопкой мыши, чтобы закончить добавление стены - кликните по последней добавленной точке. Сменить режим: клик правой кнопки мыши.',
+        fields: [
+            {
+                label: 'Редактируемый этаж',
+                type: 'select',
+                fieldId: 'editableFloor',
+                options: ['1'], 
+                value: '1', 
+                show: true,
+                depended: {}
+            },
+        ],
         condition: true,
     },
-    
+    {
+        //веранда
+        id: 7,
+        name: 'verandaBasement',
+        heading: 'Веранда',
+        description: 'Задайте параметры для веранды или пропустите стадию',
+        fields: [
+            {
+                label: '',
+                type: 'checkbox',
+                fieldId: 'verandaExistence',
+                options: ['Добавить веранду в доме'],
+                value: '-1',
+                show: true,
+                depended: {}
+            },           
+        ],
+        condition: {
+            fieldId: 'verandaExistence',
+            value: 'Добавить веранду в доме',
+        }
+    },
+    {
+        id: 8,
+        name: 'interior',
+        heading: 'Окна',
+        description: 'Выберите понравившуюся модель окна, двери или лестницы и добавьте ее на план. Для перемещения модели перейдите в 2D.',
+        fields: [
+            {
+                label: 'Редактируемый этаж',
+                type: 'select',
+                fieldId: 'editableFloor',
+                options: ['1'], 
+                value: '1', 
+                show: true,
+                depended: {}
+            },
+            {
+                label: 'Окно',
+                type: 'select',
+                fieldId: 'windowModel',
+                options: houseModels.window, 
+                value: 0, 
+                show: true,
+                depended: {}
+            }, 
+            {
+                label: 'Дверь',
+                type: 'select',
+                fieldId: 'doorModel',
+                options: houseModels.door, 
+                value: 0, 
+                show: true,
+                depended: {}
+            }, 
+            {
+                label: 'Лестница',
+                type: 'select',
+                fieldId: 'stairsModel',
+                options: houseModels.stairs, 
+                value: 0, 
+                show: true,
+                depended: {}
+            }, 
+            // {
+            //     label: 'Дверь',
+            //     type: 'select',
+            //     fieldId: 'doorModel',
+            //     options: houseModels.door, 
+            //     value: 0, 
+            //     show: true,
+            //     depended: {}
+            // },
+            // {
+            //     label: 'Лестница',
+            //     type: 'select',
+            //     fieldId: 'stairsModel',
+            //     options: houseModels.stairs, 
+            //     value: 0, 
+            //     show: true,
+            //     depended: {}
+            // },
+        ],
+        condition: null,
+    },
 ];
 
 export default stages;

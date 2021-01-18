@@ -1,7 +1,6 @@
 import eventEmitter from './eventEmitter.js';
 import changeView from './threeJsFunctions/changeView.js';
 import {changeHatchVisibility, changeHatchCellSize } from './threeJsFunctions/changeHatch.js';
-import {Display} from '../components/Display/Display.js';
 
 
 let appState = {
@@ -22,6 +21,7 @@ let appState = {
         colorGrid: 0xDDDDDD,
         visible: true,
     },
+    editMode: 'N',
     changeState( state, data ) {
         eventEmitter.emitEvent(state, data);
         eventEmitter.emitEvent('stateChanged', {state, data} );

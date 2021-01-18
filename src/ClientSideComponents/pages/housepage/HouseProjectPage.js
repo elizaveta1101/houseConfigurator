@@ -14,8 +14,11 @@ class HouseProjectPage extends Component{
         this.props.getProjectPageId(this.props.match.params.id)
     }
 
+
+
     render(){
         const house = this.props.house.payload
+        console.log(this.props)
     return (
         <div className="house-project-page-wrapper">
             <div className="pre-btn-ellipse">

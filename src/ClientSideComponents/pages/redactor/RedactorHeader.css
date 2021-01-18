@@ -1,10 +1,14 @@
-.header-wrapper{
+.redactor-header-wrapper{
     display: flex;
 
     justify-self: center;
 
+    justify-content:space-between;
+
     width: 100vw;
     height: 60px;
+
+    min-width: 740px;
 
     background-color: #FFFFFF;
 }
@@ -109,7 +113,6 @@
 
 .calc-cost{
     align-self: center;
-    margin-left: 1150px;
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -151,6 +154,18 @@
     margin-left: 24px;
 }
 
+
+.redactor-header__left-box{
+    margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.redactor-header__right-box{
+    margin-right: 50px;
+    display: flex;
+    flex-direction: row;
+}
 
 
 

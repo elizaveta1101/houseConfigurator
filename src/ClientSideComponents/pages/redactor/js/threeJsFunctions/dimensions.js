@@ -53,10 +53,9 @@ function getCenter( pointA, pointB ) {
 
 function createLabel( position, text, angle ) {
     let wrapper = document.createElement( 'div' );
-    wrapper.id = 'labelDivDimensions';
+    wrapper.className = 'labelDivDimensions';
     let labelDiv = document.createElement( 'div' );
     labelDiv.className = 'labelDiv';
-    labelDiv.id = 'labelDiv';
     labelDiv.textContent = text;
     labelDiv.style.width = '30px';
     labelDiv.style.height = '20px';
@@ -101,16 +100,19 @@ function findLabelAngle(pointA, pointB ) {
 }
 
 function removeDimensions() {
-    let allLabelsToDelete = document.querySelectorAll('#labelDivDimensions');
-    allLabelsToDelete.forEach(element => {
-        element.remove();
-    });
+    let labelRenderer = document.querySelector('.labelRenderer');
+    labelRenderer.innerHTML = '';
+    // let allLabelsToDelete = document.querySelectorAll('.labelDivDimensions');
+    // console.log(allLabelsToDelete);
+    // allLabelsToDelete.forEach(element => {
+    //     element.remove();
+    // });
 }
 
-function createDimensions( model ) {
+function createDimensions( model, name ) {
     removeDimensions();
     let dimensionsGroup = new Group();
-    dimensionsGroup.name = 'dimensionsGroup';
+    dimensionsGroup.name = 'dimensionsGroup ' + name;
     let dimensions = lineDimensions( model );
     dimensions.map( item => {
         dimensionsGroup.add( item.label );

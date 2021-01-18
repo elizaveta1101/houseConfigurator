@@ -21,13 +21,10 @@ function redrawObject( sceneObject, houseObject, vertices, pointIndex ) {
     });
 
     let upSurfaceArray = [];
-    upSurface.geometry.vertices.map((vertex) => {
-        upSurfaceArray.push(vertex.x, vertex.y, vertex.z);
-    });
-
+    upSurfaceArray = houseObject.upVertices;
     let triangulation = [];
     if (innerSurface) {
-        triangulation = earcut(upSurfaceArray, sideSurface.geometry.vertices.length, 3);        
+        triangulation = earcut(upSurfaceArray, [houseObject.vertices.length/3], 3);        
     } else {
         triangulation = earcut(upSurfaceArray, null, 3);
     }
@@ -45,6 +42,7 @@ function redrawObject( sceneObject, houseObject, vertices, pointIndex ) {
     upSurface.geometry.normalsNeedUpdate = true;
     upSurface.geometry.uvsNeedUpdate = true;
 
+    console.log(upSurface);
     let sideSurfaceVertices = sideSurface.geometry.vertices;
     let vectors = getVectors( vertices );
     if ( pointIndex ) {
@@ -99,7 +97,7 @@ function redrawObject( sceneObject, houseObject, vertices, pointIndex ) {
         innerSurface.geometry.uvsNeedUpdate = true;
     }
 
-
+    console.log('here');
 }
 
 

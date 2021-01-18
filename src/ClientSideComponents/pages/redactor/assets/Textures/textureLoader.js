@@ -1,8 +1,5 @@
-import concrete from './basement/2.jpg';
 import * as THREE from 'three';
 
-const loader = new THREE.TextureLoader();
-let concreteTexture = loader.load(concrete);
 
 function loadTexture(url) {
     const loader = new THREE.TextureLoader();
@@ -12,4 +9,4 @@ function loadTexture(url) {
     return texture;
 }
 
-export {concreteTexture, loadTexture};
+export {loadTexture};
