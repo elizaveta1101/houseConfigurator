@@ -1203,7 +1203,7 @@
     animation: loading-25-p 0.3s linear 2.9s forwards;
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1800px) {
     .circle-bg{
         height: 710px;
         width: 710px;

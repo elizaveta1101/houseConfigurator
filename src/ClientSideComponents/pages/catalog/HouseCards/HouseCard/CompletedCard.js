@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 import CheckoutButton from '../../../components/CheckoutButton'
 
@@ -8,6 +8,7 @@ import CompletedHouseImg from '../../../../../assets/img/CompletedHouse.png'
 
 import '../ProjectCard/HouseCard.css'
 import './CompletedCard.css'
+import {getProjectPageId} from "../../../../redux/actions/housePage";
 
 
 function CompletedCard({
@@ -25,6 +26,7 @@ function CompletedCard({
 }) {
   const [filledHeart, setFilledHeart] = React.useState(false)
   const heart_ids = useSelector(({ houses }) => houses.house_heart_id)
+  const dispatch = useDispatch()
 
   const onAddHouse = () => {
     const obj = { address, bedrooms, cost, floors, name, size, square, style_id, id, style }
@@ -38,6 +40,11 @@ function CompletedCard({
     if (!filledHeart) {
       setFilledHeart(!filledHeart)
     }
+  }
+
+  const getId = (id) => {
+    dispatch(getProjectPageId(id))
+    console.log(id)
   }
 
   return (
@@ -80,8 +87,8 @@ function CompletedCard({
       </div>
       <div className="triangle2" />
       <div className="card-img">
-        <Link to="/completed_house_page">
-          <img src={CompletedHouseImg} alt="CompletedHouseImg" />
+        <Link to={`/completed_house_page/${id}`}>
+          <img onClick={() => getId(id)} src={CompletedHouseImg} alt="CompletedHouseImg" />
         </Link>
       </div>
       <div className="card-info">
@@ -89,8 +96,8 @@ function CompletedCard({
           <p>{style}</p>
         </div>
         <div className="house-name">
-          <Link to="/completed_house_page">
-            <h1>{name}</h1>
+          <Link to={`/completed_house_page/${id}`}>
+            <h1 onClick={() => getId(id)}>{name}</h1>
           </Link>
         </div>
         <div className="chars-and-btns">

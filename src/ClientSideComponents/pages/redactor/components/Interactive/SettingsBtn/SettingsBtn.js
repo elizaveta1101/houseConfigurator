@@ -55,21 +55,21 @@ class SettingsBtn extends React.Component {
                 >
                     <div className="field" key='hatchSetting'>
                         <label className='label'>
-                            Отобразить сетку?
                             <input
-                                className={classes.settingscheck}
+                                className='settingsCheck'
                                 type='checkbox'
                                 name='settingsCheck'
                                 checked={this.state.hatchVisibility}
                                 onChange={this.changeHatchVisibility}
                             />
+                            Отобразить сетку?
                         </label>
                     </div>
                     <div className='field' key='cellSetting'>
                         <label className='label'>
                             Размер клетки
                             <input
-                                className={classes.settingsSize}
+                                className='settingsSize'
                                 type='number'
                                 min='0.1'
                                 max='5'

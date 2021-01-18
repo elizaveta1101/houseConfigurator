@@ -10,9 +10,11 @@ import HouseCard from "../HouseCards/ProjectCard/HouseCard";
 import CatalogHeader from "../CatalogHeader";
 
 import './CatalogCompletedProjects.css';
+import {clearArray, setProjectPageId} from "../../../redux/actions/housePage";
 
 
 let heart_indices = [];
+let indices = [];
 
 function CatalogCompletedProjects() {
 
@@ -45,6 +47,17 @@ function CatalogCompletedProjects() {
         }
         FetchPosts()
     },[])
+
+    indices = []
+    for(let i = 0; i < compprojects.length; i++){
+        if(!indices.includes(compprojects[i].id)){
+        indices.push(compprojects[i].id)}
+    }
+
+    dispatch(setProjectPageId(indices))
+
+    console.log(indices)
+
 
     return (
         <div className="catalog">

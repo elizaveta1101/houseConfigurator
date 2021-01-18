@@ -11,7 +11,7 @@ function Interactive(props) {
             <Canvas 
                 stageId={props.stageId}
                 viewMode={props.viewMode}
-                editMode={props.editMode}
+                // editMode={props.editMode}
                 endAddVertices={props.endAddVertices}
             />
             <ViewButtons
@@ -23,5 +23,4 @@ function Interactive(props) {
         </div>
     );
 }
-
 export {Interactive};

@@ -38,7 +38,7 @@
 }
 .lk-firs-block h1{
     align-self: flex-start;
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -76,7 +76,7 @@
 }
 
 .info-name li{
-    font-family: Open Sans;
+    font-family: Open Sans Light;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;

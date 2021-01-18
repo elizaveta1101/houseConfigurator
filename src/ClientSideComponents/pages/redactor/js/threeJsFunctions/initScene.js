@@ -8,6 +8,11 @@ import { CSS2DRenderer } from "three/examples/jsm/renderers/CSS2DRenderer.js";
 import appState from './../appState.js';
 import { HouseObject } from '../HouseObject.js';
 
+
+//-----test
+// import {loadModel} from '../../assets/Models/modelLoader.js';
+//---------
+
 import interactiveClasses from '../../components/Interactive/Interactive.module.css';
 
 function addLight(color, intensity, position) {
@@ -72,6 +77,9 @@ function initScene() {
 
   appState.scene.background = sceneTexture;
 
+  // loadModel('../Models/window/1/scene.gltf');
+  // console.log(scene); 
+
   appState.renderer.render(appState.scene, appState.sceneCamera);
 
   // управление камерой с помощью мыши
@@ -102,7 +110,12 @@ function initScene() {
   //инициализировать хаус
   appState.house = new HouseObject();
   appState.house.build();
-  appState.scene.add( appState.house.houseInScene );
+  appState.house.changeVisability('3D');
+
+  appState.house.preloadModels();
+
+  appState.scene.add(appState.house.house2d, appState.house.house3d);
+
 
   animate();
 }

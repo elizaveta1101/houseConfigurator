@@ -104,14 +104,16 @@ function App() {
         {shouldShowHeader && shouldShowRedactorHeader && <Header />}
         {!shouldShowRedactorHeader && <RedactorHeader />}
 
+
+        <div className="main">
         <div className="main-wrapper">
           <Route exact path="/" component={MainPage} />
         </div>
 
         <div className="wrapper">
           <Route exact path="/house_page/:id" component={HouseProjectPage} />
-          <Route exact path="/completed_house_page" component={CompletedHousePage} />
-          <Route exact path="/investors_house_page" component={InvestorsHousePage} />
+          <Route exact path="/completed_house_page/:id" component={CompletedHousePage} />
+          <Route exact path="/investors_house_page/:id" component={InvestorsHousePage} />
           <Route exact path="/redactor_page" component={RedactorPage} />
           <Route exact path="/private_cab" component={PrivateCab} />
 
@@ -126,7 +128,7 @@ function App() {
 
         <Route exact path="/constructor" component={Constructor} />
 
-        <main role="main" />
+        </div>
 
         {shouldShowFooter && shouldShowRedactorFooter && <Footer />}
       </div>

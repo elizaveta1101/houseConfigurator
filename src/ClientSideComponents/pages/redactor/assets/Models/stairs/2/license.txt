@@ -1,0 +1,11 @@
+Model Information:
+* title:	Spiral Stairs (Free)
+* source:	https://sketchfab.com/3d-models/spiral-stairs-free-54afef59e7bc40dd98f311c3c875b9a3
+* author:	wolfgar74 (https://sketchfab.com/wolfgar74)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Spiral Stairs (Free)" (https://sketchfab.com/3d-models/spiral-stairs-free-54afef59e7bc40dd98f311c3c875b9a3) by wolfgar74 (https://sketchfab.com/wolfgar74) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

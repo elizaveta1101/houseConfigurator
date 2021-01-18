@@ -8,9 +8,10 @@ import pick from '../../../js/mouseFunctions/pickHelper.js'
 import searchPointIndex from '../../../js/mouseFunctions/searchPointIndex.js';
 import {changeObjCoord} from '../../../js/mouseFunctions/changeObjCoord.js';
 import appState, {} from '../../../js/appState.js';
-import {getCoord} from '../../../js/mouseFunctions/mouseFunctions.js'
+import {getCoord, chooseMouseFunction} from '../../../js/mouseFunctions/mouseFunctions.js'
 
 import classes from './Canvas.module.css';
+import stages from '../../../js/stagesStructure.js';
 
 class Canvas extends React.Component {
     constructor(props) {
@@ -22,7 +23,9 @@ class Canvas extends React.Component {
             pickPoint: {
                 position: [],
                 index: -1
-            }
+            },
+            continueCreation: false,
+            curveNumber: 0
         }
 
         this.handleMove = this.handleMove.bind(this);
@@ -41,96 +44,85 @@ class Canvas extends React.Component {
         labelRenderer.addEventListener('pointerdown', this.handleMouseDown);
         labelRenderer.addEventListener('pointerup', this.handleMouseUp);
         labelRenderer.addEventListener('pointermove', this.handleMove);
-        labelRenderer.addEventListener('touchstart', this.handleMouseDown);
-        labelRenderer.addEventListener('touchend', this.handleMouseUp);
-        labelRenderer.addEventListener('touchmove', this.handleMove);
+        //----нужны ли????------
+        // labelRenderer.addEventListener('touchstart', this.handleMouseDown);
+        // labelRenderer.addEventListener('touchend', this.handleMouseUp);
+        // labelRenderer.addEventListener('touchmove', this.handleMove);
     }
 
     handleMouseDown(e) {
-        e.preventDefault();
-        if (e.button === 0 || (e.touches && e.touches.length === 1)) {      // клик левой кнопкой мыши
-            let sceneGroupPoints = appState.house.points;
-            // let linePointsCoords = canvasClick(appState.sceneCamera, this.state.linePoints, e);
-            if (this.props.editMode === 'add') {
-                let mousePosition = getCoord(e, appState.sceneCamera);
-                let basementVertices = appState.house.basement.vertices.slice();
-                basementVertices.push(...mousePosition);
-                // this.setState({
-                //     linePoints: linePointsCoords
-                // });
-                appState.house.setBasementParametrs(basementVertices);
-                appState.changeState('pointAdded', { vertices: basementVertices });
-            } else if (this.props.editMode === 'edit') {
-                let pickPosition = setPickPosition(e, appState.renderer);
-
-                let picked = pick(pickPosition, sceneGroupPoints, appState.sceneCamera);
-                if (picked) {
-                    let pointPos = picked.position;
-                    let index = searchPointIndex(appState.house.basement, pointPos);
-
-                    if (index !== -1) {
-                        picked.object.material.color.set(0xFF0000);
-                        this.setState({
-                            pickPoint: {
-                                position: pointPos,
-                                index: index
+        const stageName = stages[this.props.stageId].name;
+        let data = chooseMouseFunction(e,
+                            appState.editMode, 
+                            'down', 
+                            {
+                                position: this.state.pickPoint.position,
+                                index: this.state.pickPoint.index,
+                                continueCreation: this.state.continueCreation, 
+                                curveNumber: this.state.curveNumber,
+                                stageName: stageName
                             }
-                        });
-                    }
-                }
+                        );
+        if (data) {
+            if (data.continueCreation !== undefined) {
+                this.setState({
+                    continueCreation: data.continueCreation,
+                    curveNumber: data.curveNumber
+                });  
             }
-        } // else if (e.button === 2 || (e.touches && e.touches.length === 2)) {      // клик правой кнопкой мыши
-        //     let linePointsCoords = this.state.linePoints.slice();
-        //     if (this.props.editMode === 'add') {
-        //         linePointsCoords.push(linePointsCoords[0], linePointsCoords[1], linePointsCoords[2]);
-        //         appState.house.setBasementParametrs(linePointsCoords);
-        //         this.setState({
-        //             linePoints: []
-        //         });
-        //         this.props.endAddVertices();
-        //     }
-        // }
-    }
-
-    handleMove(e) {
-        e.preventDefault();
-        // let linePointsCoords = canvasMove(appState.sceneCamera, this.state.linePoints, e);
-        let mousePosition = getCoord(e, appState.sceneCamera);
-        if (this.props.editMode === 'add') {
-            // if (this.state.linePoints.length > 0) {
-                
-                // linePointsCoords.push(linePointsCoords[0], linePointsCoords[1], linePointsCoords[2]);
-                // appState.house.setBasementParametrs(linePointsCoords);
-                appState.changeState('pointAdding', { mousePosition });
-
-            // }
-        }
-        if (this.props.editMode === 'edit') {
-
-            if (this.state.pickPoint.index !== -1) {
-                changeObjCoord(appState.house.basement, this.state.pickPoint.index, mousePosition);
-                let index = this.state.pickPoint.index;
-                appState.changeState('basementChanged', { index });
-            }
-        }
-    }
-
-    handleMouseUp (e) {
-        e.preventDefault();
-        if (e.button === 0 || (e.touches && e.touches.length === 1)) {
-            if (this.props.editMode === 'edit') {
-                let index = this.state.pickPoint.index;
-                if( index !== -1) {
-                    appState.changeState('basementChangeEnd', { index });
-                    appState.house.points.children[index/3].material.color.set(0x000000);
-                }
+            if (data.position) {
                 this.setState({
                     pickPoint: {
-                        position: [],
-                        index: -1
+                        position: data.position,
+                        index: data.index
                     }
                 });
             }
+            if (data.curveNumber !== undefined) {
+                this.setState({
+                    curveNumber: data.curveNumber
+                });
+            }
+        }
+    }
+
+    handleMove(e) {
+
+        const stageName = stages[this.props.stageId].name;
+        chooseMouseFunction(e, 
+                            appState.editMode, 
+                            'move', 
+                            {
+                                position: this.state.pickPoint.position,
+                                index: this.state.pickPoint.index,
+                                continueCreation: this.state.continueCreation, 
+                                curveNumber: this.state.curveNumber,
+                                stageName: stageName
+                            }
+                        );
+    
+    }
+
+    handleMouseUp (e) {
+        const stageName = stages[this.props.stageId].name;
+        let data = chooseMouseFunction(e, 
+                            appState.editMode, 
+                            'up', 
+                            {
+                                position: this.state.pickPoint.position,
+                                index: this.state.pickPoint.index,
+                                continueCreation: this.state.continueCreation, 
+                                curveNumber: this.state.curveNumber,
+                                stageName: stageName
+                            }
+        );
+        if (data) {
+            this.setState({
+                pickPoint: {
+                    position: data.position,
+                    index: data.index
+                }
+            });
         }
     }
     render() {

@@ -4,15 +4,6 @@ import _3 from './3.png';
 import _4 from './4.png';
 import _5 from './5.png';
 
-// let outerWallsTextures = {
-//     url: [],
-//     name: [],
-//     size: [],
-// };
-// outerWallsTextures.url.push(_1, _2, _3, _4, _5);
-// outerWallsTextures.name.push('1', '2', '3', '4', '5');
-// outerWallsTextures.size.push([0.1, 0.165], [0.133, 0.1], [0.1, 0.165], [0.1, 0.165], [0.1, 0.165]);
-
 let outerWallsTextures = [];
 outerWallsTextures.push(
     {

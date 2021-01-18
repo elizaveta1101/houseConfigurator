@@ -5,20 +5,15 @@ import {TotalData} from '../TotalData/TotalData.js';
 import {MaterialList} from '../Interview/MaterialList/MaterialList.js';
 import stages from './../../js/stagesStructure.js';
 import appState from './../../js/appState.js';
-
 import classes from './Display.module.css';
+
 
 class Display extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allStages: {
-                stageInfo: stages.slice(),
-                numberOfStages: stages.length,
-            },
             stageId: 0,
             viewMode: '3D', //'3D'
-            editMode: 'N', // add - можно добавлять вершины, edit - можно перемещать вершины, N - нельзя редактировать
             drawBtnVisibility: false,
             materialListVisiblity: false,
             materialList: {},
@@ -35,7 +30,6 @@ class Display extends React.Component {
                 disabled: false
             },
             viewBtnsDisable: false,
-
         }
         this.setPrevStage = this.setPrevStage.bind(this);
         this.setNextStage = this.setNextStage.bind(this);
@@ -63,7 +57,14 @@ class Display extends React.Component {
             materialListVisiblity: false
         });
         const stageName = stages[newStageId].name;
-        appState.changeState( 'stageSwitched', {newStageId, stageName} );
+        let value = null;
+        if (stageName === 'innerWalls' || stageName === 'interior') {
+            value = stages[newStageId].fields[0].value;
+            appState.changeState( 'floorVisibility', {value});
+        }
+        if (!value) {
+            appState.changeState( 'stageSwitched', {newStageId, stageName} );
+        } 
         this.checkDrawBtnVisibility(newStageId);
     }
 
@@ -75,11 +76,19 @@ class Display extends React.Component {
             materialListVisiblity: false
         });
         const stageName = stages[newStageId].name;
-        appState.changeState( 'stageSwitched', {newStageId, stageName} );
+        let value = null;
+        if (stageName === 'innerWalls' || stageName === 'interior') {
+            value = stages[newStageId].fields[0].value;
+            appState.changeState( 'floorVisibility', {value});
+        }
+        if (!value) {
+            appState.changeState( 'stageSwitched', {newStageId, stageName} );
+        } 
         this.checkDrawBtnVisibility(newStageId);
     }
 
     fieldOnChange(event) {
+        let House = appState.house;
         let value = event.target.value;
         let name = event.target.name;
         let index = this.state.stageId;
@@ -87,45 +96,78 @@ class Display extends React.Component {
         //изменение значения по умолчанию в stages
         for (let i = 0; i < stages[index].fields.length; i++) {
             if (stages[index].fields[i].fieldId === name) {
-                num = i;
+                num=i;
                 break;
             }
         }
-
+        
         // для корректной работы checkbox (чтобы галочка снималась при повторном нажатии)
         if ((stages[index].fields[num].value === value) && (stages[index].fields[num].type === 'checkbox')) {
             stages[index].fields[num].value = -1;
+            this.setState({});
         }
         else {
             stages[index].fields[num].value = value;
+
+            this.setState({});
         }
 
         this.checkOptionFieldsVisibility(index, num);        //проверка зависимых полей
 
-        this.setState({
-            allStages: {
-                stageInfo: stages.slice(),
-                numberOfStages: stages.length
-            }
-        });
+        //отслеживание добавления подвала
+        if (name === 'cellarExistence') {
+            House.cellarExistence = stages[index].fields[num].value === value ? true : false;
+        }
+        //отслеживание добавления мансарды 
+        if (name === 'mansardExistence') {
+            House.mansardExistence = stages[index].fields[num].value === value ? true : false;
+        }
+        //жилая ли мансарда
+        if (name === 'mansardLiving') {
+            House.mansardLiving = stages[index].fields[num].value === value ? true : false;
+        }
+        //отслеживание добавления веранды 
+        if (name === 'verandaExistence') {
+            House.verandaExistence = stages[index].fields[num].value === value ? true : false;
+        }
+
+        this.changeFloorList(name, value);
 
         if (stages[index].condition) {
             this.checkDrawBtnVisibility(index);
         }
+
         const currentStage = this.state.stageId;
         const stageName = stages[index].name;
         let viewMode = this.state.viewMode;
         if (name.indexOf('Material')>-1) {
             appState.changeState( 'materialChanged', stageName);
+        } else if (name.indexOf('Height')>-1) {
+            appState.changeState( 'heightChanged', {stageName, height: Number(value)});
+        }  else if (name==='editableFloor') {
+            //меняем значения одновременно для 2 стадий, поскольку там одинаковые поля для выбора этажа
+            if (stageName === 'innerWalls') {
+                let floorSelect = stages.filter((el) => el.name === 'interior')[0].fields
+                                        .filter((el) => el.fieldId === 'editableFloor')[0];
+                floorSelect.value = value;                    
+            } else if (stageName === 'interior') {
+                let floorSelect = stages.filter((el) => el.name === 'innerWalls')[0].fields
+                                        .filter((el) => el.fieldId === 'editableFloor')[0];
+                floorSelect.value = value; 
+            }
+            appState.changeState( 'floorVisibility', {value});
         } else {
             appState.changeState( 'stageChanged', {currentStage, stageName, name, value, viewMode} );
+            if (name === 'floors') {
+                appState.house.setFloorPlanParametrs();
+            }
         }
 
         // выключение режима редактирования при любых изменениях полей опроса 
-        if (this.state.editMode !== 'N') {
-            appState.changeState('planEdiMode', 'N' );
+        if (appState.editMode !== 'N') {
+            appState.editMode = 'N';
+            appState.changeState('planEditMode', {mode: 'N', stageName : stageName} );
             this.setState({
-                editMode: 'N',
                 editBtn: {
                     clicked: false,
                     disabled: false
@@ -135,7 +177,7 @@ class Display extends React.Component {
                 },
                 viewBtnsDisable: false,
             });
-        }
+        }        
     }
 
     checkDrawBtnVisibility(index) {
@@ -185,6 +227,58 @@ class Display extends React.Component {
         else { return null; }
     }
 
+    changeFloorList(name, value) {
+        let House = appState.house;
+        let editableFloorSelect = stages.filter((el) => el.name === 'innerWalls')[0].fields
+                                        .filter((el) => el.fieldId === 'editableFloor')[0];
+        if (name === 'floors' ) {
+            //обновление списка
+            let optionsCount = editableFloorSelect.options.length;
+            if (House.mansardLiving) {
+                optionsCount--;
+                editableFloorSelect.options.pop();
+            }
+            if (editableFloorSelect.options[optionsCount-1] > value) {
+                while (editableFloorSelect.options[optionsCount-1] > value) {
+                    editableFloorSelect.options.pop();
+                    optionsCount--;
+                }
+            } else {
+                let dif;
+                if (House.cellarExistence) {
+                    dif=0;
+                } else {
+                    dif=1;
+                }
+                while (editableFloorSelect.options[optionsCount-1] < value) {
+                    editableFloorSelect.options.push(String(optionsCount+dif));
+                    optionsCount++;
+                }
+            }
+            if (House.mansardLiving) {
+                editableFloorSelect.options.push('Мансарда');
+            }
+        }
+        if (name === 'cellarExistence') {
+            if (House.cellarExistence) {
+                editableFloorSelect.options.unshift('Подвал');
+            } else {
+                editableFloorSelect.options.shift();
+            }
+        }
+        if (name === 'mansardLiving') {
+            if (House.mansardLiving) {
+                editableFloorSelect.options.push('Мансарда');
+            } else {
+                editableFloorSelect.options.pop();
+            }
+        }
+        let floorSelect = stages.filter((el) => el.name === 'interior')[0].fields
+                                        .filter((el) => el.fieldId === 'editableFloor')[0];
+        floorSelect.options = editableFloorSelect.options;
+        
+    }
+
     set2d() {
         appState.changeState('changeView', '2D');
 
@@ -202,10 +296,11 @@ class Display extends React.Component {
     }
 
     clearScene() {
-        appState.changeState('clearScene', 'clearScene');
+        appState.editMode = 'add';
+        let stageName = stages[this.state.stageId].name;
+        appState.changeState('clearScene', stageName);
         appState.changeState('changeView', '2D');
         this.setState({
-            editMode: 'add',
             editBtn: {
                 clicked: true,
                 disabled: this.state.editBtn.disabled
@@ -219,14 +314,12 @@ class Display extends React.Component {
     }
 
     editObject() {
-        let linePointsCoords = appState.house.basement.vertices.slice();
-        if (this.state.stageId === 0) {
-
+        if (stages[this.state.stageId].name === 'basement') {
+            let linePointsCoords = appState.house.basement.vertices.slice();
             if (!this.state.editBtn.clicked) {
                 if ((linePointsCoords[0] === 0) && (linePointsCoords[1] === 0) && (linePointsCoords[2] === 0) && (linePointsCoords.length < 4)) {
-                    appState.changeState('planEdiMode', 'add' );
+                    appState.editMode = 'add';
                     this.setState({
-                        editMode: 'add',
                         editBtn: {
                             clicked: !this.state.editBtn.clicked,
                             disabled: this.state.editBtn.disabled
@@ -238,9 +331,8 @@ class Display extends React.Component {
                     });
                 }
                 else {
-                    appState.changeState('planEdiMode', 'edit' );
+                    appState.editMode = 'edit';
                     this.setState({
-                        editMode: 'edit',
                         editBtn: {
                             clicked: !this.state.editBtn.clicked,
                             disabled: this.state.editBtn.disabled
@@ -248,15 +340,17 @@ class Display extends React.Component {
                         viewBtnsDisable: true,
                     });
                 }
+                appState.changeState('planEditMode', {mode: 'T', stageName : 'basement'}  );
                 this.set2d();
             }
             else {
                 if (linePointsCoords.length < 9) {
                     alert('Недостаточно вершин для построения. Начертите минимум 3 вершины');
                     return;
-                } else {appState.changeState('endAddVertices', {});}
+                } else {appState.changeState('endAddVertices');}
+                appState.editMode = 'N';
+                appState.changeState('shapeChangeEnd');
                 this.setState({
-                    editMode: 'N',
                     editBtn: {
                         clicked: !this.state.editBtn.clicked,
                         disabled: this.state.editBtn.disabled
@@ -266,15 +360,112 @@ class Display extends React.Component {
                     },
                     viewBtnsDisable: false,
                 });
-                appState.changeState('planEdiMode', 'N' );
+                appState.changeState('planEditMode',  {mode: 'N', stageName : 'basement'}  );
+                this.set3d();
+            }
+        } else if (stages[this.state.stageId].name === 'innerWalls') {
+            //получить вершины для первого этажа
+            let activeFloor = appState.house.activeFloor;
+            let linePointsCoords = appState.house.innerWalls[activeFloor].wallsVertices;
+            if (!this.state.editBtn.clicked) {
+                if (linePointsCoords.length === 0) {
+                    appState.editMode = 'add';
+                    this.setState({
+                        editBtn: {
+                            clicked: !this.state.editBtn.clicked,
+                            disabled: this.state.editBtn.disabled
+                        },
+                        clearBtn: {
+                            disabled: true
+                        },
+                        viewBtnsDisable: true,
+                    });
+                }
+                else {
+                    appState.editMode = 'edit';
+                    this.setState({
+                        editBtn: {
+                            clicked: !this.state.editBtn.clicked,
+                            disabled: this.state.editBtn.disabled
+                        },
+                        viewBtnsDisable: true,
+                    });
+                }
+                appState.changeState('planEditMode', {mode: 'T', stageName : 'innerWalls'} );
+                this.set2d();
+            }
+            else {
+                appState.editMode = 'N';
+                appState.changeState('endInnerWalls', { });
+                this.setState({
+                    editBtn: {
+                        clicked: !this.state.editBtn.clicked,
+                        disabled: this.state.editBtn.disabled
+                    },
+                    clearBtn: {
+                        disabled: false
+                    },
+                    viewBtnsDisable: false,
+                });
+                appState.changeState('planEditMode', {mode: 'N', stageName : 'innerWalls'}  );
+                this.set3d();
+            }
+            console.log('редактируем межкомнатные стены');
+        } else if (stages[this.state.stageId].name === 'verandaBasement') {
+            let linePointsCoords = appState.house.verandaBasement.vertices.slice();
+            if (!this.state.editBtn.clicked) {
+                if ((linePointsCoords[0] === 0) && (linePointsCoords[1] === 0) && (linePointsCoords[2] === 0) && (linePointsCoords.length < 4)) {
+                    appState.editMode = 'add';
+                    this.setState({
+                        editBtn: {
+                            clicked: !this.state.editBtn.clicked,
+                            disabled: this.state.editBtn.disabled
+                        },
+                        clearBtn: {
+                            disabled: true
+                        },
+                        viewBtnsDisable: true,
+                    });
+                }
+                else {
+                    appState.editMode = 'edit';
+                    this.setState({
+                        editBtn: {
+                            clicked: !this.state.editBtn.clicked,
+                            disabled: this.state.editBtn.disabled
+                        },
+                        viewBtnsDisable: true,
+                    });
+                }
+                appState.changeState('planEditMode', {mode: 'veranda', stageName : stages[this.state.stageId].name} );
+                this.set2d();
+            }
+            else {
+                if (linePointsCoords.length < 9) {
+                    alert('Недостаточно вершин для построения. Начертите минимум 3 вершины');
+                    return;
+                } else {appState.changeState('endAddVertices', {stageName: stages[this.state.stageId].name});}
+                appState.editMode = 'N';
+                appState.changeState('shapeChangeEnd', {stageName: stages[this.state.stageId].name});
+                this.setState({
+                    editBtn: {
+                        clicked: !this.state.editBtn.clicked,
+                        disabled: this.state.editBtn.disabled
+                    },
+                    clearBtn: {
+                        disabled: false
+                    },
+                    viewBtnsDisable: false,
+                });
+                appState.changeState('planEditMode', {mode: 'N', stageName : stages[this.state.stageId].name} );
                 this.set3d();
             }
         }
     }
 
     endAddVertices() {
+        appState.editMode = 'edit';
         this.setState({
-            editMode: 'edit',
             clearBtn: {
                 disabled: false
             },
@@ -358,12 +549,12 @@ class Display extends React.Component {
             <div className={classes.display_box}>
             <div className={classes.content}>
                 <Interview
-                    stageInfo={this.state.allStages.stageInfo[this.state.stageId]}
+                    stageInfo={stages[this.state.stageId]}
                     onchange={this.fieldOnChange}
                     drawBtnVisibility={this.state.drawBtnVisibility}
                     prevDisabled={this.state.stageId === 0}
                     prevOnClick={this.setPrevStage}
-                    nextDisabled={this.state.stageId === this.state.allStages.numberOfStages - 1}
+                    nextDisabled={this.state.stageId === stages.length - 1}
                     nextOnClick={this.setNextStage}
                     clearBtnClicked={this.clearScene}
                     editBtnClicked={this.editObject}
@@ -373,9 +564,10 @@ class Display extends React.Component {
                     materialListVisiblity={this.state.materialListVisiblity}
                 />
                 <Interactive
+                    className={classes.interactive}
                     stageId={this.state.stageId}
                     viewMode={this.state.viewMode}
-                    editMode={this.state.editMode}
+                    // editMode={this.state.editMode}
                     handleClick2d={this.set2d}
                     handleClick3d={this.set3d}
                     endAddVertices={this.endAddVertices}

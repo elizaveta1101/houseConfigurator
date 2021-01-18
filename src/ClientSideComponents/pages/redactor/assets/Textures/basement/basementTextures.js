@@ -5,14 +5,6 @@ import _4 from './4.jpg';
 import _5 from './5.jpg'; 
 import _6 from './6.jpg'; 
 
-// let basementTextures = {
-//     url: [],
-//     name: [],
-//     size: [],
-// };
-// basementTextures.url.push(_1, _2, _3, _4, _5, _6);
-// basementTextures.name.push('1', '2', '3', '4', '5', '6');
-// basementTextures.size.push([0.5, 0.25], [0.3, 0.3], [0.5, 0.25], [0.5, 0.25], [0.5, 0.25], [0.5, 0.25]);
 let basementTextures = [];
 basementTextures.push(
     {

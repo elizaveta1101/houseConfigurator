@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 import CheckoutButton from '../../../components/CheckoutButton'
 
 import HouseImg2 from '../../../../../assets/img/HouseImgSlider.png'
 
 import './HouseCard.css'
+import {getProjectPageId} from "../../../../redux/actions/housePage";
 
 
 function HouseCard({
@@ -24,6 +25,7 @@ function HouseCard({
 
   const [filledHeart, setFilledHeart] = React.useState(false)
   const heart_ids = useSelector(({ houses }) => houses.heart_id)
+  const dispatch = useDispatch()
 
   const onAddHouse = (id) => {
     const obj = { bedrooms, cost, floors, name, size, square, style_id, id, style }
@@ -36,6 +38,11 @@ function HouseCard({
     if (!filledHeart) {
       setFilledHeart(!filledHeart)
     }
+  }
+
+  const getId = (id) => {
+    dispatch(getProjectPageId(id))
+    console.log(id)
   }
 
   return (
@@ -78,7 +85,7 @@ function HouseCard({
       </div>
       <div className="triangle2" />
       <Link to={`/house_page/${id}`}>
-        <div className="card-img">
+        <div onClick={() => getId(id)} className="card-img">
           <img src={HouseImg2} alt="HouseImg" />
         </div>
       </Link>
@@ -88,7 +95,7 @@ function HouseCard({
         </div>
         <div className="house-name">
           <Link to={`/house_page/${id}`}>
-            <h1>{name}</h1>
+            <h1 onClick={() => getId(id)}>{name}</h1>
           </Link>
         </div>
         <div className="chars-and-btns">

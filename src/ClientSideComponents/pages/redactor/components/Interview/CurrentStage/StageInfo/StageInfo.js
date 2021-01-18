@@ -1,27 +1,12 @@
 import React from 'react';
+import appState from '../../../../js/appState.js';
 import { DrawButtons } from '../../DrawBtn/DrawBtn.js';
 import {MaterialBtn} from '../../MaterialBtn/MaterialBtn.js';
 import classes from './StageInfo.module.css';
-import Checkbox from '@material-ui/core/Checkbox';
-import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
 
 function StageHeading(props) {
-    const [checked, setChecked] = React.useState(true);
-
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
-    };
-
     return (
         <h3 className={classes.heading}>
-            <Checkbox
-                className="checkbox"
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
             {props.value}
         </h3>
     );
@@ -43,20 +28,29 @@ function StageFields(props) {
     const number = fields.length;
     const conditionObj = props.condition;
     let result;
-    let condition = (
-    <DrawButtons
-        action={stageId}
-        clearBtnClicked={props.clearBtnClicked}
-        editBtnClicked={props.editBtnClicked}
-        editBtn={props.editBtn}
-        clearBtn={props.clearBtn}
-    />);
+    let condition;
     const elements = Array(number).fill(null).map((row, i) => {
         if (fields[i].show) {
+            if (fields[i].fieldId.indexOf('Model')>-1) {     
+                let modelType;      
+                if (fields[i].label === 'Окно') {
+                    modelType = 'window';
+                } else if (fields[i].label === 'Дверь') {
+                    modelType = 'door';
+                } else if (fields[i].label === 'Лестница') {
+                    modelType = 'stairs';
+                }
+                result=(
+                    <button
+                    key={fields[i].fieldId + 'Btn'} 
+                    onClick={() => appState.changeState('addModel', {modelType})}
+                    >{fields[i].label}</button>
+                );
+            } else
             if (fields[i].fieldId.indexOf('Material')>-1) {
                 result=(
-                <MaterialBtn
-                    key={fields[i].fieldId + 'Btn'}
+                <MaterialBtn 
+                    key={fields[i].fieldId + 'Btn'} 
                     showList={props.showList}
                     materialListVisiblity={props.materialListVisiblity}
                 />);
@@ -67,7 +61,7 @@ function StageFields(props) {
                 ) {
                     condition = (<DrawButtons
                         action={stageId}
-                        clearBtnClicked={props.clearBtnClicked}
+                        clearBtnClicked={props.clearBtnClicked}    
                         editBtnClicked={props.editBtnClicked}
                         editBtn={props.editBtn}
                         clearBtn={props.clearBtn}
@@ -95,7 +89,7 @@ function StageFields(props) {
                     const options = fields[i].options;
                     const numberOfOptions = options.length;
                     const selectOptions = Array(numberOfOptions).fill(null).map((row, j) =>
-                        <option
+                        <option 
                             key={options[j] + j}
                         >
                             {options[j]}
@@ -143,14 +137,21 @@ function StageFields(props) {
                         </div>
                     );
                 }
-            }
-
-
-
+            }           
             return result;
         } else {return null;}
     });
-    if (typeof conditionObj !== 'boolean') {
+    // if (typeof conditionObj !== 'boolean') {
+    if (conditionObj === true) {
+        condition = (
+            <DrawButtons
+                action={stageId}
+                clearBtnClicked={props.clearBtnClicked}
+                editBtnClicked={props.editBtnClicked}
+                editBtn={props.editBtn}
+                clearBtn={props.clearBtn}
+            />);
+    } else {
         condition = null;
     }
     return (
