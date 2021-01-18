@@ -1,24 +1,18 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux'
-
-import {getProjectPageId, getProjectPageInfo} from "../../redux/actions/housePage";
+import React from 'react';
 
 import HousePageSlider from "./HousePageSlider";
 import CheckoutButton from "../components/CheckoutButton";
 
 import './HouseProjectPage.css';
+import {useSelector} from "react-redux";
 
 
-class HouseProjectPage extends Component{
-    componentDidMount() {
-        this.props.getProjectPageId(this.props.match.params.id)
-    }
+function HouseProjectPage(){
+    const pageId = useSelector(({ housePage }) => housePage.pageId)
+    const housesArr = useSelector(({ houses }) => houses.compprojects)
+    const housesIndices = useSelector(({ housePage }) => housePage.projectPageId)
+    const pageInfo = housesArr[housesIndices.indexOf(pageId)]
 
-
-
-    render(){
-        const house = this.props.house.payload
-        console.log(this.props)
     return (
         <div className="house-project-page-wrapper">
             <div className="pre-btn-ellipse">
@@ -40,41 +34,41 @@ class HouseProjectPage extends Component{
                     <div className="house-project-page__info">
                     <div className="house-project-page__info-header" />
                     <div className="house-project-page__info-header__small" />
-                    <h1>{house && house.name}</h1>
+                    <h1>{pageInfo && pageInfo.name}</h1>
                     <div className="house-project-page__info-params">
                         <div className="info-params">
                             <p>Архитектурный стиль дома</p>
-                            <span className="info-params_style"><a href="/">{house && house.style}</a></span>
+                            <span className="info-params_style"><a href="/">{pageInfo && pageInfo.style}</a></span>
                         </div>
                         <div className="info-params">
                             <p>Площадь</p>
-                            <span>{house && house.square} м2</span>
+                            <span>{pageInfo && pageInfo.square} м2</span>
                         </div>
                         <div className="info-params">
                             <p>Размеры(ДхШ)</p>
-                            <span>{house && house.size} м</span>
+                            <span>{pageInfo && pageInfo.size} м</span>
                         </div>
                         <div className="info-params">
                             <p>Этажность</p>
-                            <span>{house && house.floors} этажа</span>
+                            <span>{pageInfo && pageInfo.floors} этажа</span>
                         </div>
                         <div className="info-params">
                             <p>Спальни</p>
-                            <span>{house && house.bedrooms} спальни</span>
+                            <span>{pageInfo && pageInfo.bedrooms} спальни</span>
                         </div>
                         <div className="info-params">
                             <p>Санузлы</p>
-                            <span className="info-params__long">{house && house.bathrooms} санузла</span>
+                            <span className="info-params__long">{pageInfo && pageInfo.bathrooms} санузла</span>
                         </div>
                         <div className="info-params">
                             <p>Материалы</p>
-                            <h2 className="info-params__long">{house && house.materials}</h2>
+                            <h2 className="info-params__long">{pageInfo && pageInfo.materials}</h2>
                         </div>
                     </div>
                 </div>
                     <div className="house-project-page__pre-btn-text">
                         <div className="project-page-id">
-                            <p>id проекта:<span>{house && house.id}</span></p>
+                            <p>id проекта:<span>{pageInfo && pageInfo.id}</span></p>
                         </div>
                         <h2>Вы можете настроить данный проект для себя</h2>
                         <ul>
@@ -89,31 +83,22 @@ class HouseProjectPage extends Component{
             <div className="house-card__checkout">
                 <div className="house-card__checkout-price">
                     <p>Стоимость реализации проекта</p>
-                    <h1><span>от</span>{house && house.cost} ₽</h1>
+                    <h1><span>от</span>{pageInfo && pageInfo.cost} ₽</h1>
                 </div>
                 <div className="relis-date">
                     <p>Сроки реализации:</p>
-                    <span>{house && house.time}</span>
+                    <span>{pageInfo && pageInfo.time}</span>
                 </div>
                 <CheckoutButton className="house-card__checkout-btn" children={'Оформить заказ'} active={true}/>
             </div>
             <div className="project-desription">
                 <h1>Описание проекта</h1>
-                <p>{house && house.long_info}</p>
+                <p>{pageInfo && pageInfo.long_info}</p>
             </div>
+
         </div>
     );
-    }
 }
 
-const mapStateToProps = state => {
-    return {
-        house: getProjectPageInfo(state, state.housePage.pageId)
-    }
-}
 
-const mapDispatchToProps = {
-    getProjectPageId
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HouseProjectPage);
+export default HouseProjectPage;

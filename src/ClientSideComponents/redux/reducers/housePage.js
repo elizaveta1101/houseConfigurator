@@ -1,6 +1,8 @@
 const initialState = {
     pageId: null,
     projectPageInfo: [],
+    projectPageId: [],
+    pageNum: null,
 }
 
 
@@ -17,6 +19,18 @@ const housePage = (state = initialState, action) => {
             projectPageInfo: action.payload
         }
     }
+    if(action.type === 'SET_PROJECT_ID'){
+        return {
+            ...state,
+            projectPageId: action.payload
+        }
+    }
+    if(action.type === 'CLEAR_ARRAY'){
+        return {
+            projectPageId: []
+        }
+    }
+
 
     return state;
 }

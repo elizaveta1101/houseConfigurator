@@ -112,8 +112,8 @@ function App() {
 
         <div className="wrapper">
           <Route exact path="/house_page/:id" component={HouseProjectPage} />
-          <Route exact path="/completed_house_page" component={CompletedHousePage} />
-          <Route exact path="/investors_house_page" component={InvestorsHousePage} />
+          <Route exact path="/completed_house_page/:id" component={CompletedHousePage} />
+          <Route exact path="/investors_house_page/:id" component={InvestorsHousePage} />
           <Route exact path="/redactor_page" component={RedactorPage} />
           <Route exact path="/private_cab" component={PrivateCab} />
 

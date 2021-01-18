@@ -10,9 +10,11 @@ import InvestorsCard from "../HouseCards/InvestorsCard/InvestorsCard";
 import CatalogHeader from "../CatalogHeader";
 
 import './CatalogCompletedProjects.css';
+import {setProjectPageId} from "../../../redux/actions/housePage";
 
 
 let heart_indices = [];
+let indices = [];
 
 function CatalogInvestors() {
 
@@ -45,6 +47,16 @@ function CatalogInvestors() {
         }
         FetchPosts()
     },[dispatch])
+
+    indices = []
+    for(let i = 0; i < investorshouses.length; i++){
+        if(!indices.includes(investorshouses[i].id)){
+            indices.push(investorshouses[i].id)}
+    }
+
+    dispatch(setProjectPageId(indices))
+
+    console.log(indices)
 
 
     return (
