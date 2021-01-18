@@ -46,6 +46,7 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
     "three": "^0.124.0",
+    "three-js-csg-es6": "^73.0.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^5.0.0",
     "typescript": "^3.9.3",

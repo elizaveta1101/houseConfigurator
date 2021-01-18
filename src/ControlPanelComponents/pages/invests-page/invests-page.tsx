@@ -27,20 +27,20 @@ const ProjectInvestPage: React.FC = () => {
     setHouseMode(mode)
   }
 
-  const onSearch = (e: any) => console.log(e.target.value)
+  const onSearch = (value: string) => console.log(value)
 
   return (
     <Container>
       <Button text={'Создать новый проект'} clickHandler={() => modeHandler('create')} />
       <h3 className="house-finish-page__subtitle">Поиск проекта по id</h3>
-      <div className="house-finish-page__search-wrapper">
-        <Input placeholder="id проекта" onChange={onSearch} />
-        <Button
-          modifier={'house-finish-page__search-button'}
-          text={'Найти'}
-          clickHandler={() => modeHandler('create')}
-        />
-      </div>
+      <Input.Search
+        placeholder="Id проекта"
+        className="houses-page__search"
+        enterButton="Найти"
+        onSearch={onSearch}
+        // loading={loading}
+        // allowClear
+      />
 
       <h3 className="house-finish-page__subtitle">Результат поиска:</h3>
       <Form data={inputsData} mode={houseMode} />
