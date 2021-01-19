@@ -1,16 +1,38 @@
 import React from 'react';
+import axios from "axios";
 
 import HousePageSlider from "./HousePageSlider";
 import CheckoutButton from "../components/CheckoutButton";
 
+import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
+import {getProjectPageInfo} from "../../redux/actions/housePage";
+
 import './HouseProjectPage.css';
-import {useSelector} from "react-redux";
+
+
 
 function InvestorsHousePage() {
-    const pageId = useSelector(({ housePage }) => housePage.pageId)
-    const housesArr = useSelector(({ houses }) => houses.investorshouses)
-    const housesIndices = useSelector(({ housePage }) => housePage.projectPageId)
-    const pageInfo = housesArr[housesIndices.indexOf(pageId)]
+    const pageLink = useLocation().pathname
+    const pageId = Number(pageLink.match(/\d+/))
+    const posts = useSelector(({ houses }) => houses.postinfo)
+    const dispatch = useDispatch()
+
+    React.useEffect(() => {
+        async function FetchPosts() {
+            await axios
+                .get('http://127.0.0.1:5000/invest',
+                    {params: {id: pageId},
+                        headers: {Authorization: posts}})
+                .then(({data}) => {
+                    dispatch(getProjectPageInfo(data))
+                })
+        }
+        FetchPosts()
+    }, [])
+
+
+    const pageInfo = useSelector(({ housePage }) => housePage.projectPageInfo)
 
     return (
         <div className="house-project-page-wrapper">

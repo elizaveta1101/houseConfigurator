@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { Route, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPostInfo } from './redux/actions/houses'
+import { setCompletedHouses, setCompletedProjects, setInvestorsHouses, setPostInfo } from './redux/actions/houses'
 import { setCost, setCostProjects, setSquare, setSquareProjects } from './redux/actions/filters'
 
 import Header from './pages/Header'
@@ -25,6 +25,8 @@ import RedactorHeader from './pages/redactor/RedactorHeader'
 
 import './styles.scss'
 
+
+
 function App() {
   const shouldShowHeader = useLocation().pathname !== '/'
   const shouldShowRedactorHeader = useLocation().pathname !== '/constructor'
@@ -36,6 +38,30 @@ function App() {
   React.useEffect(() => {
     async function FetchPosts() {
       await axios
+          .get('http://127.0.0.1:5000/project',
+              {params: {pagination: true, page: 1},
+                headers: {Authorization: posts}})
+          .then(({data}) => {
+              dispatch(setCompletedProjects(data))
+          })
+
+        await axios
+            .get('http://127.0.0.1:5000/house',
+            {params: {pagination: true, page: 1},
+                headers: {Authorization: posts}})
+            .then(({data}) => {
+                dispatch(setCompletedHouses(data))
+            })
+
+        await axios
+            .get('http://127.0.0.1:5000/invest',
+                {params: {pagination: true, page: 1},
+                    headers: {Authorization: posts}})
+            .then(({data}) => {
+                dispatch(setInvestorsHouses(data))
+            })
+
+      await axios
         .post(
           'http://127.0.0.1:5000/auth',
           { login: 'admin', password: 'admin' },
@@ -44,6 +70,7 @@ function App() {
         .then(({ data }) => {
           dispatch(setPostInfo(data))
         })
+
       await axios
         .get('http://127.0.0.1:5000/project', {
           params: { pagination: true, page: 1 },
@@ -96,7 +123,7 @@ function App() {
         })
     }
     FetchPosts()
-  }, [dispatch], [posts])
+  }, [])
 
   return (
     <>

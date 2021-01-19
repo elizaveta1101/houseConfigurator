@@ -1146,7 +1146,7 @@ class HouseObject {
         if (this.activeFloor==='Подвал' && type === 'window') {return;}
 
         appState.scene.remove(this.models[this.activeFloor]);
-        let model = this.models[type + 'Models'][0].clone();
+        let model = this[type + 'Models'][0].clone();
         if (type === 'window') {
             model.position.z = (this.basement.height + 1.5 + (this.activeFloor-1)*this.floorHeight);    
         } else if (type === 'stairs') {

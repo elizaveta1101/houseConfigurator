@@ -8,7 +8,6 @@ import CompletedHouseImg from '../../../../../assets/img/CompletedHouse.png'
 
 import '../ProjectCard/HouseCard.css'
 import './CompletedCard.css'
-import {getProjectPageId} from "../../../../redux/actions/housePage";
 
 
 function CompletedCard({
@@ -40,11 +39,6 @@ function CompletedCard({
     if (!filledHeart) {
       setFilledHeart(!filledHeart)
     }
-  }
-
-  const getId = (id) => {
-    dispatch(getProjectPageId(id))
-    console.log(id)
   }
 
   return (
@@ -88,7 +82,7 @@ function CompletedCard({
       <div className="triangle2" />
       <div className="card-img">
         <Link to={`/completed_house_page/${id}`}>
-          <img onClick={() => getId(id)} src={CompletedHouseImg} alt="CompletedHouseImg" />
+          <img src={CompletedHouseImg} alt="CompletedHouseImg" />
         </Link>
       </div>
       <div className="card-info">
@@ -97,7 +91,7 @@ function CompletedCard({
         </div>
         <div className="house-name">
           <Link to={`/completed_house_page/${id}`}>
-            <h1 onClick={() => getId(id)}>{name}</h1>
+            <h1>{name}</h1>
           </Link>
         </div>
         <div className="chars-and-btns">

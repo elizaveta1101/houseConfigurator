@@ -7,7 +7,6 @@ import CheckoutButton from '../../../components/CheckoutButton'
 import HouseImg2 from '../../../../../assets/img/HouseImgSlider.png'
 
 import './HouseCard.css'
-import {getProjectPageId} from "../../../../redux/actions/housePage";
 
 
 function HouseCard({
@@ -38,11 +37,6 @@ function HouseCard({
     if (!filledHeart) {
       setFilledHeart(!filledHeart)
     }
-  }
-
-  const getId = (id) => {
-    dispatch(getProjectPageId(id))
-    console.log(id)
   }
 
   return (
@@ -85,7 +79,7 @@ function HouseCard({
       </div>
       <div className="triangle2" />
       <Link to={`/house_page/${id}`}>
-        <div onClick={() => getId(id)} className="card-img">
+        <div className="card-img">
           <img src={HouseImg2} alt="HouseImg" />
         </div>
       </Link>
@@ -95,7 +89,7 @@ function HouseCard({
         </div>
         <div className="house-name">
           <Link to={`/house_page/${id}`}>
-            <h1 onClick={() => getId(id)}>{name}</h1>
+            <h1>{name}</h1>
           </Link>
         </div>
         <div className="chars-and-btns">

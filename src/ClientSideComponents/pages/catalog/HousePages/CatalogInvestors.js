@@ -10,11 +10,9 @@ import InvestorsCard from "../HouseCards/InvestorsCard/InvestorsCard";
 import CatalogHeader from "../CatalogHeader";
 
 import './CatalogCompletedProjects.css';
-import {setProjectPageId} from "../../../redux/actions/housePage";
 
 
 let heart_indices = [];
-let indices = [];
 
 function CatalogInvestors() {
 
@@ -40,23 +38,6 @@ function CatalogInvestors() {
         axios.get('http://127.0.0.1:5000/invest', {params: {pagination: true, page: value}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setInvestorsHouses(data))})
         dispatch(setInvestPage(value))
     };
-
-    React.useEffect(() => {
-        async function FetchPosts(){
-            await axios.get('http://127.0.0.1:5000/invest', {params: {pagination: true, page: 1}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setInvestorsHouses(data))})
-        }
-        FetchPosts()
-    },[dispatch])
-
-    indices = []
-    for(let i = 0; i < investorshouses.length; i++){
-        if(!indices.includes(investorshouses[i].id)){
-            indices.push(investorshouses[i].id)}
-    }
-
-    dispatch(setProjectPageId(indices))
-
-    console.log(indices)
 
 
     return (

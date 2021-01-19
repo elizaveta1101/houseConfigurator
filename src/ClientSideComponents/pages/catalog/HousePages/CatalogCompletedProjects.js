@@ -10,11 +10,9 @@ import HouseCard from "../HouseCards/ProjectCard/HouseCard";
 import CatalogHeader from "../CatalogHeader";
 
 import './CatalogCompletedProjects.css';
-import {clearArray, setProjectPageId} from "../../../redux/actions/housePage";
 
 
 let heart_indices = [];
-let indices = [];
 
 function CatalogCompletedProjects() {
 
@@ -32,7 +30,6 @@ function CatalogCompletedProjects() {
             const arrIndex = heart_indices.indexOf(obj.id)
             heart_indices.splice(arrIndex, 1)
         }
-        console.log(heart_indices)
         dispatch(addHeartId(heart_indices))
     }
 
@@ -40,23 +37,6 @@ function CatalogCompletedProjects() {
         axios.get('http://127.0.0.1:5000/project', {params: {pagination: true, page: value}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedProjects(data))})
         dispatch(setProjectsPage(value))
     };
-
-    React.useEffect(() => {
-        async function FetchPosts(){
-            await axios.get('http://127.0.0.1:5000/project', {params: {pagination: true, page: 1}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedProjects(data))})
-        }
-        FetchPosts()
-    },[])
-
-    indices = []
-    for(let i = 0; i < compprojects.length; i++){
-        if(!indices.includes(compprojects[i].id)){
-        indices.push(compprojects[i].id)}
-    }
-
-    dispatch(setProjectPageId(indices))
-
-    console.log(indices)
 
 
     return (

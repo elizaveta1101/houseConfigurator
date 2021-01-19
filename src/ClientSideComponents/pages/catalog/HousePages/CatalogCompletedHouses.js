@@ -10,11 +10,9 @@ import CompletedCard from "../HouseCards/HouseCard/CompletedCard";
 import CatalogHeader from "../CatalogHeader";
 
 import './CatalogCompletedProjects.css';
-import {setProjectPageId} from "../../../redux/actions/housePage";
 
 
 let heart_indices = [];
-let indices = [];
 
 function CatalogCompletedHouses() {
 
@@ -41,22 +39,6 @@ function CatalogCompletedHouses() {
         dispatch(setHousesPage(value))
     };
 
-    React.useEffect(() => {
-        async function FetchPosts(){
-            await axios.get('http://127.0.0.1:5000/house', {params: {pagination: true, page: 1}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedHouses(data))})
-        }
-        FetchPosts()
-    },[dispatch])
-
-    indices = []
-    for(let i = 0; i < comphouses.length; i++){
-        if(!indices.includes(comphouses[i].id)){
-            indices.push(comphouses[i].id)}
-    }
-
-    dispatch(setProjectPageId(indices))
-
-    console.log(indices)
 
 
     return (

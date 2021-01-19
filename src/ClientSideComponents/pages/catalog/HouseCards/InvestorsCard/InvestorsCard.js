@@ -9,7 +9,6 @@ import InvestorsHouseImg from '../../../../../assets/img/InvestorsCard.png'
 import '../ProjectCard/HouseCard.css'
 import '../HouseCard/CompletedCard.css'
 import './InvestorsCard.css'
-import {getProjectPageId} from "../../../../redux/actions/housePage";
 
 function InvestorsCard({
   address,
@@ -57,10 +56,6 @@ function InvestorsCard({
     }
   }
 
-  const getId = (id) => {
-    dispatch(getProjectPageId(id))
-    console.log(id)
-  }
 
   return (
     <div className="card-wrapper">
@@ -102,7 +97,7 @@ function InvestorsCard({
       <div className="triangle2" />
       <div className="card-img">
         <Link to={`/investors_house_page/${id}`}>
-          <img onClick={() => getId(id)} src={InvestorsHouseImg} alt="InvestorsHouseImg" />
+          <img src={InvestorsHouseImg} alt="InvestorsHouseImg" />
         </Link>
       </div>
       <div className="card-info">
@@ -111,7 +106,7 @@ function InvestorsCard({
         </div>
         <div className="house-name">
           <Link to={`/investors_house_page/${id}`}>
-            <h1 onClick={() => getId(id)}>{name}</h1>
+            <h1>{name}</h1>
           </Link>
         </div>
         <div className="chars-and-btns">
