@@ -2,38 +2,33 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 
-import CheckoutButton from '../../../components/CheckoutButton'
+import CheckoutButton from '../../../components/Buttons/CheckoutButton'
 
 import CompletedHouseImg from '../../../../../assets/img/CompletedHouse.png'
 
 import '../ProjectCard/HouseCard.css'
 import './CompletedCard.css'
 
+import {housePage} from "../../../../data/constants";
+import axios from "axios";
+import {setHouseHeartsArray} from "../../../../redux/actions/houses";
 
-function CompletedCard({
-  address,
-  style,
-  bedrooms,
-  cost,
-  floors,
-  id,
-  name,
-  size,
-  square,
-  style_id,
-  onClickAddHouse,
-}) {
+
+const CompletedCard = React.memo(function CompletedCard({onClickItem, address, style, bedrooms, cost, floors, id, name, size, square, style_id, onClickAddHouse,}) {
+
   const [filledHeart, setFilledHeart] = React.useState(false)
-  const heart_ids = useSelector(({ houses }) => houses.house_heart_id)
+  const heart_ids = useSelector(({ houses }) => houses.house_hearts_arr)
   const dispatch = useDispatch()
+  const posts = useSelector(({houses}) => houses.postinfo)
 
-  const onAddHouse = () => {
-    const obj = { address, bedrooms, cost, floors, name, size, square, style_id, id, style }
-    onClickAddHouse(obj)
-
+  const onAddHouse = (id) => {
     setFilledHeart(!filledHeart)
-  }
+    onClickItem(id)
 
+    if (heart_ids.includes(id)) {
+      heart_ids.splice(heart_ids.indexOf(id), 1)
+    }
+  }
 
   if (heart_ids.includes(id)) {
     if (!filledHeart) {
@@ -41,11 +36,21 @@ function CompletedCard({
     }
   }
 
+  React.useEffect(() => {
+    axios
+        .get('http://127.0.0.1:5000/favorites/main_page',
+            {params: {category: 'house'},
+              headers: {Authorization: posts}})
+        .then(({data}) => {
+          dispatch(setHouseHeartsArray(data))
+        })
+  }, [])
+
   return (
     <div className="card-wrapper">
       <div className="triangle">
         <svg
-          onClick={onAddHouse}
+          onClick={() => onAddHouse(id)}
           className="heart"
           id={id}
           width="18"
@@ -81,7 +86,7 @@ function CompletedCard({
       </div>
       <div className="triangle2" />
       <div className="card-img">
-        <Link to={`/completed_house_page/${id}`}>
+        <Link to={`${housePage}${id}`}>
           <img src={CompletedHouseImg} alt="CompletedHouseImg" />
         </Link>
       </div>
@@ -90,7 +95,7 @@ function CompletedCard({
           <p>{style}</p>
         </div>
         <div className="house-name">
-          <Link to={`/completed_house_page/${id}`}>
+          <Link to={`${housePage}${id}`}>
             <h1>{name}</h1>
           </Link>
         </div>
@@ -249,6 +254,6 @@ function CompletedCard({
       </div>
     </div>
   )
-}
+})
 
 export default CompletedCard

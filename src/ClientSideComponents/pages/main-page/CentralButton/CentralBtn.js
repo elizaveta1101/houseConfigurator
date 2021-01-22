@@ -2,12 +2,13 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 
 import './CentralBtn.css';
+import {redactorPage} from "../../../data/constants";
 
 
 function CentralButton() {
     return (
         <>
-            <Link className="central-btn-wrapper" to="/redactor_page"><div>
+            <Link className="central-btn-wrapper" to={redactorPage}><div>
                 <div className="central-btn">
                     <div className="central-btn-circle1-box">
                         <svg className="central-btn-circle1" width="110" height="110" viewBox="0 0 120 120" stroke-width="2.5">

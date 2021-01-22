@@ -1,36 +1,31 @@
 import React from 'react'
+import {projectPage} from "../../../../data/constants";
+import axios from "axios";
+
 import { Link } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 
-import CheckoutButton from '../../../components/CheckoutButton'
-
+import CheckoutButton from '../../../components/Buttons/CheckoutButton'
 import HouseImg2 from '../../../../../assets/img/HouseImgSlider.png'
+import {setHeartsArray} from "../../../../redux/actions/houses";
 
 import './HouseCard.css'
 
 
-function HouseCard({
-  style,
-  bedrooms,
-  cost,
-  floors,
-  id,
-  name,
-  size,
-  square,
-  style_id,
-  onClickAddHouse,
-}) {
+const HouseCard = React.memo(function HouseCard({onClickItem, style, bedrooms, cost, floors, id, name, size, square}) {
 
   const [filledHeart, setFilledHeart] = React.useState(false)
-  const heart_ids = useSelector(({ houses }) => houses.heart_id)
+  const heart_ids = useSelector(({ houses }) => houses.hearts_arr)
   const dispatch = useDispatch()
+  const posts = useSelector(({houses}) => houses.postinfo)
 
   const onAddHouse = (id) => {
-    const obj = { bedrooms, cost, floors, name, size, square, style_id, id, style }
-    onClickAddHouse(obj)
-
     setFilledHeart(!filledHeart)
+    onClickItem(id)
+
+    if (heart_ids.includes(id)) {
+      heart_ids.splice(heart_ids.indexOf(id), 1)
+    }
   }
 
   if (heart_ids.includes(id)) {
@@ -38,6 +33,16 @@ function HouseCard({
       setFilledHeart(!filledHeart)
     }
   }
+
+  React.useEffect(() => {
+    axios
+        .get('http://127.0.0.1:5000/favorites/main_page',
+            {params: {category: 'project'},
+              headers: {Authorization: posts}})
+        .then(({data}) => {
+          dispatch(setHeartsArray(data))
+        })
+  }, [])
 
   return (
     <div className="card-wrapper">
@@ -78,7 +83,7 @@ function HouseCard({
         )}
       </div>
       <div className="triangle2" />
-      <Link to={`/house_page/${id}`}>
+      <Link to={`${projectPage}${id}`}>
         <div className="card-img">
           <img src={HouseImg2} alt="HouseImg" />
         </div>
@@ -88,7 +93,7 @@ function HouseCard({
           <p>{style}</p>
         </div>
         <div className="house-name">
-          <Link to={`/house_page/${id}`}>
+          <Link to={`${projectPage}${id}`}>
             <h1>{name}</h1>
           </Link>
         </div>
@@ -224,6 +229,7 @@ function HouseCard({
       </div>
     </div>
   )
-}
+})
+
 
 export default HouseCard

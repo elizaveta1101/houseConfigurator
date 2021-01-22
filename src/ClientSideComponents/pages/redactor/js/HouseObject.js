@@ -18,7 +18,7 @@ import floorObject from './floorObject.js';
 
 import { loadModel } from '../assets/Models/modelLoader.js';
 import houseModels from '../assets/Models/houseModels.js';
- import {ThreeBSP} from 'three-js-csg-es6';
+import {ThreeBSP} from 'three-js-csg-es6';
 
 
 class HouseObject {

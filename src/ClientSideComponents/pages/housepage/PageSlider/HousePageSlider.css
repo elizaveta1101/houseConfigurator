@@ -95,12 +95,12 @@
   width: 32px;
   margin-top: -77px;
   height: 160px;
-  background: url('../../../assets/img/SliderArrow.svg') 50% 50% no-repeat,
-    url('../../../assets/img/slider-arrow-bg.svg') 0 0 no-repeat;
+  background: url('../../../../assets/img/SliderArrow.svg') 50% 50% no-repeat,
+    url('../../../../assets/img/slider-arrow-bg.svg') 0 0 no-repeat;
 }
 .slick-arrow.slick-next:hover {
-  background: url('../../../assets/img/ActiveSliderArrow.svg') 50% 50% no-repeat,
-    url('../../../assets/img/slider-arrow-bg.svg') 0 0 no-repeat;
+  background: url('../../../../assets/img/ActiveSliderArrow.svg') 50% 50% no-repeat,
+    url('../../../../assets/img/slider-arrow-bg.svg') 0 0 no-repeat;
 }
 
 /* Точки (булиты) */

@@ -18,6 +18,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@tinymce/tinymce-react": "^3.8.4",
+    "@version/react-router-v3": "^1.0.0",
     "antd": "^4.9.2",
     "axios": "^0.19.2",
     "caniuse-lite": "^1.0.30001154",
@@ -46,6 +47,7 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
     "three": "^0.124.0",
+    "three-js-csg-es6": "^73.0.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^5.0.0",
     "typescript": "^3.9.3",

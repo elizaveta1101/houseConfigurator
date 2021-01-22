@@ -4,6 +4,16 @@ import classNames from 'class-names'
 import { Link, useLocation } from 'react-router-dom'
 
 import './Header.css'
+import {
+  catalogHouses,
+  catalogInvests,
+  catalogProjects, housePage,
+  privateCabPage,
+  redactorPage,
+  savedHousesPage,
+  savedInvestsPage,
+  savedProjectsPage
+} from "../../data/constants";
 
 
 function Header() {
@@ -14,17 +24,17 @@ function Header() {
   const [visibleSmallCatalogPopup, setVisibleSmallCatalogPopup] = React.useState(false)
   const [visibleInfoSmallPopup, setVisibleInfoSmallPopup] = React.useState(false)
 
-  const activeHeaderMain_3 = useLocation().pathname !== '/catalog_investors_houses'
-  const activeHeaderMain_2 = useLocation().pathname !== '/catalog_comp_houses'
-  const activeHeaderMain_1 = useLocation().pathname !== '/catalog'
+  const activeHeaderMain_3 = useLocation().pathname !== catalogInvests
+  const activeHeaderMain_2 = useLocation().pathname !== catalogHouses
+  const activeHeaderMain_1 = useLocation().pathname !== catalogProjects
 
-  const activeFavorites_1 = useLocation().pathname !== '/saved_projects'
-  const activeFavorites_2 = useLocation().pathname !== '/saved_houses'
-  const activeFavorites_3 = useLocation().pathname !== '/saved_investors'
+  const activeFavorites_1 = useLocation().pathname !== savedProjectsPage
+  const activeFavorites_2 = useLocation().pathname !== savedHousesPage
+  const activeFavorites_3 = useLocation().pathname !== savedInvestsPage
 
-  const activeHeaderRedactor = useLocation().pathname !== '/redactor_page'
+  const activeHeaderRedactor = useLocation().pathname !== redactorPage
   const activeHeaderInfo = useLocation().pathname !== '/'
-  const activeHeaderCab = useLocation().pathname !== '/private_cab'
+  const activeHeaderCab = useLocation().pathname !== privateCabPage
 
   const catalogPopupRef = React.useRef()
   const catalogPopupBtn = React.useRef()
@@ -168,17 +178,17 @@ function Header() {
               className="catalog-popup"
             >
               <div className="catalog-popup__points">
-                <Link to="/catalog">
+                <Link to={catalogProjects}>
                   <p className={classNames({ 'active-catalog-popup': !activeHeaderMain_1 })}>
                     Готовые проекты
                   </p>
                 </Link>
-                <Link to="/catalog_comp_houses">
+                <Link to={catalogHouses}>
                   <p className={classNames({ 'active-catalog-popup': !activeHeaderMain_2 })}>
                     Готовые дома
                   </p>
                 </Link>
-                <Link to="/catalog_investors_houses">
+                <Link to={catalogInvests}>
                   <p className={classNames({ 'active-catalog-popup': !activeHeaderMain_3 })}>
                     Инвесторам
                   </p>
@@ -187,7 +197,7 @@ function Header() {
             </div>
           )}
           <li className={classNames({ 'active-header-main': !activeHeaderRedactor })}>
-            <Link to="/redactor_page">Конструктор проекта</Link>
+            <Link to={redactorPage}>Конструктор проекта</Link>
           </li>
           <li
             ref={infoPopupBtn}
@@ -281,7 +291,7 @@ function Header() {
                 <div className="catalog-popup__points">
                   <Link
                     onClick={() => setVisibleSmallCatalogPopup(!visibleSmallCatalogPopup)}
-                    to="/catalog"
+                    to={catalogProjects}
                   >
                     <p
                       onClick={() => setVisibleHeaderPopup(!visibleHeaderPopup)}
@@ -292,7 +302,7 @@ function Header() {
                   </Link>
                   <Link
                     onClick={() => setVisibleSmallCatalogPopup(!visibleSmallCatalogPopup)}
-                    to="/catalog_comp_houses"
+                    to={catalogHouses}
                   >
                     <p
                       onClick={() => setVisibleHeaderPopup(!visibleHeaderPopup)}
@@ -303,7 +313,7 @@ function Header() {
                   </Link>
                   <Link
                     onClick={() => setVisibleSmallCatalogPopup(!visibleSmallCatalogPopup)}
-                    to="/catalog_investors_houses"
+                    to={catalogInvests}
                   >
                     <p
                       onClick={() => setVisibleHeaderPopup(!visibleHeaderPopup)}
@@ -316,7 +326,7 @@ function Header() {
               </div>
             )}
             <li className={classNames({ 'popup-sub-menu__active': !activeHeaderRedactor })}>
-              <Link to="/redactor_page">Конструктор проекта</Link>
+              <Link to={redactorPage}>Конструктор проекта</Link>
             </li>
             <li
               onClick={bothForInfo}
@@ -376,7 +386,7 @@ function Header() {
             strokeLinejoin="round"
           />
         </svg>
-        <Link to="/saved_projects">
+        <Link to={savedProjectsPage}>
           <svg
             className={classNames('header-icon', {
               'header-icon-active': !activeFavorites_1 || !activeFavorites_2 || !activeFavorites_3,
@@ -425,7 +435,7 @@ function Header() {
             className="cab-popup"
           >
             <div className="cab-popup__points">
-              <Link to="/private_cab">
+              <Link to={privateCabPage}>
                 <p className={classNames({ 'active-catalog-popup': !activeHeaderCab })}>
                   Личный кабинет
                 </p>

@@ -2,52 +2,31 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 
-import CheckoutButton from '../../../components/CheckoutButton'
+import CheckoutButton from '../../../components/Buttons/CheckoutButton'
 
 import InvestorsHouseImg from '../../../../../assets/img/InvestorsCard.png'
 
 import '../ProjectCard/HouseCard.css'
 import '../HouseCard/CompletedCard.css'
 import './InvestorsCard.css'
+import {investsPage} from "../../../../data/constants";
+import axios from "axios";
+import {setInvestHeartsArray} from "../../../../redux/actions/houses";
 
-function InvestorsCard({
-  address,
-  year_percent,
-  style,
-  bedrooms,
-  conditions,
-  cost,
-  floors,
-  id,
-  name,
-  size,
-  square,
-  style_id,
-  onClickAddHouse,
-}) {
+const InvestorsCard = React.memo(function InvestorsCard({year_percent, style, conditions, cost, id, name, onClickItem,}) {
 
   const [filledHeart, setFilledHeart] = React.useState(false)
-  const heart_ids = useSelector(({ houses }) => houses.invest_heart_id)
+  const heart_ids = useSelector(({ houses }) => houses.invest_hearts_arr)
   const dispatch = useDispatch()
+  const posts = useSelector(({houses}) => houses.postinfo)
 
-  const onAddHouse = () => {
-    const obj = {
-      address,
-      bedrooms,
-      cost,
-      floors,
-      name,
-      size,
-      square,
-      style_id,
-      id,
-      year_percent,
-      style,
-      conditions,
-    }
-    onClickAddHouse(obj)
-
+  const onAddHouse = (id) => {
     setFilledHeart(!filledHeart)
+    onClickItem(id)
+
+    if (heart_ids.includes(id)) {
+      heart_ids.splice(heart_ids.indexOf(id), 1)
+    }
   }
 
   if (heart_ids.includes(id)) {
@@ -56,12 +35,22 @@ function InvestorsCard({
     }
   }
 
+  React.useEffect(() => {
+    axios
+        .get('http://127.0.0.1:5000/favorites/main_page',
+            {params: {category: 'invest'},
+              headers: {Authorization: posts}})
+        .then(({data}) => {
+          dispatch(setInvestHeartsArray(data))
+        })
+  }, [])
+
 
   return (
     <div className="card-wrapper">
       <div className="triangle">
         <svg
-          onClick={onAddHouse}
+          onClick={() => onAddHouse(id)}
           className="heart"
           width="18"
           height="16"
@@ -96,7 +85,7 @@ function InvestorsCard({
       </div>
       <div className="triangle2" />
       <div className="card-img">
-        <Link to={`/investors_house_page/${id}`}>
+        <Link to={`${investsPage}${id}`}>
           <img src={InvestorsHouseImg} alt="InvestorsHouseImg" />
         </Link>
       </div>
@@ -105,7 +94,7 @@ function InvestorsCard({
           <p>{style}</p>
         </div>
         <div className="house-name">
-          <Link to={`/investors_house_page/${id}`}>
+          <Link to={`${investsPage}${id}`}>
             <h1>{name}</h1>
           </Link>
         </div>
@@ -192,6 +181,6 @@ function InvestorsCard({
       </div>
     </div>
   )
-}
+})
 
 export default InvestorsCard

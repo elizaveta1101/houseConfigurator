@@ -14,6 +14,21 @@ export const setInvestorsHouses = (investorshouses) => ({
     payload: investorshouses,
 });
 
+export const setHeartsArray = (heartArr) => ({
+    type: 'SET_HEARTS_ARRAY',
+    payload: heartArr,
+});
+
+export const setHouseHeartsArray = (heartArr) => ({
+    type: 'SET_HOUSE_HEARTS_ARRAY',
+    payload: heartArr,
+});
+
+export const setInvestHeartsArray = (heartArr) => ({
+    type: 'SET_INVEST_HEARTS_ARRAY',
+    payload: heartArr,
+});
+
 export const setPostInfo = (postinfo) => ({
     type: 'SET_POST_INFO',
     payload: postinfo,
@@ -24,20 +39,11 @@ export const setUserInfo = (userinfo) => ({
     payload: userinfo,
 });
 
-export const setPostCost = (costinfo) => ({
-    type: 'SET_POST_COST',
-    payload: costinfo,
-});
-
-export const addHeartId = (id) => ({
-    type: 'SET_HEART_ID',
-    payload: id,
-});
-
 export const addHouseHeartId = (id) => ({
     type: 'SET_HOUSE_HEART_ID',
     payload: id,
 });
+
 
 export const addInvestHeartId = (id) => ({
     type: 'SET_INVEST_HEART_ID',
@@ -60,6 +66,10 @@ export const setInvestPage = (id) => ({
     payload: id,
 });
 
+export const setDefaultPageNum = () => ({
+    type: 'SET_DEFAULT_PAGE_INFO',
+    payload: 3,
+})
 
 
 

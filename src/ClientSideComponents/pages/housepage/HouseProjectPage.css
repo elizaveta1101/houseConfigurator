@@ -450,6 +450,14 @@
     z-index: 22;
     cursor: pointer;
 }
+.project-page__filled-heart{
+    position: absolute;
+    width: 27px;
+    height: 24px;
+    margin-top: 570px;
+    margin-left: 905px;
+    cursor: pointer;
+}
 
 .relis-date span{
     margin-left: 89px;

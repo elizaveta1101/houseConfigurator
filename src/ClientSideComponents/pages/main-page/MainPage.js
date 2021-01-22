@@ -1,8 +1,8 @@
 import React from 'react'
 
-import CentralCircle from './CentralCircle'
-import VideoButton from './VideoButton'
-import CompletedProjects from './CompletedProjects'
+import CentralCircle from './CentralCircle/CentralCircle'
+import VideoButton from './VideoButton/VideoButton'
+import CompletedProjects from './ProjectsButton/CompletedProjects'
 
 import './MainPage.css'
 

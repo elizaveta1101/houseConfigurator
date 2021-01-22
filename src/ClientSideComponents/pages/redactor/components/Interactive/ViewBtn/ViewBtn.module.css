@@ -1,8 +1,8 @@
 .viewBtns {
   position: absolute;
-  top: 0vh;
-  left: 500px;
-  transform: translateX(-50%);
+  bottom: 0;
+  justify-self: center;
+
 }
 @media (min-width: 768px) {
   .viewBtns {
@@ -14,7 +14,6 @@
   margin-top: 8px;
   cursor: pointer;
   background-color: white;
-  border: 1px solid #000;
   color: #325FFF;
   width: 35px;
   height: 35px;

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Form, Input, Button} from 'antd';
 import axios from "axios";
+import {Form, Input, Button} from 'antd';
 
-import {setUserInfo} from "../../redux/actions/houses";
+import {setUserInfo} from "../../../redux/actions/houses";
 import {useDispatch} from "react-redux";
 
 import './RegistrationForm.css';

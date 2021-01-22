@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-import CheckoutButton from "../components/CheckoutButton";
+import CheckoutButton from "../components/Buttons/CheckoutButton";
 
 import './RedactorPage.css';
 import '../housepage/HouseProjectPage.css'

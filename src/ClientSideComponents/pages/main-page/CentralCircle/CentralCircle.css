@@ -575,54 +575,16 @@
     color: #000000;
 }
 
-.user-menu-popup input{
-    margin-top: 8px;
-    width: 200px;
-    height: 40px;
-    outline: none;
 
-    background: #FFFFFF;
-    /* Серый рамки текст */
 
-    box-sizing: border-box;
-}
-
-.user-menu-popup form{
-    margin-top: 24px;
-    margin-left: 30px;
-}
-
-.user-menu-popup label{
-    font-family: Open Sans Light;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 22px;
-
-}
 .password-box{
     margin-top: 16px;
 }
 
-.user-menu-popup input{
+.login-form{
+    margin-left: 16px;
+    margin-top: 30px;
     width: 320px;
-    height: 40px;
-    padding: 15px;
-    display: inline-block;
-    border: 1px solid #D9D9D9;
-    background: #ffffff;
-}
-
-.user-menu-popup button{
-    cursor: pointer;
-    margin-top: 32px;
-    width: 80px;
-    height: 40px;
-    outline: none;
-    border: none;
-    margin-left: 30px;
-
-    background: #325FFF;
 }
 
 .registerbtn{
@@ -676,8 +638,8 @@
 
 .registration a{
     position: absolute;
-    margin-left: 130px;
-    margin-top: -30px;
+    margin-left: 140px;
+    margin-top: -50px;
     font-family: Open Sans Light;
     color: #262626;
     font-style: normal;
@@ -1204,6 +1166,234 @@
 }
 
 @media (max-width: 1800px) {
+    .circle-bg{
+        height: 710px;
+        width: 710px;
+
+        border-radius: 50%;
+    }
+    .circle-bg img{
+        height: 710px;
+        width: 710px;
+    }
+    .pre-circle-1{
+        margin-top: -210px;
+        margin-left: -220px;
+
+        width: 730px;
+        height: 730px;
+    }
+    .pre-circle-2{
+        margin-top: -220px;
+        margin-left: -225px;
+
+        width: 740px;
+        height: 740px;
+    }
+    .pre-circle-3{
+        margin-top: -205px;
+        margin-left: -210px;
+
+        width: 740px;
+        height: 710px;
+    }
+    .pre-menu-line-1{
+        margin-top: -180px;
+        margin-left: 332px;
+
+        width: 80px;
+        height: 11px;
+    }
+    .pre-menu-line-2{
+        margin-top: -442px;
+        margin-left: -310px;
+
+        width: 900px;
+        height: 1200px;
+    }
+    .pre-menu-line-3{
+        margin-top: -63px;
+        margin-left: 450px;
+
+        width: 82px;
+        height: 20px;
+    }
+    .pre-menu-line-4{
+        border-radius: 50%;
+        margin-left: -210px;
+        margin-top: -225px;
+
+        width: 750px;
+        height: 750px;
+    }
+    .inside-main-circle-1{
+        margin-top: -195px;
+        margin-left: -200px;
+
+        width: 690px;
+        height: 690px;
+    }
+    .inside-main-circle-2{
+        margin-top: -175px;
+        margin-left: -175px;
+
+        width: 650px;
+        height: 650px;
+
+        transform: rotate(-3deg);
+    }
+
+    .main-menu-btn{
+        margin-top: -610px;
+        margin-left: 497px;
+
+        width: 50px;
+        height: 60px;
+    }
+    .user-menu-btn{
+        margin-top: -542px;
+        margin-left: 571px;
+
+        width: 50px;
+        height: 60px;
+    }
+    .phone-menu-btn{
+        margin-top: -463px;
+        margin-left: 633px;
+
+        width: 50px;
+        height: 60px;
+    }
+    .main-menu-popup{
+        width: 134px;
+        height: 144px;
+
+        margin-top: -390px;
+        margin-left: 303px;
+    }
+    .main-menu-btn-active{
+        height: 90px;
+        margin-top: -590px;
+        margin-left: 477px;
+
+        background-color: #FFFFFF;
+    }
+    .user-menu-popup{
+        width: 386px;
+        height: 311px;
+
+        margin-top: -165px;
+        margin-left: 105px;
+    }
+    .user-menu-btn-active{
+        height: 90px;
+        margin-top: -522px;
+        margin-left: 551px;
+
+        background-color: #FFFFFF;
+    }
+    .regist-form{
+        position: absolute;
+        margin-left: -900px;
+        margin-top: 100px;
+    }
+    .phone-menu-popup{
+        margin-top: -230px;
+        margin-left: 350px;
+
+        width: 200px;
+        height: 170px;
+    }
+    .phone-menu-btn-active{
+        height: 90px;
+        margin-top: -446px;
+        margin-left: 610px;
+
+        background-color: #FFFFFF;
+    }
+    .left-btns {
+        margin-left: -515px;
+        margin-top: 343px;
+        z-index: -1;
+    }
+    @keyframes loading-left-btns {
+        0%{margin-left: -1030px;
+            opacity: 0}
+        99%{margin-left: -1010px; z-index: -1}
+        100%{margin-left: -768px; z-index: 1;
+            opacity: 1}
+    }
+    .left-btns{
+        animation: loading-left-btns 0.3s linear 0.55s forwards;
+    }
+    .prepared-houses{
+        width: 170px;
+        height: 88px;
+    }
+    .for-investors-houses{
+        margin-top: -20px;
+        width: 230px;
+        height: 88px;
+    }
+    .prepared-icon{
+        margin-top: 25px;
+        margin-left: -150px;
+    }
+    .prepared-block p{
+        margin-left: 70px;
+    }
+    .prepared-block h1{
+        margin-left: 70px;
+    }
+    .for-investors-icon{
+        margin-top: 0px;
+        margin-left: -210px;
+    }
+    .investors-block p{
+        margin-left: 70px;
+    }
+    .investors-block h1{
+        margin-left: 70px;
+    }
+    .left-text-block h1{
+        font-size: 36px;
+    }
+    .left-text-block p{
+        font-weight: 600;
+        font-size: 16px;
+    }
+    @keyframes main-text-small {
+        from {margin-left: -1030px; opacity: 0;}
+        to {margin-left: -1000px; opacity: 1; z-index:1}
+    }
+    .left-text-block{
+        margin-left: 1030px;
+        margin-top: -40px;
+    }
+    .left-text-block {
+        animation: main-text-small 0.2s linear 0.2s forwards;
+    }
+    .right-text-block h1{
+        margin-top: 10px;
+        font-size: 36px;
+    }
+    .right-text-block p{
+        font-size: 16px;
+    }
+    .right-text-block{
+        margin-top: -180px;
+        margin-left: 1080px;
+    }
+    .create-house-btn{
+        position: absolute;
+        margin-top: 370px;
+        cursor: pointer;
+        margin-left: -80px;
+
+    }
+}
+
+@media (max-height: 1000px) {
     .circle-bg{
         height: 710px;
         width: 710px;

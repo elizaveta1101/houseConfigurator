@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CatalogCompletedHouses from "./HousePages/CatalogCompletedHouses";
-import CatalogInvestors from "./HousePages/CatalogInvestors";
-import CatalogCompletedProjects from "./HousePages/CatalogCompletedProjects";
+import CatalogCompletedHouses from "./CatalogPages/HouseCatalog/CatalogCompletedHouses";
+import CatalogInvestors from "./CatalogPages/InvestCatalog/CatalogInvestors";
+import CatalogCompletedProjects from "./CatalogPages/ProjectsCatalog/CatalogCompletedProjects";
 
 
 function CatalogPage() {

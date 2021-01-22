@@ -2,7 +2,7 @@ import React from 'react';
 
 import {useSelector} from "react-redux";
 
-import '../catalog/CatalogHeader.css';
+import '../../catalog/CatalogHeader/CatalogHeader.css';
 
 
 let indices = [];

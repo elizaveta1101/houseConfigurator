@@ -2,13 +2,14 @@
   position: absolute;
   display: flex;
   overflow: hidden;
-  width: 99vw;
+  width: 100%;
   min-height: 100vh;
   flex-direction: column;
 
   background-color: #f4f4f4;
   font-family: 'Roboto Condenced', sans-serif;
 }
+
 
 .main-wrapper {
   display: flex;

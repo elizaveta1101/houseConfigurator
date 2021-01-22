@@ -1,26 +1,32 @@
 import React from 'react';
 import classNames from 'class-names'
-import FloorSort from "../components/FloorSort";
+import FloorSort from "../../components/FloorSort/FloorSort";
 import axios from "axios";
 
 import { Link, useLocation } from 'react-router-dom'
-import { setCategory } from '../../redux/actions/filters'
+import { setCategory } from '../../../redux/actions/filters'
 import { useDispatch, useSelector } from "react-redux";
-import { setCompletedHouses, setCompletedProjects, setInvestorsHouses } from "../../redux/actions/houses";
+import {
+    setCompletedHouses,
+    setCompletedProjects,
+    setDefaultPageNum,
+    setInvestorsHouses
+} from "../../../redux/actions/houses";
 
-import CostSlider from "../components/CostSlider";
-import SquareSlider from "../components/SquareSlider";
+import CostSlider from "../../components/CostSlider/CostSlider";
+import SquareSlider from "../../components/SquareSlider/SquareSlider";
 
 import './CatalogHeader.css';
+import {catalogHouses, catalogInvests, catalogProjects} from "../../../data/constants";
 
 
 
 const floors = ['1', '2', '3+', 'С мансардой'];
 
-function CatalogHeader(){
-        const completedProjectsActive = useLocation().pathname !== '/catalog';
-        const completedHousesActive = useLocation().pathname !== '/catalog_comp_houses';
-        const investorsHousesActive = useLocation().pathname !== '/catalog_investors_houses';
+function CatalogHeader({page}){
+        const completedProjectsActive = useLocation().pathname !== catalogProjects;
+        const completedHousesActive = useLocation().pathname !== catalogHouses;
+        const investorsHousesActive = useLocation().pathname !== catalogInvests;
         const posts = useSelector(({houses}) => houses.postinfo)
         const category = useSelector(({filters}) => filters.category);
         const cost = useSelector(({filters}) => filters.costArr);
@@ -40,6 +46,9 @@ function CatalogHeader(){
                 axios.get('http://127.0.0.1:5000/house', {params: {pagination: true, page: 1, floor_filter: stringed, cost_filter: cost, square_filter: square}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedHouses(data))})
                 axios.get('http://127.0.0.1:5000/invest', {params: {pagination: true, page: 1, floor_filter: stringed, cost_filter: cost, square_filter: square}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setInvestorsHouses(data))})
             }
+
+
+            dispatch(setDefaultPageNum())
         }
 
         const onSelectCategory = React.useCallback((index) => {
@@ -52,13 +61,13 @@ function CatalogHeader(){
                     <div className="choose-catalog">
                         <h1>Выбор каталога</h1>
                         <div className="choose-catalog__buttons" >
-                            <Link to="/catalog"><div className={classNames('completed-projects', 'catalog-header__active' , {'catalog-header__active-active': !completedProjectsActive})}>
+                            <Link to={catalogProjects}><div className={classNames('completed-projects', 'catalog-header__active' , {'catalog-header__active-active': !completedProjectsActive})}>
                                <p>Готовые проекты</p>
                             </div></Link>
-                            <Link to="/catalog_comp_houses"><div className={classNames('completed-homes', 'catalog-header__active' , {'catalog-header__active-active': !completedHousesActive})}>
+                            <Link to={catalogHouses}><div className={classNames('completed-homes', 'catalog-header__active' , {'catalog-header__active-active': !completedHousesActive})}>
                                 <p>Готовые дома</p>
                             </div></Link>
-                            <Link to="/catalog_investors_houses"><div className={classNames('for-investors', 'catalog-header__active' , {'catalog-header__active-active': !investorsHousesActive})}>
+                            <Link to={catalogInvests}><div className={classNames('for-investors', 'catalog-header__active' , {'catalog-header__active-active': !investorsHousesActive})}>
                                 <p>Инвесторам</p>
                             </div></Link>
                         </div>

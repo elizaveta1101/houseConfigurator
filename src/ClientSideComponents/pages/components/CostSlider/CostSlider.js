@@ -4,7 +4,7 @@ import Slider from '@material-ui/core/Slider';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterCost } from "../../redux/actions/filters";
+import { setFilterCost } from "../../../redux/actions/filters";
 
 import './CostSlider.css'
 
@@ -63,6 +63,7 @@ export default function CostSlider() {
     let stringed = value.join('-')
 
     dispatch(setFilterCost(stringed))
+
 
     return (
         <div className={classes.root}>

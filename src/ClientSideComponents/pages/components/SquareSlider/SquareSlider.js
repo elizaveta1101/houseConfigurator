@@ -4,9 +4,9 @@ import Slider from '@material-ui/core/Slider';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterSquare } from "../../redux/actions/filters";
+import { setFilterSquare } from "../../../redux/actions/filters";
 
-import './CostSlider.css'
+import '../CostSlider/CostSlider.css'
 
 const useStyles = makeStyles({
     root: {

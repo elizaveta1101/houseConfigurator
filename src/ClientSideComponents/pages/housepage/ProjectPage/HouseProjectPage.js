@@ -1,14 +1,15 @@
 import React from 'react';
 import axios from "axios";
 
-import HousePageSlider from "./HousePageSlider";
-import CheckoutButton from "../components/CheckoutButton";
+import HousePageSlider from "../PageSlider/HousePageSlider";
+import CheckoutButton from "../../components/Buttons/CheckoutButton";
 
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
-import {getProjectPageInfo} from "../../redux/actions/housePage";
+import {getProjectPageInfo} from "../../../redux/actions/housePage";
+import {setHeartsArray} from "../../../redux/actions/houses";
 
-import './HouseProjectPage.css';
+import '../HouseProjectPage.css';
 
 
 
@@ -17,22 +18,45 @@ function HouseProjectPage(){
     const pageId = Number(pageLink.match(/\d+/))
     const posts = useSelector(({ houses }) => houses.postinfo)
     const dispatch = useDispatch()
+    const [filledHeart, setFilledHeart] = React.useState(false)
+    const heart_ids = useSelector(({ houses }) => houses.hearts_arr)
+    const pageInfo = useSelector(({ housePage }) => housePage.projectPageInfo)
+
+    const onAddHouse = (id) => {
+        axios.post('http://127.0.0.1:5000/favorites', {
+            id: id,
+            category: 'project'
+        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+
+        setFilledHeart(!filledHeart)
+        if (heart_ids.includes(id)) {
+            heart_ids.splice(heart_ids.indexOf(id), 1)
+        }
+    }
+
+    if (heart_ids.includes(pageId)) {
+        if (!filledHeart) {
+            setFilledHeart(!filledHeart)
+        }
+    }
 
     React.useEffect(() => {
-        async function FetchPosts() {
-            await axios
-                .get('http://127.0.0.1:5000/project',
-                    {params: {id: pageId},
-                        headers: {Authorization: posts}})
-                .then(({data}) => {
-                    dispatch(getProjectPageInfo(data))
-                })
-        }
-        FetchPosts()
+        axios
+            .get('http://127.0.0.1:5000/project',
+                {params: {id: pageId},
+                    headers: {Authorization: posts}})
+            .then(({data}) => {
+                dispatch(getProjectPageInfo(data))
+            })
+
+        axios
+            .get('http://127.0.0.1:5000/favorites/main_page',
+                {params: {category: 'project'},
+                    headers: {Authorization: posts}})
+            .then(({data}) => {
+                dispatch(setHeartsArray(data))
+            })
     }, [])
-
-
-    const pageInfo = useSelector(({ housePage }) => housePage.projectPageInfo)
 
     return (
         <div className="house-project-page-wrapper">
@@ -47,9 +71,28 @@ function HouseProjectPage(){
             <div className="house-project-page__main-block">
                 <div className="house-project-page__slider">
                     <HousePageSlider />
-                    <svg className="heart1" width="27" height="24" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg onClick={() => onAddHouse(pageId)} className="heart1" width="27" height="24" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 16C8.74374 16 8.49669 15.9072 8.30415 15.7388C7.577 15.1035 6.87593 14.5065 6.2574 13.9799L6.25424 13.9772C4.44081 12.4332 2.87485 11.0998 1.78528 9.7863C0.567307 8.31791 0 6.92567 0 5.40473C0 3.92701 0.507156 2.56372 1.42795 1.56581C2.35973 0.556101 3.63826 0 5.02844 0C6.06747 0 7.01903 0.3282 7.8566 0.975406C8.2793 1.3021 8.66245 1.70192 9 2.16828C9.33769 1.70192 9.7207 1.3021 10.1435 0.975406C10.9811 0.3282 11.9327 0 12.9717 0C14.3617 0 15.6404 0.556101 16.5722 1.56581C17.493 2.56372 18 3.92701 18 5.40473C18 6.92567 17.4328 8.31791 16.2149 9.78616C15.1253 11.0998 13.5595 12.433 11.7463 13.9769C11.1267 14.5043 10.4245 15.1023 9.69571 15.739C9.50331 15.9072 9.25612 16 9 16ZM5.02844 1.05348C3.93626 1.05348 2.93294 1.48897 2.20303 2.27983C1.46228 3.08263 1.05428 4.19236 1.05428 5.40473C1.05428 6.68391 1.53012 7.82794 2.59703 9.11412C3.62823 10.3574 5.16206 11.6633 6.938 13.1755L6.9413 13.1782C7.56216 13.7069 8.26598 14.3062 8.99849 14.9461C9.7354 14.3049 10.4403 13.7047 11.0624 13.1752C12.8382 11.663 14.3719 10.3574 15.4031 9.11412C16.4699 7.82794 16.9457 6.68391 16.9457 5.40473C16.9457 4.19236 16.5377 3.08263 15.797 2.27983C15.0672 1.48897 14.0637 1.05348 12.9717 1.05348C12.1716 1.05348 11.437 1.30758 10.7884 1.80866C10.2104 2.25541 9.80777 2.82016 9.5717 3.21531C9.4503 3.41852 9.23662 3.53981 9 3.53981C8.76338 3.53981 8.5497 3.41852 8.4283 3.21531C8.19237 2.82016 7.78972 2.25541 7.21156 1.80866C6.56296 1.30758 5.82838 1.05348 5.02844 1.05348Z" fill="#325FFF"/>
                     </svg>
+                    {filledHeart && (
+                    <svg
+                        className={filledHeart ? 'project-page__filled-heart' : 'heart1'}
+                        width="18"
+                        height="16"
+                        viewBox="0 0 18 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M9 16C8.74374 16 8.49669 15.9072 8.30415 15.7388C7.577 15.1035 6.87593 14.5065 6.2574 13.9799L6.25424 13.9772C4.44081 12.4332 2.87485 11.0998 1.78528 9.7863C0.567307 8.31791 0 6.92567 0 5.40473C0 3.92701 0.507156 2.56372 1.42795 1.56581C2.35973 0.556101 3.63826 0 5.02844 0C6.06747 0 7.01903 0.3282 7.8566 0.975406C8.2793 1.3021 8.66245 1.70192 9 2.16828C9.33769 1.70192 9.7207 1.3021 10.1435 0.975406C10.9811 0.3282 11.9327 0 12.9717 0C14.3617 0 15.6404 0.556101 16.5722 1.56581C17.493 2.56372 18 3.92701 18 5.40473C18 6.92567 17.4328 8.31791 16.2149 9.78616C15.1253 11.0998 13.5595 12.433 11.7463 13.9769C11.1267 14.5043 10.4245 15.1023 9.69571 15.739C9.50331 15.9072 9.25612 16 9 16ZM5.02844 1.05348C3.93626 1.05348 2.93294 1.48897 2.20303 2.27983C1.46228 3.08263 1.05428 4.19236 1.05428 5.40473C1.05428 6.68391 1.53012 7.82794 2.59703 9.11412C3.62803 10.3571 5.16146 11.6628 6.93695 13.1746L6.938 13.1755L6.9413 13.1782C7.56216 13.7069 8.26598 14.3062 8.99849 14.9461C9.7354 14.3049 10.4403 13.7047 11.0624 13.1752C11.064 13.1738 11.0656 13.1724 11.0672 13.1711C12.841 11.6607 14.3728 10.3562 15.4031 9.11412C16.4699 7.82794 16.9457 6.68391 16.9457 5.40473C16.9457 4.19236 16.5377 3.08263 15.797 2.27983C15.0672 1.48897 14.0637 1.05348 12.9717 1.05348C12.1716 1.05348 11.437 1.30758 10.7884 1.80866C10.2104 2.25541 9.80777 2.82016 9.5717 3.21531C9.4503 3.41852 9.23662 3.53981 9 3.53981C8.76338 3.53981 8.5497 3.41852 8.4283 3.21531C8.19237 2.82016 7.78972 2.25541 7.21156 1.80866C6.56296 1.30758 5.82838 1.05348 5.02844 1.05348Z"
+                            fill="#325FFF"
+                        />
+                        <path
+                            d="M5.02844 1.05348C3.93626 1.05348 2.93294 1.48897 2.20303 2.27983C1.46228 3.08263 1.05428 4.19236 1.05428 5.40473C1.05428 6.68391 1.53012 7.82794 2.59703 9.11412C3.62803 10.3571 5.16146 11.6628 6.93695 13.1746L6.938 13.1755L6.9413 13.1782C7.56216 13.7069 8.26598 14.3062 8.99849 14.9461C9.7354 14.3049 10.4403 13.7047 11.0624 13.1752L11.0672 13.1711C12.841 11.6607 14.3728 10.3562 15.4031 9.11412C16.4699 7.82794 16.9457 6.68391 16.9457 5.40473C16.9457 4.19236 16.5377 3.08263 15.797 2.27983C15.0672 1.48897 14.0637 1.05348 12.9717 1.05348C12.1716 1.05348 11.437 1.30758 10.7884 1.80866C10.2104 2.25541 9.80777 2.82016 9.5717 3.21531C9.4503 3.41852 9.23662 3.53981 9 3.53981C8.76338 3.53981 8.5497 3.41852 8.4283 3.21531C8.19237 2.82016 7.78972 2.25541 7.21156 1.80866C6.56296 1.30758 5.82838 1.05348 5.02844 1.05348Z"
+                            fill="#325FFF"
+                        />
+                    </svg>)}
+
                 </div>
                 <div className="house-project-page__right-block">
                     <div className="house-project-page__info">
@@ -99,7 +142,6 @@ function HouseProjectPage(){
                         <CheckoutButton className="house-page__open-project-btn" children={'Открыть в редакторе'} active={true}/>
                     </div>
                 </div>
-
             </div>
             <div className="house-card__checkout">
                 <div className="house-card__checkout-price">
@@ -116,7 +158,6 @@ function HouseProjectPage(){
                 <h1>Описание проекта</h1>
                 <p>{pageInfo && pageInfo.long_info}</p>
             </div>
-
         </div>
     );
 }

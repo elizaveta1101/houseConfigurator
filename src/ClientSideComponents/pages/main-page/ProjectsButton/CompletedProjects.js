@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 
 import './CompletedProjects.css';
+import {catalogProjects} from "../../../data/constants";
 
 
 function CompletedProjects() {
@@ -15,7 +16,7 @@ function CompletedProjects() {
                     <circle className="completed-circle-2-preload" cx="60" cy="60" r="58.2" fill="none" stroke="#325FFF" opacity={0.1} strokeWidth="2" strokeDasharray="0 400"/>
                 </svg>
 
-                <Link to="/catalog"><div className="completed-btn-hover">
+                <Link to={catalogProjects}><div className="completed-btn-hover">
                     <div className="completed-btn-circle1-hover">
                         <svg className="completed-btn-circle1-preload" width="110" height="110" viewBox="0 0 120 120" strokeWidth="2.5">
                             <circle className="completed-btn-circle1-preload" cx="60" cy="60" r="57.6" fill="none" stroke="#325FFF" strokeWidth="6" strokeDasharray="0 400"/>

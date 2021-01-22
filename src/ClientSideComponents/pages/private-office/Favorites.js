@@ -1,50 +1,56 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { Link } from "react-router-dom";
 
 
 import HouseCard from "../catalog/HouseCards/ProjectCard/HouseCard";
 import CompletedCard from "../catalog/HouseCards/HouseCard/CompletedCard";
 import InvestorsCard from "../catalog/HouseCards/InvestorsCard/InvestorsCard";
-import CheckoutButton from "../components/CheckoutButton";
+import CheckoutButton from "../components/Buttons/CheckoutButton";
 
 import './Favorites.css';
 import '../housepage/HouseProjectPage.css'
+import axios from "axios";
+import {addCompletedHouseToCart} from "../../redux/actions/cart";
 
 
 function Favorites() {
     const items = useSelector(({cart}) => cart.compprojects)
-    const comphouses = useSelector(({cart}) => cart.comphouses)
+    const favoriteHouses = useSelector(({ cart }) => cart.comphouses)
     const investhouses = useSelector(({cart}) => cart.investhouses)
-    const added_project_length = Object.keys(items).length
-    const added_houses_length = Object.keys(comphouses).length
-    const added_investors_length = Object.keys(investhouses).length
-    const all_added = added_project_length + added_houses_length + added_investors_length
+    const dispatch = useDispatch()
+    const posts = useSelector(({ houses }) => houses.postinfo)
 
-    const addedHouses = Object.keys(items).map(key => {
-        return items[key][0]
-    });
-    const addedCompHouses = Object.keys(comphouses).map(key => {
-        return comphouses[key][0]
-    });
-    const addedInvestHouses = Object.keys(investhouses).map(key => {
-        return investhouses[key][0]
-    });
+    const onSelectCategory = React.useCallback((id) => {
+        axios.post('http://127.0.0.1:5000/favorites', {
+            id: id,
+            category: 'house'
+        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+    }, [])
+
+    React.useEffect(() => {
+        async function FetchPosts() {
+            axios
+                .get('http://127.0.0.1:5000/favorites',
+                    {params: {pagination: true, category: 'house'},
+                        headers: {Authorization: posts}})
+                .then(({data}) => {
+                    dispatch(addCompletedHouseToCart(data))
+                })
+        }
+        FetchPosts()
+    }, [])
 
     return (
         <div className="house-project-page-wrapper">
             <div className="favorites">
                 <h2>Избранное</h2>
                 <div className="favorites-cards">
-                    {all_added <= 2 &&
-                        addedHouses.map(obj => <HouseCard {...obj} />)
-                    }
-                    {all_added <= 2 &&
-                        addedCompHouses.map(obj => <CompletedCard {...obj} />)
-                    }
-                    {all_added <= 2 &&
-                        addedInvestHouses.map(obj => <InvestorsCard {...obj} />)
-                    }
+                    {favoriteHouses && favoriteHouses.map((obj) =>
+                        (<CompletedCard
+                            onClickItem={onSelectCategory}
+                            key={obj.id}
+                            {...obj} />))}
                 </div>
                 <div className="look-all-favorites-btn-box">
                     <Link to="/saved_projects"><CheckoutButton className="look-all-saved-btn" children={'Посмотреть все избранное'} active={true}/></Link>

@@ -2,12 +2,14 @@ import React from 'react'
 import classNames from 'class-names'
 import { Link } from 'react-router-dom'
 
-import RegistrationForm from '../components/RegistrationForm'
-import CentralButton from './CentralBtn'
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm'
+import LoginForm from '../../components/LoginForm/LoginForm'
+import CentralButton from '../CentralButton/CentralBtn'
 
-import GifVideo from '../../../assets/video/main-gif.gif'
+import GifVideo from '../../../../assets/video/main-gif.gif'
 
 import './CentralCircle.css'
+import {catalogHouses, catalogInvests, catalogProjects, redactorPage} from "../../../data/constants";
 
 
 function CentralCircle() {
@@ -297,10 +299,10 @@ function CentralCircle() {
           <div ref={mainPopupRef} className="main-menu-popup">
             <ul>
               <li>
-                <Link to="/catalog">Каталог</Link>
+                <Link to={catalogProjects}>Каталог</Link>
               </li>
               <li>
-                <Link to="/redactor_page">Конструктор</Link>
+                <Link to={redactorPage}>Конструктор</Link>
               </li>
               <li>
                 <Link to="/">О нас</Link>
@@ -345,35 +347,15 @@ function CentralCircle() {
         {visibleUserPopup && (
           <div ref={userPopupRef} className="user-menu-popup">
             <h1>Вход/регистрация</h1>
-            <form>
-              <label htmlFor="phone-label">Телефон или почта</label>
-              <input
-                type="text"
-                id="phone-label"
-                placeholder="sample@mail.ru"
-                name="email"
-                required
-              />
-              <div className="password-box">
-                <label htmlFor="password-label">Пароль</label>
-                <input
-                  type="password"
-                  id="password-label"
-                  placeholder="Password"
-                  name="psw"
-                  required
-                />
-              </div>
-            </form>
-            <button type="submit" className="registerbtn">
-              Войти
-            </button>
+            <div className="login-form">
+              <LoginForm />
+            </div>
             <div className="registration">
               <a onClick={both}>Регистрация</a>
             </div>
-            <div className="forgot-passwd">
+            {/*<div className="forgot-passwd">
               <a>Забыли пароль?</a>
-            </div>
+            </div>*/}
           </div>
         )}
 
@@ -421,7 +403,7 @@ function CentralCircle() {
 
         {/*-------------------------------Left Buttons--------------------------------*/}
         <div className="left-btns">
-          <Link to="/catalog_comp_houses">
+          <Link to={catalogHouses}>
             <div className="prepared-block">
               <svg
                 className="prepared-houses"
@@ -496,7 +478,7 @@ function CentralCircle() {
             </div>
           </Link>
 
-          <Link to="/catalog_investors_houses">
+          <Link to={catalogInvests}>
             <div className="investors-block">
               <svg
                 className="for-investors-houses"

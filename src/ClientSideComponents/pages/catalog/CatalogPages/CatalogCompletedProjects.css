@@ -1,5 +1,5 @@
 .catalog{
-    width: 95vw;
+    width: 100vw;
     display: flex;
     justify-self: center;
     align-self: center;
@@ -33,22 +33,21 @@
     color: black;
 }
 
-.cards-wrapper{
-    width: 1800px;
-    margin-left: -20px;
-    margin-top: -30px;
+    .cards-wrapper{
+        width: 1800px;
+        margin-top: -30px;
 
 
-    justify-self: center;
-    align-self: center;
-    flex-wrap: wrap;
+        justify-self: center;
+        align-self: center;
+        flex-wrap: wrap;
 
-    justify-content: center;
+        justify-content: center;
 
-    display: flex;
-    flex-direction: row;
-    overflow-x: hidden;
-}
+        display: flex;
+        flex-direction: row;
+        overflow-x: hidden;
+    }
 
 .cards-wrapper a{
     text-decoration: none;

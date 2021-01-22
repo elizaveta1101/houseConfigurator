@@ -4,10 +4,10 @@ const initialState = {
     comphouses: [],
     investorshouses: [],
 
-    postinfo:[],
+    postinfo: '',
     userinfo:[],
 
-    pageid: [],
+    pageid: 1,
 
     heart_id: [],
     house_heart_id: [],
@@ -16,6 +16,10 @@ const initialState = {
     projects_page_id: 1,
     houses_page_id: 1,
     invests_page_id: 1,
+
+    hearts_arr: [],
+    house_hearts_arr: [],
+    invest_hearts_arr: [],
 
     isFetching: true,
 
@@ -30,6 +34,13 @@ const houses = (state = initialState, action) => {
         return {
             ...state,
             postinfo: action.payload.data.token,
+        }
+    }
+
+    if(action.type === 'SET_DEFAULT_PAGE_INFO'){
+        return {
+            ...state,
+            projects_page_id: action.payload
         }
     }
     if(action.type === 'SET_USER_INFO'){
@@ -57,6 +68,25 @@ const houses = (state = initialState, action) => {
             investorshouses: action.payload.data.query,
         }
     }
+    if(action.type === 'SET_HEARTS_ARRAY'){
+        return {
+            ...state,
+            hearts_arr: action.payload.data,
+        }
+    }
+    if(action.type === 'SET_HOUSE_HEARTS_ARRAY'){
+        return {
+            ...state,
+            house_hearts_arr: action.payload.data,
+        }
+    }
+    if(action.type === 'SET_INVEST_HEARTS_ARRAY'){
+        return {
+            ...state,
+            invest_hearts_arr: action.payload.data,
+        }
+    }
+
     if(action.type === 'SET_CURRENT_PAGE'){
         return {
             ...state,

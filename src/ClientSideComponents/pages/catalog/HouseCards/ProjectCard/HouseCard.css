@@ -9,8 +9,8 @@
 
 .triangle{
     border: 20px solid transparent;
-    border-top: 20px solid #F6F6F6;
-    border-right: 20px solid #F6F6F6;
+    border-top: 20px solid #F4F4F4;
+    border-right: 20px solid #F4F4F4;
     position: absolute;
     z-index: 22;
     margin-left: 540px;
@@ -23,6 +23,7 @@
     display: none;
 }
 .filled-heart{
+    z-index: 1;
     position: absolute;
     margin-top: -15px;
     cursor: pointer;
@@ -92,8 +93,8 @@
 }
 .triangle2{
     border: 10px solid transparent;
-    border-top: 10px solid #F6F6F6;
-    border-right: 10px solid #F6F6F6;
+    border-top: 10px solid #F4F4F4;
+    border-right: 10px solid #F4F4F4;
     position: absolute;
     z-index: 22;
     transform: rotate(90deg);

@@ -1,10 +1,10 @@
 import React from 'react'
 import Slider from 'react-slick'
-import Img1 from '../../../assets/img/HouseImgSlider.png'
-import Img2 from '../../../assets/img/HouseImgSlider.png'
-import Img3 from '../../../assets/img/HouseImgSlider.png'
-import Img4 from '../../../assets/img/HouseImgSlider.png'
-import Img5 from '../../../assets/img/HouseImgSlider.png'
+import Img1 from '../../../../assets/img/HouseImgSlider.png'
+import Img2 from '../../../../assets/img/HouseImgSlider.png'
+import Img3 from '../../../../assets/img/HouseImgSlider.png'
+import Img4 from '../../../../assets/img/HouseImgSlider.png'
+import Img5 from '../../../../assets/img/HouseImgSlider.png'
 
 import './HousePageSlider.css'
 
