@@ -6,7 +6,12 @@ export const updateData = (code: number, data: Checkbox[], checkbox?: string) =>
       checkbox === item.value ? { ...item, ['checked']: !item.checked } : item
     )
   else {
-    const binCode = code.toString(2)
+    let binCode = code.toString(2)
+    
+    while (binCode.length < 10) {
+      binCode = '0' + binCode
+    }
+    
     return data.map((item, index) => {
       return { ...item, ['checked']: Boolean(+binCode[index]) }
     })
@@ -18,6 +23,7 @@ export const getRightsCode = (data: Checkbox[]) => {
     if (checked) return '1'
     else return '0'
   })
+  
   const code = res.join('')
   return parseInt(code, 2)
 }
