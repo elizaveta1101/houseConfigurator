@@ -64,13 +64,13 @@ function FavoriteHouses() {
                 )}
             </div>
             <div className="pages">
-                <Pagination
+                {favoriteHousesTotal !== 0 && <Pagination
                     simple
                     defaultCurrent={1}
                     defaultPageSize={9}
                     total={favoriteHousesTotal}
                     onChange={handleChange}
-                />
+                />}
             </div>
         </div>
     );

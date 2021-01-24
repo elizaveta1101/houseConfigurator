@@ -61,13 +61,13 @@ function FavoriteProjects() {
                         {...obj} />))}
             </div>
             <div className="pages">
-                <Pagination
+                {favoriteProjectsTotal !== 0 &&<Pagination
                     simple
                     defaultCurrent={1}
                     defaultPageSize={9}
                     total={favoriteProjectsTotal}
                     onChange={handleChange}
-                />
+                />}
             </div>
         </div>
     );
