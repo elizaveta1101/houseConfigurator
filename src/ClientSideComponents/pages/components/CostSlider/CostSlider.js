@@ -4,9 +4,11 @@ import Slider from '@material-ui/core/Slider';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterCost } from "../../../redux/actions/filters";
+import {setCostProjects, setFilterCost, setSquareProjects} from "../../../redux/actions/filters";
 
 import './CostSlider.css'
+import axios from "axios";
+import {setCompletedHouses, setInvestorsHouses, setPostInfo} from "../../../redux/actions/houses";
 
 const useStyles = makeStyles({
     root: {
@@ -52,7 +54,9 @@ function AirbnbThumbComponent(props) {
 export default function CostSlider() {
 
     const dispatch = useDispatch();
-    const maxcost = useSelector(({filters}) => filters.sortByCost)
+    const maxcost = useSelector(({houses}) => houses.initialProjectsCost)
+
+
     const classes = useStyles();
     const [value, setValue] = React.useState([0, maxcost]);
 

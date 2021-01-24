@@ -111,6 +111,7 @@
     font-size: 18px;
     line-height: 110%;
     /* or 20px */
+    min-height: 40px;
 
     display: flex;
     align-items: center;

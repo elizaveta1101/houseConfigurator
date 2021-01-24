@@ -1,4 +1,4 @@
-export const catalogProjects = '/catalog_projects/'
+export const catalogProjects = '/catalog_projects'
 export const catalogHouses = '/catalog_houses'
 export const catalogInvests = '/catalog_invests'
 

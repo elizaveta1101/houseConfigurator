@@ -3,13 +3,13 @@ import axios from "axios";
 import {Pagination} from "antd";
 
 import { useDispatch, useSelector } from "react-redux";
-import {setInvestHeartsArray, setInvestorsHouses, setInvestPage} from "../../../../redux/actions/houses";
-
+import { setHeartsArray, setInvestorsHouses } from "../../../../redux/actions/houses";
 
 import InvestorsCard from "../../HouseCards/InvestorsCard/InvestorsCard";
-import CatalogHeader from "../../CatalogHeader/CatalogHeader";
 
 import '../CatalogCompletedProjects.css';
+import CatalogInvestHeader from "../../CatalogHeader/CatalogInvestHeader";
+import { setCurrentPageInvest } from "../../../../redux/actions/filters";
 
 
 
@@ -19,11 +19,17 @@ function CatalogInvestors() {
     const investorshouses = useSelector(({houses}) => houses.investorshouses);
     const heart_ids = useSelector(({ houses }) => houses.invest_hearts_arr)
     const posts = useSelector(({houses}) => houses.postinfo)
+    const totalCount = useSelector(({ houses }) => houses.totalCountInvest)
+    const currentPage = useSelector(({filters}) => filters.currentPageInvest)
+    const cost = useSelector(({filters}) => filters.costArrInvest);
+    const square = useSelector(({filters}) => filters.squareArrInvest);
+    const categorySelected = useSelector(({ filters }) => filters.category)
+    const maxcostInvest = useSelector(({houses}) => houses.initialInvestCost)
+    const maxsquareInvest = useSelector(({houses}) => houses.initialInvestSquare)
 
 
-    const handleChange = value => {
-        axios.get('http://127.0.0.1:5000/invest', {params: {pagination: true, page: value}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setInvestorsHouses(data))})
-        dispatch(setInvestPage(value))
+    const handleChange = (value) => {
+        dispatch(setCurrentPageInvest(value))
     };
 
     const onSelectCategory = React.useCallback((id) => {
@@ -35,26 +41,59 @@ function CatalogInvestors() {
 
 
     React.useEffect(() => {
-        axios
-            .get('http://127.0.0.1:5000/invest',
-                {params: {pagination: true, page: 1},
-                    headers: {Authorization: posts}})
-            .then(({data}) => {
+        let stringedFloors = categorySelected.join()
+
+        if(cost === '' || square === ''){
+            axios.get('http://127.0.0.1:5000/invest', {
+                params: {
+                    pagination: true,
+                    page: currentPage,
+                }, headers: {Authorization: posts}
+            }).then(({data}) => {
                 dispatch(setInvestorsHouses(data))
             })
-
-        axios
-            .get('http://127.0.0.1:5000/favorites/main_page',
-                {params: {category: 'invest'},
-                    headers: {Authorization: posts}})
-            .then(({data}) => {
-                dispatch(setInvestHeartsArray(data))
+        }
+        else if(stringedFloors === ''){
+            axios.get('http://127.0.0.1:5000/invest', {
+                params: {
+                    pagination: true,
+                    page: currentPage,
+                    cost_filter: cost,
+                    square_filter: square
+                }, headers: {Authorization: posts}
+            }).then(({data}) => {
+                dispatch(setInvestorsHouses(data))
             })
-    }, [])
+        }
+        else {
+            axios.get('http://127.0.0.1:5000/invest', {
+                params: {
+                    pagination: true,
+                    page: currentPage,
+                    floor_filter: stringedFloors,
+                    cost_filter: cost,
+                    square_filter: square
+                }, headers: {Authorization: posts}
+            }).then(({data}) => {
+                dispatch(setInvestorsHouses(data))
+            })
+        }
+
+        if(posts !== ''){
+            axios
+                .get('http://127.0.0.1:5000/favorites/main_page',
+                    {params: {category: 'project'},
+                        headers: {Authorization: posts}})
+                .then(({data}) => {
+                    dispatch(setHeartsArray(data))
+                })
+        }
+
+    }, [currentPage])
 
     return (
         <div className="catalog">
-            <CatalogHeader />
+            {maxcostInvest !== 0 && maxsquareInvest !== 0 && <CatalogInvestHeader/>}
             <div className="cards-wrapper">
                 {investorshouses && heart_ids && investorshouses.map((obj) =>
                     (<InvestorsCard
@@ -63,13 +102,13 @@ function CatalogInvestors() {
                     {...obj}/>))}
             </div>
             <div className="pages">
-                <Pagination
+                {totalCount !== 0 && <Pagination
                     simple
-                    defaultCurrent={1}
+                    defaultCurrent={currentPage}
                     defaultPageSize={9}
-                    total={12}
+                    total={totalCount}
                     onChange={handleChange}
-                />
+                />}
             </div>
         </div>
     );

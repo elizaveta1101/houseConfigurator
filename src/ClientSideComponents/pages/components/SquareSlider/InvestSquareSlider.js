@@ -4,7 +4,7 @@ import Slider from '@material-ui/core/Slider';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterSquare } from "../../../redux/actions/filters";
+import {setFilterSquare, setFilterSquareInvest} from "../../../redux/actions/filters";
 
 import '../CostSlider/CostSlider.css'
 
@@ -49,9 +49,9 @@ function AirbnbThumbComponent(props) {
     );
 }
 
-export default function SquareSlider() {
+export default function InvestSquareSlider() {
 
-    const maxsquare = useSelector(({houses}) => houses.initialProjectsSquare)
+    const maxsquare = useSelector(({houses}) => houses.initialInvestSquare)
 
     const classes = useStyles();
     const [value, setValue] = React.useState([0, maxsquare]);
@@ -63,7 +63,7 @@ export default function SquareSlider() {
     let stringed = value.join('-')
 
     const dispatch = useDispatch();
-    dispatch(setFilterSquare(stringed))
+    dispatch(setFilterSquareInvest(stringed))
 
     return (
         <div className={classes.root}>

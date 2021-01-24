@@ -406,6 +406,7 @@
 }
 @media (max-width: 1168px){
     .choose-catalog__buttons{
+        margin-left: 30px;
         display: flex;
         flex-direction: row;
 
@@ -425,7 +426,7 @@
     }
     .sorter-inputs{
         margin-top: 30px;
-        margin-left: -213px;
+        margin-left: -170px;
         height: 100px;
         display: flex;
         flex-direction: row;
@@ -455,7 +456,7 @@
         height: 40px;
     }
     .floors{
-        margin-left: 480px;
+        margin-left: 520px;
         margin-top: -100px;
         align-self: center;
         width: 250px;
@@ -500,7 +501,7 @@
     }
     .find-project{
         height: 100px;
-        margin-left: -445px;
+        margin-left: -395px;
         align-self: center;
     }
     .find-project button{
@@ -509,7 +510,7 @@
     .more-parameters{
         align-self: center;
         margin-top: -90px;
-        margin-left: -10px;
+        margin-left: 40px;
     }
     .floor-num__active{
         display: flex;

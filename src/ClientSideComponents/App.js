@@ -4,7 +4,13 @@ import axios from 'axios'
 import { Route, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCompletedHouses, setCompletedProjects, setHeartsArray, setInvestorsHouses, setPostInfo } from './redux/actions/houses'
-import { setCost, setCostProjects, setSquare, setSquareProjects } from './redux/actions/filters'
+import {
+    setCostHouses,
+    setCostInvest,
+    setCostProjects,
+    setSquareHouses, setSquareInvest,
+    setSquareProjects
+} from './redux/actions/filters'
 
 import Header from './pages/Header/Header'
 import MainPage from './pages/main-page/MainPage'
@@ -42,71 +48,30 @@ import {
 
 
 function App() {
-  const shouldShowHeader = useLocation().pathname !== '/'
-  const shouldShowRedactorHeader = useLocation().pathname !== constructorPage
-  const shouldShowFooter = useLocation().pathname !== '/'
-  const shouldShowRedactorFooter = useLocation().pathname !== constructorPage
-  const posts = useSelector(({ houses }) => houses.postinfo)
-  const dispatch = useDispatch()
-
-      React.useEffect(() => {
-        async function FetchPosts() {
-            axios
-                .post(
-                    'http://127.0.0.1:5000/auth',
-                    { login: 'privet@yandex.ru', password: 'privet' },
-                    { headers: { 'Content-Type': 'application/json' } }
-                )
-                .then(({ data }) => {
-                    dispatch(setPostInfo(data))
-                })
-
-            axios
-                .get('http://127.0.0.1:5000/project',
-                    {params: {pagination: true, page: 1},
-                        headers: {Authorization: posts}})
-                .then(({data}) => {
-                    dispatch(setCompletedProjects(data))
-                })
-
-            await axios
-                .get('http://127.0.0.1:5000/house',
-                {params: {pagination: true, page: 1},
-                    headers: {Authorization: posts}})
-                .then(({data}) => {
-                    dispatch(setCompletedHouses(data))
-                })
-
-            await axios
-                .get('http://127.0.0.1:5000/invest',
-                    {params: {pagination: true, page: 1},
-                        headers: {Authorization: posts}})
-                .then(({data}) => {
-                    dispatch(setInvestorsHouses(data))
-                })
+    const shouldShowHeader = useLocation().pathname !== '/'
+    const shouldShowRedactorHeader = useLocation().pathname !== constructorPage
+    const shouldShowFooter = useLocation().pathname !== '/'
+    const shouldShowRedactorFooter = useLocation().pathname !== constructorPage
+    const posts = useSelector(({ houses }) => houses.postinfo)
+    const dispatch = useDispatch()
 
 
-          await axios
-            .get('http://127.0.0.1:5000/project', {
-              params: { pagination: true, page: 1 },
-              headers: { Authorization: posts },
-            })
+    React.useEffect(() => {
+        axios
+            .post(
+                'http://127.0.0.1:5000/auth',
+                { login: 'privet@yandex.ru', password: 'privet' },
+                { headers: { 'Content-Type': 'application/json' } })
             .then(({ data }) => {
-              dispatch(setCostProjects(data))
+                dispatch(setPostInfo(data))
             })
-          await axios
-            .get('http://127.0.0.1:5000/project', {
-              params: { pagination: true, page: 1 },
-              headers: { Authorization: posts },
-            })
-            .then(({ data }) => {
-              dispatch(setSquareProjects(data))
-            })
-        }
-        FetchPosts()
+
       }, [])
 
     let is_authorized = false
+    let is_filters_getted = false
+    let is_filters_houses_getted = false
+    let is_filters_invest_getted = false
 
     if(posts !== ''){
         is_authorized = true

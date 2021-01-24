@@ -4,9 +4,11 @@ import Slider from '@material-ui/core/Slider';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterSquare } from "../../../redux/actions/filters";
+import {setCostProjects, setFilterCost, setFilterCostInvest, setSquareProjects} from "../../../redux/actions/filters";
 
-import '../CostSlider/CostSlider.css'
+import './CostSlider.css'
+import axios from "axios";
+import {setCompletedHouses, setInvestorsHouses, setPostInfo} from "../../../redux/actions/houses";
 
 const useStyles = makeStyles({
     root: {
@@ -49,12 +51,13 @@ function AirbnbThumbComponent(props) {
     );
 }
 
-export default function SquareSlider() {
+export default function InvestCostSlider() {
+    const dispatch = useDispatch();
+    const maxcost = useSelector(({houses}) => houses.initialInvestCost)
 
-    const maxsquare = useSelector(({houses}) => houses.initialProjectsSquare)
 
     const classes = useStyles();
-    const [value, setValue] = React.useState([0, maxsquare]);
+    const [value, setValue] = React.useState([0, maxcost]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -62,22 +65,22 @@ export default function SquareSlider() {
 
     let stringed = value.join('-')
 
-    const dispatch = useDispatch();
-    dispatch(setFilterSquare(stringed))
+    dispatch(setFilterCostInvest(stringed))
+
 
     return (
         <div className={classes.root}>
             <Typography id="range-slider" gutterBottom>
-                Площадь дома
+                Стоимость проекта
             </Typography>
-            <div className="slider-input">{value[0]} -<span>{value[1]} <p>кв м</p></span></div>
+            <div className="slider-input">{value[0]} -<span>{value[1]}<p>₽</p></span></div>
             <PrettoSlider className="cost-slider"
                           value={value}
                           onChange={handleChange}
                           valueLabelDisplay="auto"
                           aria-labelledby="range-slider"
                           getAriaValueText={valuetext}
-                          max={maxsquare}
+                          max={maxcost}
                           min={0}
                           disabled={false}
                           ThumbComponent={AirbnbThumbComponent}

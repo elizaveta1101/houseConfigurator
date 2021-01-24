@@ -4,20 +4,15 @@ import FloorSort from "../../components/FloorSort/FloorSort";
 import axios from "axios";
 
 import { Link, useLocation } from 'react-router-dom'
-import { setCategory } from '../../../redux/actions/filters'
+import { setCategory, setCurrentPage } from '../../../redux/actions/filters'
 import { useDispatch, useSelector } from "react-redux";
-import {
-    setCompletedHouses,
-    setCompletedProjects,
-    setDefaultPageNum,
-    setInvestorsHouses
-} from "../../../redux/actions/houses";
+import { setCompletedProjects } from "../../../redux/actions/houses";
 
 import CostSlider from "../../components/CostSlider/CostSlider";
 import SquareSlider from "../../components/SquareSlider/SquareSlider";
 
 import './CatalogHeader.css';
-import {catalogHouses, catalogInvests, catalogProjects} from "../../../data/constants";
+import { catalogHouses, catalogInvests, catalogProjects } from "../../../data/constants";
 
 
 
@@ -36,19 +31,37 @@ function CatalogHeader({page}){
         const GetSorted = () => {
             let stringed = category.join()
 
-            if(stringed === ''){
-                axios.get('http://127.0.0.1:5000/project', {params: {pagination: true, page: 1, cost_filter: cost, square_filter: square}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedProjects(data))})
-                axios.get('http://127.0.0.1:5000/house', {params: {pagination: true, page: 1, cost_filter: cost, square_filter: square}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedHouses(data))})
-                axios.get('http://127.0.0.1:5000/invest', {params: {pagination: true, page: 1, cost_filter: cost, square_filter: square}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setInvestorsHouses(data))})
-            }
-            else{
-                axios.get('http://127.0.0.1:5000/project', {params: {pagination: true, page: 1, floor_filter: stringed, cost_filter: cost, square_filter: square}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedProjects(data))})
-                axios.get('http://127.0.0.1:5000/house', {params: {pagination: true, page: 1, floor_filter: stringed, cost_filter: cost, square_filter: square}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedHouses(data))})
-                axios.get('http://127.0.0.1:5000/invest', {params: {pagination: true, page: 1, floor_filter: stringed, cost_filter: cost, square_filter: square}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setInvestorsHouses(data))})
-            }
+            console.log(stringed)
+            console.log(cost)
+            console.log(square)
 
 
-            dispatch(setDefaultPageNum())
+            if(stringed === '') {
+                axios.get('http://127.0.0.1:5000/project', {
+                    params: {
+                        pagination: true,
+                        page: 1,
+                        cost_filter: cost,
+                        square_filter: square
+                    }, headers: {Authorization: posts}
+                }).then(({data}) => {
+                    dispatch(setCompletedProjects(data))
+                })
+            }
+            else {
+                axios.get('http://127.0.0.1:5000/project', {
+                    params: {
+                        pagination: true,
+                        page: 1,
+                        floor_filter: stringed,
+                        cost_filter: cost,
+                        square_filter: square
+                    }, headers: {Authorization: posts}
+                }).then(({data}) => {
+                    dispatch(setCompletedProjects(data))
+                })
+            }
+            dispatch(setCurrentPage(1))
         }
 
         const onSelectCategory = React.useCallback((index) => {
