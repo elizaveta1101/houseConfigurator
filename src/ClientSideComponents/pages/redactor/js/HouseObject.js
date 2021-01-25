@@ -18,7 +18,7 @@ import floorObject from './floorObject.js';
 
 import { loadModel } from '../assets/Models/modelLoader.js';
 import houseModels from '../assets/Models/houseModels.js';
-import {ThreeBSP} from 'three-js-csg-es6';
+ import {ThreeBSP} from 'three-js-csg-es6';
 
 
 class HouseObject {
@@ -38,7 +38,7 @@ class HouseObject {
         this.mansard = null; //блок перекрытие для мансарды
         this.mansardExistence = false; //наличие мансарды 
         this.mansardLiving = false; //мансарда жилая?
-        this.veranda = null; //веранда
+        this.veranda = new THREE.Group(); //веранда
         this.verandaBasement = new sceneObject();
         this.verandaWalls = new sceneObject();
         this.verandaRoof = new sceneObject();
@@ -111,7 +111,7 @@ class HouseObject {
             case 'innerWalls':
                 this.setFloorPlanParametrs();
                 break;
-            case 'verandaBasement':
+            case 'veranda':
                 this.setVerandaParametrs(vertices);
                 break;
         }
@@ -201,7 +201,8 @@ class HouseObject {
             if (!cellar) {
                 cellar = new sceneObject();
             }
-            cellar.vertices = this.outerWalls.innerVertices;
+            // cellar.vertices = this.outerWalls.innerVertices;
+            cellar.vertices = this.outerWalls.getInnerVertices(0.15);
             cellar.height = -this.outerWalls.height;
             cellar.upVertices = cellar.getUpVertices();
             cellar.texture = this.basement.texture;
@@ -252,12 +253,12 @@ class HouseObject {
     }
 
     setVerandaParametrs(vertices) {
-        let veranda = this.veranda;
+        // let veranda = this.veranda;
         if (!vertices) {vertices = this.verandaBasement.vertices;}
         if (this.verandaExistence) {
-            if (!veranda) {
-                veranda = new THREE.Group();
-            }
+            // if (!veranda) {
+            //     veranda = new THREE.Group();
+            // }
             // if (this.verandaBasement.vertices.length === 0) {
             // // this.verandaBasement.vertices = [];
             //     for (let i = 0; i < this.basement.vertices.length; i += 3) {
@@ -268,10 +269,10 @@ class HouseObject {
             this.setVerandaWallsParametrs();
             this.setVerandaRoofParametrs();
         }
-        else {
-            veranda = null;
-        }
-        this.veranda = veranda;
+        // else {
+        //     veranda = null;
+        // }
+        // this.veranda = veranda;
     }
     
     setVerandaBasementParametrs(verticesCoords) {
@@ -378,17 +379,27 @@ class HouseObject {
             console.log(appState.scene);
             console.log();
             console.log(this.house3d);
-        } else if (data.stageName === 'verandaBasement') {
-            this.house3d.remove(this.verandaBasementModel);
-            this.veranda = new THREE.Group;
-            this.veranda.add(drawObject(this.verandaBasement));
-            this.veranda.add(drawObject(this.verandaWalls));
-            this.veranda.add(drawRoof(this.verandaRoof));
-            this.verandaBasementModel = this.veranda;
-            this.verandaBasementModel.name = 'veranda';
-            this.house3d.add(this.verandaBasementModel);
-            this.house2d.remove(this.verandaBasement.plan);
-            this.house2d.add(this.build2d('verandaBasement', this.verandaBasement.vertices));
+        } else if (data.stageName === 'veranda') {
+            this.house3d.remove(this.verandaModel);
+            this.veranda.remove(this.verandaBasementModel);
+            this.veranda.remove(this.verandaWallsModel);
+            this.veranda.remove(this.verandaRoofModel);
+            this.verandaBasementModel = drawObject(this.verandaBasement);
+            this.verandaBasementModel.name = 'verandaBasement';
+            this.verandaWallsModel = drawObject(this.verandaWalls);
+            this.verandaWallsModel.name = 'verandaWalls';
+            this.verandaRoofModel = drawRoof(this.verandaRoof);
+            this.verandaRoofModel.name = 'verandaRoof';
+            this.veranda.add(this.verandaBasementModel);
+            this.veranda.add(this.verandaWallsModel);
+            this.veranda.add(this.verandaRoofModel);
+            this.verandaModel = this.veranda;
+            this.verandaModel.name = 'veranda';
+            this.house3d.add(this.verandaModel);
+            this.house2d.remove(this.veranda.plan);
+            this.veranda.plan = this.build2d('veranda', this.verandaBasement.vertices)
+            this.house2d.add(this.veranda.plan);
+            console.log('билд веранды');
         }
     }
 
@@ -412,13 +423,13 @@ class HouseObject {
             this.outerWalls.plan.visible=false;
         } else if (stageName ==='innerWalls') {
             this.buildInnerWalls2D();
-        } else if (stageName === 'verandaBasement') {
-            this.verandaBasement.plan = drawLine(vertices);   
-            this.verandaBasement.plan.name = 'verandaBasement2d'     
-            this.verandaBasement.plan.visible = true;
-            this.verandaBasement.points = makePointsGroup( vertices );
-            this.verandaBasement.points.visible = false;
-            this.verandaBasement.plan.add( this.verandaBasement.points );
+        } else if (stageName === 'veranda') {
+            this.veranda.plan = drawLine(vertices);   
+            this.veranda.plan.name = 'veranda2d'     
+            this.veranda.plan.visible = true;
+            this.veranda.points = makePointsGroup( vertices );
+            this.veranda.points.visible = false;
+            this.veranda.plan.add( this.veranda.points );
         }
 
         return this[stageName].plan;
@@ -430,13 +441,13 @@ class HouseObject {
         this.viewMode = viewMode;
         if( viewMode === '2D'){
             putDimensions( this.basement.plan, this.basement.vertices, 'basement' );
-            if (this.verandaBasement.plan) {putDimensions( this.verandaBasement.plan, this.verandaBasement.vertices, 'verandaBasement' );}
+            if (this.verandaExistence) {putDimensions( this.veranda.plan, this.verandaBasement.vertices, 'veranda' );}
             this.house2d.visible=true;
             this.house3d.visible=false;
         } else
         if( viewMode === '3D'){
             deleteDimensions( this.basement.plan, 'basement' );
-            if (this.verandaBasement.plan) {deleteDimensions(this.verandaBasement.plan, 'verandaBasement');}
+            if (this.verandaExistence) {deleteDimensions(this.veranda.plan, 'veranda');}
             this.house2d.visible = false;
             this.house3d.visible = true;         
         }
@@ -457,17 +468,23 @@ class HouseObject {
                 if ( this[ name + 'Model' ] ) {
                     if ( index <= currentStage ){
                         this[ name + 'Model' ].visible = true;
+                        if (this.verandaExistence) {this.verandaRoofModel.visible = true;}
                     } else {
                         this[ name + 'Model' ].visible = false;
                     }
                 }
+                if (!this.cellarExistence && this.cellarModel) {this.cellarModel.visible = false;}
+                if (!this.verandaExistence && this.verandaModel) {this.verandaModel.visible = false;}
                 if (name === 'interior' && index <=currentStage) {
                     if (index === currentStage) {
                         this.roofModel.visible = false;
-                        if (this.verandaRoofModel) this.verandaRoofModel.visible = false;
+                        // if (this.verandaExistence && this.verandaBasementModel) {
+                        //     this.verandaBasementModel.visible = true; this.verandaRoof.visible = false;
+                        // }
+                        // if (this.verandaRoofModel) this.verandaRoofModel.visible = false;
                     } else {
                         this.roofModel.visible = true;
-                        if (this.verandaRoofModel) this.verandaRoofModel.visible = true;
+                        if (this.verandaExistence) this.verandaRoofModel.visible = true;
                     }
                     if (this.models) this.showModels(this.activeFloor, this.viewMode);
                 } else {
@@ -506,9 +523,9 @@ class HouseObject {
     changePointsVisability( data ) {
         let mode = data.mode;
         let stageName = data.stageName;
-        if (stageName === 'basement' || stageName === 'verandaBasement') {
+        if (stageName === 'basement' || stageName === 'veranda') {
             this.basement.points.visible = mode === 'T' ? true : false;
-            if (this.verandaBasement.points) {this.verandaBasement.points.visible = mode === 'veranda' ? true : false;}
+            if (this.veranda.points) {this.veranda.points.visible = mode === 'veranda' ? true : false;}
         }
         else if (stageName === 'innerWalls') {
             this.floorNames.map(floorName => {
@@ -596,33 +613,18 @@ class HouseObject {
                 break;
             case 'verandaExistence' :
                 if (this.verandaExistence) {
-                    if (this.verandaBasementModel) {
-                        this.verandaBasementModel.visible = true;
+                    if (this.verandaModel) {
+                        this.verandaModel.visible = true;
                     } else {
-                        appState.scene.remove( this.house3d );
-                        this.veranda.add(drawObject(this.verandaBasement));
-                        this.veranda.add(drawObject(this.verandaWalls));
-                        this.veranda.add(drawRoof(this.verandaRoof));
-                        this.verandaBasementModel = this.veranda;
-                        this.verandaBasementModel.name = 'veranda';
-                        this.house3d.add(this.verandaBasementModel);
-                        appState.scene.remove( this.house2d );
-                        this.house2d.add(this.build2d('verandaBasement', this.verandaBasement.vertices));
-                        appState.scene.add( this.house2d );
-                        appState.scene.add( this.house3d );
+                        this.build( {stageName: 'veranda'});
+                        console.log('ребилд веранды');
                     }
                 } else {
-                    if (this.verandaBasementModel) {
-                        this.verandaBasementModel.visible = false;
+                    if (this.verandaModel) {
+                        this.verandaModel.visible = false;
                     }
                 }
                 break;
-            // case 'verandaShape' :
-            //     appState.scene.remove( this.house2d );
-            //     this.house2d.add(this.build2d('verandaBasement', this.verandaBasement.vertices));
-            //     appState.scene.add( this.house2d );
-            //     // this.changeVisability(viewMode);
-            //     break;
             default: 
                 if (stageName === 'roof') {
                     this['roofModel'] = drawRoof(this.roof);
@@ -631,11 +633,19 @@ class HouseObject {
                 } else if (stageName === 'innerWalls') {
                     this.buildInnerWalls2D();
                     this.buildInnerWalls3D();
-                } else if (stageName === 'verandaBasement') {
-                    console.log(this.veranda);
-                    redrawObject(this.verandaBasementModel.children[0], this.verandaBasement, this.verandaBasement.vertices, stageInfo.pointIndex);
-                    redrawObject(this.verandaBasementModel.children[1], this.verandaWalls, this.verandaWalls.vertices, stageInfo.pointIndex);
-                    this.verandaBasementModel.children[2] = drawRoof(this.verandaRoof);
+                } else if (stageName === 'veranda') {
+                    this.house3d.remove(this.verandaModel);
+                    this.veranda.remove(this.verandaRoofModel);
+                    redrawObject(this.verandaBasementModel, this.verandaBasement, this.verandaBasement.vertices, stageInfo.pointIndex);
+                    redrawObject(this.verandaWallsModel, this.verandaWalls, this.verandaWalls.vertices, stageInfo.pointIndex);
+                    this.verandaRoofModel = drawRoof(this.verandaRoof);
+                    this.verandaRoofModel.name = 'verandaRoof';
+                    this.veranda.add(this.verandaRoofModel);
+                    this.verandaModel = this.veranda;
+                    this.house3d.add(this.verandaModel);
+                    console.log('редрав веранды');
+                } else if (stageName === 'floors') {
+                    break;
                 } else 
                 if ( this[stageName + 'Model'] ) {
                     redrawObject( this[stageName + 'Model'],
@@ -685,7 +695,7 @@ class HouseObject {
     }
 
     showCurrentFloor(floorName) {
-        if (this.veranda) {this.verandaBasementModel.visible = false;}
+        if (this.verandaModel) {this.verandaModel.visible = false;}
         this.activeFloor = floorName;
         switch (floorName) {
             case 'Подвал':
@@ -699,6 +709,10 @@ class HouseObject {
                 this.basementModel.visible = true;
                 this.outerWallsModel.visible = true;
                 this.roofModel.visible=false;
+                if (this.verandaExistence) {
+                    this.verandaModel.visible = true;
+                    this.verandaRoofModel.visible = false;
+                }
                 break;
             case '2':
                 this.hideFloors();
@@ -815,7 +829,7 @@ class HouseObject {
         this.innerWalls.plan = wallsGroup;
         this.house2d.add(this.innerWalls.plan);
     }
-    buildWallsPlan(floorName) {
+    buildWallsPlan(floorName, opacity) {
         let obj={};
         obj.color = new THREE.Color('rgb(100,100,100)');
         obj.texture = '';
@@ -828,7 +842,7 @@ class HouseObject {
             group.add(drawPolygon(obj));
             let pointVertices = this.innerWalls[floorName].wallsVertices[index];
             let points = makePointsGroup(pointVertices);
-            let point = drawDot( [pointVertices[pointVertices.length-3], pointVertices[pointVertices.length-2], pointVertices[pointVertices.length-1]] );
+            let point = drawDot( [pointVertices[pointVertices.length-3], pointVertices[pointVertices.length-2], pointVertices[pointVertices.length-1]], opacity );
             points.add(point);
             points.visible = true;
             pointsGroup.add(points);
@@ -942,10 +956,10 @@ class HouseObject {
             this.buildInnerWalls2D();
             this.buildInnerWalls3D();
             appState.scene.add(this.house2d, this.house3d);
-        } else if (stageName === 'verandaBasement') {
-            deleteDimensions(this.verandaBasement.plan);
-            this.house2d.remove(this.verandaBasement.plan);
-            this.house3d.remove(this.verandaBasementModel);
+        } else if (stageName === 'veranda') {
+            deleteDimensions(this.veranda.plan);
+            this.house2d.remove(this.veranda.plan);
+            this.house3d.remove(this.verandaModel);
             this.veranda = new THREE.Group; //веранда
             this.verandaBasement = new sceneObject();
             this.verandaWalls = new sceneObject();
@@ -959,8 +973,9 @@ class HouseObject {
     //---------------работа с 2д-----------------
     redrawPlan( data ) {
         let stageName = data.stageName;
-        if (stageName === 'basement' || stageName === 'verandaBasement') {
+        if (stageName === 'basement' || stageName === 'veranda') {
             let vertices = this[stageName].vertices;
+            if (stageName === 'veranda') {vertices = this.verandaBasement.vertices;}
             let vectors = getVectors(vertices);
 
             if ( data.index ) {
@@ -981,7 +996,7 @@ class HouseObject {
                 // this.innerWalls[this.activeFloor].model2D.children[data.curveNumber].geometry.verticesNeedUpdate = true;
             }
             this[stageName].plan.geometry.attributes.position.needsUpdate = true;
-            putDimensions( this[stageName].plan, this[stageName].vertices, stageName );
+            putDimensions( this[stageName].plan, vertices, stageName );
         } else if (stageName === 'innerWalls') {
             let vertices = this.innerWalls[this.activeFloor].wallsVertices[data.curveNumber];
             let vectors = getVectors(vertices);
@@ -1010,6 +1025,9 @@ class HouseObject {
     makeNewPlan(data) {
         appState.scene.remove(this.house2d);
         const vertices = data.vertices;
+        let opacity;
+        if (data.opacity) {opacity = data.opacity;}
+        else {opacity = 1;}
         const stageName = data.stageName;
         const curveNumber = data.curveNumber;
         if (stageName === 'innerWalls' ) {
@@ -1019,23 +1037,23 @@ class HouseObject {
             if (this.innerWalls[this.activeFloor].wallsVertices[curveNumber].length>=6) {
                 this.innerWalls[this.activeFloor].wideWallsVertices=[];
                 this.innerWalls[this.activeFloor].getWideWallsVertices();
-                this.innerWalls.plan.add(this.buildWallsPlan(this.activeFloor));
+                this.innerWalls.plan.add(this.buildWallsPlan(this.activeFloor, opacity));
             }
             this.innerWalls.plan.add( this.innerWalls[this.activeFloor].model2D );
 
-        } else if (stageName === 'verandaBasement') {
-            this.house2d.remove(this.verandaBasement.plan);
-            this.verandaBasement.plan = drawLine(vertices);
+        } else if (stageName === 'veranda') {
+            this.house2d.remove(this.veranda.plan);
+            this.veranda.plan = drawLine(vertices);
             // this.house2d=this.verandaBasement.plan;
-            this.verandaBasement.points = makePointsGroup( vertices );
-            this.verandaBasement.plan.add( this.verandaBasement.points );
-            this.house2d.add(this.verandaBasement.plan);
-            this.verandaBasement.points.visible=true;
-            putDimensions( this.verandaBasement.plan, vertices, stageName );
+            this.veranda.points = makePointsGroup( vertices, opacity );
+            this.veranda.plan.add( this.veranda.points );
+            this.house2d.add(this.veranda.plan);
+            this.veranda.points.visible=true;
+            putDimensions( this.veranda.plan, vertices, stageName );
         } else {
             this.basement.plan = drawLine(vertices);
             this.house2d=this.basement.plan;
-            this.basement.points = makePointsGroup( vertices );
+            this.basement.points = makePointsGroup( vertices, opacity );
             this.basement.plan.add( this.basement.points );
             appState.scene.add( this.house2d);
             this.basement.points.visible=true;
@@ -1052,7 +1070,7 @@ class HouseObject {
             vertices = data.vertices;
         }
         const length = vertices.length;
-        if (stageName === 'basement' || stageName === 'verandaBasement') {
+        if (stageName === 'basement' || stageName === 'veranda') {
             if( vertices[0] !== vertices[length-3] &&
                 vertices[1] !== vertices[length-2]) {
                 vertices.push(vertices[0]);
@@ -1062,7 +1080,7 @@ class HouseObject {
         } else if (stageName === 'innerWalls') {
             
         }
-        this.makeNewPlan({vertices: vertices, stageName: stageName, curveNumber: data.curveNumber});
+        this.makeNewPlan({vertices: vertices, stageName: stageName, curveNumber: data.curveNumber, opacity: 0.3});
         
     }
 
@@ -1084,7 +1102,7 @@ class HouseObject {
                 this.build();
                 appState.scene.add( this.house2d, this.house3d);
             }
-        } else if (data.stageName === 'verandaBasement') {
+        } else if (data.stageName === 'veranda') {
             let vertices = this.verandaBasement.vertices.slice();
             const length = vertices.length;
 
@@ -1094,7 +1112,6 @@ class HouseObject {
                 vertices.push(vertices[1]);
                 vertices.push(vertices[2]);
             }
-            console.log(this.verandaBasement.vertices);
             this.setVerandaBasementParametrs(vertices);
             this.setVerandaParametrs();
             // appState.scene.remove( this.house2d, this.house3d);
@@ -1103,6 +1120,7 @@ class HouseObject {
                 appState.scene.add( this.house2d, this.house3d);
             }
         }
+        this.changeVisability('2D');
     }
     //---------------конец работа с 2д-----------------
 
@@ -1205,13 +1223,15 @@ function deleteDimensions( pointsGroup, name ) {
     removeDimensions();
 }
 
-function makePointsGroup( vertices ) {
+function makePointsGroup( vertices, opacity ) {
 
     let points = new THREE.Group();
-    for ( let i = 0; i < vertices.length - 3; i += 3 ) {
+    for ( let i = 0; i < vertices.length - 6; i += 3 ) {
         let point = drawDot( [vertices[i], vertices[i + 1], vertices[i + 2]] );
         points.add(point);
     }
+    let point = drawDot( [vertices[vertices.length - 6], vertices[vertices.length - 5], vertices[vertices.length - 4]], opacity ); //рисуем последнюю точку с заданной полупрозрачностью 
+    points.add(point);
     points.name = 'points';
 
     return points;
@@ -1231,8 +1251,8 @@ function buildStages( house ) {
                 model = drawRoof(house[stageName]);
             } else if (stageName === 'innerWalls' || stageName === 'windows') {
                 model = null;
-            } else if (stageName === 'verandaBasement') {
-                if (house.veranda) {model = drawObject(house[stageName]);}
+            } else if (stageName === 'veranda') {
+                if (house.veranda) {model = house.verandaModel;}
             } else {
                 model = drawObject(house[stageName]);  
             }

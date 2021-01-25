@@ -250,9 +250,10 @@ function drawPolygon(obj, fill) {
     return polygon;
 }
 
-function drawDot(dotPos) {
+function drawDot(dotPos, opacity) {
     let windowWidth = document.documentElement.clientWidth;
     let size;
+    if (!opacity) {opacity = 1;}
     if (windowWidth < 1024) {
         size = 0.5;
     } else {
@@ -260,7 +261,9 @@ function drawDot(dotPos) {
     }
     let geometry = new THREE.CircleBufferGeometry(size, 100);
     let material = new THREE.MeshBasicMaterial({
-        color: 0x000000
+        color: 0x000000,
+        opacity: opacity,
+        transparent: true,
     });
     let dot = new THREE.Mesh(geometry, material);
     dot.position.x = dotPos[0];

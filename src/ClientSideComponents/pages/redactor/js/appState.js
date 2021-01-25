@@ -1,6 +1,7 @@
 import eventEmitter from './eventEmitter.js';
 import changeView from './threeJsFunctions/changeView.js';
 import {changeHatchVisibility, changeHatchCellSize } from './threeJsFunctions/changeHatch.js';
+import {Display} from '../components/Display/Display.js';
 
 
 let appState = {

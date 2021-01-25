@@ -154,4 +154,54 @@ function getTurn(a,b) {
     }
 }
 
-export {getBisectorPoint, absVector, vectorAngle, getArea, convertToCoor, getPolygonCenter, getPolygons };
+function pointToLineAttachment (lineVertices, pointCoord) {
+    let minDistance = 1000;
+    let minPointX;
+    let minPointY;
+    for (let i = 0; i < lineVertices.length - 3; i += 3) {
+        let a = lineVertices[i + 1] - lineVertices[i + 4];
+        let b = lineVertices[i + 3] - lineVertices[i];
+        let c = lineVertices[i] * lineVertices[i + 4] - lineVertices[i + 3] * lineVertices[i + 1];
+        let distance = Math.abs(a * pointCoord[0] + b * pointCoord[1] + c) / Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+        if (distance < minDistance) {
+            minDistance = distance;
+            minPointX = (b * (b * pointCoord[0] - a * pointCoord[1]) - a * c) / (Math.pow(a, 2) + Math.pow(b, 2));
+            minPointY = (a * (-b * pointCoord[0] + a * pointCoord[1]) - b * c) / (Math.pow(a, 2) + Math.pow(b, 2));
+            if (minPointX > lineVertices[i] && minPointX > lineVertices[i + 3]) {
+                if (lineVertices[i] > lineVertices[i + 3]) {
+                    minPointX = lineVertices[i];
+                }
+                else {
+                    minPointX = lineVertices[i + 3];
+                }
+            }
+            else if (minPointX < lineVertices[i] && minPointX < lineVertices[i + 3]) {
+                if (lineVertices[i] < lineVertices[i + 3]) {
+                    minPointX = lineVertices[i];
+                }
+                else {
+                    minPointX = lineVertices[i + 3];
+                }
+            }
+            if (minPointY > lineVertices[i + 1] && minPointY > lineVertices[i + 4]) {
+                if (lineVertices[i + 1] > lineVertices[i + 4]) {
+                    minPointY = lineVertices[i + 1];
+                }
+                else {
+                    minPointY = lineVertices[i + 4];
+                }
+            }
+            else if (minPointY < lineVertices[i + 1] && minPointY < lineVertices[i + 4]) {
+                if (lineVertices[i + 1] < lineVertices[i + 4]) {
+                    minPointY = lineVertices[i + 1];
+                }
+                else {
+                    minPointY = lineVertices[i + 4];
+                }
+            }
+        }
+    }
+    return ({minPointX: minPointX, minPointY: minPointY});
+}
+
+export {getBisectorPoint, absVector, vectorAngle, getArea, convertToCoor, getPolygonCenter, getPolygons, pointToLineAttachment };
