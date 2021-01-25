@@ -1,22 +1,18 @@
 import React from 'react';
 import classNames from 'class-names'
-import FloorSort from "../../components/FloorSort/FloorSort";
 import axios from "axios";
+import FloorSortHouses from "../../components/FloorSort/FloorSortHouses";
 
 import { Link, useLocation } from 'react-router-dom'
-import { setCategory, setCurrentPage } from '../../../redux/actions/filters'
+import { setCategoryHouses, setCurrentPage } from '../../../redux/actions/filters'
 import { useDispatch, useSelector } from "react-redux";
 import { setCompletedHouses } from "../../../redux/actions/houses";
 
-import CostSlider from "../../components/CostSlider/CostSlider";
-import SquareSlider from "../../components/SquareSlider/SquareSlider";
-
-import './CatalogHeader.css';
 import { catalogHouses, catalogInvests, catalogProjects } from "../../../data/constants";
 import HousesCostSlider from "../../components/CostSlider/HousesCostSlider";
 import HousesSquareSlider from "../../components/SquareSlider/HousesSquareSlider";
 
-
+import './CatalogHeader.css';
 
 const floors = ['1', '2', '3+', 'С мансардой'];
 
@@ -25,18 +21,13 @@ function CatalogHousesHeader({page}){
     const completedHousesActive = useLocation().pathname !== catalogHouses;
     const investorsHousesActive = useLocation().pathname !== catalogInvests;
     const posts = useSelector(({houses}) => houses.postinfo)
-    const category = useSelector(({filters}) => filters.category);
-    const cost = useSelector(({filters}) => filters.costArrHouses);
-    const square = useSelector(({filters}) => filters.squareArrHouses);
+    const category = useSelector(({filters}) => filters.categoryHouses);
+    const cost = useSelector(({houses}) => houses.costArrHouses);
+    const square = useSelector(({houses}) => houses.squareArrHouses);
     const dispatch = useDispatch();
 
     const GetSorted = () => {
         let stringed = category.join()
-
-        console.log(stringed)
-        console.log(cost)
-        console.log(square)
-
 
         if(stringed === '') {
             axios.get('http://127.0.0.1:5000/house', {
@@ -67,7 +58,7 @@ function CatalogHousesHeader({page}){
     }
 
     const onSelectCategory = React.useCallback((index) => {
-        dispatch(setCategory(index))
+        dispatch(setCategoryHouses(index))
     }, [])
 
     return (
@@ -97,7 +88,7 @@ function CatalogHousesHeader({page}){
                     </div>
                 </div>
 
-                <FloorSort onClickItem={onSelectCategory} items={floors}/>
+                <FloorSortHouses onClickItem={onSelectCategory} items={floors}/>
 
                 <div className="find-project">
                     <button onClick={GetSorted} type="submit">Найти проект</button>

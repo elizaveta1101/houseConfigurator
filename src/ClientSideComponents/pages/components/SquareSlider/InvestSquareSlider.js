@@ -4,7 +4,7 @@ import Slider from '@material-ui/core/Slider';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import {setFilterSquare, setFilterSquareInvest} from "../../../redux/actions/filters";
+import { setFilterSquareInvest } from "../../../redux/actions/houses";
 
 import '../CostSlider/CostSlider.css'
 
@@ -49,20 +49,32 @@ function AirbnbThumbComponent(props) {
     );
 }
 
+let initial_square = 0
+
 export default function InvestSquareSlider() {
 
-    const maxsquare = useSelector(({houses}) => houses.initialInvestSquare)
-
     const classes = useStyles();
-    const [value, setValue] = React.useState([0, maxsquare]);
+    const dispatch = useDispatch();
+    const square = useSelector(({houses}) => houses.squareArrInvest)
+
+    let first_value = 0
+    let second_value = square
+
+    if (typeof square === "number"){
+        initial_square = square
+    }
+    if (typeof square === "string"){
+        first_value = Number(square.split('-')[0])
+        second_value = Number(square.split('-')[1])
+    }
+
+    const [value, setValue] = React.useState([first_value, second_value]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     let stringed = value.join('-')
-
-    const dispatch = useDispatch();
     dispatch(setFilterSquareInvest(stringed))
 
     return (
@@ -77,7 +89,7 @@ export default function InvestSquareSlider() {
                           valueLabelDisplay="auto"
                           aria-labelledby="range-slider"
                           getAriaValueText={valuetext}
-                          max={maxsquare}
+                          max={initial_square}
                           min={0}
                           disabled={false}
                           ThumbComponent={AirbnbThumbComponent}

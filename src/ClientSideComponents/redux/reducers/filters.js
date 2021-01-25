@@ -1,7 +1,8 @@
 const initialState = {
     category: [],
+    categoryHouses: [],
+    categoryInvest: [],
 
-    costArr: '',
     costArrHouses: '',
     costArrInvest: '',
 
@@ -19,6 +20,18 @@ const filters = (state = initialState, action) => {
         return {
             ...state,
             category: action.payload,
+        }
+    }
+    if(action.type === 'SET_CATEGORY_HOUSES'){
+        return {
+            ...state,
+            categoryHouses: action.payload,
+        }
+    }
+    if(action.type === 'SET_CATEGORY_INVEST'){
+        return {
+            ...state,
+            categoryInvest: action.payload,
         }
     }
     if(action.type === 'SET_CURRENT_PAGE'){
@@ -40,18 +53,6 @@ const filters = (state = initialState, action) => {
         }
     }
 
-    if(action.type === 'SET_FILTER_COST'){
-        return {
-            ...state,
-            costArr: action.payload,
-        }
-    }
-    if(action.type === 'SET_FILTER_SQUARE'){
-        return {
-            ...state,
-            squareArr: action.payload,
-        }
-    }
     if(action.type === 'SET_FILTER_COST_HOUSES'){
         return {
             ...state,

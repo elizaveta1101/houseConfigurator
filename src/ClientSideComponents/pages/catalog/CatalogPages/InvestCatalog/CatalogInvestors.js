@@ -5,11 +5,11 @@ import {Pagination} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { setHeartsArray, setInvestorsHouses } from "../../../../redux/actions/houses";
 
-import InvestorsCard from "../../HouseCards/InvestorsCard/InvestorsCard";
-
 import '../CatalogCompletedProjects.css';
 import CatalogInvestHeader from "../../CatalogHeader/CatalogInvestHeader";
 import { setCurrentPageInvest } from "../../../../redux/actions/filters";
+
+import InvestorsCard from "../../HouseCards/InvestorsCard/InvestorsCard";
 
 
 
@@ -21,11 +21,9 @@ function CatalogInvestors() {
     const posts = useSelector(({houses}) => houses.postinfo)
     const totalCount = useSelector(({ houses }) => houses.totalCountInvest)
     const currentPage = useSelector(({filters}) => filters.currentPageInvest)
-    const cost = useSelector(({filters}) => filters.costArrInvest);
-    const square = useSelector(({filters}) => filters.squareArrInvest);
-    const categorySelected = useSelector(({ filters }) => filters.category)
-    const maxcostInvest = useSelector(({houses}) => houses.initialInvestCost)
-    const maxsquareInvest = useSelector(({houses}) => houses.initialInvestSquare)
+    const cost = useSelector(({houses}) => houses.costArrInvest);
+    const square = useSelector(({houses}) => houses.squareArrInvest);
+    const categorySelected = useSelector(({ filters }) => filters.categoryInvest)
 
 
     const handleChange = (value) => {
@@ -93,7 +91,7 @@ function CatalogInvestors() {
 
     return (
         <div className="catalog">
-            {maxcostInvest !== 0 && maxsquareInvest !== 0 && <CatalogInvestHeader/>}
+            {cost !== '' && square !== '' && <CatalogInvestHeader/>}
             <div className="cards-wrapper">
                 {investorshouses && heart_ids && investorshouses.map((obj) =>
                     (<InvestorsCard

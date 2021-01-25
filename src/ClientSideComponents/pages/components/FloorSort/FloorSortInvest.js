@@ -7,12 +7,12 @@ import '../../catalog/CatalogHeader/CatalogHeader.css';
 
 let indices = [];
 
-const FloorSort = React.memo(function FloorSort({items, onClickItem}) {
+const FloorSortInvest = React.memo(function FloorSortInvest({items, onClickItem}) {
     const [activeOneFloor, setActiveOneFloor] = React.useState(false);
     const [activeTwoFloor, setActiveTwoFloor] = React.useState(false);
     const [activeThreeFloor, setActiveThreeFloor] = React.useState(false);
     const [activeMansard, setActiveMansard] = React.useState(false);
-    const category = useSelector(({filters}) => filters.category);
+    const category = useSelector(({filters}) => filters.categoryInvest);
 
     if(category.includes(1)){
         if(!activeOneFloor){
@@ -82,4 +82,4 @@ const FloorSort = React.memo(function FloorSort({items, onClickItem}) {
     );
 })
 
-export default FloorSort;
+export default FloorSortInvest;

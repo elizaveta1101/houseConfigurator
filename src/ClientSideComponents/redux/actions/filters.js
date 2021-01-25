@@ -4,6 +4,16 @@ export const setCategory = (catIndex) =>({
     payload: catIndex,
 })
 
+export const setCategoryHouses = (catIndex) =>({
+    type: 'SET_CATEGORY_HOUSES',
+    payload: catIndex,
+})
+
+export const setCategoryInvest = (catIndex) =>({
+    type: 'SET_CATEGORY_INVEST',
+    payload: catIndex,
+})
+
 export const setCurrentPage = (page) => ({
     type: 'SET_CURRENT_PAGE',
     payload: page,
@@ -17,34 +27,4 @@ export const setCurrentPageInvest = (page) => ({
     payload: page,
 })
 
-
-export const setFilterCost = (costArr) => ({
-    type: 'SET_FILTER_COST',
-    payload: costArr,
-})
-
-export const setFilterSquare = (squareArr) => ({
-    type: 'SET_FILTER_SQUARE',
-    payload: squareArr,
-})
-
-export const setFilterCostHouses = (costArr) => ({
-    type: 'SET_FILTER_COST_HOUSES',
-    payload: costArr,
-})
-
-export const setFilterSquareHouses = (squareArr) => ({
-    type: 'SET_FILTER_SQUARE_HOUSES',
-    payload: squareArr,
-})
-
-export const setFilterCostInvest = (costArr) => ({
-    type: 'SET_FILTER_COST_INVEST',
-    payload: costArr,
-})
-
-export const setFilterSquareInvest = (squareArr) => ({
-    type: 'SET_FILTER_SQUARE_INVEST',
-    payload: squareArr,
-})
 

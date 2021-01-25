@@ -4,11 +4,10 @@ import Slider from '@material-ui/core/Slider';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import {setCostProjects, setFilterCost, setSquareProjects} from "../../../redux/actions/filters";
 
 import './CostSlider.css'
-import axios from "axios";
-import {setCompletedHouses, setInvestorsHouses, setPostInfo} from "../../../redux/actions/houses";
+import {setFilterCost} from "../../../redux/actions/houses";
+
 
 const useStyles = makeStyles({
     root: {
@@ -51,23 +50,33 @@ function AirbnbThumbComponent(props) {
     );
 }
 
+let initial_cost = 0
+
 export default function CostSlider() {
 
-    const dispatch = useDispatch();
-    const maxcost = useSelector(({houses}) => houses.initialProjectsCost)
-
-
     const classes = useStyles();
-    const [value, setValue] = React.useState([0, maxcost]);
+    const dispatch = useDispatch();
+    const cost = useSelector(({houses}) => houses.costArr)
+
+    let first_value = 0
+    let second_value = cost
+
+    if (typeof cost === "number"){
+        initial_cost = cost
+    }
+    if (typeof cost === "string"){
+        first_value = Number(cost.split('-')[0])
+        second_value = Number(cost.split('-')[1])
+    }
+
+    const [value, setValue] = React.useState([first_value, second_value]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     let stringed = value.join('-')
-
     dispatch(setFilterCost(stringed))
-
 
     return (
         <div className={classes.root}>
@@ -81,7 +90,7 @@ export default function CostSlider() {
                     valueLabelDisplay="auto"
                     aria-labelledby="range-slider"
                     getAriaValueText={valuetext}
-                    max={maxcost}
+                    max={initial_cost}
                     min={0}
                     disabled={false}
                           ThumbComponent={AirbnbThumbComponent}

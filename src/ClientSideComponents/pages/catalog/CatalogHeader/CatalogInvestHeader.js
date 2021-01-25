@@ -1,20 +1,17 @@
 import React from 'react';
 import classNames from 'class-names'
-import FloorSort from "../../components/FloorSort/FloorSort";
 import axios from "axios";
 
 import { Link, useLocation } from 'react-router-dom'
-import { setCategory, setCurrentPage } from '../../../redux/actions/filters'
+import { setCategoryInvest, setCurrentPage } from '../../../redux/actions/filters'
 import { useDispatch, useSelector } from "react-redux";
 import { setInvestorsHouses } from "../../../redux/actions/houses";
-
-import CostSlider from "../../components/CostSlider/CostSlider";
-import SquareSlider from "../../components/SquareSlider/SquareSlider";
 
 import './CatalogHeader.css';
 import { catalogHouses, catalogInvests, catalogProjects } from "../../../data/constants";
 import InvestCostSlider from "../../components/CostSlider/InvestCostSlider";
 import InvestSquareSlider from "../../components/SquareSlider/InvestSquareSlider";
+import FloorSortInvest from "../../components/FloorSort/FloorSortInvest";
 
 
 const floors = ['1', '2', '3+', 'С мансардой'];
@@ -24,9 +21,9 @@ function CatalogInvestHeader({page}){
     const completedHousesActive = useLocation().pathname !== catalogHouses;
     const investorsHousesActive = useLocation().pathname !== catalogInvests;
     const posts = useSelector(({houses}) => houses.postinfo)
-    const category = useSelector(({filters}) => filters.category);
-    const cost = useSelector(({filters}) => filters.costArrInvest);
-    const square = useSelector(({filters}) => filters.squareArrInvest);
+    const category = useSelector(({filters}) => filters.categoryInvest);
+    const cost = useSelector(({houses}) => houses.costArrInvest);
+    const square = useSelector(({houses}) => houses.squareArrInvest);
     const dispatch = useDispatch();
 
     const GetSorted = () => {
@@ -61,7 +58,7 @@ function CatalogInvestHeader({page}){
     }
 
     const onSelectCategory = React.useCallback((index) => {
-        dispatch(setCategory(index))
+        dispatch(setCategoryInvest(index))
     }, [])
 
     return (
@@ -91,7 +88,7 @@ function CatalogInvestHeader({page}){
                     </div>
                 </div>
 
-                <FloorSort onClickItem={onSelectCategory} items={floors}/>
+                <FloorSortInvest onClickItem={onSelectCategory} items={floors}/>
 
                 <div className="find-project">
                     <button onClick={GetSorted} type="submit">Найти проект</button>

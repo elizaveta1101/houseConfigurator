@@ -39,5 +39,33 @@ export const setInvestHeartsArray = (heartArr) => ({
 });
 
 
+export const setFilterCost = (costArr) => ({
+    type: 'SET_FILTER_COST',
+    payload: costArr,
+})
 
+export const setFilterSquare = (squareArr) => ({
+    type: 'SET_FILTER_SQUARE',
+    payload: squareArr,
+})
+
+export const setFilterCostHouses = (costArr) => ({
+    type: 'SET_FILTER_COST_HOUSES',
+    payload: costArr,
+})
+
+export const setFilterSquareHouses = (squareArr) => ({
+    type: 'SET_FILTER_SQUARE_HOUSES',
+    payload: squareArr,
+})
+
+export const setFilterCostInvest = (costArr) => ({
+    type: 'SET_FILTER_COST_INVEST',
+    payload: costArr,
+})
+
+export const setFilterSquareInvest = (squareArr) => ({
+    type: 'SET_FILTER_SQUARE_INVEST',
+    payload: squareArr,
+})
 

@@ -24,16 +24,12 @@ function CatalogHeader({page}){
         const investorsHousesActive = useLocation().pathname !== catalogInvests;
         const posts = useSelector(({houses}) => houses.postinfo)
         const category = useSelector(({filters}) => filters.category);
-        const cost = useSelector(({filters}) => filters.costArr);
-        const square = useSelector(({filters}) => filters.squareArr);
+        const cost = useSelector(({houses}) => houses.costArr);
+        const square = useSelector(({houses}) => houses.squareArr);
         const dispatch = useDispatch();
 
         const GetSorted = () => {
             let stringed = category.join()
-
-            console.log(stringed)
-            console.log(cost)
-            console.log(square)
 
 
             if(stringed === '') {

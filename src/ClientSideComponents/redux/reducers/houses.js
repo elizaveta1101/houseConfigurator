@@ -15,6 +15,13 @@ const initialState = {
     totalCountHouses: 0,
     totalCountInvest: 0,
 
+    costArr: '',
+    squareArr: '',
+    costArrHouses: '',
+    squareArrHouses: '',
+    costArrInvest: '',
+    squareArrInvest: '',
+
     initialProjectsCost: 0,
     initialHousesCost: 0,
     initialInvestCost: 0,
@@ -43,8 +50,8 @@ const houses = (state = initialState, action) => {
             ...state,
             compprojects: action.payload.data.query,
             totalCountProjects: action.payload.data.total,
-            initialProjectsCost: action.payload.data.max_cost,
-            initialProjectsSquare: action.payload.data.max_square,
+            costArr: action.payload.data.max_cost,
+            squareArr: action.payload.data.max_square,
         }
     }
     if(action.type === 'SET_COMPLETED_HOUSES'){
@@ -52,8 +59,8 @@ const houses = (state = initialState, action) => {
             ...state,
             comphouses: action.payload.data.query,
             totalCountHouses: action.payload.data.total,
-            initialHousesCost: action.payload.data.max_cost,
-            initialHousesSquare: action.payload.data.max_square,
+            costArrHouses: action.payload.data.max_cost,
+            squareArrHouses: action.payload.data.max_square,
         }
     }
     if(action.type === 'SET_INVESTORS_HOUSES'){
@@ -61,8 +68,8 @@ const houses = (state = initialState, action) => {
             ...state,
             investorshouses: action.payload.data.query,
             totalCountInvest: action.payload.data.total,
-            initialInvestCost: action.payload.data.max_cost,
-            initialInvestSquare: action.payload.data.max_square,
+            costArrInvest: action.payload.data.max_cost,
+            squareArrInvest: action.payload.data.max_square,
         }
     }
     if(action.type === 'SET_HEARTS_ARRAY'){
@@ -81,6 +88,43 @@ const houses = (state = initialState, action) => {
         return {
             ...state,
             invest_hearts_arr: action.payload.data,
+        }
+    }
+
+    if(action.type === 'SET_FILTER_COST'){
+        return {
+            ...state,
+            costArr: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_SQUARE'){
+        return {
+            ...state,
+            squareArr: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_COST_HOUSES'){
+        return {
+            ...state,
+            costArrHouses: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_SQUARE_HOUSES'){
+        return {
+            ...state,
+            squareArrHouses: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_COST_INVEST'){
+        return {
+            ...state,
+            costArrInvest: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_SQUARE_INVEST'){
+        return {
+            ...state,
+            squareArrInvest: action.payload,
         }
     }
 

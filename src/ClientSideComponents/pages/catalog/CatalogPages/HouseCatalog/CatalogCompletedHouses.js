@@ -3,10 +3,7 @@ import axios from "axios";
 import { Pagination } from "antd";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-    setCompletedHouses, setHeartsArray,
-
-} from "../../../../redux/actions/houses";
+import { setCompletedHouses, setHeartsArray } from "../../../../redux/actions/houses";
 
 import CompletedCard from "../../HouseCards/HouseCard/CompletedCard";
 
@@ -21,13 +18,13 @@ function CatalogCompletedHouses() {
     const house_heart_ids = useSelector(({ houses }) => houses.hearts_arr)
     const posts = useSelector(({houses}) => houses.postinfo)
     const totalCount = useSelector(({ houses }) => houses.totalCountHouses)
-    const categorySelected = useSelector(({ filters }) => filters.category)
-    const cost = useSelector(({filters}) => filters.costArrHouses);
-    const square = useSelector(({filters}) => filters.squareArrHouses);
+    const categorySelected = useSelector(({ filters }) => filters.categoryHouses)
+    const cost = useSelector(({houses}) => houses.costArrHouses);
+    const square = useSelector(({houses}) => houses.squareArrHouses);
     const currentPage = useSelector(({filters}) => filters.currentPageHouses)
-    const maxcostHouses = useSelector(({houses}) => houses.initialHousesCost)
-    const maxsquareHouses = useSelector(({houses}) => houses.initialHousesSquare)
 
+    console.log(cost)
+    console.log(square)
 
     const handleChange = (value) => {
         dispatch(setCurrentPageHouses(value))
@@ -83,7 +80,7 @@ function CatalogCompletedHouses() {
         if(posts !== ''){
             axios
                 .get('http://127.0.0.1:5000/favorites/main_page',
-                    {params: {category: 'project'},
+                    {params: {category: 'house'},
                         headers: {Authorization: posts}})
                 .then(({data}) => {
                     dispatch(setHeartsArray(data))
@@ -95,7 +92,7 @@ function CatalogCompletedHouses() {
 
     return (
         <div className="catalog">
-            {maxcostHouses !== 0 && maxsquareHouses !== 0 &&<CatalogHousesHeader/>}
+            {cost !== '' && square !== '' &&<CatalogHousesHeader/>}
             <div className="cards-wrapper">
                 {comphouses && house_heart_ids && comphouses.map((obj) =>
                     (<CompletedCard
