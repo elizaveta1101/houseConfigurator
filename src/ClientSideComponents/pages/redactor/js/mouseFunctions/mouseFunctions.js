@@ -5,6 +5,7 @@ import { changeObjCoord } from './changeObjCoord.js';
 import pick from './pickHelper.js';
 import searchPointIndex from './searchPointIndex.js';
 import {makeHoles, getBoxSizes, checkModelPosition} from '../threeJsFunctions/makeHoles.js';
+import {pointToLineAttachment} from '../extraFunctions.js';
 
 function getCoord(event, camera) {
   const canvas = document.querySelector('canvas');
@@ -289,12 +290,12 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
       }
     }
 
-  } else if (stageName === 'verandaBasement') {
+  } else if (stageName === 'veranda') {
     if (editMode === 'add') {
       if (mouseAction === 'down') {
         e.preventDefault();
         if (e.button === 0) {
-          let vertices = appState.house[stageName].vertices.slice();
+          let vertices = appState.house.verandaBasement.vertices.slice();
           console.log(vertices);
           if (mousePosition[0] < vertices[0] + 0.2 &&
             mousePosition[0] > vertices[0] - 0.2 &&
@@ -307,15 +308,27 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
             appState.editMode = 'edit';
             console.log('edit');
           }
-          vertices.push(...mousePosition);
+          let line = appState.house.basement.vertices;
+          let pointPosition = mousePosition;
+          if (vertices.length < 6) {
+            let newPoint = pointToLineAttachment(line, mousePosition);
+            pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          }
+          vertices.push(...pointPosition);
           appState.house.setParametrs(stageName, vertices);
           appState.changeState('pointAdded', { vertices, stageName: stageName });
         }
         return null;
       } else if (mouseAction === 'move') {
         e.preventDefault();
-        let vertices = appState.house[stageName].vertices.slice();
-        vertices.push(...mousePosition);
+        let vertices = appState.house.verandaBasement.vertices.slice();
+        let line = appState.house.basement.vertices;
+        let pointPosition = mousePosition;
+        if (vertices.length < 6) {
+          let newPoint = pointToLineAttachment(line, mousePosition);
+          pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+        }
+        vertices.push(...pointPosition);
         appState.changeState('pointAdding', { vertices: vertices, stageName: stageName });
         return null;
       } else if (mouseAction === 'up') {
@@ -331,7 +344,7 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
           let pointPos = [], index = -1;
           if (picked) {
             pointPos = picked.position;
-            index = searchPointIndex(appState.house[stageName], pointPos);
+            index = searchPointIndex(appState.house.verandaBasement, pointPos);
             if (index !== -1) {
               picked.object.material.color.set(0xFF0000);
             }
@@ -345,7 +358,7 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         return null;
       } else if (mouseAction === 'move') {
         if (data.index !== -1) {
-          changeObjCoord(appState.house[stageName], data.index, mousePosition);
+          changeObjCoord(appState.house.verandaBasement, data.index, mousePosition);
           appState.changeState('shapeChanged', data);
         }
         return null;

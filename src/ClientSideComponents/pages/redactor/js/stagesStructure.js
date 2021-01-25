@@ -30,7 +30,7 @@ const stages = [
                 type: 'text',
                 fieldId: 'basementHeight',
                 options: [],
-                value: '0.5',
+                value: '1',
                 show: true,
                 depended: {}
             },
@@ -121,11 +121,11 @@ const stages = [
                 depended: {}
             },
             {
-                label: 'Основа перекрытия',
+                label: 'Тип перекрытия',
                 type: 'select',
                 fieldId: 'ceiling',
-                options: ['Деревянные балки', 'Металл', 'Железобетонные балки'],
-                value: 'Деревянные балки',
+                options: ['Балочный', 'Сборный', 'Монолитный'],
+                value: 'Балочный',
                 show: true,
                 depended: {}
             }
@@ -254,7 +254,7 @@ const stages = [
     {
         //веранда
         id: 7,
-        name: 'verandaBasement',
+        name: 'veranda',
         heading: 'Веранда',
         description: 'Задайте параметры для веранды или пропустите стадию',
         fields: [

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Interview } from '../Interview/interview.js';
-import { Interactive } from '../Interactive/interactive.js';
+import { Interview } from '../Interview/Interview.js';
+import { Interactive } from '../Interactive/Interactive.js';
 import {TotalData} from '../TotalData/TotalData.js';
 import {MaterialList} from '../Interview/MaterialList/MaterialList.js';
 import stages from './../../js/stagesStructure.js';
 import appState from './../../js/appState.js';
 import classes from './Display.module.css';
-
 
 class Display extends React.Component {
     constructor(props) {
@@ -411,7 +410,7 @@ class Display extends React.Component {
                 this.set3d();
             }
             console.log('редактируем межкомнатные стены');
-        } else if (stages[this.state.stageId].name === 'verandaBasement') {
+        } else if (stages[this.state.stageId].name === 'veranda') {
             let linePointsCoords = appState.house.verandaBasement.vertices.slice();
             if (!this.state.editBtn.clicked) {
                 if ((linePointsCoords[0] === 0) && (linePointsCoords[1] === 0) && (linePointsCoords[2] === 0) && (linePointsCoords.length < 4)) {
@@ -441,12 +440,12 @@ class Display extends React.Component {
                 this.set2d();
             }
             else {
-                if (linePointsCoords.length < 9) {
-                    alert('Недостаточно вершин для построения. Начертите минимум 3 вершины');
-                    return;
-                } else {appState.changeState('endAddVertices', {stageName: stages[this.state.stageId].name});}
+                // if (linePointsCoords.length < 9) {
+                //     alert('Недостаточно вершин для построения. Начертите минимум 3 вершины');
+                //     return;
+                // } else {appState.changeState('endAddVertices', {stageName: stages[this.state.stageId].name});}
                 appState.editMode = 'N';
-                appState.changeState('shapeChangeEnd', {stageName: stages[this.state.stageId].name});
+                appState.changeState('stageChanged', {stageName: stages[this.state.stageId].name});
                 this.setState({
                     editBtn: {
                         clicked: !this.state.editBtn.clicked,
