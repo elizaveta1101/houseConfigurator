@@ -1,0 +1,7 @@
+.currentStage {
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+.currentStage::-webkit-scrollbar { width: 0;}

@@ -1,0 +1,66 @@
+.favorites{
+    align-self: center;
+    justify-self: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.favorites-cards{
+    margin-left: -20px;
+    margin-top: -64px;
+    display: flex;
+    flex-direction: row;
+    width: 1440px;
+    flex-wrap: wrap;
+}
+.favorites a{
+    text-decoration: none;
+}
+.favorites h2{
+    align-self: flex-start;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 130%;
+
+    text-align: center;
+    letter-spacing: 0.03em;
+
+    color: #444444;
+}
+.look-all-favorites-btn-box{
+    align-self: flex-start;
+    margin-top: 30px;
+}
+.look-all-favorites-btn-box a{
+    text-decoration: none;
+}
+
+@media (max-width: 1470px){
+    .favorites-cards{
+        margin-left: -20px;
+        margin-top: -64px;
+        display: flex;
+        flex-direction: row;
+        width: 1220px;
+        flex-wrap: wrap;
+        justify-self: center;
+        align-self: center;
+    }
+}
+
+@media (max-width: 1300px){
+    .favorites-cards{
+        margin-left: -20px;
+        margin-top: -64px;
+        display: flex;
+        flex-direction: row;
+        width: 800px;
+        flex-wrap: wrap;
+        justify-self: center;
+        align-self: center;
+    }
+}

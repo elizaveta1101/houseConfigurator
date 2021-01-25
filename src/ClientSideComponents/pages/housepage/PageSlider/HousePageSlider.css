@@ -1,0 +1,139 @@
+.house-page-slider-wrapper {
+  margin-top: 103px;
+  height: 746px;
+  display: flex;
+}
+
+.slider {
+  margin-top: 520px;
+  width: 860px;
+  min-width: 0;
+  position: relative;
+  outline: none;
+}
+
+.sliderbig {
+  position: absolute;
+  height: 500px;
+  margin-top: -4px;
+  min-width: 0;
+  outline: none;
+}
+
+/* Слайдер */
+.slick-slider {
+}
+
+.sliderbig-item {
+  outline: none;
+}
+
+.slider-item {
+  outline: none;
+}
+
+.sliderbig-item img {
+  width: 940px;
+  height: 500px;
+}
+
+.slider-item img {
+  width: 220px;
+  height: 160px;
+  margin-left: 20px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.slider-item img:hover {
+  border: 2px solid #325fff;
+}
+
+/* Ограничивающая оболочка */
+.slick-list {
+  overflow: hidden;
+}
+.sliderbig .slick-track {
+  display: flex;
+}
+
+/* Лента слайдов */
+.slider .slick-track {
+  display: flex;
+  margin-left: -20px;
+}
+/* Слайд */
+.slick-slide {
+}
+/* Слайд активный (показывается) */
+.slick-slide.slick-active {
+}
+
+/*Стрелка*/
+.slick-arrow {
+  position: absolute;
+  top: 35%;
+  z-index: 10;
+}
+
+/* Стрелка влево */
+.slick-arrow.slick-prev {
+  left: 0;
+  display: none;
+  font-size: 0;
+  z-index: -1;
+}
+
+/* Стрелка вправо */
+.slick-arrow.slick-next {
+  outline: none;
+  border: none;
+  right: 0;
+  cursor: pointer;
+  left: 870px;
+  font-size: 0;
+  width: 32px;
+  margin-top: -77px;
+  height: 160px;
+  background: url('../../../../assets/img/SliderArrow.svg') 50% 50% no-repeat,
+    url('../../../../assets/img/slider-arrow-bg.svg') 0 0 no-repeat;
+}
+.slick-arrow.slick-next:hover {
+  background: url('../../../../assets/img/ActiveSliderArrow.svg') 50% 50% no-repeat,
+    url('../../../../assets/img/slider-arrow-bg.svg') 0 0 no-repeat;
+}
+
+/* Точки (булиты) */
+.slick-dots {
+}
+
+.slick-dots li {
+}
+/* Активная точка */
+.slick-dots li.slick-active button {
+}
+/* Элемент точки */
+.slick-dots li button {
+}
+
+@media (max-width: 1470px) {
+  .sliderbig {
+    width: 700px;
+    clip-path: polygon(100% 0, 100% 87%, 92% 100%, 0 100%, 0 0);
+  }
+  .slider {
+    width: 595px;
+  }
+  .slick-arrow.slick-next {
+    margin-left: -260px;
+  }
+
+}
+
+@media (max-width: 1300px) {
+  .slider {
+    display: none;
+  }
+}
+
+

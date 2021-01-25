@@ -1,0 +1,248 @@
+.card-wrapper{
+    display: flex;
+    flex-direction: row;
+    height: 305px;
+    overflow: hidden;
+    margin-left: 20px;
+    margin-top: 80px;
+}
+
+.triangle{
+    border: 20px solid transparent;
+    border-top: 20px solid #F4F4F4;
+    border-right: 20px solid #F4F4F4;
+    position: absolute;
+    z-index: 22;
+    margin-left: 540px;
+}
+.heart{
+    z-index: 100;
+    position: absolute;
+    margin-top: -15px;
+    cursor: pointer;
+    display: none;
+}
+.filled-heart{
+    z-index: 1;
+    position: absolute;
+    margin-top: -15px;
+    cursor: pointer;
+}
+
+.card-wrapper:hover .heart{
+    display: block;
+}
+
+
+.card-img{
+    width: 387px;
+    height: 300px;
+}
+.card-img img{
+    width: 387px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card-info{
+    display: flex;
+
+    width: 177px;
+    height: 194px;
+
+    padding: 8px;
+
+    flex-direction: column;
+
+    background-color: #FFFFFF;
+}
+
+.characteristics{
+    display: flex;
+    flex-direction: row;
+}
+
+.house-feature{
+    display: flex;
+    flex-direction: row;
+}
+
+.price{
+    display: flex;
+    flex-direction: column;
+}
+
+.type{
+    border-bottom: 1px solid #DFDDDD;
+    margin-left: 10px;
+}
+
+.type p{
+    width: max-content;
+    border-bottom: 1px solid #325FFF;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+
+    /* Черный */
+
+    color: #444444;
+}
+.triangle2{
+    border: 10px solid transparent;
+    border-top: 10px solid #F4F4F4;
+    border-right: 10px solid #F4F4F4;
+    position: absolute;
+    z-index: 22;
+    transform: rotate(90deg);
+    margin-top: 190px;
+    margin-left: 560px;
+}
+
+.house-name h1{
+    margin-top: 13px;
+    margin-left: 10px;
+    font-family: Gotham Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 110%;
+    /* or 20px */
+    min-height: 40px;
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.03em;
+
+    /* Черный */
+
+    color: #444444;
+}
+.house-name h1:hover{
+    color: #325FFF;
+}
+
+.chars-and-btns{
+    display: flex;
+    flex-direction: column;
+}
+
+.characteristics{
+    margin-left: 10px;
+    margin-top: 13px;
+    flex-wrap: wrap;
+    width: 177px;
+}
+
+.house-feature{
+    margin-top: 8px;
+}
+
+.house-feature p{
+    margin-left: 6px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+
+    /* Черный */
+
+    color: #444444;
+}
+
+.right-house-feature{
+    margin-left: 24px;
+}
+
+.price{
+    margin-left: 10px;
+}
+
+.price p{
+    margin-top: 12px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+
+    /* черный неактив */
+
+    color: #ADADAD;
+}
+
+.price h1{
+    width: max-content;
+    font-family: Gotham Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 23px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: -0.02em;
+    border-bottom: 1px solid #325FFF;
+
+    /* Черный */
+
+    color: #444444;
+}
+
+.checkout p{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+
+    /* Черный */
+
+    color: #444444;
+}
+
+.checkout{
+    margin-left: -120px;
+}
+
+.card-btns{
+    width: 200px;
+    margin-top: 30px;
+    margin-left: -35px;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

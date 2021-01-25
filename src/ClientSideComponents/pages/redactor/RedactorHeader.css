@@ -1,0 +1,182 @@
+.redactor-header-wrapper{
+    display: flex;
+
+    justify-self: center;
+
+    justify-content:space-between;
+
+    width: 100vw;
+    height: 60px;
+
+    min-width: 740px;
+
+    background-color: #FFFFFF;
+}
+
+.redactor-header-logo{
+    margin-left: 40px;
+    width: 40px;
+    height: 40px;
+
+    margin-top: 8px;
+
+    justify-self: flex-start;
+    align-self: flex-start;
+}
+
+.back-to-site{
+    margin-top: 16px;
+    margin-left: 60px;
+    display: flex;
+    flex-direction: row;
+}
+
+.back-to-site svg{
+    position: absolute;
+    margin-left: -15px;
+    margin-top: 5px;
+}
+
+.back-to-site p{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+
+    width: max-content;
+    color: #444444;
+}
+
+.back-to-site a{
+    text-decoration: none;
+}
+
+.choose-floor{
+    margin-left: 40px;
+    margin-top: 16px;
+}
+
+.d-btns{
+    margin-left: 449px;
+    display: flex;
+    flex-direction: row;
+
+    width: 114px;
+    justify-content: space-between;
+
+    justify-self: center;
+    align-self: center;
+}
+
+
+.d-btn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 53px;
+    height: 40px;
+
+    background-color: white;
+    border: 1px solid #D9D9D9;
+}
+
+.d-btn p{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: black;
+}
+.d-btn__active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 53px;
+    height: 40px;
+
+    background-color: #325FFF;
+    border: 1px solid #D9D9D9;
+}
+.d-btn__active p{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #FFFFFF;
+}
+
+.calc-cost{
+    align-self: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.calc-cost p{
+    margin-left: 9px;
+}
+
+.save-projects-btn{
+    margin-left: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 141px;
+    height: 40px;
+
+    align-self: center;
+    border: 1px solid #D9D9D9;
+}
+.save-projects-btn p{
+    margin-left: 10px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #444444;
+}
+
+.info-icon{
+    align-self: center;
+    margin-left: 24px;
+}
+.menu-redactor-icon{
+    align-self: center;
+    margin-left: 24px;
+}
+
+
+.redactor-header__left-box{
+    margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.redactor-header__right-box{
+    margin-right: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

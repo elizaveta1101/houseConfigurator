@@ -1,0 +1,24 @@
+.drawBtns {
+    max-width: 260px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.drawBtn{
+    cursor: pointer;
+    background-color: white;
+    outline: none;
+
+    border: 1px solid #325FFF;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+
+    padding: 10px;
+
+    color: #325FFF;
+
+}

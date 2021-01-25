@@ -1,0 +1,9 @@
+.canvas {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #d3ffe9;
+    top: 0;
+    left: 0;
+  }

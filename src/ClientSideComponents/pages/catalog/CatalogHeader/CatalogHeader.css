@@ -1,0 +1,555 @@
+.catalog-header-wrapper{
+    width: 100vw;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+}
+
+.choose-catalog__buttons a{
+    text-decoration: none;
+}
+
+.completed-projects{
+    width: 174px;
+    height: 40px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #C8C8C8;
+    border-right: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.completed-homes{
+    width: 146px;
+    height: 40px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #C8C8C8;
+    border-right: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.for-investors{
+    width: 132px;
+    height: 40px;
+
+    background: #FFFFFF;
+    border: 1px solid #C8C8C8;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.catalog-header__active p{
+    text-decoration: none;
+    font-family: Open Sans Light, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #989898;
+}
+
+.catalog-header__active-active{
+    background-color: #325FFF;
+}
+
+.catalog-header__active-active p{
+    font-family: Open Sans Light, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+
+.catalog-header__active:hover p{
+    font-family: Open Sans Light, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #fff;
+}
+.catalog-header__active:hover{
+    background-color: #325FFF;
+}
+
+.choose-catalog{
+    display: flex;
+    flex-direction: column;
+}
+.choose-catalog__buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.choose-catalog h1{
+    margin-left: 22px;
+    margin-top: 85px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+
+    color: #444444;
+}
+
+.sorter-inputs{
+    margin-top: -5px;
+    margin-left: 122px;
+    display: flex;
+    flex-direction: row;
+}
+
+.project-value{
+    margin-top: 85px;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+}
+
+.project-value p{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+
+    color: #444444;
+}
+
+.house-area{
+    margin-top: 85px;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    margin-left: 20px;
+}
+
+.house-area p{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+
+    color: #444444;
+}
+
+.floors{
+    margin-left: 20px;
+    margin-top: 81px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+.floors h1{
+    font-family: Open Sans Light;
+    margin-bottom: 4px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+
+    color: #444444;
+}
+
+
+.floor-num{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+
+    height: 42px;
+    min-width: 40px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #C8C8C8;
+    box-sizing: border-box;
+    border-right: none;
+
+    cursor: pointer;
+}
+.floors p{
+    font-family: Open Sans Light, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    text-align: center;
+
+    color: #989898;
+}
+
+.mansard{
+    height: 42px;
+    width: 130px;
+    border-right: 1px solid #C8C8C8;
+}
+
+.floor-nums{
+    display: flex;
+    flex-direction: row;
+
+    width: 255px;
+}
+
+
+.third-floor-num p{
+    width: 28px;
+}
+.third-floor-num{
+    width: 50px;
+}
+
+.floor-num:hover p{
+    color: #325FFF;
+}
+
+.floor-num__active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+
+    height: 42px;
+    min-width: 40px;
+
+    background: #FFFFFF;
+
+    border: 2px solid #325FFF;
+    box-sizing: border-box;
+
+    cursor: pointer;
+}
+.mansard__active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+
+    height: 42px;
+    width: 130px;
+
+    background: #FFFFFF;
+
+    border: 2px solid #325FFF;
+    box-sizing: border-box;
+
+    cursor: pointer;
+}
+.mansard__active p{
+    color: #325FFF;
+}
+.third-floor-num__active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+
+    height: 42px;
+    width: 51px;
+
+    background: #FFFFFF;
+
+    border: 2px solid #325FFF;
+    box-sizing: border-box;
+
+    cursor: pointer;
+}
+
+.third-floor-num__active p{
+    color: #325FFF;
+}
+
+.floor-num__active p{
+    color: #325FFF;
+}
+
+
+.find-project button{
+    cursor: pointer;
+    width: 180px;
+    height: 40px;
+    padding: 10px;
+
+    background: #325FFF;
+    border: none;
+    outline: none;
+
+    margin-left: 31px;
+}
+
+.find-project button{
+    clip-path: polygon(0 0, 90% 0%, 100% 40%, 100% 100%, 0 100%, 0% 50%);
+
+    margin-top: 103px;
+
+    cursor: pointer;
+    width: 180px;
+    height: 20px;
+    padding: 10px;
+
+    background: #325FFF;
+    border: none;
+    outline: none;
+
+    margin-left: 31px;
+
+    font-family: Open Sans Light, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.more-parameters{
+    margin-top: 113px;
+    margin-left: 82px;
+}
+
+.more-parameters svg{
+    margin-right: 10px;
+}
+
+.more-parameters p{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-decoration-line: underline;
+
+    color: #444444;
+    cursor: pointer;
+}
+
+
+
+
+@media (max-width: 1818px){
+    .choose-catalog{
+        margin-top: -40px;
+    }
+    .choose-catalog__buttons{
+        flex-direction: column;
+    }
+    .completed-projects{
+        width: 149px;
+        height: 40px;
+        border: 1px solid #C8C8C8;
+    }
+    .completed-homes{
+        border-top: none;
+        width: 149px;
+        height: 40px;
+        border: 1px solid #C8C8C8;
+    }
+    .for-investors{
+        border-top: none;
+        width: 149px;
+        height: 40px;
+    }
+    .choose-catalog h1{
+        margin-left: 0px;
+    }
+    .more-parameters{
+        margin-top: 163px;
+        margin-left: -180px;
+    }
+}
+@media (max-width: 1168px){
+    .choose-catalog__buttons{
+        margin-left: 30px;
+        display: flex;
+        flex-direction: row;
+
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .choose-catalog{
+        z-index: 2;
+    }
+    .catalog-header-wrapper{
+        height: 320px;
+        flex-direction: column;
+    }
+    .choose-catalog h1{
+        align-self: center;
+        margin-left: -460px;
+    }
+    .sorter-inputs{
+        margin-top: 30px;
+        margin-left: -170px;
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+    }
+    .project-value{
+        margin-top: 0px;
+    }
+    .house-area{
+        margin-top: 0px;
+    }
+
+    .completed-projects{
+        width: 220px;
+        height: 40px;
+        border-right: none;
+    }
+    .completed-homes{
+        width: 205px;
+        height: 40px;
+        border-right: none;
+    }
+    .for-investors{
+        border-top: 1px solid #C8C8C8;
+        border-right: 1px solid #C8C8C8;
+        width: 168px;
+        height: 40px;
+    }
+    .floors{
+        margin-left: 520px;
+        margin-top: -100px;
+        align-self: center;
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+    }
+    .mansard{
+        margin-top: 42px;
+        margin-left: -159px;
+        height: 42px;
+        width: 159px;
+        border: 1px solid #C8C8C8;
+        border-top: none;
+        border-top: none;
+    }
+    .mansard__active{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 42px;
+        margin-left: -159px;
+        height: 42px;
+        width: 159px;
+
+        padding: 10px;
+
+        background: #FFFFFF;
+
+        border: 2px solid #325FFF;
+        box-sizing: border-box;
+
+        cursor: pointer;
+    }
+    .third-floor-num{
+        border-right: 1px solid #C8C8C8;
+        width: 57px;
+    }
+    .floor-num{
+        height: 42px;
+        min-width: 51px;
+    }
+    .find-project{
+        height: 100px;
+        margin-left: -395px;
+        align-self: center;
+    }
+    .find-project button{
+        margin-top: 0;
+    }
+    .more-parameters{
+        align-self: center;
+        margin-top: -90px;
+        margin-left: 40px;
+    }
+    .floor-num__active{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 10px;
+
+        height: 42px;
+        width: 50px;
+
+        background: #FFFFFF;
+
+        border: 2px solid #325FFF;
+        box-sizing: border-box;
+
+        cursor: pointer;
+    }
+    .third-floor-num__active{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 10px;
+
+        height: 42px;
+        width: 56px;
+
+        background: #FFFFFF;
+
+        border: 2px solid #325FFF;
+        box-sizing: border-box;
+
+        cursor: pointer;
+    }
+}
+
+
+
+
+
+

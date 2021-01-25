@@ -1,8 +1,7 @@
 @font-face {
   font-family: 'OpenSans';
   font-weight: 400;
-  src: local('OpenSans-Regular'),
-    local('OpenSans-Regular'),
+  src: local('OpenSans-Regular'), local('OpenSans-Regular'),
     url('../assets/fonts/OpenSans-Regular.woff2') format('woff2'),
     url('../assets/fonts//OpenSans-Regular.woff') format('woff2');
 }
@@ -11,8 +10,24 @@
   font-family: 'OpenSans';
   font-style: normal;
   font-weight: 500;
-  src: local('OpenSans-Semibold'),
-    local('OpenSans-Semibold'),
+  src: local('OpenSans-Semibold'), local('OpenSans-Semibold'),
     url('../assets/fonts/OpenSans-SemiBold.woff2') format('woff2'),
     url('../assets/fonts/OpenSans-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url('../assets/fonts/OpenSans-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Angry';
+  src: url('../assets/fonts/Angry.eot');
+  src: local('☺'), url('../assets/fonts/Angry.woff') format('woff'),
+    url('../assets/fonts/Angry.ttf') format('truetype'),
+    url('../assets/fonts/Angry.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }

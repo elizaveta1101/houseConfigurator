@@ -1,0 +1,374 @@
+@keyframes spin-1 {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+@keyframes spin-2 {
+    from {transform:rotate(360deg);}
+    to {transform:rotate(0deg);}
+}
+
+
+
+.video-btn-circle-1{
+    width: 390px;
+    height: 390px;
+
+    position: absolute;
+
+    transform: rotate(90deg);
+}
+@keyframes loading-10 {
+    from {stroke-dasharray: 0 400;}
+    to {stroke-dasharray: 280 120;}
+}
+.video-btn-circle-1-preload{
+    animation: loading-10 0.6s linear 1s forwards;
+}
+.video-btn-circle-1{
+    animation: spin-1 32s linear 1s infinite;
+}
+
+.video-btn-circle-2{
+    width: 454px;
+    height: 454px;
+
+    position: absolute;
+
+    transform: rotate(90deg);
+}
+@keyframes loading-11 {
+    from {stroke-dasharray: 0 400;}
+    to {stroke-dasharray: 90 310;}
+}
+.video-btn-circle-2-preload{
+    animation: loading-11 0.6s linear 1s forwards;
+}
+.video-btn-circle-2{
+    animation: spin-2 32s linear 1s infinite;
+}
+
+
+.play-line-1{
+    position: absolute;
+    margin-left: -370px;
+    margin-top: 40px;
+
+    transform: rotate(-45deg);
+}
+@keyframes loading-12 {
+    from {width: 0}
+    to {width: 75px}
+}
+.play-line-1-preload{
+    animation: loading-12 0.6s linear 0s forwards;
+}
+.play-line-2{
+    position: absolute;
+    margin-left: -291px;
+    margin-top: 125px;
+
+    transform: rotate(0deg);
+}
+.play-line-2-preload{
+    animation: loading-12 0.6s linear 0.6s forwards;
+}
+
+
+
+.btn-circle1-hover{
+    width: 100px;
+    height: 100px;
+
+    position: absolute;
+
+    border-radius: 50%;
+}
+.btn-circle1{
+    width: 100px;
+    height: 100px;
+
+    transform: rotate(190deg);
+}
+@keyframes loading-13 {
+    from {stroke-dasharray: 0 400;}
+    to {stroke-dasharray: 320 80;}
+}
+.btn-circle1-preload{
+    animation: loading-13 0.6s linear 1.7s forwards;
+}
+
+.play-btn-hover:hover .btn-circle1-hover{
+    animation: spin-1 2s linear 0s infinite;
+}
+
+
+.btn-circle2-hover{
+    width: 86px;
+    height: 86px;
+
+    position: absolute;
+    border-radius: 50%;
+}
+.btn-circle2{
+    width: 86px;
+    height: 86px;
+
+    transform: rotate(230deg);
+}
+@keyframes loading-14 {
+    from {stroke-dasharray: 0 400;}
+    to {stroke-dasharray: 180 220;}
+}
+.btn-circle2-preload{
+    animation: loading-14 0.6s linear 1.7s forwards;
+}
+.play-btn-hover:hover .btn-circle2-hover{
+    animation: spin-2 2s linear 0s infinite;
+}
+
+@keyframes loading-19 {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+.play-btn{
+    margin-left: 5px;
+}
+.play-btn{
+    animation: loading-19 0.6s linear 1.7s forwards;
+}
+
+
+.play-btn-text{
+    overflow: hidden;
+    position: absolute;
+    width: 150px;
+    margin-left: -220px;
+    margin-top: 0px;
+    transition: 0.2s ease;
+}
+.play-btn-hover:hover .play-btn-text{
+    margin-left: -255px;
+}
+.play-btn-text p{
+    -webkit-user-select: none;
+    -moz-uzer-select:none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    margin-left: 160px;
+    font-family: Open Sans Light, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #444444;
+}
+@keyframes loading-20 {
+    from {margin-left: 5px;
+    opacity: 0}
+    to {margin-left: 0px;
+    opacity: 1}
+}
+.play-btn-text p{
+    animation: loading-20 0.3s linear 0.8s forwards;
+}
+
+.play-btn-text h1{
+    -webkit-user-select: none;
+    -moz-uzer-select:none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    margin-left: 150px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+
+    color: #444444;
+}
+.play-btn-text h1{
+    animation: loading-20 0.3s linear 0.8s forwards;
+}
+
+.more-about{
+    overflow: hidden;
+    position: absolute;
+    height: 20px;
+    width: 150px;
+    margin-top: 140px;
+    margin-left: -30px;
+
+    z-index: 2;
+}
+.more-about h2{
+    margin-left: -150px;
+    white-space: nowrap;
+    font-family: Open Sans Light, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+
+    text-decoration-line: underline;
+
+    color: #444444;
+
+    cursor: pointer ;
+
+    z-index: 2;
+}
+@keyframes loading-21 {
+    from {margin-left: -150px;}
+    to {margin-left: 0px;}
+}
+.more-about h2{
+    animation: loading-21 0.6s linear 1.7s forwards;
+}
+
+
+
+
+.video-btn-circle{
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    align-self: center;
+    align-items: center;
+
+    position: absolute;
+
+    width: 390px;
+    height: 390px;
+
+    margin-left: 1400px;
+    margin-top: 585px;
+}
+.video-btn-circle1{
+    position: absolute;
+}
+
+.video-btn-circle2{
+    position: absolute;
+
+    margin-left:310px;
+    margin-top: -80px;
+}
+
+
+
+.btn-circle1 svg{
+    margin-left: 1px;
+}
+
+.btn-circle2{
+    width: 86px;
+    height: 86px;
+
+
+    position: absolute;
+
+    border-radius: 50%;
+}
+.btn-circle2 svg{
+    margin-left: 18px;
+}
+.play-btn-hover{
+    position: absolute;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    z-index: 2;
+}
+
+
+
+
+
+
+.pre-play-btn-1{
+    position: absolute;
+    margin-top: -43px;
+    margin-left: 25px;
+    transition: 0.2s ease;
+}
+@keyframes loading-22 {
+    from {opacity: 0;}
+    to {opacity: 0.1;}
+}
+.pre-play-btn-1 path{
+    animation: loading-22 0.6s linear 1.7s forwards;
+}
+.pre-play-btn-2{
+    position: absolute;
+    margin-top: -3px;
+    margin-left: 50px;
+    transition: 0.2s ease;
+}
+.pre-play-btn-2 path{
+    animation: loading-22 0.6s linear 1.7s forwards;
+}
+.pre-play-btn-3{
+    position: absolute;
+    margin-top: 41px;
+    margin-left: 32px;
+    transition: 0.2s ease;
+}
+.pre-play-btn-3 path{
+    animation: loading-22 0.6s linear 1.7s forwards;
+}
+.play-btn-hover:hover .pre-play-btn-1{
+    margin-top: -50px;
+    margin-left: 30px;
+}
+.play-btn-hover:hover .pre-play-btn-2{
+    margin-top: -3px;
+    margin-left: 60px;
+}
+.play-btn-hover:hover .pre-play-btn-3{
+    margin-top: 50px;
+    margin-left: 36px;
+}
+
+.pre-h2-circle{
+    position: absolute;
+    margin-top: 140px;
+    margin-left: -210px;
+    width: 24px;
+    height: 24px;
+
+    background-color: #325FFF;
+
+    border-radius: 50%;
+}
+.play-line{
+    position: absolute;
+    margin-left: -505px;
+    margin-top: 60px;
+}
+
+@media (max-width: 1800px) {
+    .video-btn-circle{
+        width: 390px;
+        height: 390px;
+
+        margin-left: 1080px;
+        margin-top: 455px;
+    }
+}
+
+
+
+
+
+
+
+
+

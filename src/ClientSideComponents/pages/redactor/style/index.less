@@ -1,0 +1,57 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    @media tablet {
+        font-size: 16px;
+    }
+}
+  
+@tablet: ~"(min-width: 768px)";
+@desktop: ~"(min-width: 1200px)";
+
+//mobile
+@g-c-content-mob: "[content] 1fr";
+@g-r-content-mob: "[interview] minmax(min-content, max-content) [interactive] minmax(100vw, max-content) [materialList] minmax(min-content, 150px)";
+
+//tablet
+@g-c-content-tab: "[interview] 1fr [interactive] 4fr";
+@g-r-content-tab: "[content] minmax(90vh, 100vh) [materialList] minmax(min-content, 150px)";
+//desktop
+
+.field {
+    margin-top: 15px;
+    max-width: 200px;
+    .select, .text {
+        width: 150px;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+}
+
+.label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    @media @tablet {
+        font-size: 14px;
+    }
+}
+
+input[type='radio'], input[type='checkbox'] {
+    margin-right: 5px;
+    &:focus{
+        outline: none;
+    }
+}
+
+button {
+    padding: 3px 10px;
+    margin: 10px 0 0;
+}
+
+hr {
+    width: 100%;
+}

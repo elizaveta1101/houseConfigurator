@@ -1,0 +1,20 @@
+.prev, .next {
+    cursor: pointer;
+    background: white;
+    border: 1px solid #D9D9D9;
+    padding: 40px 10px;
+    font-weight: 600;
+    margin: 0;
+}
+.prev:focus, .next:focus {
+    outline: none;
+}
+.prev:hover, .next:hover {
+    border: 1px solid #325FFF;
+}
+.prev {
+    grid-area: prev;
+}
+.next {
+    grid-area: next;
+}
