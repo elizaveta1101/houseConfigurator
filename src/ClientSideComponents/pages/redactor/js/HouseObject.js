@@ -126,8 +126,7 @@ class HouseObject {
         let basementStage = stages.filter((el) => el.name === 'basement')[0];
 
         let basementShapeSelect = basementStage.fields.filter((el) => el.fieldId === 'basementShape')[0];
-        
-        if (Number(basementShapeSelect.value) <= basementShapes.length && appState.editMode === 'N') {
+        if (Number(basementShapeSelect.value) <= basementShapes.length) {
             basement.vertices = [...basementShapes.filter((el, i) => i === basementShapeSelect.value - 1)[0]];
         } else if (verticesCoords) {
             basement.vertices = verticesCoords;
@@ -1096,25 +1095,10 @@ class HouseObject {
         //-----------старый вариант-------------------
         if (stageName === 'basement') {
             deleteDimensions(this.basement.plan);
-            appState.scene.remove(this.house2d);
-            
-            let basementStage = stages.filter((el) => el.name === 'basement')[0];
-            let basementShapeSelect = basementStage.fields.filter((el) => el.fieldId === 'basementShape')[0];
-            
-            if (basementShapeSelect.value === 'Задать свою') {
-                this.basement = new sceneObject();
-            } else {
-                this.setBasementParametrs(basementShapes.filter((el, i) => i === Number(basementShapeSelect.value) - 1)[0]);
-            } 
-
+            appState.scene.remove(this.house2d, this.house3d);
+            this.basement = new sceneObject();
             this.house2d = new THREE.Group();
-            this.house2d.add(this.build2d('basement'));
-            this.basement.points.visible = true;
-
-            //заменить build
-            // this.build();
-            // this.setBasementParametrs()
-            appState.scene.add(this.house2d);
+            this.setAllParametrs();
         } else if (stageName === 'innerWalls') {
             appState.scene.remove(this.house2d, this.house3d);
             this.innerWalls[this.activeFloor] = new floorObject();
