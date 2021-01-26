@@ -29,7 +29,7 @@ class HouseObject {
         this.roof = new sceneObject();
         this.innerWalls = null; //массив объектов floorObject
         this.activeFloor = '1'; //название этажа, который надо показать
-        this.floors = 1;
+        this.floors = 1; //количество этажей в доме
         this.floorNames = ['Подвал', '1', '2', '3', '4', '5', 'Мансарда'];
         this.floorsModel = new THREE.Group();
         this.floorHeight = 0;
@@ -39,6 +39,7 @@ class HouseObject {
         this.mansardExistence = false; //наличие мансарды 
         this.mansardLiving = false; //мансарда жилая?
         this.veranda = new THREE.Group(); //веранда
+        this.veranda.basementVerticeIndex = new Array
         this.verandaBasement = new sceneObject();
         this.verandaWalls = new sceneObject();
         this.verandaRoof = new sceneObject();
@@ -329,9 +330,86 @@ class HouseObject {
         
         let verandaRoofStage = stages.filter((el) => el.name === 'roof')[0];
         let verandaRoofShapeSelect = verandaRoofStage.fields.filter((el) => el.fieldId === 'roofShape')[0];
-        verandaRoof.type=Number(verandaRoofShapeSelect.value);
-        
-        verandaRoof.vertices=this.verandaBasement.vertices;
+        // verandaRoof.type = Number(verandaRoofShapeSelect.value);
+        let startIndex = 3;
+        let endIndex = 0;
+        let verandaBasementVertices = [];
+        this.verandaBasement.vertices.forEach(item => verandaBasementVertices.push(item));
+        verandaRoof.vertices = [];
+        if (this.floors === 1) {
+            let index0;
+            let index1;
+            let maxIndex;
+            if (typeof this.veranda.basementVerticeIndex.index1 === 'undefined') {
+                index0 = 6;
+                index1 = 6;
+            }
+            else {
+                index0 = this.basement.vertices.length - (this.veranda.basementVerticeIndex.index0 + 3);
+                index1 = this.basement.vertices.length - (this.veranda.basementVerticeIndex.index1 + 3);
+            }
+            maxIndex = index1;
+            console.log(index0, index1);
+            // if (index0 === index1) {
+                if (typeof this.veranda.basementVerticeIndex.index1 != 'undefined') {
+                    let distance = [];
+                    // let i = 0;
+                    // while (i < 6) {
+                    //     distance[i] = Math.sqrt(Math.pow(this.basement.vertices[Number(this.veranda.basementVerticeIndex['index' + i])] - this.verandaBasement.vertices[i], 2) + Math.pow(this.basement.vertices[Number(this.veranda.basementVerticeIndex['index' + i]) + 1] - this.verandaBasement.vertices[i + 1], 2));
+                    //     i += 3;
+                    // }
+                    let j = 0;
+                    for (let i = 0; i < 6; i += 3) {
+                        distance[j] = Math.sqrt(Math.pow(this.basement.vertices[Number(this.veranda.basementVerticeIndex['index' + j])] - this.verandaBasement.vertices[i], 2) + Math.pow(this.basement.vertices[Number(this.veranda.basementVerticeIndex['index' + j]) + 1] - this.verandaBasement.vertices[i + 1], 2));
+                        j ++;
+                    }
+                    console.log(distance);
+                    if (distance[0] === 0) {endIndex += 3;}
+                    if (distance[1] === 0) {startIndex += 3;}
+                    if ((distance[0] < distance[1] && index0 === index1) || (/*distance[1] === distance[0] &&*/ index0 > index1)) {
+                        verandaBasementVertices = [];
+                        for (let i = this.verandaBasement.vertices.length; i > 0; i -= 3) {
+                            verandaBasementVertices.push(this.verandaBasement.vertices[i - 3], this.verandaBasement.vertices[i - 2], this.verandaBasement.vertices[i - 1]);
+                        }
+                        startIndex = 0;
+                        endIndex = 3;
+                        maxIndex = index0;
+                        if (distance[0] === 0) {startIndex += 3;}
+                        if (distance[1] === 0) {endIndex += 3;}
+                    }
+                    console.log('startIndex = '+startIndex+'; endIndex = '+endIndex);
+                }
+                console.log(verandaBasementVertices);
+                // console.log('startIndex = '+startIndex+'; endIndex = '+endIndex);
+                console.log('maxIndex = '+maxIndex);
+                for (let i = 0; i < this.basement.vertices.length; i ++) {
+                    verandaRoof.vertices.push(this.basement.vertices[i]);
+                    if (i === (this.basement.vertices.length - maxIndex - 1)) {
+                        for (let j = startIndex; j < verandaBasementVertices.length - endIndex; j ++) {
+                            // this.verandaBasement.vertices.forEach(item => verandaRoof.vertices.push(item));
+                            verandaRoof.vertices.push(verandaBasementVertices[j]);
+                            verandaRoof.type = Number(verandaRoofShapeSelect.value);
+                        }
+                    }
+                }
+                console.log(verandaRoof.vertices);
+            // }
+            // else {
+                
+            // }
+            // this.roof.vertices = [];
+            // verandaRoof.vertices.forEach(item => this.roof.vertices.push(item));
+            // this.roof.vertices = verandaRoof.vertices;
+            // verandaRoof.vertices = [];
+            // this.verandaBasement.vertices.forEach(item => verandaRoof.vertices.push(item));
+        }
+        else {
+            verandaRoof.vertices = [];
+            this.verandaBasement.vertices.forEach(item => verandaRoof.vertices.push(item));
+            verandaRoof.type = 'veranda';
+        }
+
+        // verandaRoof.vertices=this.verandaBasement.vertices;
         verandaRoof.width=0.5;
         verandaRoof.height=2;
         verandaRoof.color = '';
@@ -468,13 +546,20 @@ class HouseObject {
                 if ( this[ name + 'Model' ] ) {
                     if ( index <= currentStage ){
                         this[ name + 'Model' ].visible = true;
-                        if (this.verandaExistence) {this.verandaRoofModel.visible = true;}
+                        // if (this.verandaExistence) {this.verandaRoofModel.visible = true;}
                     } else {
                         this[ name + 'Model' ].visible = false;
                     }
                 }
                 if (!this.cellarExistence && this.cellarModel) {this.cellarModel.visible = false;}
                 if (!this.verandaExistence && this.verandaModel) {this.verandaModel.visible = false;}
+                if (stages[ currentStage ].name === 'veranda' && this.verandaExistence) {
+                    if (this.floors === 1) {
+                        this.roofModel.visible = false;
+                        // this.verandaRoofModel.visible = true;
+                    }
+                    this.verandaRoofModel.visible = true;
+                }
                 if (name === 'interior' && index <=currentStage) {
                     if (index === currentStage) {
                         this.roofModel.visible = false;
@@ -619,9 +704,15 @@ class HouseObject {
                         this.build( {stageName: 'veranda'});
                         console.log('ребилд веранды');
                     }
+                    if (this.floors === 1) {
+                        this.roofModel.visible = false;
+                        this.verandaRoofModel.visible = true;
+                    }
                 } else {
                     if (this.verandaModel) {
                         this.verandaModel.visible = false;
+                        // this.verandaRoofModel.visible = false; console.log('невидимая веранда');
+                        this.roofModel.visible = true;
                     }
                 }
                 break;
@@ -638,6 +729,10 @@ class HouseObject {
                     this.veranda.remove(this.verandaRoofModel);
                     redrawObject(this.verandaBasementModel, this.verandaBasement, this.verandaBasement.vertices, stageInfo.pointIndex);
                     redrawObject(this.verandaWallsModel, this.verandaWalls, this.verandaWalls.vertices, stageInfo.pointIndex);
+                    if (this.floors === 1) {
+                        this.roofModel.visible = false;
+                        this.verandaRoofModel.visible = true;
+                    }
                     this.verandaRoofModel = drawRoof(this.verandaRoof);
                     this.verandaRoofModel.name = 'verandaRoof';
                     this.veranda.add(this.verandaRoofModel);
@@ -711,7 +806,7 @@ class HouseObject {
                 this.roofModel.visible=false;
                 if (this.verandaExistence) {
                     this.verandaModel.visible = true;
-                    this.verandaRoofModel.visible = false;
+                    this.verandaRoofModel.visible = false; console.log('невидимая веранда');
                 }
                 break;
             case '2':
@@ -1049,7 +1144,8 @@ class HouseObject {
             this.veranda.plan.add( this.veranda.points );
             this.house2d.add(this.veranda.plan);
             this.veranda.points.visible=true;
-            putDimensions( this.veranda.plan, vertices, stageName );
+            if (vertices.length > 6) {putDimensions( this.veranda.plan, vertices, stageName );}
+            // putDimensions( this.veranda.plan, vertices, stageName );
         } else {
             this.basement.plan = drawLine(vertices);
             this.house2d=this.basement.plan;
@@ -1057,7 +1153,8 @@ class HouseObject {
             this.basement.plan.add( this.basement.points );
             appState.scene.add( this.house2d);
             this.basement.points.visible=true;
-            putDimensions( this.basement.plan, vertices, stageName );
+            if (vertices.length > 6) {putDimensions( this.basement.plan, vertices, stageName );}
+            // putDimensions( this.basement.plan, vertices, stageName );
         }
         appState.scene.add(this.house2d);
 
@@ -1071,8 +1168,10 @@ class HouseObject {
         }
         const length = vertices.length;
         if (stageName === 'basement' || stageName === 'veranda') {
-            if( vertices[0] !== vertices[length-3] &&
-                vertices[1] !== vertices[length-2]) {
+            if((length > 6 &&
+                vertices[0] !== vertices[length-3] &&
+                vertices[1] !== vertices[length-2]) ||
+                length <= 6) {
                 vertices.push(vertices[0]);
                 vertices.push(vertices[1]);
                 vertices.push(vertices[2]);
@@ -1228,6 +1327,10 @@ function makePointsGroup( vertices, opacity ) {
     let points = new THREE.Group();
     for ( let i = 0; i < vertices.length - 6; i += 3 ) {
         let point = drawDot( [vertices[i], vertices[i + 1], vertices[i + 2]] );
+        points.add(point);
+    }
+    if (vertices.length === 6) {
+        let point = drawDot( [vertices[0], vertices[1], vertices[2]], opacity );
         points.add(point);
     }
     let point = drawDot( [vertices[vertices.length - 6], vertices[vertices.length - 5], vertices[vertices.length - 4]], opacity ); //рисуем последнюю точку с заданной полупрозрачностью 

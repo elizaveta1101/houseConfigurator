@@ -124,8 +124,8 @@ function drawRoof(obj) {
 
     let roofHeight = 2; //высота крыши
     let roofUpScale = 1; // масштабирование верхней плоскости крыши
-    const outerVertices = obj.getInnerVertices(-obj.width);
-    const downVertices = [...outerVertices, ...vertices];
+    let outerVertices = obj.getInnerVertices(-obj.width);
+    let downVertices = [...outerVertices, ...vertices];
     const upVertices = obj.getInnerVertices(roofUpScale); //задание верхней плоскости крыши с масштабированием
     // Задание внутренней высоты крыши
     for (let i = 2; i < upVertices.length; i += 3) {
@@ -191,6 +191,50 @@ function drawRoof(obj) {
         }
         sideSurface.computeFaceNormals();
         calcTextureCoord(sideSurface, obj, 'roof' + type);
+    }
+
+    if (type === 'veranda') {
+
+        // for (let i = 0; i < 6; i += 3) {
+
+        //     outerVertices[i] = vertices[i];
+        // }
+        // for (let i = outerVertices.length - 3; i < outerVertices.length; i ++) {outerVertices[i] = vertices[i];}
+        // downVertices = [...outerVertices, ...vertices];
+
+        // //доработать drawPolygon (сейчас только для верхних делает)
+        // //-------------------кусок из drawPolygon--------------------
+        // for (let i = 0; i < downVertices.length; i += 3) {
+        //     downSurface.vertices.push(new THREE.Vector3(downVertices[i], downVertices[i + 1], downVertices[i + 2]));
+        // }
+        // let triangulation = [];
+        // triangulation = earcut(downVertices, [vertices.length / 3], 3);
+        // for (let i = 0; i < triangulation.length; i += 3) {
+        //     downSurface.faces.push(new THREE.Face3(triangulation[i], triangulation[i + 1], triangulation[i + 2]));
+        // }
+        // downSurface.computeFaceNormals();
+
+        //-------------------конец кусок из drawPolygon--------------------
+
+        for (let i = 0; i < outerVertices.length; i += 3) {
+            sideSurface.vertices.push(new THREE.Vector3(outerVertices[i], outerVertices[i + 1], outerVertices[i + 2]));
+        }
+        let controlPoint = [];
+        controlPoint[0] = ((vertices[3] - vertices[0]) / 2) + vertices[0];
+        controlPoint[1] = ((vertices[4] - vertices[1]) / 2) + vertices[1];
+        // let controlPoint = extraFunctions.getPolygonCenter(outerVertices);
+        controlPoint[2] = obj.height / 2;
+        sideSurface.vertices.push(new THREE.Vector3(controlPoint[0], controlPoint[1], controlPoint[2]));
+
+        let length = outerVertices.length;
+        //цикл по всем без последней, потому что у нас есть замыкающая точка, равная первой
+        //у контрольной точки индекс будет равен length/3, потому что в массив вершин 
+        //она не добавлялась, только в геометрию
+        for (let i = 0; i < length / 3 - 1; i++) {
+            sideSurface.faces.push(new THREE.Face3(i + 1, i, length / 3));
+        }
+        sideSurface.computeFaceNormals();
+        calcTextureCoord(sideSurface, obj, 'roof1');
     }
 
     surface.add(new THREE.Mesh(downSurface, material), new THREE.Mesh(sideSurface, material));

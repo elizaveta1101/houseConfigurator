@@ -313,6 +313,16 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
           if (vertices.length < 6) {
             let newPoint = pointToLineAttachment(line, mousePosition);
             pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+            switch (vertices.length) {
+              case 0:
+                appState.house.veranda.basementVerticeIndex = { index0: newPoint.verticeIndex };
+                break;
+              case 3:
+                appState.house.veranda.basementVerticeIndex = { index0: appState.house.veranda.basementVerticeIndex.index0, index1: newPoint.verticeIndex };
+                break;
+              default:
+                break;
+            }
           }
           vertices.push(...pointPosition);
           appState.house.setParametrs(stageName, vertices);
@@ -358,7 +368,27 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         return null;
       } else if (mouseAction === 'move') {
         if (data.index !== -1) {
-          changeObjCoord(appState.house.verandaBasement, data.index, mousePosition);
+          let line = appState.house.basement.vertices;
+          let pointPosition = mousePosition;
+          if (data.index < 6) {
+            let newPoint = pointToLineAttachment(line, mousePosition);
+            pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+            let secondPoint;
+            switch (data.index) {
+              case 0:
+                secondPoint = pointToLineAttachment(line, [appState.house.verandaBasement.vertices[3], appState.house.verandaBasement.vertices[4], appState.house.verandaBasement.vertices[5]]);
+                appState.house.veranda.basementVerticeIndex = { index0: newPoint.verticeIndex, index1: secondPoint.verticeIndex };
+                break;
+              case 3:
+                secondPoint = pointToLineAttachment(line, [appState.house.verandaBasement.vertices[0], appState.house.verandaBasement.vertices[1], appState.house.verandaBasement.vertices[2]]);
+                appState.house.veranda.basementVerticeIndex = { index0: secondPoint.verticeIndex, index1: newPoint.verticeIndex };
+                break;
+              default:
+                break;
+            }
+            
+          }
+          changeObjCoord(appState.house.verandaBasement, data.index, pointPosition);
           appState.changeState('shapeChanged', data);
         }
         return null;
