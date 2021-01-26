@@ -20,8 +20,8 @@ const stages = [
                 label: 'Форма фундамента',
                 type: 'select',
                 fieldId: 'basementShape',
-                options: ['1', '2', '3', '4', 'Задать свою'],
-                value: '1',
+                options: ['Задать свою', '1', '2', '3', '4'],
+                value: 'Задать свою',
                 show: true,
                 depended: {}
             },

@@ -18,7 +18,6 @@ import floorObject from './floorObject.js';
 
 import { loadModel } from '../assets/Models/modelLoader.js';
 import houseModels from '../assets/Models/houseModels.js';
- import {ThreeBSP} from 'three-js-csg-es6';
 
 
 class HouseObject {
@@ -51,10 +50,14 @@ class HouseObject {
         this.stages2D = ['basement', 'outerWalls', 'innerWalls'];
         this.testObject = new floorObject();
         this.models = null;
+        //модели
         this.windowModels = [];
         this.doorModels = [];
         this.stairsModels = [];
-        
+        //текстуры
+        this.basementTextures=[];
+        this.outerWallsTextures=[];
+        this.roofTextures=[];
     }
     setAllParametrs() {
         this.setBasementParametrs();
@@ -123,7 +126,8 @@ class HouseObject {
         let basementStage = stages.filter((el) => el.name === 'basement')[0];
 
         let basementShapeSelect = basementStage.fields.filter((el) => el.fieldId === 'basementShape')[0];
-        if (Number(basementShapeSelect.value) <= basementShapes.length) {
+        
+        if (Number(basementShapeSelect.value) <= basementShapes.length && appState.editMode === 'N') {
             basement.vertices = [...basementShapes.filter((el, i) => i === basementShapeSelect.value - 1)[0]];
         } else if (verticesCoords) {
             basement.vertices = verticesCoords;
@@ -135,10 +139,15 @@ class HouseObject {
         basement.upVertices=basement.getUpVertices();
         basement.color = '';
         basement.texCoord = [];
-        basement.texture = loadTexture(houseTextures.getTexture('basement'));
-        basement.textureSize = houseTextures.getTextureSize('basement');    //задание размера текстуры
+        //------------борьба с мерцанием--------------------
+        let materialIndex = basementStage.fields.filter((el) => el.fieldId === 'basementMaterial')[0].value;
+        basement.texture = this.basementTextures[materialIndex].texture;
+        basement.textureSize =  this.basementTextures[materialIndex].size;    //задание размера текстуры
+        //-------------------------------
+        // basement.texture = loadTexture(houseTextures.getTexture('basement'));
+        // basement.textureSize = houseTextures.getTextureSize('basement');    //задание размера текстуры
         //-----тест!!!!!!!!!!!!!!!!!!!!!!!!!
-        basement.polygons=getPolygons(basement.vertices);
+        // basement.polygons=getPolygons(basement.vertices);
     }
     setOuterWallsParametrs(){
         let outerWalls = this.outerWalls;
@@ -154,8 +163,13 @@ class HouseObject {
         outerWalls.upVertices=outerWalls.getUpVertices();
         outerWalls.color=''; //0xFF0000
         outerWalls.texCoord=[];
-        outerWalls.texture = loadTexture(houseTextures.getTexture('outerWalls'));
-        outerWalls.textureSize = houseTextures.getTextureSize('outerWalls');
+        // outerWalls.texture = loadTexture(houseTextures.getTexture('outerWalls'));
+        // outerWalls.textureSize = houseTextures.getTextureSize('outerWalls');
+        //----------борьба с мерцанием------------------
+        let materialIndex = outerWallsStage.fields.filter((el) => el.fieldId === 'outerWallsMaterial')[0].value;
+        outerWalls.texture = this.outerWallsTextures[materialIndex].texture;
+        outerWalls.textureSize =  this.outerWallsTextures[materialIndex].size; 
+        //-----------------------------
 
         outerWalls.translation=[0,0,this.basement.height];
     }
@@ -168,8 +182,8 @@ class HouseObject {
         ceiling.texCoord=[];
         // ceiling.texture = loadTexture(houseTextures.getTexture('basement'));
         // ceiling.textureSize = houseTextures.getTextureSize('basement');    //задание размера текстуры
-        ceiling.texture = loadTexture(houseTextures.getTexture('outerWalls'));
-        ceiling.textureSize = houseTextures.getTextureSize('outerWalls');
+        ceiling.texture = this.outerWalls.texture;
+        ceiling.textureSize = this.outerWalls.textureSize;
         ceiling.translation=[0,0,0];
     }
     setRoofParametrs() {
@@ -186,7 +200,11 @@ class HouseObject {
         roof.texCoord = [];
         roof.texture = loadTexture(houseTextures.getTexture('roof'));
         roof.textureSize = houseTextures.getTextureSize('roof');
-
+        //----------борьба с мерцанием------------------
+        let materialIndex = roofStage.fields.filter((el) => el.fieldId === 'roofMaterial')[0].value;
+        roof.texture = this.roofTextures[materialIndex].texture;
+        roof.textureSize =  this.roofTextures[materialIndex].size; 
+        //-----------------------------
         roof.translation=[0,0, this.basement.height+this.outerWalls.height+(this.floors-1)*this.floorHeight];
     }
     setFloorsParametrs(){
@@ -297,8 +315,10 @@ class HouseObject {
         verandaBasement.upVertices=verandaBasement.getUpVertices();
         verandaBasement.color = '';
         verandaBasement.texCoord = [];
-        verandaBasement.texture = loadTexture(houseTextures.getTexture('basement'));
-        verandaBasement.textureSize = houseTextures.getTextureSize('basement');    //задание размера текстуры
+        // verandaBasement.texture = loadTexture(houseTextures.getTexture('basement'));
+        // verandaBasement.textureSize = houseTextures.getTextureSize('basement');    //задание размера текстуры
+        verandaBasement.texture = this.basement.texture;
+        verandaBasement.textureSize = this.basement.textureSize;    //задание размера текстуры
     }
     
     dislpayConsoleHouse() {
@@ -319,8 +339,10 @@ class HouseObject {
         verandaWalls.upVertices=verandaWalls.getUpVertices();
         verandaWalls.color=''; //0xFF0000
         verandaWalls.texCoord=[];
-        verandaWalls.texture = loadTexture(houseTextures.getTexture('outerWalls'));
-        verandaWalls.textureSize = houseTextures.getTextureSize('outerWalls');
+        // verandaWalls.texture = loadTexture(houseTextures.getTexture('outerWalls'));
+        // verandaWalls.textureSize = houseTextures.getTextureSize('outerWalls');
+        verandaWalls.texture = this.outerWalls.texture;
+        verandaWalls.textureSize = this.outerWalls.textureSize;
 
         verandaWalls.translation=[0,0,this.verandaBasement.height];
     }
@@ -414,8 +436,10 @@ class HouseObject {
         verandaRoof.height=2;
         verandaRoof.color = '';
         verandaRoof.texCoord = [];
-        verandaRoof.texture = loadTexture(houseTextures.getTexture('roof'));
-        verandaRoof.textureSize = houseTextures.getTextureSize('roof');
+        // verandaRoof.texture = loadTexture(houseTextures.getTexture('roof'));
+        // verandaRoof.textureSize = houseTextures.getTextureSize('roof');
+        verandaRoof.texture = this.roof.texture;
+        verandaRoof.textureSize = this.roof.textureSize;
 
         verandaRoof.translation=[0,0, this.verandaBasement.height+this.verandaWalls.height];
     }
@@ -437,8 +461,6 @@ class HouseObject {
                 group2d.add(this.build2d(stageName));
             });
             this.house2d = group2d; 
-        this.house2d = group2d; 
-            this.house2d = group2d; 
             this.house2d.name = 'house2d';
 
             const stagesModels = buildStages( this );
@@ -454,9 +476,6 @@ class HouseObject {
                 this.buildInnerWalls3D();
             }
             appState.scene.add(this.house2d, this.house3d);
-            console.log(appState.scene);
-            console.log();
-            console.log(this.house3d);
         } else if (data.stageName === 'veranda') {
             this.house3d.remove(this.verandaModel);
             this.veranda.remove(this.verandaBasementModel);
@@ -765,6 +784,8 @@ class HouseObject {
         this.floorDraft = floor;
        
         let posZ = this.basement.height + this.outerWalls.height;
+        this.floorsModel.position.z = posZ;
+        posZ=0;
         this.floorsModel.children = [];
         for (let i = 0; i < 4; i++) {
             let floor = this.floorDraft.clone();
@@ -786,6 +807,10 @@ class HouseObject {
         }
         for (let i=this.floors-1; i<4; i++) {
             this.floorsModel.children[i].visible=false;
+        }
+        this.roofModel.position.z = this.basement.height+this.outerWalls.height+(this.floors-1)*this.floorHeight;
+        if (this.mansardExistence) {
+            this.roofModel.position.z += this.mansard.height;
         }
     }
 
@@ -1019,21 +1044,51 @@ class HouseObject {
         }
     }
     updateTextures(stageName) {
+        let currentStage = stages.filter((el) => el.name === stageName)[0];
         if (stageName === 'basement') {
-            this.basement.texture = loadTexture(houseTextures.getTexture('basement'));
-            this.basement.textureSize = houseTextures.getTextureSize('basement');    //задание размера текстуры
+            //------------борьба с мерцанием--------------------
+            let materialIndex = currentStage.fields.filter((el) => el.fieldId === 'basementMaterial')[0].value;
+            this.basement.texture = this.basementTextures[materialIndex].texture;
+            this.basement.textureSize =  this.basementTextures[materialIndex].size;    //задание размера текстуры
+            //-------------------------------
+            // this.basement.texture = loadTexture(houseTextures.getTexture('basement'));
+            // this.basement.textureSize = houseTextures.getTextureSize('basement');    //задание размера текстуры
             if (this.cellar) {
                 this.cellar.texture = this.basement.texture;
                 this.cellar.textureSize = this.basement.textureSize;
             }
+            if (this.verandaExistence) {
+                this.verandaBasement.texture = this.roof.texture;
+                this.verandaBasement.textureSize = this.roof.textureSize;
+            }
         } else if (stageName === 'outerWalls') {
-            this.outerWalls.texture = loadTexture(houseTextures.getTexture('outerWalls'));
-            this.outerWalls.textureSize = houseTextures.getTextureSize('outerWalls');
+            //------------борьба с мерцанием--------------------
+            let materialIndex = currentStage.fields.filter((el) => el.fieldId === 'outerWallsMaterial')[0].value;
+            this.outerWalls.texture = this.outerWallsTextures[materialIndex].texture;
+            this.outerWalls.textureSize =  this.outerWallsTextures[materialIndex].size; 
+            //-----------------------------
+
+            // this.outerWalls.texture = loadTexture(houseTextures.getTexture('outerWalls'));
+            // this.outerWalls.textureSize = houseTextures.getTextureSize('outerWalls');
+
             this.ceiling.texture = this.outerWalls.texture;
             this.ceiling.textureSize = this.outerWalls.textureSize;
+            if (this.verandaExistence) {
+                this.verandaWalls.texture = this.roof.texture;
+                this.verandaWalls.textureSize = this.roof.textureSize;
+            }
         } else if (stageName === 'roof') {
-            this.roof.texture = loadTexture(houseTextures.getTexture('roof'));
-            this.roof.textureSize = houseTextures.getTextureSize('roof');
+            //------------борьба с мерцанием--------------------
+            let materialIndex = currentStage.fields.filter((el) => el.fieldId === 'roofMaterial')[0].value;
+            this.roof.texture = this.roofTextures[materialIndex].texture;
+            this.roof.textureSize =  this.roofTextures[materialIndex].size; 
+            //-----------------------------
+            if (this.verandaExistence) {
+                this.verandaRoof.texture = this.roof.texture;
+                this.verandaRoof.textureSize = this.roof.textureSize;
+            }
+            // this.roof.texture = loadTexture(houseTextures.getTexture('roof'));
+            // this.roof.textureSize = houseTextures.getTextureSize('roof');
         }
     }
 
@@ -1041,10 +1096,25 @@ class HouseObject {
         //-----------старый вариант-------------------
         if (stageName === 'basement') {
             deleteDimensions(this.basement.plan);
-            appState.scene.remove(this.house2d, this.house3d);
-            this.basement = new sceneObject();
+            appState.scene.remove(this.house2d);
+            
+            let basementStage = stages.filter((el) => el.name === 'basement')[0];
+            let basementShapeSelect = basementStage.fields.filter((el) => el.fieldId === 'basementShape')[0];
+            
+            if (basementShapeSelect.value === 'Задать свою') {
+                this.basement = new sceneObject();
+            } else {
+                this.setBasementParametrs(basementShapes.filter((el, i) => i === Number(basementShapeSelect.value) - 1)[0]);
+            } 
+
             this.house2d = new THREE.Group();
-            this.setAllParametrs();
+            this.house2d.add(this.build2d('basement'));
+            this.basement.points.visible = true;
+
+            //заменить build
+            // this.build();
+            // this.setBasementParametrs()
+            appState.scene.add(this.house2d);
         } else if (stageName === 'innerWalls') {
             appState.scene.remove(this.house2d, this.house3d);
             this.innerWalls[this.activeFloor] = new floorObject();
@@ -1231,17 +1301,23 @@ class HouseObject {
             this[stageName].height*=-1;
         }
         this[stageName].upVertices = this[stageName].getUpVertices();
-        console.log(this[stageName+'Model']);
         redrawObject(this[stageName+'Model'], this[stageName], this[stageName].vertices);
         this.setAllParametrs();
         appState.scene.remove(this.house3d);
 
+
         if (stageName === 'basement') {
             this.changeObjPosition('outerWalls', heightDiv);
+            this.changeObjPosition('floors', heightDiv);
+            this.changeObjPosition('roof', heightDiv);
+            // this.roofModel.position.z = this.basement.height+this.outerWalls.height+(this.floors-1)*this.floorHeight;
         } else       
         if (stageName === 'outerWalls') {
             this['floorsModel'] = this.buildFloors();
+            this.changeObjPosition('roof', heightDiv);
+            // this.roofModel.position.z = this.basement.height+this.outerWalls.height+(this.floors-1)*this.floorHeight;
         }
+        console.log(this);
         appState.scene.add(this.house3d);
     }
     changeObjPosition(stageName, heightDiv) {
@@ -1293,6 +1369,33 @@ class HouseObject {
             loadModel(stairs).then(model => {
                 model.name = 'stairs';
                 this.stairsModels.push(model);
+            });
+        });
+    }
+
+    preloadTextures() {
+        houseTextures.basement.map(texture => {
+            let tex = loadTexture(texture.url);
+            let size = texture.size;
+            this.basementTextures.push({
+                texture: tex,
+                size: size,
+            });
+        });
+        houseTextures.outerWalls.map(texture => {
+            let tex = loadTexture(texture.url);
+            let size = texture.size;
+            this.outerWallsTextures.push({
+                texture: tex,
+                size: size,
+            });
+        });
+        houseTextures.roof.map(texture => {
+            let tex = loadTexture(texture.url);
+            let size = texture.size;
+            this.roofTextures.push({
+                texture: tex,
+                size: size,
             });
         });
     }

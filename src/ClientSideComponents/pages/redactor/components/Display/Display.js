@@ -46,6 +46,17 @@ class Display extends React.Component {
     }
 
     componentDidMount() {
+        // this.checkDrawBtnVisibility(this.state.stageId);
+        this.setState({
+            drawBtnVisibility: true,
+            editBtn: {
+                clicked: true,
+                disabled: false
+            },
+        });
+
+        appState.editMode = 'add';
+        this.set2d();
     }
 
     setNextStage() {
@@ -160,6 +171,14 @@ class Display extends React.Component {
             if (name === 'floors') {
                 appState.house.setFloorPlanParametrs();
             }
+            if (name==='basementShape') {
+                if (value === 'Задать свою') {
+                    this.clearScene();
+                    // appState.editMode = 'add';
+                    // this.set2d();
+                    return;
+                } 
+            }
         }
 
         // выключение режима редактирования при любых изменениях полей опроса 
@@ -183,18 +202,18 @@ class Display extends React.Component {
         if (stages[index].condition) {
             let conditionFieldId = stages[index].condition.fieldId;
             if (conditionFieldId) {
-                let conditionValue = stages[index].condition.value;
-                let value = stages[index].fields
-                    .filter(el => el.fieldId === conditionFieldId)[0].value;
-                if (value === conditionValue) {
+                // let conditionValue = stages[index].condition.value;
+                // let value = stages[index].fields
+                //     .filter(el => el.fieldId === conditionFieldId)[0].value;
+                // if (value === conditionValue) {
                     this.setState({
                         drawBtnVisibility: true
                     });
-                } else {
-                    this.setState({
-                        drawBtnVisibility: false
-                    });
-                }
+                // } else {
+                //     this.setState({
+                //         drawBtnVisibility: false
+                //     });
+                // }
             } else {
                 return null;
             }
@@ -295,7 +314,16 @@ class Display extends React.Component {
     }
 
     clearScene() {
-        appState.editMode = 'add';
+        let index = this.state.stageId;
+        let conditionFieldId = stages[index].condition.fieldId;
+        let value = stages[index].fields
+            .filter(el => el.fieldId === conditionFieldId)[0].value;
+        if (value === 'Задать свою') {
+            appState.editMode = 'add';
+        } else {
+            appState.editMode = 'edit';
+        }
+        
         let stageName = stages[this.state.stageId].name;
         appState.changeState('clearScene', stageName);
         appState.changeState('changeView', '2D');
@@ -340,15 +368,19 @@ class Display extends React.Component {
                     });
                 }
                 appState.changeState('planEditMode', {mode: 'T', stageName : 'basement'}  );
+                console.log(appState.editMode);
                 this.set2d();
             }
             else {
-                if (linePointsCoords.length < 9) {
-                    alert('Недостаточно вершин для построения. Начертите минимум 3 вершины');
-                    return;
-                } else {appState.changeState('endAddVertices');}
+                if (appState.editMode === 'add') {
+                    if (linePointsCoords.length < 9) {
+                        alert('Недостаточно вершин для построения. Начертите минимум 3 вершины');
+                        return;
+                    } else {appState.changeState('endAddVertices');}
+                } else if (appState.editMode === 'edit') {
+                    appState.changeState('shapeChangeEnd');
+                }
                 appState.editMode = 'N';
-                appState.changeState('shapeChangeEnd');
                 this.setState({
                     editBtn: {
                         clicked: !this.state.editBtn.clicked,

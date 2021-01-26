@@ -109,12 +109,13 @@ function initScene() {
 
   //инициализировать хаус
   appState.house = new HouseObject();
+  appState.house.preloadModels();
+  appState.house.preloadTextures();
+  
   appState.house.build();
   appState.house.changeVisability('3D');
 
-  appState.house.preloadModels();
-
-  appState.scene.add(appState.house.house2d, appState.house.house3d);
+  // appState.scene.add(appState.house.house2d, appState.house.house3d);
 
 
   animate();
