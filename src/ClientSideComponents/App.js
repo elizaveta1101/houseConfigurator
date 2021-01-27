@@ -1,17 +1,22 @@
 import React from 'react'
-import axios from 'axios'
 
 import { Route, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCompletedHouses, setCompletedProjects, setHeartsArray, setInvestorsHouses, setPostInfo } from './redux/actions/houses'
-import {
-    setCostHouses,
-    setCostInvest,
-    setCostProjects,
-    setSquareHouses, setSquareInvest,
-    setSquareProjects
-} from './redux/actions/filters'
 
+import {
+    catalogProjects,
+    catalogHouses,
+    catalogInvests,
+    projectPageId,
+    housePageId,
+    investsPageId,
+    redactorPage,
+    privateCabPage,
+    savedProjectsPage,
+    savedHousesPage,
+    savedInvestsPage,
+    constructorPage
+} from "./data/constants";
 import Header from './pages/Header/Header'
 import MainPage from './pages/main-page/MainPage'
 import Footer from './pages/Footer/Footer'
@@ -30,21 +35,8 @@ import Constructor from './pages/redactor/Constructor'
 import RedactorHeader from './pages/redactor/RedactorHeader'
 
 import './styles.scss'
-import {
-    catalogProjects,
-    catalogHouses,
-    catalogInvests,
-    projectPageId,
-    housePageId,
-    investsPageId,
-    redactorPage,
-    privateCabPage,
-    savedProjectsPage,
-    savedHousesPage,
-    savedInvestsPage,
-    constructorPage
-} from "./data/constants";
-
+import Authorisation from "./pages/components/Authorisation/Authorisation";
+import {setActiveModal} from "./redux/actions/houses";
 
 
 function App() {
@@ -53,67 +45,57 @@ function App() {
     const shouldShowFooter = useLocation().pathname !== '/'
     const shouldShowRedactorFooter = useLocation().pathname !== constructorPage
     const posts = useSelector(({ houses }) => houses.postinfo)
+    const modal = useSelector(({ houses }) => houses.modalBool)
+    let is_authorized = false
     const dispatch = useDispatch()
 
+    const closeModal = () => {
+        dispatch(setActiveModal(false))
+    }
 
-    React.useEffect(() => {
-        axios
-            .post(
-                'http://127.0.0.1:5000/auth',
-                { login: 'privet@yandex.ru', password: 'privet' },
-                { headers: { 'Content-Type': 'application/json' } })
-            .then(({ data }) => {
-                dispatch(setPostInfo(data))
-            })
-
-      }, [])
-
-    let is_authorized = false
-    let is_filters_getted = false
-    let is_filters_houses_getted = false
-    let is_filters_invest_getted = false
-
-    if(posts !== ''){
+    if(posts !== '' && posts !== undefined){
         is_authorized = true
     }
 
 
-  return (
-    <>
-      <div className="global-wrapper">
-        {shouldShowHeader && shouldShowRedactorHeader && <Header />}
-        {!shouldShowRedactorHeader && <RedactorHeader />}
+    return (
+        <>
+            <div className="global-wrapper">
+                {modal && !is_authorized && <div><Authorisation closeModal={closeModal}/></div>}
+                {modal && !is_authorized && <div onClick={() => dispatch(setActiveModal(false))} className="black-bg" />}
 
+                {shouldShowHeader && shouldShowRedactorHeader && <Header />}
+                {!shouldShowRedactorHeader && <RedactorHeader />}
 
-        <div className="main">
-        <div className="main-wrapper">
-          <Route exact path="/" component={MainPage} />
-        </div>
+                <div className="main">
+                    <div className="main-wrapper">
+                        <Route exact path="/" component={MainPage} />
+                    </div>
 
-        <div className="wrapper">
-          <Route exact path={projectPageId} component={HouseProjectPage} />
-          <Route exact path={housePageId} component={CompletedHousePage} />
-          <Route exact path={investsPageId} component={InvestorsHousePage} />
-          <Route exact path={redactorPage} component={RedactorPage} />
-            {is_authorized &&<Route exact path={privateCabPage} component={PrivateCab} />}
+                    <div className="wrapper">
+                        <Route exact path={projectPageId} component={HouseProjectPage} />
+                        <Route exact path={housePageId} component={CompletedHousePage} />
+                        <Route exact path={investsPageId} component={InvestorsHousePage} />
+                        <Route exact path={redactorPage} component={RedactorPage} />
+                        {is_authorized && <Route exact path={privateCabPage} component={PrivateCab}/>}
 
-            {is_authorized &&<Route exact path={catalogProjects} component={CatalogCompletedProjects} />}
-            {is_authorized &&<Route exact path={catalogHouses} component={CatalogCompletedHouses} />}
-            {is_authorized &&<Route exact path={catalogInvests} component={CatalogInvestors} />}
+                        <Route exact path={catalogProjects} component={CatalogCompletedProjects} />
+                        <Route exact path={catalogHouses} component={CatalogCompletedHouses} />
+                        <Route exact path={catalogInvests} component={CatalogInvestors} />
 
-            {is_authorized && <Route exact path={savedProjectsPage} component={FavoriteProjects}/>}
-            {is_authorized && <Route exact path={savedHousesPage} component={FavoriteHouses} />}
-            {is_authorized && <Route exact path={savedInvestsPage} component={FavoriteInvestors} />}
-        </div>
+                        {is_authorized && <Route exact path={savedProjectsPage} component={FavoriteProjects}/>}
+                        {is_authorized && <Route exact path={savedHousesPage} component={FavoriteHouses} />}
+                        {is_authorized && <Route exact path={savedInvestsPage} component={FavoriteInvestors} />}
 
-        <Route exact path={constructorPage} component={Constructor} />
+                    </div>
 
-        </div>
+                    <Route exact path={constructorPage} component={Constructor} />
+                </div>
+                {shouldShowFooter && shouldShowRedactorFooter && <Footer />}
+          </div>
+        </>
 
-        {shouldShowFooter && shouldShowRedactorFooter && <Footer />}
-      </div>
-    </>
-  )
+    )
 }
 
 export default App

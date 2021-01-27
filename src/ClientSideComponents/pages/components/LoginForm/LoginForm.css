@@ -3,3 +3,10 @@
     margin-left: 210px;
     margin-top: -20px;
 }
+
+.failure {
+    position: absolute;
+    margin-top: -250px;
+    margin-left: 60px;
+    color: red;
+}

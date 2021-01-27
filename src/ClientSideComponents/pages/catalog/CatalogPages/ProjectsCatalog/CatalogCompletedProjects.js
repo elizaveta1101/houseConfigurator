@@ -23,14 +23,14 @@ function CatalogCompletedProjects() {
     const currentPage = useSelector(({filters}) => filters.currentPage)
     const totalCount = useSelector(({ houses }) => houses.totalCountProjects)
 
-    console.log(cost)
-    console.log(square)
 
     const onSelectHeart = React.useCallback((id) => {
-        axios.post('http://127.0.0.1:5000/favorites', {
-            id: id,
-            category: 'project'
-        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        if(posts !== ''){
+            axios.post('http://127.0.0.1:5000/favorites', {
+                id: id,
+                category: 'project'
+            }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        }
     }, [])
 
     const handleChange = (value) => {

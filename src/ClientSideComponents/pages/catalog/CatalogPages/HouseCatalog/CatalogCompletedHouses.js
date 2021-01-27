@@ -23,9 +23,6 @@ function CatalogCompletedHouses() {
     const square = useSelector(({houses}) => houses.squareArrHouses);
     const currentPage = useSelector(({filters}) => filters.currentPageHouses)
 
-    console.log(cost)
-    console.log(square)
-
     const handleChange = (value) => {
         dispatch(setCurrentPageHouses(value))
     };

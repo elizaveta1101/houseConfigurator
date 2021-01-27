@@ -8,6 +8,7 @@ import Img5 from '../../../../assets/img/HouseImgSlider.png'
 
 import './HousePageSlider.css'
 
+
 export default class HousePageSlider extends React.Component {
   constructor(props) {
     super(props)

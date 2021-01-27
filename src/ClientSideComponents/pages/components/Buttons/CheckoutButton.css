@@ -335,6 +335,33 @@
     color: #FFFFFF;
 }
 
+.continue{
+    width: 118px;
+    height: 32px;
+    background: #325FFF;
+    color: #FFFFFF;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.canceling{
+    width: 85px;
+    height: 32px;
+    background: #FFFFFF;
+    color: black;
+    border: 1px solid #D9D9D9;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+}
+
 @media (max-width: 1300px){
     .house-page__open-project-btn{
         clip-path: polygon(13% 0, 87% 0, 100% 22%, 100% 78%, 87% 100%, 13% 100%, 0 76%, 0% 22%);

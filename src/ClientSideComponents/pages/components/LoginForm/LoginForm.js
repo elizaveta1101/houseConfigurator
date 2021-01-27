@@ -5,10 +5,11 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './LoginForm.css'
 import axios from "axios";
 import {setPostInfo} from "../../../redux/actions/houses";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const LoginForm= () => {
     const dispatch = useDispatch()
+    const posts = useSelector(({ houses }) => houses.postinfo)
 
     const onFinish = (values) => {
         axios
@@ -21,6 +22,12 @@ const LoginForm= () => {
                 dispatch(setPostInfo(data))
             })
     };
+
+    let show_failure = false
+
+    if(posts === undefined){
+        show_failure = true
+    }
 
     return (
         <Form
@@ -72,6 +79,7 @@ const LoginForm= () => {
                     Войти
                 </Button>
             </Form.Item>
+            {show_failure && <div className="failure">Неверный логин или пароль!</div>}
         </Form>
     );
 };

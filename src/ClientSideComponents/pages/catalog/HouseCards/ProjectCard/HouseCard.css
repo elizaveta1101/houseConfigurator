@@ -105,9 +105,9 @@
 .house-name h1{
     margin-top: 13px;
     margin-left: 10px;
-    font-family: Gotham Pro;
+    font-family: Open Sans Light;
     font-style: normal;
-    font-weight: normal;
+    font-weight: 600;
     font-size: 18px;
     line-height: 110%;
     /* or 20px */

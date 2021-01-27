@@ -69,3 +69,13 @@ export const setFilterSquareInvest = (squareArr) => ({
     payload: squareArr,
 })
 
+export const setActiveModal = (bool) => ({
+    type: 'SET_ACTIVE_MODAL',
+    payload: bool,
+})
+
+export const deleteToken = () => ({
+    type: 'DELETE_TOKEN',
+    payload: '',
+})
+

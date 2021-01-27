@@ -29,6 +29,8 @@ const initialState = {
     initialProjectsSquare: 0,
     initialHousesSquare: 0,
     initialInvestSquare: 0,
+
+    modalBool: false,
 }
 
 
@@ -37,6 +39,12 @@ const houses = (state = initialState, action) => {
         return {
             ...state,
             postinfo: action.payload.data.token,
+        }
+    }
+    if(action.type === 'DELETE_TOKEN'){
+        return {
+            ...state,
+            postinfo: action.payload,
         }
     }
     if(action.type === 'SET_USER_INFO'){
@@ -127,6 +135,13 @@ const houses = (state = initialState, action) => {
             squareArrInvest: action.payload,
         }
     }
+    if(action.type === 'SET_ACTIVE_MODAL'){
+        return {
+            ...state,
+            modalBool: action.payload,
+        }
+    }
+
 
     return state;
 }

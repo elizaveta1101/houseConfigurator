@@ -4,12 +4,13 @@ import axios from "axios";
 import HousePageSlider from "../PageSlider/HousePageSlider";
 import CheckoutButton from "../../components/Buttons/CheckoutButton";
 
+import {WrappedMap} from "../../components/Map/Map";
+import {setHouseHeartsArray} from "../../../redux/actions/houses";
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 import {getProjectPageInfo} from "../../../redux/actions/housePage";
 
 import '../HouseProjectPage.css';
-import {setHouseHeartsArray} from "../../../redux/actions/houses";
 
 
 
@@ -58,7 +59,7 @@ function CompletedHousePage() {
             })
     }, [])
 
-
+    console.log(pageInfo)
 
     return (
         <div className="house-project-page-wrapper">
@@ -150,7 +151,14 @@ function CompletedHousePage() {
                     <h1>Местоположение дома</h1>
                     <p>{pageInfo && pageInfo.address}</p>
                     <div className="map">
-
+                        <WrappedMap
+                            lat={55.755825}
+                            lng={37.617298}
+                            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}
+                            loadingElement={<div style={{height: "100%"}} />}
+                            containerElement={<div style={{height: "100%"}} />}
+                            mapElement={<div style={{height: "100%"}} />}
+                        />
                     </div>
                     <div className="map-btn-box">
                         <CheckoutButton className="map-btn" children={'Открыть на карте'} active={true}/>

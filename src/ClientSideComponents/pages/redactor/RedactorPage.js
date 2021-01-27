@@ -5,10 +5,26 @@ import CheckoutButton from "../components/Buttons/CheckoutButton";
 
 import './RedactorPage.css';
 import '../housepage/HouseProjectPage.css'
+import {useDispatch, useSelector} from "react-redux";
+import Authorisation from "../components/Authorisation/Authorisation";
+import {set} from "ramda";
+import {setActiveModal} from "../../redux/actions/houses";
 
 
 function RedactorPage() {
+
+    const posts = useSelector(({ houses }) => houses.postinfo)
+    const dispatch = useDispatch()
+
+    let authorized = false
+
+    if(posts !== '' && posts !== undefined){
+        authorized = true
+    }
+
+
     return (
+        <div>
         <div className="house-project-page-wrapper">
             <div className="redactor-wrapper">
                 <div className="redactor-pre-btn-circle">
@@ -40,8 +56,16 @@ function RedactorPage() {
                         говорит о возможностях первоочередных требований. Повседневная практика показывает, что постоянное
                         информационно-пропагандистское обеспечение нашей деятельности говорит о.</p>
                 </div>
-                <Link to="/constructor"><CheckoutButton className="redactor-page-btn" children={'Создать свой уникальный проект'} active={true} /></Link>
+                {authorized ? <Link to="/constructor">
+                    <CheckoutButton className="redactor-page-btn"
+                                    children={'Создать свой уникальный проект'}
+                                    active={true}/>
+                </Link> : <CheckoutButton className="redactor-page-btn"
+                                          onClick={() => dispatch(setActiveModal(true))}
+                                          children={'Создать свой уникальный проект'}
+                                          active={true}/>}
             </div>
+        </div>
         </div>
     );
 }
