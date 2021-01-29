@@ -22,7 +22,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Router history={history}>
         <Switch>
-          <Route path={'/admin/'} component={ControlPanel} />
+          <Route path={'/admin'} component={ControlPanel} />
           <Provider store={ClientSideStore}>
             <Route path={'/'} component={ClientSide} />
           </Provider>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import { HeaderPayloads, storageKeys } from '../data'
+import { MenuLinkPaths, HeaderPayloads, storageKeys } from '../data'
 import { AppContext, AuthContext } from '../context'
 import { useAuth, useRoutes } from '../hooks'
 import { history } from '..'
@@ -50,6 +50,10 @@ const App: React.FC = ({}) => {
   useEffect(() => {
     history.push(activeLink)
   }, [activeLink])
+
+  useEffect(() => {
+    isAuth ? history.push(MenuLinkPaths.homePath) : history.push(MenuLinkPaths.authPath)
+  }, [isAuth])
 
   return (
     <AuthContext.Provider value={{ token, login, logout, userId, isAuth }}>

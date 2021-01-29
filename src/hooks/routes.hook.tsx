@@ -35,7 +35,7 @@ export const useRoutes: React.FC<boolean> = (isAuth: boolean) =>
     </Switch>
   ) : (
     <Switch>
-      <Route path={MenuLinkPaths.authPath} component={AuthPage} exact />
+      <Route path={MenuLinkPaths.authPath} exact component={AuthPage} />
       <Redirect to={MenuLinkPaths.authPath} />
     </Switch>
   )

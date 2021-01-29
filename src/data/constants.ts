@@ -10,8 +10,8 @@ export enum MenuLinkPaths {
   ordersPath = '/admin/orders',
   mainPagePath = '/admin/main',
   pollPath = '/admin/poll',
-  homePath = '/admin/',
-  authPath = '/admin/',
+  homePath = '/admin',
+  authPath = '/admin/auth',
   clientSide = '/'
 }
 
