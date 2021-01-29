@@ -37,9 +37,14 @@
   display: flex;
   flex-direction: column;
   justify-items: flex-start;
-  height: 340px;
+  height: 380px;
+
   overflow-y: auto;
 }
+.fields::-webkit-scrollbar {
+  width: 0;
+}
+
 .label input {
   width: 234px;
   height: 20px;
@@ -49,6 +54,7 @@
   outline: none;
 
   font-family: Open Sans Light;
+  margin-bottom: 20px;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -79,9 +85,39 @@
   color: #262626;
 }
 
+.houseElements{
+
+}
+
+.field{
+  background-color: black;
+}
+
+.checkbox{
+  width: 16px;
+  height: 16px;
+  border: 1px solid #D9D9D9;
+  outline: none;
+  margin-right: 8px;
+}
+
+.checkboxLabel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+
+  margin-top: 10px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+
+  color: #262626;
+}
+
 .label{
   font-family: Open Sans Light;
-
   font-style: normal;
   font-weight: 600;
   font-size: 14px;

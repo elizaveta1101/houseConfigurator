@@ -20,12 +20,14 @@ const LoginForm= () => {
             )
             .then(({ data }) => {
                 localStorage.setItem('token', data.data.token)
+                localStorage.setItem('email', data.data.email)
                 if(localStorage.getItem('token') !== "undefined" && localStorage.getItem('token') !== ''){
                     window.location.reload()
                 }
                 if(localStorage.getItem('token') === "undefined"){
                     dispatch(setActiveLogin(true))
                 }
+                console.log(data)
             })
     };
 

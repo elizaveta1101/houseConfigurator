@@ -35,7 +35,7 @@ function PrivateCab() {
                                 <ul className="info-person">
                                     <li>Георг</li>
                                     <li>Мишутин</li>
-                                    <li>GeorMish@gmail.com</li>
+                                    <li>{localStorage.getItem('email')}</li>
                                     <li>+7 (999) 999-99-99</li>
                                 </ul>
                             </div>
