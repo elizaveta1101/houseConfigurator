@@ -9,7 +9,7 @@ import {
     calcTextureCoord
 } from './calcTextureCoord.js';
 import * as earcut from 'earcut';
-import { BackSide } from 'three';
+import { BackSide, RGBA_ASTC_10x5_Format } from 'three';
 
 
 
@@ -294,6 +294,39 @@ function drawPolygon(obj, fill) {
     return polygon;
 }
 
+function drawWideLine(vertices) {
+    const geometry = new THREE.Geometry();
+
+    const material = new THREE.MeshPhongMaterial({
+        color: new THREE.Color('rgb(100,100,100)'),
+    });
+    material.side = THREE.DoubleSide;
+    let length = vertices.length;
+    //добавляем вершины
+    for (let i = 0; i < length - 2; i += 3) {
+        geometry.vertices.push(new THREE.Vector3(vertices[i], vertices[i + 1], vertices[i + 2]));
+    }
+
+    // for (let i = 0; i < length/3-3; i += 2) {
+    //     geometry.faces.push(new THREE.Face3(i, i+1, i+2));
+    //     geometry.faces.push(new THREE.Face3(i+1, i+3, i+2));
+    // }
+    let count = length/3;
+    let lastNum = count-2
+    for (let i = 0; i < (count-1)/2; i ++) {
+        geometry.faces.push(new THREE.Face3(i, i+1, lastNum-1-i));
+        geometry.faces.push(new THREE.Face3(i, lastNum-1-i, lastNum-i));
+    }
+
+    geometry.computeVertexNormals();
+    const polygon = new THREE.Mesh(geometry, material);
+    // polygon.userData = {
+    //     fillMethod: fill
+    // };
+    console.log(polygon);
+    return polygon;
+}
+
 function drawDot(dotPos, opacity) {
     let windowWidth = document.documentElement.clientWidth;
     let size;
@@ -335,7 +368,7 @@ function drawLine(vertices, color) {
         });
     }
     const geometry = new THREE.BufferGeometry();
-    vertices = vertices.map(el => el.toFixed(3));
+    // vertices = vertices.map(el => el.toFixed(3));
     geometry.setAttribute(
         'position',
         new THREE.BufferAttribute(new Float32Array(vertices), 3));
@@ -394,19 +427,11 @@ function drawSphere(radius) {
 }
 
 
-function drawInnerWall() {
-
-}
-
-function drawInnerWallPlan() {
-    
-}
-
-
 export {
     drawObject,
     drawPolygon,
     drawRoof,
+    drawWideLine,
     drawLine,
     drawDot,
     clearScene,

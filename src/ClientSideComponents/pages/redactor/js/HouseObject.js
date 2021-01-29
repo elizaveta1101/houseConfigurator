@@ -4,7 +4,7 @@ import basementShapes from './basementDrafts.js';
 import verandaBasementShapes from './verandaBasementDrafts.js';
 import {convertToCoor, getPolygonCenter, getPolygons} from './extraFunctions.js';
 import appState from './appState.js';
-import { drawObject, drawLine, drawDot, drawRoof, drawPolygon } from './threeJsFunctions/drawFunctions.js';
+import { drawObject, drawWideLine, drawLine, drawDot, drawRoof, drawPolygon } from './threeJsFunctions/drawFunctions.js';
 import * as THREE from 'three';
 import { createDimensions, removeDimensions } from './threeJsFunctions/dimensions.js';
 import { redrawObject } from './threeJsFunctions/redrawObject.js';
@@ -456,8 +456,10 @@ class HouseObject {
             let group3d = new THREE.Group();
             
             this.stages2D.map(stageName => {
-                if (stageName !== 'innerWalls')
-                group2d.add(this.build2d(stageName));
+                // if (stageName === 'innerWalls')
+                if (stageName !== 'innerWalls' || this.innerWalls) {
+                    group2d.add(this.build2d(stageName));
+                }
             });
             this.house2d = group2d; 
             this.house2d.name = 'house2d';
@@ -470,10 +472,10 @@ class HouseObject {
             
             group3d.name = 'house3d';
             this.house3d = group3d;
-            if (this.innerWalls) {
-                this.buildInnerWalls2D();
-                this.buildInnerWalls3D();
-            }
+            // if (this.innerWalls) {
+            //     this.buildInnerWalls2D();
+            //     this.buildInnerWalls3D();
+            // }
             appState.scene.add(this.house2d, this.house3d);
         } else if (data.stageName === 'veranda') {
             this.house3d.remove(this.verandaModel);
@@ -493,7 +495,7 @@ class HouseObject {
             this.verandaModel.name = 'veranda';
             this.house3d.add(this.verandaModel);
             this.house2d.remove(this.veranda.plan);
-            this.veranda.plan = this.build2d('veranda', this.verandaBasement.vertices)
+            this.veranda.plan = this.build2d('veranda', this.verandaBasement.vertices);
             this.house2d.add(this.veranda.plan);
             console.log('билд веранды');
         }
@@ -735,14 +737,15 @@ class HouseObject {
                 }
                 break;
             default: 
-                if (stageName === 'roof') {
-                    this['roofModel'] = drawRoof(this.roof);
-                    //обращение по номеру (плохо)
-                    this.house3d.children[3]=this['roofModel'];
-                } else if (stageName === 'innerWalls') {
-                    this.buildInnerWalls2D();
-                    this.buildInnerWalls3D();
-                } else if (stageName === 'veranda') {
+                // if (stageName === 'roof') {
+                    // this['roofModel'] = drawRoof(this.roof);
+                    // //обращение по номеру (плохо)
+                    // this.house3d.children[3]=this['roofModel'];
+                // } else if (stageName === 'innerWalls') {
+                    // this.buildInnerWalls2D();
+                    // this.buildInnerWalls3D();
+                // } else 
+                if (stageName === 'veranda') {
                     this.house3d.remove(this.verandaModel);
                     this.veranda.remove(this.verandaRoofModel);
                     redrawObject(this.verandaBasementModel, this.verandaBasement, this.verandaBasement.vertices, stageInfo.pointIndex);
@@ -757,9 +760,11 @@ class HouseObject {
                     this.verandaModel = this.veranda;
                     this.house3d.add(this.verandaModel);
                     console.log('редрав веранды');
-                } else if (stageName === 'floors') {
-                    break;
                 } else 
+                // if (stageName === 'floors') {
+                //     //есть в cases
+                //     break;
+                // } else 
                 if ( this[stageName + 'Model'] ) {
                     redrawObject( this[stageName + 'Model'],
                         this[stageName],
@@ -958,68 +963,100 @@ class HouseObject {
         this.innerWalls[floorName].wideWallsVertices.map((vertices, index) => {
             obj.upVertices = vertices;
             // obj.upVertices.map((coor,i) => {if (i%3===2) coor=-0.1});
-            group.add(drawPolygon(obj));
+            // group.add(drawPolygon(obj));
+            group.add(drawWideLine(vertices));
             let pointVertices = this.innerWalls[floorName].wallsVertices[index];
             let points = makePointsGroup(pointVertices);
             let point = drawDot( [pointVertices[pointVertices.length-3], pointVertices[pointVertices.length-2], pointVertices[pointVertices.length-1]], opacity );
             points.add(point);
             points.visible = true;
             pointsGroup.add(points);
+            pointsGroup.name = 'allFloorPoints';
+            // pointsGroup=points;
         });
 
         group.name=floorName+'Walls';
         this.innerWalls[floorName].points = pointsGroup;
         group.add(pointsGroup);
         this.innerWalls[floorName].model2D = group;
+        console.log(group);
+        console.log( this.innerWalls[floorName]);
+
         return this.innerWalls[floorName].model2D;
     }
     //построение 3д моделей стен
     buildInnerWalls3D() {
-        this.house3d.remove(this.innerWallsModel);
+        // this.house3d.remove(this.innerWallsModel);
         let group = new THREE.Group();
-        let obj = {};
-        obj.height = this.outerWalls.height;
-        obj.color = new THREE.Color('rgb(100,100,100)');
-        obj.texture = '';
-        obj.innerVertices = [];
+        // let obj = {};
+        // obj.height = this.outerWalls.height;
+        // obj.color = new THREE.Color('rgb(100,100,100)');
+        // obj.texture = '';
+        // obj.innerVertices = [];
         if (this.cellarExistence) {
-            obj.height = -this.cellar.height;
-            obj.translation = [...this.cellar.translation];
-            obj.translation[2] = -obj.height;
-            group.add(this.buildWalls('Подвал', obj));
+            // obj.height = -this.cellar.height;
+            // obj.translation = [...this.cellar.translation];
+            // obj.translation[2] = -obj.height;
+            // group.add(this.buildWalls('Подвал', obj));
+            group.add(this.buildWalls('Подвал'));
         }
-        obj.translation = [...this.basement.translation];
-        obj.translation[2] = this.basement.height;
+        // obj.translation = [...this.basement.translation];
+        // obj.translation[2] = this.basement.height;
         for (let i=1; i<=this.floors; i++) {
             if (this.innerWalls[String(i)]) {
-                group.add(this.buildWalls(String(i), obj));
+                // group.add(this.buildWalls(String(i), obj));
+                group.add(this.buildWalls(String(i)));
             }
-            obj.translation[2] += this.floorHeight;
+            // obj.translation[2] += this.floorHeight;
         }
         if (this.mansardLiving) {
-            obj.translation = [...this.basement.translation];
-            obj.translation[2] += this.floors * this.floorHeight;
-            group.add(this.buildWalls('Мансарда', obj));
+            // obj.translation = [...this.basement.translation];
+            // obj.translation[2] += this.floors * this.floorHeight;
+            // group.add(this.buildWalls('Мансарда', obj));
+            group.add(this.buildWalls('Мансарда'));
         }
-        group.name = 'innerWallsModel';
-        this.innerWallsModel = group;
-        this.house3d.add(this.innerWallsModel);
+        // group.name = 'innerWallsModel';
+        // this.innerWallsModel = group;
+        // this.house3d.add(this.innerWallsModel);
+        return group;
     }
     
-    buildWalls(floor, obj){
+    buildWalls(floor){ //, obj
         let group = new THREE.Group();
+        let obj = this.setObjParametrs(floor);
         this.innerWalls[floor].wideWallsVertices.map(vertices => {
             obj.vertices = vertices;
-            obj.upVertices=[];
-            for (let i = 0; i < obj.vertices.length; i += 3) {
-                //добавляем сразу 3 координаты
-                obj.upVertices.push(obj.vertices[i], obj.vertices[i + 1], obj.height);
-            }
+            obj.upVertices = obj.getUpVertices();
+            // obj.upVertices=[];
+            // for (let i = 0; i < obj.vertices.length; i += 3) {
+            //     //добавляем сразу 3 координаты
+            //     obj.upVertices.push(obj.vertices[i], obj.vertices[i + 1], obj.height);
+            // }
+            console.log(obj);
             group.add(drawObject(obj));
         });
         group.name=floor+'Walls';
         this.innerWalls[floor].model3D = group;
         return group;
+    }
+    //второстепенная функция для создания лже-sceneObjectдля межкомнатных стен
+    setObjParametrs(floor) {
+        let obj = new sceneObject();
+        obj.height = this.outerWalls.height;
+        obj.color = new THREE.Color('rgb(100,100,100)');
+        obj.translation = [...this.basement.translation];
+        if (floor === 'Подвал') {
+            obj.height = -this.cellar.height;
+            // obj.translation = [...this.cellar.translation];
+            obj.translation[2] = -obj.height;
+        } else if (floor === 'Мансарда') {
+            obj.translation[2] += this.floors * this.floorHeight;
+        } else {
+            // obj.translation = [...this.basement.translation];
+            obj.translation[2] = this.basement.height;
+            obj.translation[2] += Number(floor) > 1 ? (Number(floor) - 1) * this.floorHeight : 0; //this.outerWalls.height + 
+        }
+        return obj;
     }
 
     //--------------текстуры и материалы-----------
@@ -1101,9 +1138,11 @@ class HouseObject {
             this.setAllParametrs();
         } else if (stageName === 'innerWalls') {
             appState.scene.remove(this.house2d, this.house3d);
+            this.innerWalls.plan.remove(this.innerWalls[this.activeFloor].model2D);
+            this.innerWallsModel.remove(this.innerWalls[this.activeFloor].model3D);
             this.innerWalls[this.activeFloor] = new floorObject();
-            this.buildInnerWalls2D();
-            this.buildInnerWalls3D();
+            this.innerWalls[this.activeFloor].model2D = new THREE.Group();
+            this.innerWalls[this.activeFloor].model3D = new THREE.Group();
             appState.scene.add(this.house2d, this.house3d);
         } else if (stageName === 'veranda') {
             deleteDimensions(this.veranda.plan);
@@ -1168,6 +1207,8 @@ class HouseObject {
                     objectCoords[i].set( vectors[i].x, vectors[i].y, vectors[i].z )
                 }
             }
+            this.innerWalls[this.activeFloor].model2D.children[data.curveNumber].geometry.verticesNeedUpdate = true;
+            console.log(this);
         }
     }
 
@@ -1180,15 +1221,17 @@ class HouseObject {
         const stageName = data.stageName;
         const curveNumber = data.curveNumber;
         if (stageName === 'innerWalls' ) {
-            this.innerWalls.plan.remove(this.innerWalls[this.activeFloor].model2D);
             this.innerWalls[this.activeFloor].wallsVertices[curveNumber]=vertices;
-
-            if (this.innerWalls[this.activeFloor].wallsVertices[curveNumber].length>=6) {
+            if (vertices.length>=6) {
+                this.innerWalls.plan.remove(this.innerWalls[this.activeFloor].model2D);
                 this.innerWalls[this.activeFloor].wideWallsVertices=[];
                 this.innerWalls[this.activeFloor].getWideWallsVertices();
                 this.innerWalls.plan.add(this.buildWallsPlan(this.activeFloor, opacity));
             }
-            this.innerWalls.plan.add( this.innerWalls[this.activeFloor].model2D );
+
+            // if (this.innerWalls[this.activeFloor].wallsVertices[curveNumber].length>=6) {
+            // }
+            // this.innerWalls.plan.add( this.innerWalls[this.activeFloor].model2D );
 
         } else if (stageName === 'veranda') {
             this.house2d.remove(this.veranda.plan);
@@ -1207,7 +1250,7 @@ class HouseObject {
             this.basement.plan.add( this.basement.points );
             appState.scene.add( this.house2d);
             this.basement.points.visible=true;
-            if (vertices.length > 6) {putDimensions( this.basement.plan, vertices, stageName );}
+            if (vertices.length > 6) {putDimensions( this.basement.plan, vertices, 'basement' );}
             // putDimensions( this.basement.plan, vertices, stageName );
         }
         appState.scene.add(this.house2d);
@@ -1393,11 +1436,12 @@ class HouseObject {
 
 export { HouseObject };
 
-function putDimensions( pointsGroup, vertices, name ) {
+function putDimensions( pointsGroup, vertices, stageName ) {
+    console.log(appState);
     if (vertices.length>0) {
-        if (appState['dimensions' + name]) pointsGroup.remove( appState['dimensions' + name] );
-        appState['dimensions' + name] = createDimensions( vertices, name );
-        pointsGroup.add( appState['dimensions' + name] );
+        if (appState['dimensions' + stageName]) pointsGroup.remove( appState['dimensions' + stageName] );
+        appState['dimensions' + stageName] = createDimensions( vertices, stageName );
+        pointsGroup.add( appState['dimensions' + stageName] );
     } else {
         return null;
     }
@@ -1412,16 +1456,18 @@ function deleteDimensions( pointsGroup, name ) {
 function makePointsGroup( vertices, opacity ) {
 
     let points = new THREE.Group();
+    let point;
     for ( let i = 0; i < vertices.length - 6; i += 3 ) {
-        let point = drawDot( [vertices[i], vertices[i + 1], vertices[i + 2]] );
+        point = drawDot( [vertices[i], vertices[i + 1], vertices[i + 2]] );
         points.add(point);
     }
     if (vertices.length === 6) {
-        let point = drawDot( [vertices[0], vertices[1], vertices[2]], opacity );
+        point = drawDot( [vertices[0], vertices[1], vertices[2]], opacity );
+        points.add(point);
+    } else {
+        point = drawDot( [vertices[vertices.length - 6], vertices[vertices.length - 5], vertices[vertices.length - 4]], opacity ); //рисуем последнюю точку с заданной полупрозрачностью 
         points.add(point);
     }
-    let point = drawDot( [vertices[vertices.length - 6], vertices[vertices.length - 5], vertices[vertices.length - 4]], opacity ); //рисуем последнюю точку с заданной полупрозрачностью 
-    points.add(point);
     points.name = 'points';
 
     return points;
@@ -1439,8 +1485,9 @@ function buildStages( house ) {
             } 
             else if (stageName === 'roof') {
                 model = drawRoof(house[stageName]);
-            } else if (stageName === 'innerWalls' || stageName === 'windows') {
-                model = null;
+            } else if (stageName === 'innerWalls') {
+                // model = null;
+                if (house.innerWalls) {model = house.buildInnerWalls3D();}
             } else if (stageName === 'veranda') {
                 if (house.veranda) {model = house.verandaModel;}
             } else {
@@ -1463,11 +1510,23 @@ eventEmitter.onEvent('shapeChangeEnd', ( data ) => appState.house.build( data ))
 
 eventEmitter.onEvent('heightChanged', ( data ) => appState.house.changeObjHeight( data.stageName, data.height ));
 
-eventEmitter.onEvent('addInnerWalls', (data) => {
-    appState.house.buildInnerWalls2D();
-    appState.house.showInnerWalls(appState.house.activeFloor, '2D');
+// eventEmitter.onEvent('addInnerWalls', (data) => {
+//     appState.house.buildInnerWalls2D();
+//     appState.house.showInnerWalls(appState.house.activeFloor, '2D');
+// });
+
+//исправить
+eventEmitter.onEvent('endInnerWalls', (data) => {
+    // appState.house.buildInnerWalls3D()
+    let floor = appState.house.activeFloor;
+    let model = appState.house.innerWalls[floor].model3D;
+    appState.scene.remove(appState.house.house3d);
+    appState.house.innerWallsModel.remove(model);
+    model = appState.house.buildWalls(floor);
+    appState.house.innerWallsModel.add(model);
+    appState.scene.add(appState.house.house3d);
+    console.log(appState.house.house3d);
 });
-eventEmitter.onEvent('endInnerWalls', (data) => appState.house.buildInnerWalls3D());
 
 eventEmitter.onEvent('floorVisibility', ( data ) => appState.house.showCurrentFloor( data.value ));
 

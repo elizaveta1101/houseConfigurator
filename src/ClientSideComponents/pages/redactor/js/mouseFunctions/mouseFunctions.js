@@ -29,7 +29,7 @@ function getCoord(event, camera) {
   // let distance = - camera.position.z / vec.z;
   // pos.copy( camera.position ).add( vec.multiplyScalar( distance ) );
   pos = vec;
-  let coord = [pos.x, pos.y, 0];
+  let coord = [Number(pos.x.toFixed(3)), Number(pos.y.toFixed(3)), 0];
   return coord;
 }
 
@@ -68,9 +68,55 @@ function clearPickPosition() {
   pickPosition.y = -100000;
   return pickPosition;
 }
+// function getRoundCoord(coor) {
+//   let x = coor[0],
+//       y = coor[1],
+//       // dx = 0.2,
+//       // dy = 0.2,
+//       dx = 999999,
+//       dy = 999999,
+//       changeX = false,
+//       changeY = false;
+//   let gridCellSize = appState.hatchProp.cellSize;
+//   let gridSize = appState.hatchProp.size;
+//   let gridDivisions = gridSize / gridCellSize;
+
+//   for (let i = 0; i < gridDivisions/2; i ++) {
+//       if (Math.abs(x - i*gridCellSize) <= Math.abs(dx) || Math.abs(x + i*gridCellSize) <= Math.abs(dx)) {
+//           dx = x - i*gridCellSize;
+//           // changeX=true;
+//       } else if (Math.abs(x + i*gridCellSize) <= Math.abs(dx)) {
+//         dx = x + i*gridCellSize;
+//         // changeX=true;
+//       }
+//       if (Math.abs(y - i*gridCellSize) <= Math.abs(dy) ) {
+//           dy = y - i*gridCellSize;
+//           // changeY=true;
+//       } else if (Math.abs(y + i*gridCellSize) <= Math.abs(dy)) {
+//         dy = y + i*gridCellSize;
+//         // changeY=true;
+//       }
+//   }
+  
+//   // for (let i=0; i<bound.length; i+=2) {
+//   //     if (Math.abs(y-bound[i+1]) < Math.abs(dy) && Math.abs(x-bound[i])<Math.abs(dx))
+//   //     {
+//   //         dx = x-bound[i];
+//   //         dy = y-bound[i+1];
+//   //     }
+//   // }
+//   // if (changeX) x -= dx;
+//   // if (changeY) y -= dy;
+//   x -= dx;
+//   y -= dy;
+
+//   return [Number(x.toFixed(3)), Number(y.toFixed(3))];
+// }
 
 function chooseMouseFunction(e, editMode, mouseAction, data) {
   let mousePosition = getCoord(e, appState.sceneCamera);
+  //привязка плохая---
+  // if (appState.house.viewMode === '2D') mousePosition = getRoundCoord(mousePosition);
   let stageName = data.stageName;
   if (stageName === 'basement') {
     if (editMode === 'add') {
@@ -447,7 +493,7 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         models.children.map(model => {
           let result = checkModelPosition(model, 'window');
           if (!result) {
-            model.rotation.z=0;
+            // model.rotation.z=0;
           } else {
             model.rotation.z=result.rotation;
             boxPosition = [result.position[0], result.position[1], model.position.z];

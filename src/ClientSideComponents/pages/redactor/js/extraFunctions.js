@@ -1,5 +1,3 @@
-import { RGBA_ASTC_10x10_Format } from "three";
-
 function getBisectorPoint(a, b, x, y, width, round) {
     let c = [], d = [];
     let k = (round === 'left') ? -1 : 1;
@@ -18,6 +16,8 @@ function getBisectorPoint(a, b, x, y, width, round) {
     d = setVectorLength(cos2A, width, c);
     d[0] = d[0] + x;
     d[1] = d[1] + y;
+    d[0] = Number(d[0].toFixed(3));
+    d[1] = Number(d[1].toFixed(3));
     return d;
 }
 
@@ -48,11 +48,12 @@ function vectorAngle(v1, v2) {
 
 function setVectorLength(cos, width, vec) {
     let sinA, k, result = [];
-    if (cos !== 0) {
+    // if (cos !== 0) {
         sinA = Math.sqrt((1 - cos) / 2);
         width = width / sinA;
-    }
-    k = width * Math.sqrt(2 / (Math.pow(vec[0], 2) + Math.pow(vec[1], 2)));
+    // }
+    // k = width * Math.sqrt(2 / (Math.pow(vec[0], 2) + Math.pow(vec[1], 2)));
+    k = width/absVector(vec);
     result.push(k * vec[0], k * vec[1]);
     return result;
 }
@@ -143,8 +144,9 @@ function getPolygons(vertices) {
     // return result;
 }
 
-function getTurn(a,b) {
-    let mult = a.x*b.y - a.y*b.x;
+function getTurn(vertices) {
+    let mult = getArea(vertices);
+    // let mult = a.x*b.y - a.y*b.x;
     if (mult > 0) {
         return 'left';
     } else if (mult === 0) {
@@ -210,4 +212,4 @@ function pointToLineAttachment (lineVertices, pointCoord) {
     return ({minPointX: minPointX, minPointY: minPointY, verticeIndex: verticeIndex});
 }
 
-export {getBisectorPoint, absVector, vectorAngle, getArea, convertToCoor, getPolygonCenter, getPolygons, pointToLineAttachment };
+export {getBisectorPoint, absVector, vectorAngle, getArea, convertToCoor, getPolygonCenter, getPolygons, getTurn, pointToLineAttachment };

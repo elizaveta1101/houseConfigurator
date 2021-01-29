@@ -40,6 +40,12 @@ function checkPolygonAttachment(point, vertices) {
             //модель внутри 
             let vector = [point2[0]-point1[0], point2[1]-point1[1], point2[2]-point1[2]];
             let angle = Math.acos(vectorAngle(vector, [1,0,0]));
+            if (vector[1]<0) {
+                angle = Math.PI - angle;
+                //возможны проблемы, если окно будет не симметричным (лицевая и задняя сторона окна разные)
+            }
+
+            // let angle = Number(Math.acos(vectorAngle(vector, [1,0,0])).toFixed(3));
 
             let A = [(point4[0]+point1[0])/2, (point4[1]+point1[1])/2, 0];
             let B = [(point3[0]+point2[0])/2, (point3[1]+point2[1])/2, 0];
@@ -57,7 +63,10 @@ function checkPolygonAttachment(point, vertices) {
                 posX = point[0];
                 posY = point[0]*(B[1]-A[1])/(B[0]-A[0]) - (A[0]*B[1]-B[0]*A[1])/(B[0]-A[0]);
             }
-            let position = [posX, posY];
+            posX.toFixed(3);
+            posY.toFixed(3);
+            let position = [Number(posX), Number(posY)];
+            // let position = [posX, posY];
             return {rotation: angle , position};
 
         }
