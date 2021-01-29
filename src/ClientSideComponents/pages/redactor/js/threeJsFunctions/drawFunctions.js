@@ -29,7 +29,7 @@ function drawObject(obj, translation) {
         // const material = new THREE.MeshPhongMaterial({ color,  });
         const material = new THREE.MeshPhongMaterial({
             color,
-            map: texture
+            map: texture,
         });
         material.side = THREE.DoubleSide;
         let upPolygon;
@@ -320,10 +320,6 @@ function drawWideLine(vertices) {
 
     geometry.computeVertexNormals();
     const polygon = new THREE.Mesh(geometry, material);
-    // polygon.userData = {
-    //     fillMethod: fill
-    // };
-    console.log(polygon);
     return polygon;
 }
 
@@ -341,13 +337,16 @@ function drawDot(dotPos, opacity) {
         color: 0x000000,
         opacity: opacity,
         transparent: true,
+        polygonOffset: true,
+        polygonOffsetFactor: -1.0,
+        polygonOffsetUnits: -4.0
     });
     let dot = new THREE.Mesh(geometry, material);
     dot.position.x = dotPos[0];
     dot.position.y = dotPos[1];
     dot.position.z = dotPos[2];
     return dot;
-}
+} 
 
 function clearScene(scene, objects) {
     while (scene.children.length > objects) {

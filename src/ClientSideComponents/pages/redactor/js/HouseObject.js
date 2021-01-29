@@ -516,6 +516,7 @@ class HouseObject {
         } else if (stageName === 'outerWalls'){
             this.outerWalls.plan = drawPolygon(this.outerWalls, [0,0,-this.outerWalls.height]);
             const material2D = new THREE.MeshPhongMaterial({color: new THREE.Color('rgb(45,45,45)')});
+            this.outerWalls.plan.position.z = 0;
             this.outerWalls.plan.material = material2D;
             this.outerWalls.plan.name = 'outerWalls2d';
             this.outerWalls.plan.visible=false;
@@ -531,7 +532,6 @@ class HouseObject {
         }
 
         return this[stageName].plan;
-
     }
 
     //------------регулировка видимости----------------
@@ -962,62 +962,40 @@ class HouseObject {
         let pointsGroup = new THREE.Group();
         this.innerWalls[floorName].wideWallsVertices.map((vertices, index) => {
             obj.upVertices = vertices;
-            // obj.upVertices.map((coor,i) => {if (i%3===2) coor=-0.1});
-            // group.add(drawPolygon(obj));
-            group.add(drawWideLine(vertices));
+            let wall = drawWideLine(vertices);
+            wall.name = 'Line' + index;
+            group.add(wall);
             let pointVertices = this.innerWalls[floorName].wallsVertices[index];
             let points = makePointsGroup(pointVertices);
             let point = drawDot( [pointVertices[pointVertices.length-3], pointVertices[pointVertices.length-2], pointVertices[pointVertices.length-1]], opacity );
             points.add(point);
             points.visible = true;
+            points.name = 'Points' + index;
             pointsGroup.add(points);
             pointsGroup.name = 'allFloorPoints';
-            // pointsGroup=points;
         });
 
         group.name=floorName+'Walls';
         this.innerWalls[floorName].points = pointsGroup;
         group.add(pointsGroup);
         this.innerWalls[floorName].model2D = group;
-        console.log(group);
-        console.log( this.innerWalls[floorName]);
 
         return this.innerWalls[floorName].model2D;
     }
     //построение 3д моделей стен
     buildInnerWalls3D() {
-        // this.house3d.remove(this.innerWallsModel);
         let group = new THREE.Group();
-        // let obj = {};
-        // obj.height = this.outerWalls.height;
-        // obj.color = new THREE.Color('rgb(100,100,100)');
-        // obj.texture = '';
-        // obj.innerVertices = [];
         if (this.cellarExistence) {
-            // obj.height = -this.cellar.height;
-            // obj.translation = [...this.cellar.translation];
-            // obj.translation[2] = -obj.height;
-            // group.add(this.buildWalls('Подвал', obj));
             group.add(this.buildWalls('Подвал'));
         }
-        // obj.translation = [...this.basement.translation];
-        // obj.translation[2] = this.basement.height;
         for (let i=1; i<=this.floors; i++) {
             if (this.innerWalls[String(i)]) {
-                // group.add(this.buildWalls(String(i), obj));
                 group.add(this.buildWalls(String(i)));
             }
-            // obj.translation[2] += this.floorHeight;
         }
         if (this.mansardLiving) {
-            // obj.translation = [...this.basement.translation];
-            // obj.translation[2] += this.floors * this.floorHeight;
-            // group.add(this.buildWalls('Мансарда', obj));
             group.add(this.buildWalls('Мансарда'));
         }
-        // group.name = 'innerWallsModel';
-        // this.innerWallsModel = group;
-        // this.house3d.add(this.innerWallsModel);
         return group;
     }
     
@@ -1027,11 +1005,6 @@ class HouseObject {
         this.innerWalls[floor].wideWallsVertices.map(vertices => {
             obj.vertices = vertices;
             obj.upVertices = obj.getUpVertices();
-            // obj.upVertices=[];
-            // for (let i = 0; i < obj.vertices.length; i += 3) {
-            //     //добавляем сразу 3 координаты
-            //     obj.upVertices.push(obj.vertices[i], obj.vertices[i + 1], obj.height);
-            // }
             console.log(obj);
             group.add(drawObject(obj));
         });
@@ -1042,19 +1015,17 @@ class HouseObject {
     //второстепенная функция для создания лже-sceneObjectдля межкомнатных стен
     setObjParametrs(floor) {
         let obj = new sceneObject();
-        obj.height = this.outerWalls.height;
+        obj.height = this.outerWalls.height-0.001;
         obj.color = new THREE.Color('rgb(100,100,100)');
         obj.translation = [...this.basement.translation];
         if (floor === 'Подвал') {
-            obj.height = -this.cellar.height;
-            // obj.translation = [...this.cellar.translation];
+            obj.height = -this.cellar.height+0.001;
             obj.translation[2] = -obj.height;
         } else if (floor === 'Мансарда') {
             obj.translation[2] += this.floors * this.floorHeight;
         } else {
-            // obj.translation = [...this.basement.translation];
             obj.translation[2] = this.basement.height;
-            obj.translation[2] += Number(floor) > 1 ? (Number(floor) - 1) * this.floorHeight : 0; //this.outerWalls.height + 
+            obj.translation[2] += Number(floor) > 1 ? (Number(floor) - 1) * this.floorHeight : 0; 
         }
         return obj;
     }
