@@ -230,8 +230,16 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
                 curveNumber++;
               }
           }
+          // let line = appState.house.outerWalls.innerVertices;
+          let pointPosition = checkInnerWallsPoint(mousePosition, activeFloor, curveNumber);
+          // let newPoint = pointToLineAttachment(line, mousePosition, 0.2);
+          // if (newPoint.minPointX && newPoint.minPointY) {
+          //   pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          // }
+          
           if (continueCreation) {
-            vertices.push(...mousePosition);
+            // vertices.push(...mousePosition);
+            vertices.push(...pointPosition);
           }
           appState.changeState('pointAdded', { vertices: vertices, stageName: 'innerWalls', curveNumber: (initialCurveNumber>curveNumber) ? curveNumber : initialCurveNumber });
           return {continueCreation: continueCreation, curveNumber: curveNumber};
@@ -245,7 +253,24 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
           } else {
             vertices = [];
           }
-          vertices.push(...mousePosition);
+          // let line = appState.house.outerWalls.innerVertices;
+          // let pointPosition = mousePosition;
+          // let newPoint = pointToLineAttachment(line, mousePosition, 0.2);
+          // if (newPoint.minPointX && newPoint.minPointY) {
+          //   pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          // }
+          // for (let i in innerWalls[activeFloor].wallsVertices) {
+          //   if (i !== curveNumber) {
+          //     line = innerWalls[activeFloor].wallsVertices[i];
+          //     newPoint = pointToLineAttachment(line, pointPosition, 0.2);
+          //     if (newPoint.minPointX && newPoint.minPointY) {
+          //       pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          //     }
+          //   }
+          // }
+          let pointPosition = checkInnerWallsPoint(mousePosition, activeFloor, curveNumber);
+          // vertices.push(...mousePosition);
+          vertices.push(...pointPosition);
           appState.changeState('pointAdding', { stageName: 'innerWalls', curveNumber: curveNumber, vertices: vertices});
           innerWalls[activeFloor].wallsVertices[curveNumber].pop();
           innerWalls[activeFloor].wallsVertices[curveNumber].pop();
@@ -319,9 +344,19 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         if (data.index !== -1) {
           let index = data.index;
           let wall = appState.house.innerWalls[activeFloor].wallsVertices[data.curveNumber];
-          wall[index] = mousePosition[0];
-          wall[index + 1] = mousePosition[1];
-          wall[index + 2] = mousePosition[2];
+          // let line = appState.house.outerWalls.innerVertices;
+          // let pointPosition = mousePosition;
+          // let newPoint = pointToLineAttachment(line, mousePosition, 0.2);
+          // if (newPoint.minPointX && newPoint.minPointY) {
+          //   pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          // }
+          let pointPosition = checkInnerWallsPoint(mousePosition, activeFloor, curveNumber);
+          wall[index] = pointPosition[0];
+          wall[index + 1] = pointPosition[1];
+          wall[index + 2] = pointPosition[2];
+          // wall[index] = mousePosition[0];
+          // wall[index + 1] = mousePosition[1];
+          // wall[index + 2] = mousePosition[2];
           appState.changeState('shapeChanged', { stageName: 'innerWalls', curveNumber: curveNumber, index: index});
         }
       } else if (mouseAction === 'up') {
@@ -495,6 +530,7 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
           if (!result) {
             // model.rotation.z=0;
           } else {
+            // if (result.rotation!=NaN)
             model.rotation.z=result.rotation;
             boxPosition = [result.position[0], result.position[1], model.position.z];
             model.position.x = result.position[0];
@@ -519,6 +555,26 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
     }
     
   }
+}
+
+function checkInnerWallsPoint(mousePosition, activeFloor, curveNumber) {
+  let innerWalls = appState.house.innerWalls;
+  let line = appState.house.outerWalls.innerVertices;
+  let pointPosition = mousePosition;
+  let newPoint = pointToLineAttachment(line, mousePosition, 0.2);
+  if (newPoint.minPointX && newPoint.minPointY) {
+    pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+  }
+  for (let i in innerWalls[activeFloor].wallsVertices) {
+    if (i !== curveNumber) {
+      line = innerWalls[activeFloor].wallsVertices[i];
+      newPoint = pointToLineAttachment(line, pointPosition, 0.2);
+      if (newPoint.minPointX && newPoint.minPointY) {
+        pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+      }
+    }
+  }
+  return pointPosition;
 }
 
 export { getCoord, setPickPosition, clearPickPosition, chooseMouseFunction };

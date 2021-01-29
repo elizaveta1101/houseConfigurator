@@ -1,20 +1,39 @@
+import { get } from 'http';
 import * as THREE from 'three';
 import {ThreeBSP} from 'three-js-csg-es6';
 import appState from '../appState.js';
-import { getArea, vectorAngle } from '../extraFunctions.js';
+import { getArea, getInnerVertices, vectorAngle, pointToLineAttachment } from '../extraFunctions.js';
 
 function checkModelPosition(model, modelType) {
     let currentPosition = [model.position.x, model.position.y, 0];
     if (modelType === 'window') {
         let limitModel = appState.house.outerWalls;
-        let vertices = [];
-        vertices.push(...limitModel.vertices);
-        for (let i=vertices.length-3; i>=0; i-=3) {
-            vertices.push(limitModel.innerVertices[i], limitModel.innerVertices[i+1],limitModel.innerVertices[i+2]);
+        // let vertices = [];
+        // vertices.push(...limitModel.vertices);
+        // for (let i=vertices.length-3; i>=0; i-=3) {
+        //     vertices.push(limitModel.innerVertices[i], limitModel.innerVertices[i+1],limitModel.innerVertices[i+2]);
+        // }
+        // let data = checkPolygonAttachment(currentPosition, vertices);
+        let line = getInnerVertices(limitModel.vertices, limitModel.width/2);
+        let data = pointToLineAttachment (line, currentPosition, 0.2);
+        let position, rotation;
+        
+        if (data.minPointX && data.minPointY) {
+            position = [data.minPointX, data.minPointY, 0];
+            let i=data.firstIndex;
+            let point1 = [line[i], line[i+1], line[i+2]];
+            let point2 = [line[i+3], line[i+4], line[i+5]];
+            let vector = [point2[0]-point1[0], point2[1]-point1[1], point2[2]-point1[2]];
+            let angle = Math.acos(vectorAngle(vector, [1,0,0]));
+            if (vector[1]<0) {
+                angle = Math.PI - angle;
+                //возможны проблемы, если окно будет не симметричным (лицевая и задняя сторона окна разные)
+            }
+            rotation=angle;
         }
-        let data = checkPolygonAttachment(currentPosition, vertices);
-        if (data) {
-            return data;
+        // if (data) {
+        if (position) {
+            return {position, rotation};
         } else {
             return null;
         }
