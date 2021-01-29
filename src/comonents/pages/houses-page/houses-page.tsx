@@ -46,7 +46,6 @@ const HousesPage: React.FC = () => {
   }
 
   const mainImagesHandler = ({ fileList }: any) => {
-    console.log(fileList)
     setMainImage(fileList)
   }
 

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'antd/dist/antd.css'
 import axios from 'axios'
 
 import { HeaderPayloads, storageKeys } from './data'
 import { AppContext, AuthContext } from './context'
 import { useAuth, useRoutes } from './hooks'
+import { history } from './'
 
 import Overlay from './comonents/overlay/overlay'
 import Header from './comonents/header/header'
@@ -48,6 +49,10 @@ const App: React.FC = ({}) => {
     setIsAuthMenuOpen(false)
     setIsOverlayOpen(false)
   }
+
+  useEffect(() => {
+    history.push(activeLink)
+  }, [activeLink])
 
   return (
     <AuthContext.Provider value={{ token, login, logout, userId, isAuth }}>
