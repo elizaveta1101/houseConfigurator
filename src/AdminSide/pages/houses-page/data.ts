@@ -150,7 +150,6 @@ export const formData = [
         className: 'materials',
         placeholder: 'Материалы через запятую',
         label: 'Материалы',
-        required: true,
       },
     ],
   },

@@ -15,3 +15,22 @@
 .main-page__description-service-subtitle {
   margin-bottom: 0.25rem;
 }
+
+.main-page__upload {
+  .ant-upload {
+    width: 100%;
+
+    @include flex-element(_, _, center);
+  }
+}
+
+.main-page__upload-button {
+  max-width: 8.75rem;
+  flex-basis: 80%;
+  margin-left: 1.25rem;
+
+  @include adaptive(smartphone) {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}

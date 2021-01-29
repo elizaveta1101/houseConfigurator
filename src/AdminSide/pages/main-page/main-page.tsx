@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { Input } from 'antd'
+import { Input, Upload } from 'antd'
 
 import { textareasData } from './data'
 
 import Container from '../../container/container'
-import Upload from '../../upload/upload'
 import Overlay from '../../overlay/overlay'
 import Button from '../../button/button'
 import Popup from '../../popup/popup'
@@ -38,7 +37,22 @@ const MainPage: React.FC = () => {
   return (
     <Container>
       <h3 className="main-page__title">Видео</h3>
-      <Upload data={videoItem} uploadHandler={uploadVideoHandler} type="video" />
+      <Upload
+        className="main-page__upload"
+        onChange={uploadVideoHandler}
+        fileList={videoItem}
+        accept="video/*"
+        name="video"
+        listType="picture"
+      >
+        <span className="main-page__upload-label">Видео не выбрано</span>
+        <Button
+          disabled={Boolean(videoItem.length)}
+          text={'Загрузить'}
+          type={'default'}
+          modifier={'main-page__upload-button'}
+        />
+      </Upload>
 
       <div className="main-page__description-service">
         <h3 className="main-page__description-service-title">Описание услуг сервиса</h3>

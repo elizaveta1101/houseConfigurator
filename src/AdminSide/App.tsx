@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import { HeaderPayloads, storageKeys } from '../data'
 import { AppContext, AuthContext } from '../context'
 import { useAuth, useRoutes } from '../hooks'
+import { history } from '..'
 
 import Overlay from './overlay/overlay'
 import Header from './header/header'
@@ -21,7 +22,7 @@ const App: React.FC = ({}) => {
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false)
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
   const [activeLink, setActiveLink] = useState(currentPage)
-  const routes = useRoutes(!isAuth)
+  const routes = useRoutes(isAuth)
 
   const headerHandler = (e: React.SyntheticEvent<HTMLElement>) => {
     hideAll()
@@ -46,6 +47,10 @@ const App: React.FC = ({}) => {
     setIsOverlayOpen(false)
   }
 
+  useEffect(() => {
+    history.push(activeLink)
+  }, [activeLink])
+
   return (
     <AuthContext.Provider value={{ token, login, logout, userId, isAuth }}>
       <AppContext.Provider
@@ -64,7 +69,7 @@ const App: React.FC = ({}) => {
           <Alert />
           <Header />
           <div className="control-panel__content">
-            <Menu modifier={'control-panel__menu_content'} isOpen={!isAuth} />
+            <Menu modifier={'control-panel__menu_content'} isOpen={isAuth} />
             {routes}
           </div>
         </div>

@@ -10,7 +10,6 @@ import Menu from '../menu/menu'
 import authIcon from '../../assets/icons/auth-icon.svg'
 import logo from '../../assets/icons/logo.svg'
 import './styles.scss'
-import { Button } from 'antd'
 
 const Header: React.FC = () => {
   const { headerHandler, isNavMenuOpen, isAuthMenuOpen } = useContext(AppContext)
@@ -33,7 +32,7 @@ const Header: React.FC = () => {
 
         <div
           className={cx('header__side-wrapper', {
-            'header__side-wrapper_hide': isAuth,
+            'header__side-wrapper_hide': !isAuth,
           })}
         >
           <div className="header__auth-icon" data-element={HeaderPayloads.authButton}>

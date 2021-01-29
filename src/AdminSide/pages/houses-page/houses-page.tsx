@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Input } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
+import { Input, Upload } from 'antd'
 
 import { useHttp, useStore } from '../../../hooks'
 import { AuthContext } from '../../../context'
@@ -9,7 +10,6 @@ import { IHouse } from '../../../data/types'
 import { formData } from './data'
 
 import Container from '../../container/container'
-import Upload from '../../upload/upload'
 import Button from '../../button/button'
 import Form from '../../form/form'
 
@@ -24,14 +24,25 @@ const HousesPage: React.FC = () => {
   const currHouse = getItem(ActionTypes.EDITED_HOUSE)
 
   const [isDisableButton, setIsDisableButton] = useState(true)
-  const [imagesData, setImagesData] = useState([])
+  const [imagesData, setImagesData] = useState<any[]>([])
   const [mainImage, setMainImage] = useState([])
   const [house, setHouse] = useState<IHouse>()
   const [isSend, setIsSend] = useState(false)
   const [mode, setMode] = useState('disable')
 
-  const imagesHandler = ({ fileList }: any) => {
-    setImagesData(fileList)
+  const imagesHandler = ({ file }: any) => {
+    setTimeout(() => {
+      let reader = new FileReader()
+      reader.onloadend = () => {
+        setImagesData((prev) => [...prev, { file, url: reader.result, uid: file.uid }])
+      }
+      reader.readAsDataURL(file)
+    }, 0)
+  }
+
+  const removeHandler = (item: any) => {
+    const filtredData = imagesData.filter(({ uid }) => item.uid !== uid)
+    setImagesData(filtredData)
   }
 
   const mainImagesHandler = ({ fileList }: any) => {
@@ -81,8 +92,6 @@ const HousesPage: React.FC = () => {
 
   useEffect(() => {
     const url = '/api/house'
-    console.log(currHouse, mode, isSend)
-
     if (isSend) {
       if (mode === 'delete') {
         request(
@@ -109,6 +118,10 @@ const HousesPage: React.FC = () => {
         currHouse['short_info'] = null
         currHouse['style_id'] = 1
         currHouse['time'] = null
+        currHouse['main_image'] = mainImage
+        currHouse['images'] = imagesData
+        console.log(currHouse)
+
         request(url, 'POST', currHouse, {
           ['Authorization']: token,
         })
@@ -178,16 +191,42 @@ const HousesPage: React.FC = () => {
       <Form data={formData} values={house} mode={mode} type={'house'} />
 
       <div className="houses-page__upload-wrapper">
-        <h4 className="houses-page__subtitle">Главное изабражение</h4>
+        <h4 className="houses-page__subtitle">Главное изображение</h4>
         <Upload
+          listType="picture-card"
+          accept="image/*"
+          fileList={imagesData}
+          name="image"
           disabled={mode === 'disable'}
-          data={mainImage}
-          type="main-img"
-          uploadHandler={mainImagesHandler}
-        />
+          customRequest={imagesHandler}
+          onRemove={removeHandler}
+        >
+          {imagesData.length < 1 && (
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </div>
+          )}
+        </Upload>
 
         <h4 className="houses-page__subtitle">Дополнительные изображения</h4>
-        <Upload disabled={mode === 'disable'} data={imagesData} uploadHandler={imagesHandler} />
+        <Upload
+          listType="picture-card"
+          accept="image/*"
+          fileList={imagesData}
+          name="image"
+          multiple
+          disabled={mode === 'disable'}
+          customRequest={imagesHandler}
+          onRemove={removeHandler}
+        >
+          {imagesData.length < 8 && (
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </div>
+          )}
+        </Upload>
       </div>
 
       <div className="houses-page__buttons-wrapper">

@@ -4,13 +4,12 @@ import { Input } from 'antd'
 import { inputsData } from './data'
 
 import Container from '../../container/container'
-import Upload from '../../upload/upload'
 import Button from '../../button/button'
 import Form from '../../form/form'
 
 import './styles.scss'
 
-const ProjectInvestPage: React.FC = () => {
+const ProjectFinishPage: React.FC = () => {
   const [houseMode, setHouseMode] = useState<'disable' | 'edit' | 'create'>('disable')
   const [imagesData, setImagesData] = useState([])
   const [mainImage, setMainImage] = useState([])
@@ -27,7 +26,7 @@ const ProjectInvestPage: React.FC = () => {
     setHouseMode(mode)
   }
 
-  const onSearch = (value: string) => console.log(value)
+  const onSearch = (e: any) => console.log(e.target.value)
 
   return (
     <Container>
@@ -47,7 +46,7 @@ const ProjectInvestPage: React.FC = () => {
 
       <div className="house-finish-page__upload-wrapper">
         <h4 className="house-finish-page__subtitle">Главное изабражение</h4>
-        <Upload
+        {/* <Upload
           disabled={houseMode === 'disable'}
           data={mainImage}
           type="main-img"
@@ -59,7 +58,7 @@ const ProjectInvestPage: React.FC = () => {
           disabled={houseMode === 'disable'}
           data={imagesData}
           uploadHandler={imagesHandler}
-        />
+        /> */}
       </div>
 
       <div className="house-finish-page__buttons-wrapper">
@@ -81,4 +80,4 @@ const ProjectInvestPage: React.FC = () => {
   )
 }
 
-export default ProjectInvestPage
+export default ProjectFinishPage

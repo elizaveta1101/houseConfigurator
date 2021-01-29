@@ -1,21 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { createBrowserHistory } from 'history'
 import { BrowserRouter, Redirect, Route, Router, Switch } from 'react-router-dom'
-import { createHashHistory, History } from 'history'
 import { Provider } from 'react-redux'
 import 'antd/dist/antd.css'
 
 import store from './store'
-import ClientSideStore from './ClientSideComponents/redux/store'
+import ClientSideStore from './ClientSide/redux/store'
 
-import ControlPanel from './ControlPanelComponents/Control-panel'
-import ClientSide from './ClientSideComponents/App'
+import ControlPanel from './AdminSide/App'
+import ClientSide from './ClientSide/App'
 
 import './styles/animation.scss'
 import './styles/fonts.scss'
 import './styles/index.scss'
 
-const history: History = createHashHistory()
+export const history = createBrowserHistory()
 
 ReactDOM.render(
   <Provider store={store}>
