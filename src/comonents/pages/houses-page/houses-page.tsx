@@ -24,17 +24,29 @@ const HousesPage: React.FC = () => {
   const currHouse = getItem(ActionTypes.EDITED_HOUSE)
 
   const [isDisableButton, setIsDisableButton] = useState(true)
-  const [imagesData, setImagesData] = useState([])
+  const [imagesData, setImagesData] = useState<any[]>([])
   const [mainImage, setMainImage] = useState([])
   const [house, setHouse] = useState<IHouse>()
   const [isSend, setIsSend] = useState(false)
   const [mode, setMode] = useState('disable')
 
-  const imagesHandler = ({ fileList }: any) => {
-    setImagesData(fileList)
+  const imagesHandler = ({ file }: any) => {
+    setTimeout(() => {
+      let reader = new FileReader()
+      reader.onloadend = () => {
+        setImagesData((prev) => [...prev, { file, url: reader.result, uid: file.uid }])
+      }
+      reader.readAsDataURL(file)
+    }, 0)
+  }
+
+  const removeHandler = (item: any) => {
+    const filtredData = imagesData.filter(({ uid }) => item.uid !== uid)
+    setImagesData(filtredData)
   }
 
   const mainImagesHandler = ({ fileList }: any) => {
+    console.log(fileList)
     setMainImage(fileList)
   }
 
@@ -81,8 +93,6 @@ const HousesPage: React.FC = () => {
 
   useEffect(() => {
     const url = '/api/house'
-    console.log(currHouse, mode, isSend)
-
     if (isSend) {
       if (mode === 'delete') {
         request(
@@ -109,6 +119,10 @@ const HousesPage: React.FC = () => {
         currHouse['short_info'] = null
         currHouse['style_id'] = 1
         currHouse['time'] = null
+        currHouse['main_image'] = mainImage
+        currHouse['images'] = imagesData
+        console.log(currHouse)
+
         request(url, 'POST', currHouse, {
           ['Authorization']: token,
         })
@@ -152,7 +166,7 @@ const HousesPage: React.FC = () => {
     const url = '/api/styles'
     request(url)
       .then(({ data, success }) => success && setItem(ActionTypes.HOUSE_STYLES, data))
-      .catch((e) => setItem(ActionTypes.ALERT, alertData.error))
+      .catch(() => setItem(ActionTypes.ALERT, alertData.error))
   }, [])
 
   return (
@@ -178,7 +192,7 @@ const HousesPage: React.FC = () => {
       <Form data={formData} values={house} mode={mode} type={'house'} />
 
       <div className="houses-page__upload-wrapper">
-        <h4 className="houses-page__subtitle">Главное изабражение</h4>
+        <h4 className="houses-page__subtitle">Главное изображение</h4>
         <Upload
           disabled={mode === 'disable'}
           data={mainImage}
@@ -186,8 +200,14 @@ const HousesPage: React.FC = () => {
           uploadHandler={mainImagesHandler}
         />
 
-        <h4 className="houses-page__subtitle">Дополнительные изабражения</h4>
-        <Upload disabled={mode === 'disable'} data={imagesData} uploadHandler={imagesHandler} />
+        <h4 className="houses-page__subtitle">Дополнительные изображения</h4>
+        <Upload
+          removeHandler={removeHandler}
+          uploadHandler={imagesHandler}
+          disabled={mode === 'disable'}
+          data={imagesData}
+          multiple={true}
+        />
       </div>
 
       <div className="houses-page__buttons-wrapper">
