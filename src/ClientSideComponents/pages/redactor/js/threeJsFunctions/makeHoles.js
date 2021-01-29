@@ -102,7 +102,7 @@ function getBoxPosition(models, modelType) {
 
 function getBoxSizes(modelType) {
     if (modelType === 'window' || modelType === 'door') {
-        return [null, appState.house.outerWalls.width, null];
+        return [null, appState.house.outerWalls.width+0.01, null];
     } else if (modelType === 'stairs') {
         if (appState.house.activeFloor === 'Подвал') {
             return [null, null, appState.house.basement.height];
