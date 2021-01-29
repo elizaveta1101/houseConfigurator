@@ -20,27 +20,26 @@ function Favorites() {
     const favoriteHouses = useSelector(({ cart }) => cart.comphouses)
     const favoriteInvests = useSelector(({cart}) => cart.investhouses)
     const dispatch = useDispatch()
-    const posts = useSelector(({ houses }) => houses.postinfo)
 
     const onSelectCategory = React.useCallback((id) => {
         axios.post('http://127.0.0.1:5000/favorites', {
             id: id,
             category: 'house'
-        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
     const onSelectCategoryProjects = React.useCallback((id) => {
         axios.post('http://127.0.0.1:5000/favorites', {
             id: id,
             category: 'project'
-        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
     const onSelectCategoryInvests = React.useCallback((id) => {
         axios.post('http://127.0.0.1:5000/favorites', {
             id: id,
             category: 'invest'
-        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
     React.useEffect(() => {
@@ -48,7 +47,7 @@ function Favorites() {
             axios
                 .get('http://127.0.0.1:5000/favorites',
                     {params: {pagination: true, page: 1, per_page: 1, category: 'house'},
-                        headers: {Authorization: posts}})
+                        headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
                     dispatch(addCompletedHouseToCart(data))
                 })
@@ -61,7 +60,7 @@ function Favorites() {
             axios
                 .get('http://127.0.0.1:5000/favorites',
                     {params: {pagination: true, page: 1, per_page: 1, category: 'project'},
-                        headers: {Authorization: posts}})
+                        headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
                     dispatch(addHouseToCart(data))
                 })
@@ -76,7 +75,7 @@ function Favorites() {
             axios
                 .get('http://127.0.0.1:5000/favorites',
                     {params: {pagination: true, page: 1, per_page: 1, category: 'invest'},
-                        headers: {Authorization: posts}})
+                        headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
                     dispatch(addInvestorsHouseToCart(data))
                 })

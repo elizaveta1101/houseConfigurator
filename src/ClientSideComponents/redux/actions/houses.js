@@ -74,8 +74,17 @@ export const setActiveModal = (bool) => ({
     payload: bool,
 })
 
+export const setActiveLogin = (bool) => ({
+    type: 'SET_ACTIVE_LOGIN',
+    payload: bool,
+})
+
 export const deleteToken = () => ({
     type: 'DELETE_TOKEN',
     payload: '',
+})
+
+export const setHousesDefault = () => ({
+    type: 'SET_HOUSES_DEFAULT',
 })
 

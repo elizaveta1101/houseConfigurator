@@ -33,39 +33,37 @@ import FavoriteHouses from './pages/private-office/favorite-pages/FavoriteHouses
 import FavoriteInvestors from './pages/private-office/favorite-pages/FavoriteInvestors'
 import Constructor from './pages/redactor/Constructor'
 import RedactorHeader from './pages/redactor/RedactorHeader'
-
-import './styles.scss'
 import Authorisation from "./pages/components/Authorisation/Authorisation";
 import {setActiveModal} from "./redux/actions/houses";
 
+import './styles.scss'
+
 
 function App() {
+    const dispatch = useDispatch()
     const shouldShowHeader = useLocation().pathname !== '/'
     const shouldShowRedactorHeader = useLocation().pathname !== constructorPage
     const shouldShowFooter = useLocation().pathname !== '/'
     const shouldShowRedactorFooter = useLocation().pathname !== constructorPage
-    const posts = useSelector(({ houses }) => houses.postinfo)
     const modal = useSelector(({ houses }) => houses.modalBool)
     let is_authorized = false
-    const dispatch = useDispatch()
 
     const closeModal = () => {
         dispatch(setActiveModal(false))
     }
 
-    if(posts !== '' && posts !== undefined){
+    if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
         is_authorized = true
     }
-
 
     return (
         <>
             <div className="global-wrapper">
-                {modal && !is_authorized && <div><Authorisation closeModal={closeModal}/></div>}
-                {modal && !is_authorized && <div onClick={() => dispatch(setActiveModal(false))} className="black-bg" />}
-
                 {shouldShowHeader && shouldShowRedactorHeader && <Header />}
                 {!shouldShowRedactorHeader && <RedactorHeader />}
+
+                {modal && !is_authorized && <div><Authorisation closeModal={closeModal}/></div>}
+                {modal && !is_authorized && <div onClick={() => dispatch(setActiveModal(false))} className="black-bg" />}
 
                 <div className="main">
                     <div className="main-wrapper">

@@ -5,23 +5,18 @@ import CheckoutButton from "../components/Buttons/CheckoutButton";
 
 import './RedactorPage.css';
 import '../housepage/HouseProjectPage.css'
-import {useDispatch, useSelector} from "react-redux";
-import Authorisation from "../components/Authorisation/Authorisation";
-import {set} from "ramda";
-import {setActiveModal} from "../../redux/actions/houses";
+import { useDispatch } from "react-redux";
+import { setActiveModal } from "../../redux/actions/houses";
 
 
 function RedactorPage() {
 
-    const posts = useSelector(({ houses }) => houses.postinfo)
     const dispatch = useDispatch()
-
     let authorized = false
 
-    if(posts !== '' && posts !== undefined){
+    if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
         authorized = true
     }
-
 
     return (
         <div>

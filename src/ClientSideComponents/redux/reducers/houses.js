@@ -31,6 +31,7 @@ const initialState = {
     initialInvestSquare: 0,
 
     modalBool: false,
+    loginBool: false,
 }
 
 
@@ -139,6 +140,49 @@ const houses = (state = initialState, action) => {
         return {
             ...state,
             modalBool: action.payload,
+        }
+    }
+    if(action.type === 'SET_ACTIVE_LOGIN'){
+        return {
+            ...state,
+            loginBool: action.payload,
+        }
+    }
+    if(action.type === 'SET_HOUSES_DEFAULT'){
+        return {
+            ...state,
+            compprojects: [],
+            comphouses: [],
+            investorshouses: [],
+
+            postinfo: '',
+            userinfo:[],
+
+            hearts_arr: [],
+            house_hearts_arr: [],
+            invest_hearts_arr: [],
+
+            totalCountProjects: 0,
+            totalCountHouses: 0,
+            totalCountInvest: 0,
+
+            costArr: '',
+            squareArr: '',
+            costArrHouses: '',
+            squareArrHouses: '',
+            costArrInvest: '',
+            squareArrInvest: '',
+
+            initialProjectsCost: 0,
+            initialHousesCost: 0,
+            initialInvestCost: 0,
+
+            initialProjectsSquare: 0,
+            initialHousesSquare: 0,
+            initialInvestSquare: 0,
+
+            modalBool: false,
+            loginBool: false,
         }
     }
 

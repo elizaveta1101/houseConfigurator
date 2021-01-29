@@ -354,7 +354,17 @@
     margin-top: 60px;
 }
 
-@media (max-width: 1800px) {
+@media (max-width: 1800px){
+    .video-btn-circle{
+        width: 390px;
+        height: 390px;
+
+        margin-left: 1080px;
+        margin-top: 455px;
+    }
+}
+
+@media (max-height: 1000px) {
     .video-btn-circle{
         width: 390px;
         height: 390px;

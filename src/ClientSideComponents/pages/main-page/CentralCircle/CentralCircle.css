@@ -651,6 +651,10 @@
     text-decoration-line: underline;
 }
 
+.registration p{
+    margin-left: 32px;
+}
+
 
 /*--------------Left Menu-----------*/
 .left-btns {

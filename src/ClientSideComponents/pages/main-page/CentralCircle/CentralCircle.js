@@ -25,6 +25,11 @@ function CentralCircle() {
   const phonePopupRef = React.useRef()
   const registerFormRef = React.useRef()
   const closeForm = React.useRef()
+  let is_authorized = false
+
+  if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
+    is_authorized = true
+  }
 
   const mainVisiblePopup = () => {
     setVisibleMainPopup(!visibleMainPopup)
@@ -348,10 +353,11 @@ function CentralCircle() {
           <div ref={userPopupRef} className="user-menu-popup">
             <h1>Вход/регистрация</h1>
             <div className="login-form">
-              <LoginForm />
+              {!is_authorized && <LoginForm/>}
             </div>
             <div className="registration">
-              <a onClick={both}>Регистрация</a>
+              {!is_authorized && <a onClick={both}>Регистрация</a>}
+              {is_authorized && <p>Вы авторизованы</p>}
             </div>
             {/*<div className="forgot-passwd">
               <a>Забыли пароль?</a>

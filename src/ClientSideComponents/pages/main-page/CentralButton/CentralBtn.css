@@ -80,7 +80,7 @@
 }
 
 
-@media (max-width: 1440px) {
+@media (max-width: 1800px) {
     .central-btn-wrapper{
         width: 100px;
         height: 100px;
@@ -90,6 +90,15 @@
     }
 }
 
+@media (max-height: 1000px) {
+    .central-btn-wrapper{
+        width: 100px;
+        height: 100px;
+
+        margin-left: 270px;
+        margin-top: 370px;
+    }
+}
 
 
 

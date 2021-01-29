@@ -69,22 +69,32 @@
 }
 
 /*Стрелка*/
-.slick-arrow {
+.slider .slick-arrow {
   position: absolute;
   top: 35%;
   z-index: 10;
 }
 
+.sliderbig .slick-arrow {
+  position: absolute;
+  top: 15%;
+  z-index: 10;
+}
+
 /* Стрелка влево */
-.slick-arrow.slick-prev {
+.slider .slick-arrow.slick-prev {
   left: 0;
   display: none;
   font-size: 0;
   z-index: -1;
 }
 
+.sliderbig .slick-arrow.slick-prev {
+  margin-left: -400px;
+}
+
 /* Стрелка вправо */
-.slick-arrow.slick-next {
+.slider .slick-arrow.slick-next {
   outline: none;
   border: none;
   right: 0;
@@ -97,9 +107,56 @@
   background: url('../../../../assets/img/SliderArrow.svg') 50% 50% no-repeat,
     url('../../../../assets/img/slider-arrow-bg.svg') 0 0 no-repeat;
 }
-.slick-arrow.slick-next:hover {
+
+.sliderbig .slick-arrow.slick-next {
+  outline: none;
+  border: none;
+  right: 0;
+  cursor: pointer;
+  left: 870px;
+  font-size: 0;
+  width: 32px;
+  margin-top: 335px;
+  margin-left: 15px;
+  z-index: 21;
+  height: 32px;
+  background: url('../../../../assets/img/SliderArrow.svg') 50% 50% no-repeat
+}
+
+.sliderbig .slick-arrow.slick-prev {
+  outline: none;
+  border: none;
+  right: 0;
+  cursor: pointer;
+  left: 870px;
+  font-size: 0;
+  width: 32px;
+  margin-top: 360px;
+  margin-left: -15px;
+  transform: rotate(180deg);
+  z-index: 21;
+  height: 32px;
+  background: url('../../../../assets/img/SliderArrow.svg') 50% 50% no-repeat
+}
+
+.slider-arrow-bg{
+  position: absolute;
+  z-index: 20;
+  margin-left: 855px;
+  margin-top: 405px;
+}
+
+.slider .slick-arrow.slick-next:hover {
   background: url('../../../../assets/img/ActiveSliderArrow.svg') 50% 50% no-repeat,
     url('../../../../assets/img/slider-arrow-bg.svg') 0 0 no-repeat;
+}
+
+.sliderbig .slick-arrow.slick-next:hover {
+  background: url('../../../../assets/img/ActiveSliderArrow.svg') 50% 50% no-repeat
+}
+
+.sliderbig .slick-arrow.slick-prev:hover {
+  background: url('../../../../assets/img/ActiveSliderArrow.svg') 50% 50% no-repeat
 }
 
 /* Точки (булиты) */

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Pagination } from "antd";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setCompletedHouses, setHeartsArray } from "../../../../redux/actions/houses";
+import {setCompletedHouses, setHeartsArray, setHouseHeartsArray} from "../../../../redux/actions/houses";
 
 import CompletedCard from "../../HouseCards/HouseCard/CompletedCard";
 
@@ -13,10 +13,10 @@ import { setCurrentPageHouses } from "../../../../redux/actions/filters";
 
 
 function CatalogCompletedHouses() {
+
     const dispatch = useDispatch();
     const comphouses = useSelector(({houses}) => houses.comphouses);
     const house_heart_ids = useSelector(({ houses }) => houses.hearts_arr)
-    const posts = useSelector(({houses}) => houses.postinfo)
     const totalCount = useSelector(({ houses }) => houses.totalCountHouses)
     const categorySelected = useSelector(({ filters }) => filters.categoryHouses)
     const cost = useSelector(({houses}) => houses.costArrHouses);
@@ -31,7 +31,7 @@ function CatalogCompletedHouses() {
         axios.post('http://127.0.0.1:5000/favorites', {
             id: id,
             category: 'house'
-        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
 
@@ -43,7 +43,7 @@ function CatalogCompletedHouses() {
                 params: {
                     pagination: true,
                     page: currentPage,
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setCompletedHouses(data))
             })
@@ -55,7 +55,7 @@ function CatalogCompletedHouses() {
                     page: currentPage,
                     cost_filter: cost,
                     square_filter: square
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setCompletedHouses(data))
             })
@@ -68,19 +68,19 @@ function CatalogCompletedHouses() {
                     floor_filter: stringedFloors,
                     cost_filter: cost,
                     square_filter: square
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setCompletedHouses(data))
             })
         }
 
-        if(posts !== ''){
+        if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
             axios
                 .get('http://127.0.0.1:5000/favorites/main_page',
                     {params: {category: 'house'},
-                        headers: {Authorization: posts}})
+                        headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
-                    dispatch(setHeartsArray(data))
+                    dispatch(setHouseHeartsArray(data))
                 })
         }
 

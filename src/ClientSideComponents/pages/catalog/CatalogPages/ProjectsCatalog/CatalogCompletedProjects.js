@@ -13,10 +13,10 @@ import '../CatalogCompletedProjects.css';
 
 
 function CatalogCompletedProjects() {
+
     const dispatch = useDispatch();
     const compprojects = useSelector(({houses}) => houses.compprojects)
     const heart_ids = useSelector(({ houses }) => houses.hearts_arr)
-    const posts = useSelector(({houses}) => houses.postinfo)
     const categorySelected = useSelector(({ filters }) => filters.category)
     const cost = useSelector(({houses}) => houses.costArr);
     const square = useSelector(({houses}) => houses.squareArr);
@@ -25,12 +25,10 @@ function CatalogCompletedProjects() {
 
 
     const onSelectHeart = React.useCallback((id) => {
-        if(posts !== ''){
             axios.post('http://127.0.0.1:5000/favorites', {
                 id: id,
                 category: 'project'
-            }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
-        }
+            }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
     const handleChange = (value) => {
@@ -45,7 +43,7 @@ function CatalogCompletedProjects() {
                 params: {
                     pagination: true,
                     page: currentPage,
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setCompletedProjects(data))
             })
@@ -57,7 +55,7 @@ function CatalogCompletedProjects() {
                     page: currentPage,
                     cost_filter: cost,
                     square_filter: square
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setCompletedProjects(data))
             })
@@ -70,17 +68,17 @@ function CatalogCompletedProjects() {
                     floor_filter: stringedFloors,
                     cost_filter: cost,
                     square_filter: square
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setCompletedProjects(data))
             })
         }
 
-        if(posts !== ''){
+        if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
             axios
                 .get('http://127.0.0.1:5000/favorites/main_page',
                     {params: {category: 'project'},
-                        headers: {Authorization: posts}})
+                        headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
                     dispatch(setHeartsArray(data))
                 })

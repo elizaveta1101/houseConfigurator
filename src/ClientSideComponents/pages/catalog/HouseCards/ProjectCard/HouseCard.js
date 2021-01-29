@@ -17,11 +17,10 @@ const HouseCard = React.memo(function HouseCard({onClickItem, style, bedrooms, c
   const [filledHeart, setFilledHeart] = React.useState(false)
   const heart_ids = useSelector(({ houses }) => houses.hearts_arr)
   const dispatch = useDispatch()
-  const posts = useSelector(({houses}) => houses.postinfo)
 
   let authorized = false
 
-  if(posts !== '' && posts !== undefined){
+  if(localStorage.getItem('token') !== null){
     authorized = true
   }
 
@@ -41,13 +40,17 @@ const HouseCard = React.memo(function HouseCard({onClickItem, style, bedrooms, c
   }
 
   React.useEffect(() => {
-    axios
-        .get('http://127.0.0.1:5000/favorites/main_page',
-            {params: {category: 'project'},
-              headers: {Authorization: posts}})
-        .then(({data}) => {
-          dispatch(setHeartsArray(data))
-        })
+    if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined") {
+      axios
+          .get('http://127.0.0.1:5000/favorites/main_page',
+              {
+                params: {category: 'project'},
+                headers: {Authorization: localStorage.token}
+              })
+          .then(({data}) => {
+            dispatch(setHeartsArray(data))
+          })
+    }
   }, [])
 
   return (

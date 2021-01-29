@@ -24,14 +24,14 @@ function FavoriteProjects() {
         axios.post('http://127.0.0.1:5000/favorites', {
             id: id,
             category: 'project'
-        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
     const handleChange = (value) => {
         axios
             .get('http://127.0.0.1:5000/favorites',
                 {params: {pagination: true, page: value, per_page: 9, category: 'project'},
-                    headers: {Authorization: posts}})
+                    headers: {Authorization: localStorage.token}})
             .then(({data}) => {
                 dispatch(addHouseToCart(data))
             })
@@ -42,7 +42,7 @@ function FavoriteProjects() {
             axios
                 .get('http://127.0.0.1:5000/favorites',
                     {params: {pagination: true, page: 1, per_page: 9, category: 'project'},
-                        headers: {Authorization: posts}})
+                        headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
                     dispatch(addHouseToCart(data))
                 })

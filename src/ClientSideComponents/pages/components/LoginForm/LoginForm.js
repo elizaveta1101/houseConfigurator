@@ -4,12 +4,12 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import './LoginForm.css'
 import axios from "axios";
-import {setPostInfo} from "../../../redux/actions/houses";
-import {useDispatch, useSelector} from "react-redux";
+import {setActiveLogin, setCompletedProjects, setHeartsArray, setPostInfo} from "../../../redux/actions/houses";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginForm= () => {
     const dispatch = useDispatch()
-    const posts = useSelector(({ houses }) => houses.postinfo)
+    const showLogin = useSelector(({ houses }) => houses.loginBool)
 
     const onFinish = (values) => {
         axios
@@ -19,15 +19,15 @@ const LoginForm= () => {
                 { headers: { 'Content-Type': 'application/json' } }
             )
             .then(({ data }) => {
-                dispatch(setPostInfo(data))
+                localStorage.setItem('token', data.data.token)
+                if(localStorage.getItem('token') !== "undefined" && localStorage.getItem('token') !== ''){
+                    window.location.reload()
+                }
+                if(localStorage.getItem('token') === "undefined"){
+                    dispatch(setActiveLogin(true))
+                }
             })
     };
-
-    let show_failure = false
-
-    if(posts === undefined){
-        show_failure = true
-    }
 
     return (
         <Form
@@ -79,7 +79,7 @@ const LoginForm= () => {
                     Войти
                 </Button>
             </Form.Item>
-            {show_failure && <div className="failure">Неверный логин или пароль!</div>}
+            {showLogin && <div className="failure">Неверный логин или пароль!</div>}
         </Form>
     );
 };

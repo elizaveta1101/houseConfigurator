@@ -1,11 +1,21 @@
 .header-wrapper{
     display: flex;
+    width: 1800px;
+    height: 60px;
+    z-index: 2000;
+    justify-content: space-between;
+
+    justify-self: center;
+}
+
+.header-bg{
+    display: flex;
     width: 100vw;
     height: 60px;
     z-index: 2000;
-    justify-content: center;
     background-color: #ffffff;
     justify-self: center;
+    justify-content: center;
 }
 
 .header-logo{
@@ -13,7 +23,6 @@
 }
 
 .header-wrapper ul {
-    margin-left: 838px;
     margin-top: 21px;
     display: flex;
     flex-direction: row;
@@ -21,6 +30,11 @@
 
 .header-wrapper ul a {
     text-decoration: none;
+}
+
+.nav-menu-wrapper{
+    display: flex;
+    flex-direction: row;
 }
 
 .header-wrapper ul li {
@@ -107,6 +121,10 @@
     z-index: 999;
     background-color: #FFFFFF;
     width: 188px;
+}
+
+.header-logo-wrapper{
+    margin-left: 10px;
 }
 
 .popup-sub-menu ul {
@@ -333,12 +351,8 @@
 
 
 @media (max-width: 1818px) {
-
-    .header-wrapper ul {
-        margin-left: 320px;
-        margin-top: 21px;
-        display: flex;
-        flex-direction: row;
+    .header-wrapper{
+        width: 1180px;
     }
 }
 @media (max-width: 1168px) {
@@ -347,6 +361,10 @@
         margin-top: 21px;
         display: flex;
         flex-direction: row;
+    }
+
+    .header-wrapper{
+        width: 590px;
     }
 
     .header-wrapper ul {

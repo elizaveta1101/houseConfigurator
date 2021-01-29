@@ -1,5 +1,6 @@
 import React from 'react'
 import Slider from 'react-slick'
+import SliderBigArrowBg from '../../../exportedSvg/ArrowBg.svg'
 import Img1 from '../../../../assets/img/HouseImgSlider.png'
 import Img2 from '../../../../assets/img/HouseImgSlider.png'
 import Img3 from '../../../../assets/img/HouseImgSlider.png'
@@ -37,16 +38,16 @@ export default class HousePageSlider extends React.Component {
       pauseOnHover: true,
       waitForAnimate: true,
       variableWidth: true,
-      prevArrow: false,
       focusOnSelect: true,
     }
     const settings_2 = {
-      arrows: false,
+      arrows: true,
       slidesToShow: 1,
       fade: true,
     }
     return (
       <div className="house-page-slider-wrapper">
+        <img className="slider-arrow-bg" src={SliderBigArrowBg} />
         <Slider
           asNavFor={this.state.nav2}
           ref={(slider) => (this.slider1 = slider)}

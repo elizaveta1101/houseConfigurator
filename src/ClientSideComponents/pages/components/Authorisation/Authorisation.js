@@ -10,12 +10,6 @@ import LoginForm from "../LoginForm/LoginForm";
 
 export default function Authorisation({closeModal}){
 
-    const posts = useSelector(({ houses }) => houses.postinfo)
-
-    if(posts === ''){
-
-    }
-
     const [visibleRegistration, setVisibleRegistration] = React.useState(false)
     const [visibleLogin, setVisibleLogin] = React.useState(false)
 
@@ -23,7 +17,6 @@ export default function Authorisation({closeModal}){
         setVisibleLogin(!visibleLogin)
         setVisibleRegistration(!visibleRegistration)
     }
-
 
     return(
         <div className="authorisation-wrapper">

@@ -23,7 +23,7 @@ const CompletedCard = React.memo(function CompletedCard({onClickItem, address, s
 
   let authorized = false
 
-  if(posts !== '' && posts !== undefined){
+  if(localStorage.getItem('token') !== null){
     authorized = true
   }
 
@@ -43,13 +43,17 @@ const CompletedCard = React.memo(function CompletedCard({onClickItem, address, s
   }
 
   React.useEffect(() => {
-    axios
-        .get('http://127.0.0.1:5000/favorites/main_page',
-            {params: {category: 'house'},
-              headers: {Authorization: posts}})
-        .then(({data}) => {
-          dispatch(setHouseHeartsArray(data))
-        })
+    if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined") {
+      axios
+          .get('http://127.0.0.1:5000/favorites/main_page',
+              {
+                params: {category: 'house'},
+                headers: {Authorization: localStorage.token}
+              })
+          .then(({data}) => {
+            dispatch(setHouseHeartsArray(data))
+          })
+    }
   }, [])
 
   return (

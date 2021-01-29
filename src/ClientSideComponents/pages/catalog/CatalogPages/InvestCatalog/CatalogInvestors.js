@@ -3,7 +3,7 @@ import axios from "axios";
 import {Pagination} from "antd";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setHeartsArray, setInvestorsHouses } from "../../../../redux/actions/houses";
+import {setHeartsArray, setInvestHeartsArray, setInvestorsHouses} from "../../../../redux/actions/houses";
 
 import '../CatalogCompletedProjects.css';
 import CatalogInvestHeader from "../../CatalogHeader/CatalogInvestHeader";
@@ -18,7 +18,6 @@ function CatalogInvestors() {
     const dispatch = useDispatch();
     const investorshouses = useSelector(({houses}) => houses.investorshouses);
     const heart_ids = useSelector(({ houses }) => houses.invest_hearts_arr)
-    const posts = useSelector(({houses}) => houses.postinfo)
     const totalCount = useSelector(({ houses }) => houses.totalCountInvest)
     const currentPage = useSelector(({filters}) => filters.currentPageInvest)
     const cost = useSelector(({houses}) => houses.costArrInvest);
@@ -34,7 +33,7 @@ function CatalogInvestors() {
         axios.post('http://127.0.0.1:5000/favorites', {
             id: id,
             category: 'invest'
-        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
 
@@ -46,7 +45,7 @@ function CatalogInvestors() {
                 params: {
                     pagination: true,
                     page: currentPage,
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setInvestorsHouses(data))
             })
@@ -58,7 +57,7 @@ function CatalogInvestors() {
                     page: currentPage,
                     cost_filter: cost,
                     square_filter: square
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setInvestorsHouses(data))
             })
@@ -71,19 +70,19 @@ function CatalogInvestors() {
                     floor_filter: stringedFloors,
                     cost_filter: cost,
                     square_filter: square
-                }, headers: {Authorization: posts}
+                }, headers: {Authorization: localStorage.token}
             }).then(({data}) => {
                 dispatch(setInvestorsHouses(data))
             })
         }
 
-        if(posts !== ''){
+        if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
             axios
                 .get('http://127.0.0.1:5000/favorites/main_page',
-                    {params: {category: 'project'},
-                        headers: {Authorization: posts}})
+                    {params: {category: 'invest'},
+                        headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
-                    dispatch(setHeartsArray(data))
+                    dispatch(setInvestHeartsArray(data))
                 })
         }
 

@@ -22,7 +22,7 @@ const InvestorsCard = React.memo(function InvestorsCard({year_percent, style, co
 
   let authorized = false
 
-  if(posts !== '' && posts !== undefined){
+  if(localStorage.getItem('token') !== null){
     authorized = true
   }
 
@@ -42,13 +42,17 @@ const InvestorsCard = React.memo(function InvestorsCard({year_percent, style, co
   }
 
   React.useEffect(() => {
-    axios
-        .get('http://127.0.0.1:5000/favorites/main_page',
-            {params: {category: 'invest'},
-              headers: {Authorization: posts}})
-        .then(({data}) => {
-          dispatch(setInvestHeartsArray(data))
-        })
+    if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined") {
+      axios
+          .get('http://127.0.0.1:5000/favorites/main_page',
+              {
+                params: {category: 'invest'},
+                headers: {Authorization: localStorage.token}
+              })
+          .then(({data}) => {
+            dispatch(setInvestHeartsArray(data))
+          })
+    }
   }, [])
 
 
