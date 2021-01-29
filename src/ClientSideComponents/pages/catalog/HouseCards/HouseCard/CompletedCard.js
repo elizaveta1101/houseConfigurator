@@ -257,7 +257,7 @@ const CompletedCard = React.memo(function CompletedCard({onClickItem, address, s
           <div className="completed-price">
             <div className="completed-price__price">
               <p>Цена от</p>
-              <h1>{cost} ₽</h1>
+              <h1>{(cost).toLocaleString('ru')} ₽</h1>
             </div>
           </div>
         </div>

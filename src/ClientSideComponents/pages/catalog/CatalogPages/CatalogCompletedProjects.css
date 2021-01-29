@@ -12,7 +12,7 @@
 .pages{
     margin-left: -30px;
     width: 200px;
-    margin-top: 50px;
+    margin-top: 30px;
     height: 80px;
     display: flex;
     align-items: center;
@@ -35,7 +35,7 @@
 
     .cards-wrapper{
         width: 1800px;
-        margin-top: -30px;
+        margin-top: -70px;
 
 
         justify-self: center;

@@ -172,7 +172,7 @@
 .slick-dots li button {
 }
 
-@media (max-width: 1470px) {
+@media (max-width: 1800px) {
   .sliderbig {
     width: 700px;
     clip-path: polygon(100% 0, 100% 87%, 92% 100%, 0 100%, 0 0);
@@ -183,10 +183,29 @@
   .slick-arrow.slick-next {
     margin-left: -260px;
   }
+  .slider-arrow-bg{
+    display: none;
+  }
+  .sliderbig .slick-arrow.slick-next {
+    display: none;
+  }
+
+  .sliderbig .slick-arrow.slick-prev {
+    display: none;
+  }
 
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1168px) {
+  .sliderbig {
+    margin-top: 17px;
+  }
+  .sliderbig .slick-arrow.slick-next {
+  }
+
+  .sliderbig .slick-arrow.slick-prev {
+
+  }
   .slider {
     display: none;
   }

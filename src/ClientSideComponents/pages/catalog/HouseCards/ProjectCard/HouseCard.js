@@ -216,7 +216,7 @@ const HouseCard = React.memo(function HouseCard({onClickItem, style, bedrooms, c
           </div>
           <div className="price">
             <p>Цена от</p>
-            <h1>{cost} ₽</h1>
+            <h1>{(cost).toLocaleString('ru')} ₽</h1>
           </div>
         </div>
         <div className="card-btns">

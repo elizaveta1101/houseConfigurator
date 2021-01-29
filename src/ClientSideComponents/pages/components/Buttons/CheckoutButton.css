@@ -155,6 +155,7 @@
 
 .house-card__checkout-btn{
     background-color: transparent;
+    z-index: 22;
 
     font-family: Open Sans Light;
     font-style: normal;
@@ -362,7 +363,7 @@
     line-height: 22px;
 }
 
-@media (max-width: 1300px){
+@media (max-width: 1168px){
     .house-page__open-project-btn{
         clip-path: polygon(13% 0, 87% 0, 100% 22%, 100% 78%, 87% 100%, 13% 100%, 0 76%, 0% 22%);
         width: 170px;
@@ -370,6 +371,7 @@
     }
     .house-card__checkout-btn{
         margin-top: 40px;
+        z-index: 22;
     }
     .map-btn{
         display: flex;

@@ -120,7 +120,9 @@ function InvestorsHousePage() {
                         </div>
                     </div>
                     <div className="house-project-page__pre-btn-text">
-                        <p>id проекта:<span> {pageInfo && pageInfo.id}</span></p>
+                        <div className="house-page-id">
+                            <p>id проекта:<span> {pageInfo && pageInfo.id}</span></p>
+                        </div>
                         <div className="investors-page-button">
                             <CheckoutButton className="house-page__open-project-btn" children={'Хочу стать инвестором'} active={true}/>
                         </div>

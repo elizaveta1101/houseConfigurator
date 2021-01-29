@@ -175,7 +175,7 @@ const InvestorsCard = React.memo(function InvestorsCard({year_percent, style, co
               <p>Минимальное вложение</p>
             </div>
             <div className="completed-price__price completed-price__price__investors">
-              <h1>{cost} ₽</h1>
+              <h1>{(cost).toLocaleString('ru')} ₽</h1>
             </div>
           </div>
         </div>

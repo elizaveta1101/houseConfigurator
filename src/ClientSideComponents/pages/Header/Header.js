@@ -383,12 +383,6 @@ function Header() {
                   </ul>
                 </div>
               )}
-              {visibleHeaderPopup && (
-                <div
-                  onClick={() => setVisibleHeaderPopup(!visibleHeaderPopup)}
-                  className="black-screen-catalog"
-                />
-              )}
 
               <div className="header-icons">
                 <svg
@@ -515,8 +509,15 @@ function Header() {
                   </div>
                 )}
               </div>
+
             </div>
           </div>
+          {visibleHeaderPopup && (
+              <div
+                  onClick={() => setVisibleHeaderPopup(!visibleHeaderPopup)}
+                  className="black-screen-catalog"
+              />
+          )}
         </div>
       </div>
   )

@@ -84,7 +84,7 @@ export default function HousesCostSlider() {
             <Typography id="range-slider" gutterBottom>
                 Стоимость проекта
             </Typography>
-            <div className="slider-input">{value[0]} -<span>{value[1]}<p>₽</p></span></div>
+            <div className="slider-input">{(value[0]).toLocaleString('ru')} -<span>{(value[1]).toLocaleString('ru')}<p>₽</p></span></div>
             <PrettoSlider className="cost-slider"
                           value={value}
                           onChange={handleChange}
