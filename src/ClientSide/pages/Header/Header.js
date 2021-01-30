@@ -74,15 +74,15 @@ function Header() {
   }
 
   const handleOutsideClickCatalog = (e) => {
-    if (!e.path.includes(catalogPopupRef.current) && !e.path.includes(catalogPopupBtn.current))
+    if (!e.composedPath().includes(catalogPopupRef.current) && !e.composedPath().includes(catalogPopupBtn.current))
       setVisibleCatalogPopup(false)
   }
   const handleOutsideClickInfo = (e) => {
-    if (!e.path.includes(infoPopupRef.current) && !e.path.includes(infoPopupBtn.current))
+    if (!e.composedPath().includes(infoPopupRef.current) && !e.composedPath().includes(infoPopupBtn.current))
       setVisibleInfoPopup(false)
   }
   const handleOutsideClickCab = (e) => {
-    if (!e.path.includes(cabPopupRef.current) && !e.path.includes(cabPopupBtn.current))
+    if (!e.composedPath().includes(cabPopupRef.current) && !e.composedPath().includes(cabPopupBtn.current))
       setVisibleCabPopup(false)
   }
 

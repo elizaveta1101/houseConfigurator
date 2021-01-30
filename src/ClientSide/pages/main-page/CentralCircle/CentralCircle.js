@@ -57,35 +57,35 @@ function CentralCircle() {
   }
 
   const handleOutsideClick = (e) => {
-    if (!e.path.includes(mainBtnRef.current) && !e.path.includes(mainPopupRef.current))
+    if (!e.composedPath().includes(mainBtnRef.current) && !e.composedPath().includes(mainPopupRef.current))
       setVisibleMainPopup(false)
   }
 
   const userOutsideClick = (e) => {
     if (
-      !e.path.includes(userBtnRef.current) &&
-      !e.path.includes(registerFormRef.current) &&
-      !e.path.includes(userPopupRef.current)
+      !e.composedPath().includes(userBtnRef.current) &&
+      !e.composedPath().includes(registerFormRef.current) &&
+      !e.composedPath().includes(userPopupRef.current)
     )
       setVisibleUserPopup(false)
   }
 
   const registrOutsideClick = (e) => {
     if (
-      !e.path.includes(userBtnRef.current) &&
-      !e.path.includes(registerFormRef.current) &&
-      !e.path.includes(userPopupRef.current)
+      !e.composedPath().includes(userBtnRef.current) &&
+      !e.composedPath().includes(registerFormRef.current) &&
+      !e.composedPath().includes(userPopupRef.current)
     )
       setVisibleRegistrationPopup(false)
   }
 
   const phoneOutsideClick = (e) => {
-    if (!e.path.includes(phoneBtnRef.current) && !e.path.includes(phonePopupRef.current))
+    if (!e.composedPath().includes(phoneBtnRef.current) && !e.composedPath().includes(phonePopupRef.current))
       setVisiblePhonePopup(false)
   }
 
   const closeFormRegistr = (e) => {
-    if (e.path.includes(closeForm.current)) setVisibleRegistrationPopup(false)
+    if (e.composedPath().includes(closeForm.current)) setVisibleRegistrationPopup(false)
   }
 
   React.useEffect(() => {
