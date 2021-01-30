@@ -4,7 +4,7 @@ import axios from 'axios'
 import { MenuLinkPaths, HeaderPayloads, storageKeys } from '../data'
 import { AppContext, AuthContext } from '../context'
 import { useAuth, useRoutes } from '../hooks'
-import { history } from '..'
+import { history } from '../index'
 
 import Overlay from './overlay/overlay'
 import Header from './header/header'

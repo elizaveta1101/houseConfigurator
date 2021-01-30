@@ -21,13 +21,17 @@ const LoginForm= () => {
             .then(({ data }) => {
                 localStorage.setItem('token', data.data.token)
                 localStorage.setItem('email', data.data.email)
+                localStorage.setItem('id', data.data.id)
+                localStorage.setItem('login', data.data.login)
+                localStorage.setItem('name', data.data.name)
+                localStorage.setItem('otchestvo', data.data.otchestvo)
+                localStorage.setItem('surname', data.data.surname)
                 if(localStorage.getItem('token') !== "undefined" && localStorage.getItem('token') !== ''){
                     window.location.reload()
                 }
                 if(localStorage.getItem('token') === "undefined"){
                     dispatch(setActiveLogin(true))
                 }
-                console.log(data)
             })
     };
 

@@ -33,8 +33,8 @@ function PrivateCab() {
                                     <li>Телефон</li>
                                 </ul>
                                 <ul className="info-person">
-                                    <li>Георг</li>
-                                    <li>Мишутин</li>
+                                    <li>{localStorage.getItem('name')}</li>
+                                    <li>{localStorage.getItem('surname')}</li>
                                     <li>{localStorage.getItem('email')}</li>
                                     <li>+7 (999) 999-99-99</li>
                                 </ul>

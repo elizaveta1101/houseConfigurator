@@ -31,7 +31,6 @@ function CatalogHeader({page}){
         const GetSorted = () => {
             let stringed = category.join()
 
-
             if(stringed === '') {
                 axios.get('http://127.0.0.1:5000/project', {
                     params: {

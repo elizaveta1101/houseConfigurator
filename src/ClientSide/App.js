@@ -56,6 +56,8 @@ function App() {
         is_authorized = true
     }
 
+    console.log(localStorage)
+
     return (
         <>
             <div className="global-wrapper">
