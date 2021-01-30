@@ -13,15 +13,13 @@ import Menu from './menu/menu'
 
 import './styles.scss'
 
-const currentPage = window.location.pathname
-
 const App: React.FC = ({}) => {
   const userData = sessionStorage.getItem(storageKeys.USER_DATA)
   const { token, login, logout, userId, isAuth, ready } = useAuth()
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false)
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false)
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
-  const [activeLink, setActiveLink] = useState(currentPage)
+  const [activeLink, setActiveLink] = useState<string>()
   const routes = useRoutes(isAuth)
 
   const headerHandler = (e: React.SyntheticEvent<HTMLElement>) => {
@@ -29,7 +27,10 @@ const App: React.FC = ({}) => {
 
     const { element, link } = (e.target as HTMLElement).dataset
 
-    if (link) setActiveLink(link)
+    if (link) {
+      history.push(link)
+      setActiveLink(link)
+    }
     if (element === HeaderPayloads.logoutLink) {
       axios.get('/api/logout')
       logout()
@@ -46,10 +47,6 @@ const App: React.FC = ({}) => {
     setIsAuthMenuOpen(false)
     setIsOverlayOpen(false)
   }
-
-  useEffect(() => {
-    history.push(activeLink)
-  }, [activeLink])
 
   useEffect(() => {
     isAuth ? history.push(MenuLinkPaths.homePath) : history.push(MenuLinkPaths.authPath)

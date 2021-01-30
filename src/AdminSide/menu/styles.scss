@@ -22,6 +22,7 @@
   @include flex-element(_, normal, center);
   height: 1.1875rem;
   margin: 0.875rem 0;
+  color: $textColor;
   text-decoration: none;
 
   &_active {
