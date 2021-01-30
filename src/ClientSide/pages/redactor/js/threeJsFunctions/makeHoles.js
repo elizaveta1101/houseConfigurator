@@ -1,20 +1,39 @@
+import { get } from 'http';
 import * as THREE from 'three';
 import {ThreeBSP} from 'three-js-csg-es6';
 import appState from '../appState.js';
-import { getArea, vectorAngle } from '../extraFunctions.js';
+import { getArea, getInnerVertices, vectorAngle, pointToLineAttachment } from '../extraFunctions.js';
 
 function checkModelPosition(model, modelType) {
     let currentPosition = [model.position.x, model.position.y, 0];
     if (modelType === 'window') {
         let limitModel = appState.house.outerWalls;
-        let vertices = [];
-        vertices.push(...limitModel.vertices);
-        for (let i=vertices.length-3; i>=0; i-=3) {
-            vertices.push(limitModel.innerVertices[i], limitModel.innerVertices[i+1],limitModel.innerVertices[i+2]);
+        // let vertices = [];
+        // vertices.push(...limitModel.vertices);
+        // for (let i=vertices.length-3; i>=0; i-=3) {
+        //     vertices.push(limitModel.innerVertices[i], limitModel.innerVertices[i+1],limitModel.innerVertices[i+2]);
+        // }
+        // let data = checkPolygonAttachment(currentPosition, vertices);
+        let line = getInnerVertices(limitModel.vertices, limitModel.width/2);
+        let data = pointToLineAttachment (line, currentPosition, 0.2);
+        let position, rotation;
+        
+        if (data.minPointX && data.minPointY) {
+            position = [data.minPointX, data.minPointY, 0];
+            let i=data.firstIndex;
+            let point1 = [line[i], line[i+1], line[i+2]];
+            let point2 = [line[i+3], line[i+4], line[i+5]];
+            let vector = [point2[0]-point1[0], point2[1]-point1[1], point2[2]-point1[2]];
+            let angle = Math.acos(vectorAngle(vector, [1,0,0]));
+            if (vector[1]<0) {
+                angle = Math.PI - angle;
+                //возможны проблемы, если окно будет не симметричным (лицевая и задняя сторона окна разные)
+            }
+            rotation=angle;
         }
-        let data = checkPolygonAttachment(currentPosition, vertices);
-        if (data) {
-            return data;
+        // if (data) {
+        if (position) {
+            return {position, rotation};
         } else {
             return null;
         }
@@ -40,6 +59,12 @@ function checkPolygonAttachment(point, vertices) {
             //модель внутри 
             let vector = [point2[0]-point1[0], point2[1]-point1[1], point2[2]-point1[2]];
             let angle = Math.acos(vectorAngle(vector, [1,0,0]));
+            if (vector[1]<0) {
+                angle = Math.PI - angle;
+                //возможны проблемы, если окно будет не симметричным (лицевая и задняя сторона окна разные)
+            }
+
+            // let angle = Number(Math.acos(vectorAngle(vector, [1,0,0])).toFixed(3));
 
             let A = [(point4[0]+point1[0])/2, (point4[1]+point1[1])/2, 0];
             let B = [(point3[0]+point2[0])/2, (point3[1]+point2[1])/2, 0];
@@ -57,7 +82,10 @@ function checkPolygonAttachment(point, vertices) {
                 posX = point[0];
                 posY = point[0]*(B[1]-A[1])/(B[0]-A[0]) - (A[0]*B[1]-B[0]*A[1])/(B[0]-A[0]);
             }
-            let position = [posX, posY];
+            posX.toFixed(3);
+            posY.toFixed(3);
+            let position = [Number(posX), Number(posY)];
+            // let position = [posX, posY];
             return {rotation: angle , position};
 
         }
@@ -74,7 +102,7 @@ function getBoxPosition(models, modelType) {
 
 function getBoxSizes(modelType) {
     if (modelType === 'window' || modelType === 'door') {
-        return [null, appState.house.outerWalls.width, null];
+        return [null, appState.house.outerWalls.width+0.01, null];
     } else if (modelType === 'stairs') {
         if (appState.house.activeFloor === 'Подвал') {
             return [null, null, appState.house.basement.height];
@@ -105,16 +133,12 @@ function makeHoles(models, index, modelType, boxSizes, boxPosition) {
         appState.house.outerWallsModel.children[2].visible = false;
     } else {
         let index = Number(activeFloor) - 2;
-        console.log(appState.house.floorsModel);
         walls = appState.house.floorsModel.children[index].children[1].clone();
         wallPosition = appState.house.floorsModel.children[index].clone().position;
-        wallPosition.z += appState.house.ceiling.height;
+        wallPosition.z = (Number(activeFloor)-1)*appState.house.floorHeight+appState.house.basement.height;
         appState.house.floorsModel.children[index].children[1].children[0].visible = false;
         appState.house.floorsModel.children[index].children[1].children[2].visible = false;
     }
-    
-    // let wallWidth = appState.house.outerWalls.width;
-    // let wallPosition = walls.position;
     
     
     //----------конец временно-------------------
@@ -180,26 +204,11 @@ function makeHoles(models, index, modelType, boxSizes, boxPosition) {
     });
     
     
-    // let walls = appState.house.outerWallsModel.clone();
-    // let wallWidth = appState.house.outerWalls.width;
-    // let wallPosition = walls.position;
-    // appState.house.outerWallsModel.children[0].visible = false;
-    // appState.house.outerWallsModel.children[2].visible = false;
-    // appState.house.outerWallsModel.visible = false;
-
-    // let wallClone = walls.children[0].clone();
-    // let geometry = wallClone.geometry;
-    // if (geometry === 'BufferGeometry') {
-    //     geometry = new THREE.Geometry().fromBufferGeometry(geometry);
-    // }
-    // wallClone.geometry = geometry;
-    // console.log(wallClone);
-    // let wallBSP = new ThreeBSP(wallClone);
-    
     if (divBSP.length>0) {
-        appState.scene.children.map(child => {
+        appState.scene.remove(appState.house.house3d);
+        appState.house.house3d.children.map(child => {
             if (child.name === 'hole'+activeFloor) {
-            appState.scene.remove(child);
+                appState.house.house3d.remove(child);
             }
         });
 
@@ -221,8 +230,9 @@ function makeHoles(models, index, modelType, boxSizes, boxPosition) {
         result.position.x = wallPosition.x; 
         result.position.y = wallPosition.y; 
         result.position.z = wallPosition.z; 
-        console.log(result);
-        appState.scene.add(result); 
+        appState.house.house3d.add(result); 
+        appState.scene.add(appState.house.house3d);
+        console.log(appState.house);
     }
        
 }

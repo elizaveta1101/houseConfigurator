@@ -5,21 +5,10 @@ import CheckoutButton from "../components/Buttons/CheckoutButton";
 
 import './RedactorPage.css';
 import '../housepage/HouseProjectPage.css'
-import { useDispatch } from "react-redux";
-import { setActiveModal } from "../../redux/actions/houses";
 
 
 function RedactorPage() {
-
-    const dispatch = useDispatch()
-    let authorized = false
-
-    if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
-        authorized = true
-    }
-
     return (
-        <div>
         <div className="house-project-page-wrapper">
             <div className="redactor-wrapper">
                 <div className="redactor-pre-btn-circle">
@@ -51,16 +40,8 @@ function RedactorPage() {
                         говорит о возможностях первоочередных требований. Повседневная практика показывает, что постоянное
                         информационно-пропагандистское обеспечение нашей деятельности говорит о.</p>
                 </div>
-                {authorized ? <Link to="/constructor">
-                    <CheckoutButton className="redactor-page-btn"
-                                    children={'Создать свой уникальный проект'}
-                                    active={true}/>
-                </Link> : <CheckoutButton className="redactor-page-btn"
-                                          onClick={() => dispatch(setActiveModal(true))}
-                                          children={'Создать свой уникальный проект'}
-                                          active={true}/>}
+                <Link to="/constructor"><CheckoutButton className="redactor-page-btn" children={'Создать свой уникальный проект'} active={true} /></Link>
             </div>
-        </div>
         </div>
     );
 }

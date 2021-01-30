@@ -1,4 +1,4 @@
-import _1 from './1.png';
+import _1 from './1.jpg';
 import _2 from './2.jpg';
 import _3 from './3.png';
 import _4 from './4.png';
@@ -9,7 +9,7 @@ outerWallsTextures.push(
     {
         name: 'материал1',
         url: _1,
-        size: [0.2, 0.33],
+        size: [1, 1],
         producer: 'производитель1',
         description: 'описание, описание, описание, описание, описание, описание, описание, описание',
         price: '10 руб/м',

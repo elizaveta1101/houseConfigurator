@@ -5,6 +5,7 @@ import { changeObjCoord } from './changeObjCoord.js';
 import pick from './pickHelper.js';
 import searchPointIndex from './searchPointIndex.js';
 import {makeHoles, getBoxSizes, checkModelPosition} from '../threeJsFunctions/makeHoles.js';
+import {pointToLineAttachment} from '../extraFunctions.js';
 
 function getCoord(event, camera) {
   const canvas = document.querySelector('canvas');
@@ -28,7 +29,7 @@ function getCoord(event, camera) {
   // let distance = - camera.position.z / vec.z;
   // pos.copy( camera.position ).add( vec.multiplyScalar( distance ) );
   pos = vec;
-  let coord = [pos.x, pos.y, 0];
+  let coord = [Number(pos.x.toFixed(3)), Number(pos.y.toFixed(3)), 0];
   return coord;
 }
 
@@ -67,9 +68,55 @@ function clearPickPosition() {
   pickPosition.y = -100000;
   return pickPosition;
 }
+// function getRoundCoord(coor) {
+//   let x = coor[0],
+//       y = coor[1],
+//       // dx = 0.2,
+//       // dy = 0.2,
+//       dx = 999999,
+//       dy = 999999,
+//       changeX = false,
+//       changeY = false;
+//   let gridCellSize = appState.hatchProp.cellSize;
+//   let gridSize = appState.hatchProp.size;
+//   let gridDivisions = gridSize / gridCellSize;
+
+//   for (let i = 0; i < gridDivisions/2; i ++) {
+//       if (Math.abs(x - i*gridCellSize) <= Math.abs(dx) || Math.abs(x + i*gridCellSize) <= Math.abs(dx)) {
+//           dx = x - i*gridCellSize;
+//           // changeX=true;
+//       } else if (Math.abs(x + i*gridCellSize) <= Math.abs(dx)) {
+//         dx = x + i*gridCellSize;
+//         // changeX=true;
+//       }
+//       if (Math.abs(y - i*gridCellSize) <= Math.abs(dy) ) {
+//           dy = y - i*gridCellSize;
+//           // changeY=true;
+//       } else if (Math.abs(y + i*gridCellSize) <= Math.abs(dy)) {
+//         dy = y + i*gridCellSize;
+//         // changeY=true;
+//       }
+//   }
+  
+//   // for (let i=0; i<bound.length; i+=2) {
+//   //     if (Math.abs(y-bound[i+1]) < Math.abs(dy) && Math.abs(x-bound[i])<Math.abs(dx))
+//   //     {
+//   //         dx = x-bound[i];
+//   //         dy = y-bound[i+1];
+//   //     }
+//   // }
+//   // if (changeX) x -= dx;
+//   // if (changeY) y -= dy;
+//   x -= dx;
+//   y -= dy;
+
+//   return [Number(x.toFixed(3)), Number(y.toFixed(3))];
+// }
 
 function chooseMouseFunction(e, editMode, mouseAction, data) {
   let mousePosition = getCoord(e, appState.sceneCamera);
+  //привязка плохая---
+  // if (appState.house.viewMode === '2D') mousePosition = getRoundCoord(mousePosition);
   let stageName = data.stageName;
   if (stageName === 'basement') {
     if (editMode === 'add') {
@@ -183,8 +230,16 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
                 curveNumber++;
               }
           }
+          // let line = appState.house.outerWalls.innerVertices;
+          let pointPosition = checkInnerWallsPoint(mousePosition, activeFloor, curveNumber);
+          // let newPoint = pointToLineAttachment(line, mousePosition, 0.2);
+          // if (newPoint.minPointX && newPoint.minPointY) {
+          //   pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          // }
+          
           if (continueCreation) {
-            vertices.push(...mousePosition);
+            // vertices.push(...mousePosition);
+            vertices.push(...pointPosition);
           }
           appState.changeState('pointAdded', { vertices: vertices, stageName: 'innerWalls', curveNumber: (initialCurveNumber>curveNumber) ? curveNumber : initialCurveNumber });
           return {continueCreation: continueCreation, curveNumber: curveNumber};
@@ -198,7 +253,24 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
           } else {
             vertices = [];
           }
-          vertices.push(...mousePosition);
+          // let line = appState.house.outerWalls.innerVertices;
+          // let pointPosition = mousePosition;
+          // let newPoint = pointToLineAttachment(line, mousePosition, 0.2);
+          // if (newPoint.minPointX && newPoint.minPointY) {
+          //   pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          // }
+          // for (let i in innerWalls[activeFloor].wallsVertices) {
+          //   if (i !== curveNumber) {
+          //     line = innerWalls[activeFloor].wallsVertices[i];
+          //     newPoint = pointToLineAttachment(line, pointPosition, 0.2);
+          //     if (newPoint.minPointX && newPoint.minPointY) {
+          //       pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          //     }
+          //   }
+          // }
+          let pointPosition = checkInnerWallsPoint(mousePosition, activeFloor, curveNumber);
+          // vertices.push(...mousePosition);
+          vertices.push(...pointPosition);
           appState.changeState('pointAdding', { stageName: 'innerWalls', curveNumber: curveNumber, vertices: vertices});
           innerWalls[activeFloor].wallsVertices[curveNumber].pop();
           innerWalls[activeFloor].wallsVertices[curveNumber].pop();
@@ -272,9 +344,19 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         if (data.index !== -1) {
           let index = data.index;
           let wall = appState.house.innerWalls[activeFloor].wallsVertices[data.curveNumber];
-          wall[index] = mousePosition[0];
-          wall[index + 1] = mousePosition[1];
-          wall[index + 2] = mousePosition[2];
+          // let line = appState.house.outerWalls.innerVertices;
+          // let pointPosition = mousePosition;
+          // let newPoint = pointToLineAttachment(line, mousePosition, 0.2);
+          // if (newPoint.minPointX && newPoint.minPointY) {
+          //   pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+          // }
+          let pointPosition = checkInnerWallsPoint(mousePosition, activeFloor, curveNumber);
+          wall[index] = pointPosition[0];
+          wall[index + 1] = pointPosition[1];
+          wall[index + 2] = pointPosition[2];
+          // wall[index] = mousePosition[0];
+          // wall[index + 1] = mousePosition[1];
+          // wall[index + 2] = mousePosition[2];
           appState.changeState('shapeChanged', { stageName: 'innerWalls', curveNumber: curveNumber, index: index});
         }
       } else if (mouseAction === 'up') {
@@ -289,13 +371,12 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
       }
     }
 
-  } else if (stageName === 'verandaBasement') {
+  } else if (stageName === 'veranda') {
     if (editMode === 'add') {
       if (mouseAction === 'down') {
         e.preventDefault();
         if (e.button === 0) {
-          let vertices = appState.house[stageName].vertices.slice();
-          console.log(vertices);
+          let vertices = appState.house.verandaBasement.vertices.slice();
           if (mousePosition[0] < vertices[0] + 0.2 &&
             mousePosition[0] > vertices[0] - 0.2 &&
             mousePosition[1] < vertices[1] + 0.2 &&
@@ -305,17 +386,38 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
             mousePosition = [vertices[0], vertices[1], vertices[2]];
             appState.changeState('endAddVertices', { vertices, stageName: stageName});
             appState.editMode = 'edit';
-            console.log('edit');
           }
-          vertices.push(...mousePosition);
+          let line = appState.house.basement.vertices;
+          let pointPosition = mousePosition;
+          if (vertices.length < 6) {
+            let newPoint = pointToLineAttachment(line, mousePosition);
+            pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+            switch (vertices.length) {
+              case 0:
+                appState.house.veranda.basementVerticeIndex = { index0: newPoint.verticeIndex };
+                break;
+              case 3:
+                appState.house.veranda.basementVerticeIndex = { index0: appState.house.veranda.basementVerticeIndex.index0, index1: newPoint.verticeIndex };
+                break;
+              default:
+                break;
+            }
+          }
+          vertices.push(...pointPosition);
           appState.house.setParametrs(stageName, vertices);
           appState.changeState('pointAdded', { vertices, stageName: stageName });
         }
         return null;
       } else if (mouseAction === 'move') {
         e.preventDefault();
-        let vertices = appState.house[stageName].vertices.slice();
-        vertices.push(...mousePosition);
+        let vertices = appState.house.verandaBasement.vertices.slice();
+        let line = appState.house.basement.vertices;
+        let pointPosition = mousePosition;
+        if (vertices.length < 6) {
+          let newPoint = pointToLineAttachment(line, mousePosition);
+          pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+        }
+        vertices.push(...pointPosition);
         appState.changeState('pointAdding', { vertices: vertices, stageName: stageName });
         return null;
       } else if (mouseAction === 'up') {
@@ -331,7 +433,7 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
           let pointPos = [], index = -1;
           if (picked) {
             pointPos = picked.position;
-            index = searchPointIndex(appState.house[stageName], pointPos);
+            index = searchPointIndex(appState.house.verandaBasement, pointPos);
             if (index !== -1) {
               picked.object.material.color.set(0xFF0000);
             }
@@ -345,7 +447,27 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         return null;
       } else if (mouseAction === 'move') {
         if (data.index !== -1) {
-          changeObjCoord(appState.house[stageName], data.index, mousePosition);
+          let line = appState.house.basement.vertices;
+          let pointPosition = mousePosition;
+          if (data.index < 6) {
+            let newPoint = pointToLineAttachment(line, mousePosition);
+            pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+            let secondPoint;
+            switch (data.index) {
+              case 0:
+                secondPoint = pointToLineAttachment(line, [appState.house.verandaBasement.vertices[3], appState.house.verandaBasement.vertices[4], appState.house.verandaBasement.vertices[5]]);
+                appState.house.veranda.basementVerticeIndex = { index0: newPoint.verticeIndex, index1: secondPoint.verticeIndex };
+                break;
+              case 3:
+                secondPoint = pointToLineAttachment(line, [appState.house.verandaBasement.vertices[0], appState.house.verandaBasement.vertices[1], appState.house.verandaBasement.vertices[2]]);
+                appState.house.veranda.basementVerticeIndex = { index0: secondPoint.verticeIndex, index1: newPoint.verticeIndex };
+                break;
+              default:
+                break;
+            }
+            
+          }
+          changeObjCoord(appState.house.verandaBasement, data.index, pointPosition);
           appState.changeState('shapeChanged', data);
         }
         return null;
@@ -404,8 +526,9 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         models.children.map(model => {
           let result = checkModelPosition(model, 'window');
           if (!result) {
-            model.rotation.z=0;
+            // model.rotation.z=0;
           } else {
+            // if (result.rotation!=NaN)
             model.rotation.z=result.rotation;
             boxPosition = [result.position[0], result.position[1], model.position.z];
             model.position.x = result.position[0];
@@ -430,6 +553,26 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
     }
     
   }
+}
+
+function checkInnerWallsPoint(mousePosition, activeFloor, curveNumber) {
+  let innerWalls = appState.house.innerWalls;
+  let line = appState.house.outerWalls.innerVertices;
+  let pointPosition = mousePosition;
+  let newPoint = pointToLineAttachment(line, mousePosition, 0.2);
+  if (newPoint.minPointX && newPoint.minPointY) {
+    pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+  }
+  for (let i in innerWalls[activeFloor].wallsVertices) {
+    if (i !== curveNumber) {
+      line = innerWalls[activeFloor].wallsVertices[i];
+      newPoint = pointToLineAttachment(line, pointPosition, 0.2);
+      if (newPoint.minPointX && newPoint.minPointY) {
+        pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+      }
+    }
+  }
+  return pointPosition;
 }
 
 export { getCoord, setPickPosition, clearPickPosition, chooseMouseFunction };

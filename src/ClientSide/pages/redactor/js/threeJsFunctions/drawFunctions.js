@@ -9,7 +9,7 @@ import {
     calcTextureCoord
 } from './calcTextureCoord.js';
 import * as earcut from 'earcut';
-import { BackSide } from 'three';
+import { BackSide, RGBA_ASTC_10x5_Format } from 'three';
 
 
 
@@ -29,7 +29,7 @@ function drawObject(obj, translation) {
         // const material = new THREE.MeshPhongMaterial({ color,  });
         const material = new THREE.MeshPhongMaterial({
             color,
-            map: texture
+            map: texture,
         });
         material.side = THREE.DoubleSide;
         let upPolygon;
@@ -124,8 +124,8 @@ function drawRoof(obj) {
 
     let roofHeight = 2; //высота крыши
     let roofUpScale = 1; // масштабирование верхней плоскости крыши
-    const outerVertices = obj.getInnerVertices(-obj.width);
-    const downVertices = [...outerVertices, ...vertices];
+    let outerVertices = obj.getInnerVertices(-obj.width);
+    let downVertices = [...outerVertices, ...vertices];
     const upVertices = obj.getInnerVertices(roofUpScale); //задание верхней плоскости крыши с масштабированием
     // Задание внутренней высоты крыши
     for (let i = 2; i < upVertices.length; i += 3) {
@@ -193,6 +193,50 @@ function drawRoof(obj) {
         calcTextureCoord(sideSurface, obj, 'roof' + type);
     }
 
+    if (type === 'veranda') {
+
+        // for (let i = 0; i < 6; i += 3) {
+
+        //     outerVertices[i] = vertices[i];
+        // }
+        // for (let i = outerVertices.length - 3; i < outerVertices.length; i ++) {outerVertices[i] = vertices[i];}
+        // downVertices = [...outerVertices, ...vertices];
+
+        // //доработать drawPolygon (сейчас только для верхних делает)
+        // //-------------------кусок из drawPolygon--------------------
+        // for (let i = 0; i < downVertices.length; i += 3) {
+        //     downSurface.vertices.push(new THREE.Vector3(downVertices[i], downVertices[i + 1], downVertices[i + 2]));
+        // }
+        // let triangulation = [];
+        // triangulation = earcut(downVertices, [vertices.length / 3], 3);
+        // for (let i = 0; i < triangulation.length; i += 3) {
+        //     downSurface.faces.push(new THREE.Face3(triangulation[i], triangulation[i + 1], triangulation[i + 2]));
+        // }
+        // downSurface.computeFaceNormals();
+
+        //-------------------конец кусок из drawPolygon--------------------
+
+        for (let i = 0; i < outerVertices.length; i += 3) {
+            sideSurface.vertices.push(new THREE.Vector3(outerVertices[i], outerVertices[i + 1], outerVertices[i + 2]));
+        }
+        let controlPoint = [];
+        controlPoint[0] = ((vertices[3] - vertices[0]) / 2) + vertices[0];
+        controlPoint[1] = ((vertices[4] - vertices[1]) / 2) + vertices[1];
+        // let controlPoint = extraFunctions.getPolygonCenter(outerVertices);
+        controlPoint[2] = obj.height / 2;
+        sideSurface.vertices.push(new THREE.Vector3(controlPoint[0], controlPoint[1], controlPoint[2]));
+
+        let length = outerVertices.length;
+        //цикл по всем без последней, потому что у нас есть замыкающая точка, равная первой
+        //у контрольной точки индекс будет равен length/3, потому что в массив вершин 
+        //она не добавлялась, только в геометрию
+        for (let i = 0; i < length / 3 - 1; i++) {
+            sideSurface.faces.push(new THREE.Face3(i + 1, i, length / 3));
+        }
+        sideSurface.computeFaceNormals();
+        calcTextureCoord(sideSurface, obj, 'roof1');
+    }
+
     surface.add(new THREE.Mesh(downSurface, material), new THREE.Mesh(sideSurface, material));
     if (upSurface) {
         surface.add(new THREE.Mesh(upSurface, material));
@@ -250,9 +294,39 @@ function drawPolygon(obj, fill) {
     return polygon;
 }
 
-function drawDot(dotPos) {
+function drawWideLine(vertices) {
+    const geometry = new THREE.Geometry();
+
+    const material = new THREE.MeshPhongMaterial({
+        color: new THREE.Color('rgb(100,100,100)'),
+    });
+    material.side = THREE.DoubleSide;
+    let length = vertices.length;
+    //добавляем вершины
+    for (let i = 0; i < length - 2; i += 3) {
+        geometry.vertices.push(new THREE.Vector3(vertices[i], vertices[i + 1], vertices[i + 2]));
+    }
+
+    // for (let i = 0; i < length/3-3; i += 2) {
+    //     geometry.faces.push(new THREE.Face3(i, i+1, i+2));
+    //     geometry.faces.push(new THREE.Face3(i+1, i+3, i+2));
+    // }
+    let count = length/3;
+    let lastNum = count-2
+    for (let i = 0; i < (count-1)/2; i ++) {
+        geometry.faces.push(new THREE.Face3(i, i+1, lastNum-1-i));
+        geometry.faces.push(new THREE.Face3(i, lastNum-1-i, lastNum-i));
+    }
+
+    geometry.computeVertexNormals();
+    const polygon = new THREE.Mesh(geometry, material);
+    return polygon;
+}
+
+function drawDot(dotPos, opacity) {
     let windowWidth = document.documentElement.clientWidth;
     let size;
+    if (!opacity) {opacity = 1;}
     if (windowWidth < 1024) {
         size = 0.5;
     } else {
@@ -260,14 +334,19 @@ function drawDot(dotPos) {
     }
     let geometry = new THREE.CircleBufferGeometry(size, 100);
     let material = new THREE.MeshBasicMaterial({
-        color: 0x000000
+        color: 0x000000,
+        opacity: opacity,
+        transparent: true,
+        polygonOffset: true,
+        polygonOffsetFactor: -1.0,
+        polygonOffsetUnits: -4.0
     });
     let dot = new THREE.Mesh(geometry, material);
     dot.position.x = dotPos[0];
     dot.position.y = dotPos[1];
     dot.position.z = dotPos[2];
     return dot;
-}
+} 
 
 function clearScene(scene, objects) {
     while (scene.children.length > objects) {
@@ -288,7 +367,7 @@ function drawLine(vertices, color) {
         });
     }
     const geometry = new THREE.BufferGeometry();
-    vertices = vertices.map(el => el.toFixed(3));
+    // vertices = vertices.map(el => el.toFixed(3));
     geometry.setAttribute(
         'position',
         new THREE.BufferAttribute(new Float32Array(vertices), 3));
@@ -347,19 +426,11 @@ function drawSphere(radius) {
 }
 
 
-function drawInnerWall() {
-
-}
-
-function drawInnerWallPlan() {
-    
-}
-
-
 export {
     drawObject,
     drawPolygon,
     drawRoof,
+    drawWideLine,
     drawLine,
     drawDot,
     clearScene,

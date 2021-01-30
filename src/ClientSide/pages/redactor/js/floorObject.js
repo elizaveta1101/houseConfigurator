@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {getBisectorPoint, vectorAngle} from './extraFunctions.js';
+import {getBisectorPoint, vectorAngle, getTurn} from './extraFunctions.js';
 
 //класс для описания всего этажа (какие стены есть, какие комнаты)
 class floorObject {
@@ -36,7 +36,6 @@ class floorObject {
                 x3 = vertices[3]; y3 = vertices[4];
                 let inside = getBisectorPoint([x1 - x2, y1 - y2], [x3 - x2, y3 - y2], x2, y2, this.width, 'left');
                 let outer = getBisectorPoint([x1 - x2, y1 - y2], [x3 - x2, y3 - y2], x2, y2, this.width, 'right');
-    
                 wallArrayInside.push(inside[0], inside[1], vertices[2]);
                 wallArrayOuter.push(outer[0], outer[1], vertices[2]);
             } else {
@@ -49,20 +48,31 @@ class floorObject {
                 if ((y1<y2 && x1<x2) || (x1>x2 && y1>y2)) {
                     flag=true;
                 } 
-                let start=getNeighbours(x1, y1, sinA, this.width, flag); 
+                //отрицательной шириной меняем порядок добавления крайних вершин
+                let start;
+                if (y2<y1) {
+                    start = getNeighbours(x1, y1, sinA, -this.width, flag);
+                } else {
+                    start = getNeighbours(x1, y1, sinA, this.width, flag);
+                }
                 x1 = vertices[len-6]; y1 = vertices[len-5];
                 x2 = vertices[len-3]; y2 = vertices[len-2];
                 sinA = Math.abs(x2-x1)/(Math.sqrt(Math.pow((x2-x1), 2) + Math.pow((y2-y1), 2)));
+                flag=false;
                 if ((y1<y2 && x1<x2) || (x1>x2 && y1>y2)) {
                     flag=true;
                 } 
-                let end = getNeighbours(x2, y2, sinA, this.width, flag);
+                 //отрицательной шириной меняем порядок добавления крайних вершин
+                let end;
+                if (y2<y1) {
+                    end = getNeighbours(x2, y2, sinA, -this.width, flag);
+                } else {
+                    end = getNeighbours(x2, y2, sinA, this.width, flag);
+                }
                 wallArrayInside.unshift(start[0], start[1], vertices[2]);
                 wallArrayOuter.unshift(start[2], start[3], vertices[2]);
-                // wallArrayInside.push(end[2], end[3], vertices[2]);
                 wallArrayInside.push(end[0], end[1], vertices[2]);
-                // wallArrayOuter.push(end[0], end[1], vertices[2]);
-                wallArrayOuter.push(end[2], end[3], vertices[2]);
+                wallArrayOuter.push(end[2], end[3], vertices[2]);            
             }
             result[index].push(...wallArrayInside);
             for (let i=count*3-3; i>=0; i-=3) {
@@ -85,19 +95,19 @@ function getNeighbours(x, y, sinA, width, flag) {
     if (flag) {
         xn=x-cosA*width;
         yn=y+sinA*width;
-        vertices.push(xn, yn);
+        vertices.push(Number(xn.toFixed(3)), Number(yn.toFixed(3)));
 
         xn=x+cosA*width;
         yn=y-sinA*width;
-        vertices.push(xn, yn);
+        vertices.push(Number(xn.toFixed(3)), Number(yn.toFixed(3)));
     } else {
-        xn=x+cosA*width;
-        yn=y+sinA*width;
-        vertices.push(xn, yn);
-
         xn=x-cosA*width;
         yn=y-sinA*width;
-        vertices.push(xn, yn);
+        vertices.push(Number(xn.toFixed(3)), Number(yn.toFixed(3)));
+
+        xn=x+cosA*width;
+        yn=y+sinA*width;
+        vertices.push(Number(xn.toFixed(3)), Number(yn.toFixed(3)));
     }
 
     return vertices;

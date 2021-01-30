@@ -32,12 +32,15 @@ class SettingsBtn extends React.Component {
 
     changeHatchSize(event) {
         let cellsize = Number(event.target.value);
+        // if (cellsize > 0.05) {
             appState.changeState('changeHatchCellSize', cellsize);
             this.setState({
                 hatchCellSize: appState.hatchProp.cellSize,
             });
+        // }
+        
     }
-
+    
 
     render() {
         return (

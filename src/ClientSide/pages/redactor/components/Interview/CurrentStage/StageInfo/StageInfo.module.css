@@ -108,12 +108,14 @@
   width: max-content;
 
   margin-top: 10px;
+
+  font-family: Open Sans Light;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 600;
   font-size: 14px;
   line-height: 22px;
 
-  color: #262626;
+  color: #8C8C8C;
 }
 
 .label{

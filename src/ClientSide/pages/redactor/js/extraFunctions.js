@@ -1,5 +1,3 @@
-import { RGBA_ASTC_10x10_Format } from "three";
-
 function getBisectorPoint(a, b, x, y, width, round) {
     let c = [], d = [];
     let k = (round === 'left') ? -1 : 1;
@@ -18,6 +16,8 @@ function getBisectorPoint(a, b, x, y, width, round) {
     d = setVectorLength(cos2A, width, c);
     d[0] = d[0] + x;
     d[1] = d[1] + y;
+    d[0] = Number(d[0].toFixed(3));
+    d[1] = Number(d[1].toFixed(3));
     return d;
 }
 
@@ -48,11 +48,12 @@ function vectorAngle(v1, v2) {
 
 function setVectorLength(cos, width, vec) {
     let sinA, k, result = [];
-    if (cos !== 0) {
+    // if (cos !== 0) {
         sinA = Math.sqrt((1 - cos) / 2);
         width = width / sinA;
-    }
-    k = width * Math.sqrt(2 / (Math.pow(vec[0], 2) + Math.pow(vec[1], 2)));
+    // }
+    // k = width * Math.sqrt(2 / (Math.pow(vec[0], 2) + Math.pow(vec[1], 2)));
+    k = width/absVector(vec);
     result.push(k * vec[0], k * vec[1]);
     return result;
 }
@@ -143,8 +144,9 @@ function getPolygons(vertices) {
     // return result;
 }
 
-function getTurn(a,b) {
-    let mult = a.x*b.y - a.y*b.x;
+function getTurn(vertices) {
+    let mult = getArea(vertices);
+    // let mult = a.x*b.y - a.y*b.x;
     if (mult > 0) {
         return 'left';
     } else if (mult === 0) {
@@ -154,4 +156,266 @@ function getTurn(a,b) {
     }
 }
 
-export {getBisectorPoint, absVector, vectorAngle, getArea, convertToCoor, getPolygonCenter, getPolygons };
+function getInnerVertices(vertices, width) {
+    if (vertices.length !== 0) {
+        let innerVertices = [];
+        let result = [];
+        let s = getArea(vertices);
+        let round;
+        let x1, y1, x2, y2, x3, y3;
+
+        if (s > 0) {
+            round = 'left'; //против часовой
+        } else {
+            round = 'right'; //по часовой
+        }
+
+        for (let i = 3; i < vertices.length - 3; i += 3) {
+            x1 = vertices[i - 3]; y1 = vertices[i - 2];
+            x2 = vertices[i]; y2 = vertices[i + 1];
+            x3 = vertices[i + 3]; y3 = vertices[i + 4];
+            result = getBisectorPoint([x1 - x2, y1 - y2], [x3 - x2, y3 - y2], x2, y2, width, round);
+            innerVertices.push(result[0], result[1], vertices[2]);
+        }
+
+        let len = vertices.length;
+        x1 = vertices[len - 6]; y1 = vertices[len - 5];
+        x2 = vertices[0]; y2 = vertices[1];
+        x3 = vertices[3]; y3 = vertices[4];
+        result = getBisectorPoint([x1 - x2, y1 - y2], [x3 - x2, y3 - y2], x2, y2, width, round);
+        innerVertices.unshift(result[0], result[1], vertices[2]);
+        innerVertices.push(result[0], result[1], vertices[2]);
+        return innerVertices;
+    } else {
+        // console.error('Нельзя определить внутренние вершины, так как не определены основные вершины!');
+        return [];
+    }
+}
+
+// function pointToLineAttachment (lineVertices, pointCoord, minDistance) {
+//     // let minDistance = 1000;
+//     if (!minDistance) {
+//         minDistance = 1000;
+//     }
+//     let minPointX;
+//     let minPointY;
+//     let verticeIndex;
+//     for (let i = 0; i < lineVertices.length - 3; i += 3) {
+//         let a = lineVertices[i + 1] - lineVertices[i + 4];
+//         let b = lineVertices[i + 3] - lineVertices[i];
+//         let c = lineVertices[i] * lineVertices[i + 4] - lineVertices[i + 3] * lineVertices[i + 1];
+//         let distance = Math.abs(a * pointCoord[0] + b * pointCoord[1] + c) / Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+//         if (distance <= minDistance) {
+//             verticeIndex = i;
+//             minDistance = distance;
+//             minPointX = (b * (b * pointCoord[0] - a * pointCoord[1]) - a * c) / (Math.pow(a, 2) + Math.pow(b, 2));
+//             minPointY = (a * (-b * pointCoord[0] + a * pointCoord[1]) - b * c) / (Math.pow(a, 2) + Math.pow(b, 2));
+//             if (minPointX > lineVertices[i] && minPointX > lineVertices[i + 3]) {
+//                 if (lineVertices[i] > lineVertices[i + 3]) {
+//                     minPointX = lineVertices[i];
+//                 }
+//                 else {
+//                     minPointX = lineVertices[i + 3];
+//                     verticeIndex = i + 3;
+//                 }
+//             }
+//             else if (minPointX < lineVertices[i] && minPointX < lineVertices[i + 3]) {
+//                 if (lineVertices[i] < lineVertices[i + 3]) {
+//                     minPointX = lineVertices[i];
+//                 }
+//                 else {
+//                     minPointX = lineVertices[i + 3];
+//                     verticeIndex = i + 3;
+//                 }
+//             }
+//             if (minPointY > lineVertices[i + 1] && minPointY > lineVertices[i + 4]) {
+//                 if (lineVertices[i + 1] > lineVertices[i + 4]) {
+//                     minPointY = lineVertices[i + 1];
+//                 }
+//                 else {
+//                     minPointY = lineVertices[i + 4];
+//                     verticeIndex = i + 3;
+//                 }
+//             }
+//             else if (minPointY < lineVertices[i + 1] && minPointY < lineVertices[i + 4]) {
+//                 if (lineVertices[i + 1] < lineVertices[i + 4]) {
+//                     minPointY = lineVertices[i + 1];
+//                 }
+//                 else {
+//                     minPointY = lineVertices[i + 4];
+//                     verticeIndex = i + 3;
+//                 }
+//             }
+//         }
+//     }
+//     return ({minPointX: minPointX, minPointY: minPointY, verticeIndex: verticeIndex});
+// }
+
+
+function pointToLineAttachment (lineVertices, pointCoord, minDistance) {
+    // let minDistance = 1000;
+    if (!minDistance) {
+        minDistance = 1000;
+    }
+    
+    let minPointX;
+    let minPointY;
+    let verticeIndex;
+    let coefA;
+    let coefB;
+    let coefC;
+    let indexes = [];
+    for (let i = 0; i < lineVertices.length - 3; i += 3) {
+        let a = lineVertices[i + 1] - lineVertices[i + 4];
+        let b = lineVertices[i + 3] - lineVertices[i];
+        let c = lineVertices[i] * lineVertices[i + 4] - lineVertices[i + 3] * lineVertices[i + 1];
+        let distance = Math.abs(a * pointCoord[0] + b * pointCoord[1] + c) / Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+        if (distance < minDistance) {
+            // verticeIndex = i;
+            indexes = []
+            indexes.push(i);
+            minDistance = distance;
+            coefA = a;
+            coefB = b;
+            coefC = c;
+            
+        }
+        else if (distance === minDistance) {
+            indexes.push(i);
+        }
+    }
+    minPointX = (coefB * (coefB * pointCoord[0] - coefA * pointCoord[1]) - coefA * coefC) / (Math.pow(coefA, 2) + Math.pow(coefB, 2));
+    minPointY = (coefA * (-coefB * pointCoord[0] + coefA * pointCoord[1]) - coefB * coefC) / (Math.pow(coefA, 2) + Math.pow(coefB, 2));
+    verticeIndex = selectCoord(indexes, minPointX, minPointY, lineVertices);
+    let i=verticeIndex;
+    if (minPointX > lineVertices[i] && minPointX > lineVertices[i + 3]) {
+        if (lineVertices[i] > lineVertices[i + 3]) {
+            minPointX = lineVertices[i];
+        }
+        else {
+            minPointX = lineVertices[i + 3];
+            verticeIndex = i + 3;
+        }
+    }
+    else if (minPointX < lineVertices[i] && minPointX < lineVertices[i + 3]) {
+        if (lineVertices[i] < lineVertices[i + 3]) {
+            minPointX = lineVertices[i];
+        }
+        else {
+            minPointX = lineVertices[i + 3];
+            verticeIndex = i + 3;
+        }
+    }
+    if (minPointY > lineVertices[i + 1] && minPointY > lineVertices[i + 4]) {
+        if (lineVertices[i + 1] > lineVertices[i + 4]) {
+            minPointY = lineVertices[i + 1];
+        }
+        else {
+            minPointY = lineVertices[i + 4];
+            verticeIndex = i + 3;
+        }
+    }
+    else if (minPointY < lineVertices[i + 1] && minPointY < lineVertices[i + 4]) {
+        if (lineVertices[i + 1] < lineVertices[i + 4]) {
+            minPointY = lineVertices[i + 1];
+        }
+        else {
+            minPointY = lineVertices[i + 4];
+            verticeIndex = i + 3;
+        }
+    }
+    return ({minPointX: minPointX, minPointY: minPointY, verticeIndex: verticeIndex, firstIndex: i});
+}
+
+function compareCoord (indexes, x, y, lineVertices) {
+    let x1 = x;
+    let y1 = y;
+    let verticeIndex = indexes[0];
+    let firstIndex = indexes[0];
+    let state = [];
+    let needBrake = false;
+    for (let j = 0; j < indexes.length; j ++) {
+        let i = indexes[j];
+        if (x > lineVertices[i] && x > lineVertices[i + 3]) {
+            if (lineVertices[i] > lineVertices[i + 3]) {
+                if (j > 0) {
+                    if (state[j - 1] === 'min') {
+                        needBrake = true;
+                    }
+                    else {
+                        x1 = lineVertices[i];
+                        verticeIndex = i;
+                    }
+                }
+            }
+            else {
+                x1 = lineVertices[i + 3];
+                firstIndex = i;
+                verticeIndex = i + 3;
+            }
+            state.push('max');
+        }
+        else if (x < lineVertices[i] && x < lineVertices[i + 3]) {
+            if (lineVertices[i] < lineVertices[i + 3]) {
+                x1 = lineVertices[i];
+                verticeIndex = i;
+            }
+            else {
+                x1 = lineVertices[i + 3];
+                firstIndex = i;
+                verticeIndex = i + 3;
+            }
+            state.push('min');
+        }
+        else {x1 = x; needBrake = true;}
+        if (y > lineVertices[i + 1] && y > lineVertices[i + 4]) {
+            if (lineVertices[i + 1] > lineVertices[i + 4]) {
+                y1 = lineVertices[i + 1];
+                verticeIndex = i;
+            }
+            else {
+                y1 = lineVertices[i + 4];
+                firstIndex = i;
+                verticeIndex = i + 3;
+            }
+            state.push('max');
+            if (needBrake) break;
+        }
+        else if (y < lineVertices[i + 1] && y < lineVertices[i + 4]) {
+            if (lineVertices[i + 1] < lineVertices[i + 4]) {
+                y1 = lineVertices[i + 1];
+                verticeIndex = i;
+            }
+            else {
+                y1 = lineVertices[i + 4];
+                firstIndex = i;
+                verticeIndex = i + 3;
+            }
+            state.push('min');
+            if (needBrake) break;
+        }
+        else {y1 = y; break;}
+    }
+    return ({x1: x1, y1: y1, verticeIndex: verticeIndex, firstIndex: firstIndex});
+}
+
+function selectCoord  (indexes, x, y, lineVertices) {
+    let verticeIndex = indexes[0];
+    let minDistance = 1000;
+    for (let j = 0; j < indexes.length; j ++) {
+        let i = indexes[j];
+        let distance1 = Math.sqrt((x - lineVertices[i]) * (x - lineVertices[i]) + (y - lineVertices[i + 1]) * (y - lineVertices[i + 1]));
+        let distance2 = Math.sqrt((x - lineVertices[i + 3]) * (x - lineVertices[i + 3]) + (y - lineVertices[i + 3 + 1]) * (y - lineVertices[i + 3 + 1]));
+        if (distance1 < minDistance || distance2 < minDistance) {
+            if (distance1 < distance2) {
+                minDistance = distance1;
+            }
+            else {
+                minDistance = distance2;
+            }
+            verticeIndex = i;
+        }
+    }
+    return (verticeIndex);
+}
+export {getBisectorPoint, absVector, vectorAngle, getArea, convertToCoor, getPolygonCenter, getPolygons, getTurn, pointToLineAttachment, getInnerVertices };

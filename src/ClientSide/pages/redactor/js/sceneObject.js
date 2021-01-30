@@ -41,9 +41,9 @@ class sceneObject {
             let x1, y1, x2, y2, x3, y3;
 
             if (s > 0) {
-                round = 'left';
+                round = 'left'; //против часовой
             } else {
-                round = 'right';
+                round = 'right'; //по часовой
             }
 
             for (let i = 3; i < this.vertices.length - 3; i += 3) {
