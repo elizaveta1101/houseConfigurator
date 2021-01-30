@@ -15,7 +15,6 @@
   color: #444444;
 
   border-bottom: 2px solid #325FFF;
-
 }
 
 .description {
@@ -46,7 +45,7 @@
 }
 
 .label input {
-  width: 234px;
+  width: 227px;
   height: 20px;
   border: 1px solid #D9D9D9;
   border-radius: 2px;
@@ -67,7 +66,7 @@
 
 .select{
   margin-bottom: 8px;
-  width: 240px;
+  width: 235px;
   height: 30px;
   border: 1px solid #D9D9D9;
   border-radius: 2px;

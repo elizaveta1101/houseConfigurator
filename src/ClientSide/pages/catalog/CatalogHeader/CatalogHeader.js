@@ -12,7 +12,7 @@ import CostSlider from "../../components/CostSlider/CostSlider";
 import SquareSlider from "../../components/SquareSlider/SquareSlider";
 
 import './CatalogHeader.css';
-import { catalogHouses, catalogInvests, catalogProjects } from "../../../data/constants";
+import {catalogHouses, catalogInvests, catalogProjects, HostURL} from "../../../data/constants";
 
 
 
@@ -32,7 +32,7 @@ function CatalogHeader({page}){
             let stringed = category.join()
 
             if(stringed === '') {
-                axios.get('http://127.0.0.1:5000/project', {
+                axios.get(`${HostURL}project`, {
                     params: {
                         pagination: true,
                         page: 1,
@@ -44,7 +44,7 @@ function CatalogHeader({page}){
                 })
             }
             else {
-                axios.get('http://127.0.0.1:5000/project', {
+                axios.get(`${HostURL}project`, {
                     params: {
                         pagination: true,
                         page: 1,

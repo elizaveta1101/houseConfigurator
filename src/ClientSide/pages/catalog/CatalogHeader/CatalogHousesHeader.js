@@ -8,7 +8,7 @@ import { setCategoryHouses, setCurrentPage } from '../../../redux/actions/filter
 import { useDispatch, useSelector } from "react-redux";
 import { setCompletedHouses } from "../../../redux/actions/houses";
 
-import { catalogHouses, catalogInvests, catalogProjects } from "../../../data/constants";
+import {catalogHouses, catalogInvests, catalogProjects, HostURL} from "../../../data/constants";
 import HousesCostSlider from "../../components/CostSlider/HousesCostSlider";
 import HousesSquareSlider from "../../components/SquareSlider/HousesSquareSlider";
 
@@ -30,7 +30,7 @@ function CatalogHousesHeader({page}){
         let stringed = category.join()
 
         if(stringed === '') {
-            axios.get('http://127.0.0.1:5000/house', {
+            axios.get(`${HostURL}house`, {
                 params: {
                     pagination: true,
                     page: 1,
@@ -42,7 +42,7 @@ function CatalogHousesHeader({page}){
             })
         }
         else {
-            axios.get('http://127.0.0.1:5000/house', {
+            axios.get(`${HostURL}house`, {
                 params: {
                     pagination: true,
                     page: 1,

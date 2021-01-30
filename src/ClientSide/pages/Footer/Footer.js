@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import CheckoutButton from "../components/Buttons/CheckoutButton";
 
 import './Footer.css';
+import {catalogHouses, catalogInvests, catalogProjects} from "../../data/constants";
 
 
 function Footer() {
@@ -21,10 +22,10 @@ function Footer() {
                 <div className="secondary-links">
                     <Link to="/redactor_page"><h1>Конструктор проекта</h1></Link>
                     <h1 className="h1-after"><Link to="/cat_comp_proj">Каталог</Link></h1>
-                    <p><Link to="/catalog">Готовые проекты</Link></p>
-                    <p><Link to="/catalog_comp_houses">Готовые дома</Link></p>
-                    <p><Link to="/catalog_investors_houses">Инвестиционные проекты</Link></p>
-                    <h1 className="h1-after"><Link to="/catalog_investors_houses">Инвесторам</Link></h1>
+                    <p><Link to={catalogProjects}>Готовые проекты</Link></p>
+                    <p><Link to={catalogHouses}>Готовые дома</Link></p>
+                    <p><Link to={catalogInvests}>Инвестиционные проекты</Link></p>
+                    <h1 className="h1-after"><Link to={catalogInvests}>Инвесторам</Link></h1>
                 </div>
                 <div className="footer-contacts">
                     <h1>Контакты</h1>
@@ -41,11 +42,11 @@ function Footer() {
                     <h1>Конструктор проекта</h1>
                     <h1><Link to="/cat_comp_proj">Каталог</Link></h1>
 
-                    <p><Link to="/cat_comp_proj">Готовые проекты</Link></p>
-                    <p><Link to="/cat_comp_houses">Готовые дома</Link></p>
-                    <p><Link to="/cat_for_investors">Инвестиционные проекты</Link></p>
+                    <p><Link to={catalogProjects}>Готовые проекты</Link></p>
+                    <p><Link to={catalogHouses}>Готовые дома</Link></p>
+                    <p><Link to={catalogInvests}>Инвестиционные проекты</Link></p>
 
-                    <h1>Инвесторам</h1>
+                    <Link to={catalogInvests}><h1>Инвесторам</h1></Link>
                 </div>
                 <div className="contacts-768">
                     <h1>О нас</h1>

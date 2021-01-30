@@ -82,7 +82,20 @@ export default function SquareSlider() {
             <Typography id="range-slider" gutterBottom>
                 Площадь дома
             </Typography>
-            <div className="slider-input">{value[0]} -<span>{value[1]} <p>кв м</p></span></div>
+            {square !== '' && square !== '0-NaN' ?
+                <div className="slider-input">
+                    {value[0]} -
+                    <span>
+                        {value[1]} <p>кв м</p>
+                    </span>
+                </div> :
+                <div className="slider-input">
+                    {0} -
+                    <span>
+                        {0} <p>кв м</p>
+                    </span>
+                </div>
+            }
             <PrettoSlider className="cost-slider"
                           value={value}
                           onChange={handleChange}

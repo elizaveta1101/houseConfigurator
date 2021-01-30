@@ -1,7 +1,7 @@
 .nextStageBtn {
   position: absolute;
-  bottom: 3vh;
-  right: 3vh;
+  bottom: 30px;
+  right: 30px;
   padding: 3px 6px;
   cursor: pointer;
   outline: none;
@@ -30,8 +30,8 @@
   cursor: pointer;
   outline: none;
   position: absolute;
-  bottom: 3vh;
-  left: 3vh;
+  bottom: 30px;
+  left: 30px;
   padding: 3px 6px;
 
   width: 80px;
@@ -54,4 +54,49 @@
     left: 20px;
     padding: 5px 10px;
   }
+}
+
+.prevStageBtnDisabled {
+  cursor: default;
+  outline: none;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 5px 10px;
+
+  width: 80px;
+  height: 40px;
+
+  background-color: white;
+  border: 1px solid #8C8C8C;
+
+  font-family: Open Sans Light;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #8C8C8C;
+}
+
+.nextStageBtnDisabled {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 5px 10px;
+  cursor: default;
+  outline: none;
+  width: 80px;
+  height: 40px;
+
+  background-color: white;
+  border: 1px solid #8C8C8C;
+
+  font-family: Open Sans Light;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #8C8C8C;
 }

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setInvestorsHouses } from "../../../redux/actions/houses";
 
 import './CatalogHeader.css';
-import { catalogHouses, catalogInvests, catalogProjects } from "../../../data/constants";
+import {catalogHouses, catalogInvests, catalogProjects, HostURL} from "../../../data/constants";
 import InvestCostSlider from "../../components/CostSlider/InvestCostSlider";
 import InvestSquareSlider from "../../components/SquareSlider/InvestSquareSlider";
 import FloorSortInvest from "../../components/FloorSort/FloorSortInvest";
@@ -30,7 +30,7 @@ function CatalogInvestHeader({page}){
         let stringed = category.join()
 
         if(stringed === '') {
-            axios.get('http://127.0.0.1:5000/invest', {
+            axios.get(`${HostURL}invest`, {
                 params: {
                     pagination: true,
                     page: 1,
@@ -42,7 +42,7 @@ function CatalogInvestHeader({page}){
             })
         }
         else {
-            axios.get('http://127.0.0.1:5000/invest', {
+            axios.get(`${HostURL}invest`, {
                 params: {
                     pagination: true,
                     page: 1,
