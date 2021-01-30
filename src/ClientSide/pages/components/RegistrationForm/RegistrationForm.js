@@ -6,6 +6,7 @@ import {setUserInfo} from "../../../redux/actions/houses";
 import {useDispatch} from "react-redux";
 
 import './RegistrationForm.css';
+import {HostURL} from "../../../data/constants";
 
 
 const formItemLayout = {
@@ -49,7 +50,7 @@ const RegistrationForm = () => {
 
         axios
             .post(
-                'http://127.0.0.1:5000/register',
+                `${HostURL}register`,
                 { login: values.email, password: values.password },
                 { headers: { 'Content-Type': 'application/json' } }
             )

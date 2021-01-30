@@ -6,6 +6,7 @@ import './LoginForm.css'
 import axios from "axios";
 import {setActiveLogin, setCompletedProjects, setHeartsArray, setPostInfo} from "../../../redux/actions/houses";
 import { useDispatch, useSelector } from "react-redux";
+import {HostURL} from "../../../data/constants";
 
 const LoginForm= () => {
     const dispatch = useDispatch()
@@ -14,7 +15,7 @@ const LoginForm= () => {
     const onFinish = (values) => {
         axios
             .post(
-                'http://127.0.0.1:5000/auth',
+                `${HostURL}auth`,
                 { login: values.username, password: values.password },
                 { headers: { 'Content-Type': 'application/json' } }
             )

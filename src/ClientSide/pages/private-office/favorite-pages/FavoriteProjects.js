@@ -11,6 +11,7 @@ import FavoriteHousesSelect from "./FavoriteHousesSelect";
 import './FavoriteHouses.css'
 import '../SavedProjects.css';
 import '../../housepage/HouseProjectPage.css'
+import {HostURL} from "../../../data/constants";
 
 
 
@@ -21,7 +22,7 @@ function FavoriteProjects() {
     const favoriteProjectsTotal = useSelector(({ cart }) => cart.projects_total)
 
     const onSelectCategory = React.useCallback((id) => {
-        axios.post('http://127.0.0.1:5000/favorites', {
+        axios.post(`${HostURL}favorites`, {
             id: id,
             category: 'project'
         }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
@@ -29,7 +30,7 @@ function FavoriteProjects() {
 
     const handleChange = (value) => {
         axios
-            .get('http://127.0.0.1:5000/favorites',
+            .get(`${HostURL}favorites`,
                 {params: {pagination: true, page: value, per_page: 9, category: 'project'},
                     headers: {Authorization: localStorage.token}})
             .then(({data}) => {
@@ -40,7 +41,7 @@ function FavoriteProjects() {
     React.useEffect(() => {
         async function FetchPosts() {
             axios
-                .get('http://127.0.0.1:5000/favorites',
+                .get(`${HostURL}favorites`,
                     {params: {pagination: true, page: 1, per_page: 9, category: 'project'},
                         headers: {Authorization: localStorage.token}})
                 .then(({data}) => {

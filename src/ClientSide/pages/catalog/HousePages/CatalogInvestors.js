@@ -37,9 +37,14 @@ function CatalogInvestors() {
     }
 
     const handleChange = value => {
-        axios.get('http://127.0.0.1:5000/invest', {params: {pagination: true, page: value}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setInvestorsHouses(data))})
+        axios.get('http://127.0.0.1:5000/invest', {
+            params: {pagination: true, page: value},
+            headers: {Authorization: posts}
+        }).then(({data}) => {
+            dispatch(setInvestorsHouses(data))
+        })
         dispatch(setInvestPage(value))
-    };
+    }
 
     React.useEffect(() => {
         async function FetchPosts(){

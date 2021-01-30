@@ -10,7 +10,7 @@ import HouseCard from "../HouseCards/ProjectCard/HouseCard";
 import CatalogHeader from "../CatalogHeader";
 
 import './CatalogCompletedProjects.css';
-import {clearArray, setProjectPageId} from "../../../redux/actions/housePage";
+import { setProjectPageId} from "../../../redux/actions/housePage";
 
 
 let heart_indices = [];
@@ -37,7 +37,12 @@ function CatalogCompletedProjects() {
     }
 
     const handleChange = value => {
-        axios.get('http://127.0.0.1:5000/project', {params: {pagination: true, page: value}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedProjects(data))})
+        axios.get('http://127.0.0.1:5000/project', {
+            params: {pagination: true, page: value},
+            headers: {Authorization: posts}
+        }).then(({data}) => {
+            dispatch(setCompletedProjects(data))
+        })
         dispatch(setProjectsPage(value))
     };
 

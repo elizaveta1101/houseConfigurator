@@ -17,3 +17,5 @@ export const savedHousesPage = '/saved_houses'
 export const savedInvestsPage = '/saved_investors'
 
 export const constructorPage = '/constructor'
+
+export const HostURL = 'http://127.0.0.1:5000/'

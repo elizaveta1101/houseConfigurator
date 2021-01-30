@@ -10,6 +10,7 @@ import HouseCard from "../../HouseCards/ProjectCard/HouseCard";
 import CatalogHeader from "../../CatalogHeader/CatalogHeader";
 
 import '../CatalogCompletedProjects.css';
+import {HostURL} from "../../../../data/constants";
 
 
 function CatalogCompletedProjects() {
@@ -25,7 +26,7 @@ function CatalogCompletedProjects() {
 
 
     const onSelectHeart = React.useCallback((id) => {
-            axios.post('http://127.0.0.1:5000/favorites', {
+            axios.post(`${HostURL}favorites`, {
                 id: id,
                 category: 'project'
             }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
@@ -39,7 +40,7 @@ function CatalogCompletedProjects() {
         let stringedFloors = categorySelected.join()
 
         if(cost === '' || square === ''){
-            axios.get('http://127.0.0.1:5000/project', {
+            axios.get(`${HostURL}project`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -49,7 +50,7 @@ function CatalogCompletedProjects() {
             })
         }
         else if(stringedFloors === ''){
-            axios.get('http://127.0.0.1:5000/project', {
+            axios.get(`${HostURL}project`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -61,7 +62,7 @@ function CatalogCompletedProjects() {
             })
         }
         else {
-            axios.get('http://127.0.0.1:5000/project', {
+            axios.get(`${HostURL}project`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -76,7 +77,7 @@ function CatalogCompletedProjects() {
 
         if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
             axios
-                .get('http://127.0.0.1:5000/favorites/main_page',
+                .get(`${HostURL}/favorites/main_page`,
                     {params: {category: 'project'},
                         headers: {Authorization: localStorage.token}})
                 .then(({data}) => {

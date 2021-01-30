@@ -11,23 +11,23 @@ import {useLocation} from "react-router-dom";
 import {getProjectPageInfo} from "../../../redux/actions/housePage";
 
 import '../HouseProjectPage.css';
+import {HostURL} from "../../../data/constants";
 
 
 
 function CompletedHousePage() {
     const pageLink = useLocation().pathname
     const pageId = Number(pageLink.match(/\d+/))
-    const posts = useSelector(({ houses }) => houses.postinfo)
     const dispatch = useDispatch()
     const [filledHeart, setFilledHeart] = React.useState(false)
     const heart_ids = useSelector(({ houses }) => houses.house_hearts_arr)
     const pageInfo = useSelector(({ housePage }) => housePage.projectPageInfo)
 
     const onAddHouse = (id) => {
-        axios.post('http://127.0.0.1:5000/favorites', {
+        axios.post(`${HostURL}favorites`, {
             id: id,
             category: 'house'
-        }, {headers: {'Content-Type': 'application/json', Authorization: posts}})
+        }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.getItem('token')}})
 
         setFilledHeart(!filledHeart)
         if (heart_ids.includes(id)) {
@@ -43,17 +43,17 @@ function CompletedHousePage() {
 
     React.useEffect(() => {
         axios
-            .get('http://127.0.0.1:5000/house',
+            .get(`${HostURL}house`,
                 {params: {id: pageId},
-                    headers: {Authorization: posts}})
+                    headers: {Authorization: localStorage.getItem('token')}})
             .then(({data}) => {
                 dispatch(getProjectPageInfo(data))
             })
 
         axios
-            .get('http://127.0.0.1:5000/favorites/main_page',
+            .get(`${HostURL}favorites/main_page`,
                 {params: {category: 'house'},
-                    headers: {Authorization: posts}})
+                    headers: {Authorization: localStorage.getItem('token')}})
             .then(({data}) => {
                 dispatch(setHouseHeartsArray(data))
             })

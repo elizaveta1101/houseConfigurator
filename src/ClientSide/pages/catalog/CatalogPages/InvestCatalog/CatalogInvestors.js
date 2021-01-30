@@ -10,6 +10,7 @@ import CatalogInvestHeader from "../../CatalogHeader/CatalogInvestHeader";
 import { setCurrentPageInvest } from "../../../../redux/actions/filters";
 
 import InvestorsCard from "../../HouseCards/InvestorsCard/InvestorsCard";
+import {HostURL} from "../../../../data/constants";
 
 
 
@@ -30,7 +31,7 @@ function CatalogInvestors() {
     };
 
     const onSelectCategory = React.useCallback((id) => {
-        axios.post('http://127.0.0.1:5000/favorites', {
+        axios.post(`${HostURL}favorites`, {
             id: id,
             category: 'invest'
         }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
@@ -41,7 +42,7 @@ function CatalogInvestors() {
         let stringedFloors = categorySelected.join()
 
         if(cost === '' || square === ''){
-            axios.get('http://127.0.0.1:5000/invest', {
+            axios.get(`${HostURL}invest`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -51,7 +52,7 @@ function CatalogInvestors() {
             })
         }
         else if(stringedFloors === ''){
-            axios.get('http://127.0.0.1:5000/invest', {
+            axios.get(`${HostURL}invest`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -63,7 +64,7 @@ function CatalogInvestors() {
             })
         }
         else {
-            axios.get('http://127.0.0.1:5000/invest', {
+            axios.get(`${HostURL}invest`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -78,7 +79,7 @@ function CatalogInvestors() {
 
         if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
             axios
-                .get('http://127.0.0.1:5000/favorites/main_page',
+                .get(`${HostURL}favorites/main_page`,
                     {params: {category: 'invest'},
                         headers: {Authorization: localStorage.token}})
                 .then(({data}) => {

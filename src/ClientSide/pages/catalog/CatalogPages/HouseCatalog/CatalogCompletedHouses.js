@@ -10,6 +10,7 @@ import CompletedCard from "../../HouseCards/HouseCard/CompletedCard";
 import '../CatalogCompletedProjects.css';
 import CatalogHousesHeader from "../../CatalogHeader/CatalogHousesHeader";
 import { setCurrentPageHouses } from "../../../../redux/actions/filters";
+import {HostURL} from "../../../../data/constants";
 
 
 function CatalogCompletedHouses() {
@@ -28,7 +29,7 @@ function CatalogCompletedHouses() {
     };
 
     const onSelectCategory = React.useCallback((id) => {
-        axios.post('http://127.0.0.1:5000/favorites', {
+        axios.post(`${HostURL}favorites`, {
             id: id,
             category: 'house'
         }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
@@ -39,7 +40,7 @@ function CatalogCompletedHouses() {
         let stringedFloors = categorySelected.join()
 
         if(cost === '' || square === ''){
-            axios.get('http://127.0.0.1:5000/house', {
+            axios.get(`${HostURL}house`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -49,7 +50,7 @@ function CatalogCompletedHouses() {
             })
         }
         else if(stringedFloors === ''){
-            axios.get('http://127.0.0.1:5000/house', {
+            axios.get(`${HostURL}house`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -61,7 +62,7 @@ function CatalogCompletedHouses() {
             })
         }
         else {
-            axios.get('http://127.0.0.1:5000/house', {
+            axios.get(`${HostURL}house`, {
                 params: {
                     pagination: true,
                     page: currentPage,
@@ -76,7 +77,7 @@ function CatalogCompletedHouses() {
 
         if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
             axios
-                .get('http://127.0.0.1:5000/favorites/main_page',
+                .get(`${HostURL}favorites/main_page`,
                     {params: {category: 'house'},
                         headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
