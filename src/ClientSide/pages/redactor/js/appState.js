@@ -29,7 +29,7 @@ let appState = {
     }
 }
 
-eventEmitter.onEvent('changeView', (viewMode) => changeView(viewMode));
+eventEmitter.onEvent('changeView', (data) => changeView(data.viewMode));
 eventEmitter.onEvent('changeHatchVisibility', (hatchVisibility) => changeHatchVisibility(hatchVisibility));
 eventEmitter.onEvent('changeHatchCellSize', (hatchCellsize) => changeHatchCellSize(hatchCellsize));
 

@@ -284,7 +284,8 @@ class Display extends React.Component {
     }
 
     set2d() {
-        appState.changeState('changeView', '2D');
+        let stageName = stages[this.state.stageId].name;
+        appState.changeState('changeView', {viewMode: '2D', stageName});
 
         this.setState({
             viewMode: '2D',
@@ -292,7 +293,8 @@ class Display extends React.Component {
     }
 
     set3d() {
-        appState.changeState('changeView', '3D');
+        let stageName = stages[this.state.stageId].name;
+        appState.changeState('changeView', {viewMode: '3D', stageName});
 
         this.setState({
             viewMode: '3D',
@@ -303,7 +305,7 @@ class Display extends React.Component {
         appState.editMode = 'add';        
         let stageName = stages[this.state.stageId].name;
         appState.changeState('clearScene', stageName);
-        appState.changeState('changeView', '2D');
+        appState.changeState('changeView', {viewMode: '2D', stageName});
         this.setState({
             editBtn: {
                 clicked: true,
