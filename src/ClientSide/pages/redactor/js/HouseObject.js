@@ -526,8 +526,9 @@ class HouseObject {
     }
 
     //------------регулировка видимости----------------
-    changeVisability(viewMode) {
+    changeVisability(viewMode, stageName) {
         this.viewMode = viewMode;
+        if (stageName === 'innerWalls') this.showInnerWalls(this.activeFloor, this.viewMode);;
         if( viewMode === '2D'){
             putDimensions( this.basement.plan, this.basement.vertices, 'basement' );
             if (this.verandaExistence && this.veranda.plan) {if (this.veranda.plan.visible) putDimensions( this.veranda.plan, this.verandaBasement.vertices, 'veranda' );}
@@ -569,6 +570,12 @@ class HouseObject {
                 } else {
                     this.hideModels();
                 }
+            }
+            if (currentStage<6) {
+                this.innerWalls.plan.visible = false;
+            } else {
+                this.innerWalls.plan.visible = true;
+                this.showInnerWalls(this.activeFloor, '2D');
             }
         } else {
             for ( let index = 0; index < stages.length; index++ ) {
@@ -685,10 +692,10 @@ class HouseObject {
                         this.models[floorName] = null;
                     });
                 }
-                if (this.veranda) {
-                    this.clearScene('veranda');
-                }
-                // appState.scene.add(this.house2d, this.house3d);
+                // if (this.verandaExistence) {
+                    //     this.clearScene('veranda');
+                    // }
+                    // appState.scene.add(this.house2d, this.house3d);
                 this.changeVisability(viewMode);
                 break;
             case 'basementHeight':
@@ -734,6 +741,8 @@ class HouseObject {
                 this.showFloors();
                 break;
             case 'editableFloor':
+                break;
+            case 'ceiling': //тип перекрытия
                 break;
             case 'verandaExistence' :
                 if (this.verandaExistence) {
@@ -909,10 +918,10 @@ class HouseObject {
         }
         this.showInnerWalls(floorName, this.viewMode);
         if (this.models) {
-            if (stageName === 'innerWalls') {
-                this.hideModels();
-            } else if (stageName === 'interior') {
+            if (stageName === 'interior') {
                 this.showModels(floorName, this.viewMode);
+            } else {
+                this.hideModels(floorName, this.viewMode);
             }
         }
     }
@@ -1569,7 +1578,7 @@ eventEmitter.onEvent('endInnerWalls', (data) => {
 eventEmitter.onEvent('floorVisibility', ( data ) => appState.house.showCurrentFloor( data.value, data.stageName ));
 
 eventEmitter.onEvent('stageChanged', (stageInfo) => appState.house.rebuildStage( stageInfo ));
-eventEmitter.onEvent('changeView', (viewMode) => appState.house.changeVisability( viewMode ));
+eventEmitter.onEvent('changeView', (data) => appState.house.changeVisability( data.viewMode, data.stageName ));
 eventEmitter.onEvent('stageSwitched', (data) => appState.house.changeStageVisability( data ));
 eventEmitter.onEvent('planEditMode', (data) => appState.house.changePointsVisability( data ));
 
