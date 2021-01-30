@@ -38,7 +38,7 @@ const FormLayout: React.FC<IFormProps> = ({ mode = 'disable', values, data, type
       setItem(ActionTypes.NEW_ADMIN, formValues)
     } else if (type === 'house') {
       formValues.materials = `${materials}`
-      formValues['codename'] = values.codename
+      // formValues['codename'] = values.codename || formValues.codename
       setItem(ActionTypes.EDITED_HOUSE, formValues)
     }
   }

@@ -28,5 +28,10 @@ export const alertData = {
     visible: true,
     type: 'error',
     message: 'Не найдено',
+  },
+  noUnic: {
+    visible: true,
+    type: 'error',
+    message: 'Админимстратор с таким логином или почтой уже существует',
   }
 }
