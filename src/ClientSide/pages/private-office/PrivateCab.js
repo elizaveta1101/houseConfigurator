@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 
-import CheckoutButton from "../components/CheckoutButton";
+import CheckoutButton from "../components/Buttons/CheckoutButton";
 import SavedProjects from "./SavedProjects";
 import Favorites from "./Favorites";
 
@@ -35,7 +35,7 @@ function PrivateCab() {
                                 <ul className="info-person">
                                     <li>Георг</li>
                                     <li>Мишутин</li>
-                                    <li>GeorMish@gmail.com</li>
+                                    <li>{localStorage.getItem('email')}</li>
                                     <li>+7 (999) 999-99-99</li>
                                 </ul>
                             </div>

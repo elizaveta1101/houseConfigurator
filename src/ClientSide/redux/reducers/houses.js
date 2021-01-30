@@ -4,24 +4,34 @@ const initialState = {
     comphouses: [],
     investorshouses: [],
 
-    postinfo:[],
+    postinfo: '',
     userinfo:[],
 
-    pageid: [],
+    hearts_arr: [],
+    house_hearts_arr: [],
+    invest_hearts_arr: [],
 
-    heart_id: [],
-    house_heart_id: [],
-    invest_heart_id: [],
+    totalCountProjects: 0,
+    totalCountHouses: 0,
+    totalCountInvest: 0,
 
-    projects_page_id: 1,
-    houses_page_id: 1,
-    invests_page_id: 1,
+    costArr: '',
+    squareArr: '',
+    costArrHouses: '',
+    squareArrHouses: '',
+    costArrInvest: '',
+    squareArrInvest: '',
 
-    isFetching: true,
+    initialProjectsCost: 0,
+    initialHousesCost: 0,
+    initialInvestCost: 0,
 
-    currentPage: 1,
-    perPage: 9,
-    totalCount: 0,
+    initialProjectsSquare: 0,
+    initialHousesSquare: 0,
+    initialInvestSquare: 0,
+
+    modalBool: false,
+    loginBool: false,
 }
 
 
@@ -30,6 +40,12 @@ const houses = (state = initialState, action) => {
         return {
             ...state,
             postinfo: action.payload.data.token,
+        }
+    }
+    if(action.type === 'DELETE_TOKEN'){
+        return {
+            ...state,
+            postinfo: action.payload,
         }
     }
     if(action.type === 'SET_USER_INFO'){
@@ -42,64 +58,134 @@ const houses = (state = initialState, action) => {
         return {
             ...state,
             compprojects: action.payload.data.query,
-            totalCount: action.payload,
+            totalCountProjects: action.payload.data.total,
+            costArr: action.payload.data.max_cost,
+            squareArr: action.payload.data.max_square,
         }
     }
     if(action.type === 'SET_COMPLETED_HOUSES'){
         return {
             ...state,
             comphouses: action.payload.data.query,
+            totalCountHouses: action.payload.data.total,
+            costArrHouses: action.payload.data.max_cost,
+            squareArrHouses: action.payload.data.max_square,
         }
     }
     if(action.type === 'SET_INVESTORS_HOUSES'){
         return {
             ...state,
             investorshouses: action.payload.data.query,
+            totalCountInvest: action.payload.data.total,
+            costArrInvest: action.payload.data.max_cost,
+            squareArrInvest: action.payload.data.max_square,
         }
     }
-    if(action.type === 'SET_CURRENT_PAGE'){
+    if(action.type === 'SET_HEARTS_ARRAY'){
         return {
             ...state,
-            currentPage: action.payload
+            hearts_arr: action.payload.data,
         }
     }
-    if(action.type === 'SET_HEART_ID'){
+    if(action.type === 'SET_HOUSE_HEARTS_ARRAY'){
         return {
             ...state,
-            heart_id: action.payload
+            house_hearts_arr: action.payload.data,
         }
     }
-    if(action.type === 'SET_HOUSE_HEART_ID'){
+    if(action.type === 'SET_INVEST_HEARTS_ARRAY'){
         return {
             ...state,
-            house_heart_id: action.payload
-        }
-    }
-    if(action.type === 'SET_INVEST_HEART_ID'){
-        return {
-            ...state,
-            invest_heart_id: action.payload
+            invest_hearts_arr: action.payload.data,
         }
     }
 
-    if(action.type === 'SET_PROJECTS_PAGE'){
+    if(action.type === 'SET_FILTER_COST'){
         return {
             ...state,
-            projects_page_id: action.payload
+            costArr: action.payload,
         }
     }
-    if(action.type === 'SET_HOUSES_PAGE'){
+    if(action.type === 'SET_FILTER_SQUARE'){
         return {
             ...state,
-            houses_page_id: action.payload
+            squareArr: action.payload,
         }
     }
-    if(action.type === 'SET_INVESTS_PAGE'){
+    if(action.type === 'SET_FILTER_COST_HOUSES'){
         return {
             ...state,
-            invests_page_id: action.payload
+            costArrHouses: action.payload,
         }
     }
+    if(action.type === 'SET_FILTER_SQUARE_HOUSES'){
+        return {
+            ...state,
+            squareArrHouses: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_COST_INVEST'){
+        return {
+            ...state,
+            costArrInvest: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_SQUARE_INVEST'){
+        return {
+            ...state,
+            squareArrInvest: action.payload,
+        }
+    }
+    if(action.type === 'SET_ACTIVE_MODAL'){
+        return {
+            ...state,
+            modalBool: action.payload,
+        }
+    }
+    if(action.type === 'SET_ACTIVE_LOGIN'){
+        return {
+            ...state,
+            loginBool: action.payload,
+        }
+    }
+    if(action.type === 'SET_HOUSES_DEFAULT'){
+        return {
+            ...state,
+            compprojects: [],
+            comphouses: [],
+            investorshouses: [],
+
+            postinfo: '',
+            userinfo:[],
+
+            hearts_arr: [],
+            house_hearts_arr: [],
+            invest_hearts_arr: [],
+
+            totalCountProjects: 0,
+            totalCountHouses: 0,
+            totalCountInvest: 0,
+
+            costArr: '',
+            squareArr: '',
+            costArrHouses: '',
+            squareArrHouses: '',
+            costArrInvest: '',
+            squareArrInvest: '',
+
+            initialProjectsCost: 0,
+            initialHousesCost: 0,
+            initialInvestCost: 0,
+
+            initialProjectsSquare: 0,
+            initialHousesSquare: 0,
+            initialInvestSquare: 0,
+
+            modalBool: false,
+            loginBool: false,
+        }
+    }
+
 
     return state;
 }

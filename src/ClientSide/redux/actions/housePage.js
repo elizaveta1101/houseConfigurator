@@ -1,18 +1,6 @@
-export const getProjectPageId = (id) => ({
-    type: 'GET_PROJECT_ID',
-    payload: id,
-})
 
-export const getProjectPageInfo = (state, id) => ({
+export const getProjectPageInfo = (project) => ({
     type: 'GET_PROJECT_PAGE_INFO',
-    payload: state.houses.compprojects[id],
+    payload: project.data,
 })
 
-export const setProjectPageId =  (id) => ({
-    type: 'SET_PROJECT_ID',
-    payload: id
-})
-
-export const clearArray = () => ({
-    type: 'CLEAR_ARRAY',
-})

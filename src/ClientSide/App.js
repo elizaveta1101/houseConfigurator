@@ -1,139 +1,99 @@
 import React from 'react'
-import axios from 'axios'
 
 import { Route, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPostInfo } from './redux/actions/houses'
-import { setCost, setCostProjects, setSquare, setSquareProjects } from './redux/actions/filters'
 
-import Header from './pages/Header'
+import {
+    catalogProjects,
+    catalogHouses,
+    catalogInvests,
+    projectPageId,
+    housePageId,
+    investsPageId,
+    redactorPage,
+    privateCabPage,
+    savedProjectsPage,
+    savedHousesPage,
+    savedInvestsPage,
+    constructorPage
+} from "./data/constants";
+import Header from './pages/Header/Header'
 import MainPage from './pages/main-page/MainPage'
-import Footer from './pages/Footer'
-import HouseProjectPage from './pages/housepage/HouseProjectPage'
-import CompletedHousePage from './pages/housepage/CompletedHousePage'
-import InvestorsHousePage from './pages/housepage/InvestorsHousePage'
+import Footer from './pages/Footer/Footer'
+import HouseProjectPage from './pages/housepage/ProjectPage/HouseProjectPage'
+import CompletedHousePage from './pages/housepage/HousePage/CompletedHousePage'
+import InvestorsHousePage from './pages/housepage/InvestPage/InvestorsHousePage'
 import RedactorPage from './pages/redactor/RedactorPage'
 import PrivateCab from './pages/private-office/PrivateCab'
-import CatalogInvestors from './pages/catalog/HousePages/CatalogInvestors'
-import CatalogCompletedHouses from './pages/catalog/HousePages/CatalogCompletedHouses'
-import CatalogCompletedProjects from './pages/catalog/HousePages/CatalogCompletedProjects'
+import CatalogInvestors from './pages/catalog/CatalogPages/InvestCatalog/CatalogInvestors'
+import CatalogCompletedHouses from './pages/catalog/CatalogPages/HouseCatalog/CatalogCompletedHouses'
+import CatalogCompletedProjects from './pages/catalog/CatalogPages/ProjectsCatalog/CatalogCompletedProjects'
 import FavoriteProjects from './pages/private-office/favorite-pages/FavoriteProjects'
 import FavoriteHouses from './pages/private-office/favorite-pages/FavoriteHouses'
 import FavoriteInvestors from './pages/private-office/favorite-pages/FavoriteInvestors'
 import Constructor from './pages/redactor/Constructor'
 import RedactorHeader from './pages/redactor/RedactorHeader'
+import Authorisation from "./pages/components/Authorisation/Authorisation";
+import {setActiveModal} from "./redux/actions/houses";
 
 import './styles.scss'
 
+
 function App() {
-  const shouldShowHeader = useLocation().pathname !== '/'
-  const shouldShowRedactorHeader = useLocation().pathname !== '/constructor'
-  const shouldShowFooter = useLocation().pathname !== '/'
-  const shouldShowRedactorFooter = useLocation().pathname !== '/constructor'
-  const posts = useSelector(({ houses }) => houses.postinfo)
-  const dispatch = useDispatch()
+    const dispatch = useDispatch()
+    const shouldShowHeader = useLocation().pathname !== '/'
+    const shouldShowRedactorHeader = useLocation().pathname !== constructorPage
+    const shouldShowFooter = useLocation().pathname !== '/'
+    const shouldShowRedactorFooter = useLocation().pathname !== constructorPage
+    const modal = useSelector(({ houses }) => houses.modalBool)
+    let is_authorized = false
 
-  React.useEffect(() => {
-    async function FetchPosts() {
-      await axios
-        .post(
-          'http://127.0.0.1:5000/auth',
-          { login: 'admin', password: 'admin' },
-          { headers: { 'Content-Type': 'application/json' } }
-        )
-        .then(({ data }) => {
-          dispatch(setPostInfo(data))
-        })
-      await axios
-        .get('http://127.0.0.1:5000/project', {
-          params: { pagination: true, page: 1 },
-          headers: { Authorization: posts },
-        })
-        .then(({ data }) => {
-          dispatch(setCostProjects(data))
-        })
-      await axios
-        .get('http://127.0.0.1:5000/project', {
-          params: { pagination: true, page: 1 },
-          headers: { Authorization: posts },
-        })
-        .then(({ data }) => {
-          dispatch(setSquareProjects(data))
-        })
-
-      await axios
-        .get('http://127.0.0.1:5000/house', {
-          params: { pagination: true, page: 1 },
-          headers: { Authorization: posts },
-        })
-        .then(({ data }) => {
-          dispatch(setCost(data))
-        })
-      await axios
-        .get('http://127.0.0.1:5000/house', {
-          params: { pagination: true, page: 1 },
-          headers: { Authorization: posts },
-        })
-        .then(({ data }) => {
-          dispatch(setSquare(data))
-        })
-
-      await axios
-        .get('http://127.0.0.1:5000/invest', {
-          params: { pagination: true, page: 1 },
-          headers: { Authorization: posts },
-        })
-        .then(({ data }) => {
-          dispatch(setCost(data))
-        })
-      await axios
-        .get('http://127.0.0.1:5000/invest', {
-          params: { pagination: true, page: 1 },
-          headers: { Authorization: posts },
-        })
-        .then(({ data }) => {
-          dispatch(setSquare(data))
-        })
+    const closeModal = () => {
+        dispatch(setActiveModal(false))
     }
-    FetchPosts()
-  }, [dispatch], [posts])
 
-  return (
-    <>
-      <div className="global-wrapper">
-        {shouldShowHeader && shouldShowRedactorHeader && <Header />}
-        {!shouldShowRedactorHeader && <RedactorHeader />}
+    if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
+        is_authorized = true
+    }
 
+    return (
+        <>
+            <div className="global-wrapper">
+                {shouldShowHeader && shouldShowRedactorHeader && <Header />}
+                {!shouldShowRedactorHeader && <RedactorHeader />}
 
-        <div className="main">
-        <div className="main-wrapper">
-          <Route exact path="/" component={MainPage} />
-        </div>
+                {modal && !is_authorized && <div><Authorisation closeModal={closeModal}/></div>}
+                {modal && !is_authorized && <div onClick={() => dispatch(setActiveModal(false))} className="black-bg" />}
 
-        <div className="wrapper">
-          <Route exact path="/house_page/:id" component={HouseProjectPage} />
-          <Route exact path="/completed_house_page/:id" component={CompletedHousePage} />
-          <Route exact path="/investors_house_page/:id" component={InvestorsHousePage} />
-          <Route exact path="/redactor_page" component={RedactorPage} />
-          <Route exact path="/private_cab" component={PrivateCab} />
+                <div className="main">
+                    <div className="main-wrapper">
+                        <Route exact path="/" component={MainPage} />
+                    </div>
 
-          <Route exact path="/catalog" component={CatalogCompletedProjects} />
-          <Route exact path="/catalog_comp_houses" component={CatalogCompletedHouses} />
-          <Route exact path="/catalog_investors_houses" component={CatalogInvestors} />
+                    <div className="wrapper">
+                        <Route exact path={projectPageId} component={HouseProjectPage} />
+                        <Route exact path={housePageId} component={CompletedHousePage} />
+                        <Route exact path={investsPageId} component={InvestorsHousePage} />
+                        <Route exact path={redactorPage} component={RedactorPage} />
+                        {is_authorized && <Route exact path={privateCabPage} component={PrivateCab}/>}
 
-          <Route exact path="/saved_projects" component={FavoriteProjects} />
-          <Route exact path="/saved_houses" component={FavoriteHouses} />
-          <Route exact path="/saved_investors" component={FavoriteInvestors} />
-        </div>
+                        <Route exact path={catalogProjects} component={CatalogCompletedProjects} />
+                        <Route exact path={catalogHouses} component={CatalogCompletedHouses} />
+                        <Route exact path={catalogInvests} component={CatalogInvestors} />
 
-        <Route exact path="/constructor" component={Constructor} />
+                        {is_authorized && <Route exact path={savedProjectsPage} component={FavoriteProjects}/>}
+                        {is_authorized && <Route exact path={savedHousesPage} component={FavoriteHouses} />}
+                        {is_authorized && <Route exact path={savedInvestsPage} component={FavoriteInvestors} />}
 
-        </div>
+                    </div>
 
-        {shouldShowFooter && shouldShowRedactorFooter && <Footer />}
-      </div>
-    </>
-  )
+                    <Route exact path={constructorPage} component={Constructor} />
+                </div>
+                {shouldShowFooter && shouldShowRedactorFooter && <Footer />}
+          </div>
+        </>
+
+    )
 }
 
 export default App

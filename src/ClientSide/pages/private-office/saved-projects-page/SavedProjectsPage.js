@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, useLocation} from "react-router-dom";
 import classNames from "class-names";
+import {savedHousesPage, savedProjectsPage} from "../../../data/constants";
 
 
 function SavedProjectsPage() {
@@ -10,10 +11,10 @@ function SavedProjectsPage() {
     return (
         <div className="house-project-page-wrapper">
             <div className="choose-catalog__buttons" >
-                <Link to="/saved_projects_page"><div className={classNames('completed-projects', 'catalog-header__active' , {'catalog-header__active-active': !completedProjectsActive})}>
+                <Link to={savedProjectsPage}><div className={classNames('completed-projects', 'catalog-header__active' , {'catalog-header__active-active': !completedProjectsActive})}>
                     <p>Завершенные</p>
                 </div></Link>
-                <Link to="/catalog_comp_houses"><div className={classNames('completed-homes', 'catalog-header__active' , {'catalog-header__active-active': !completedHousesActive})}>
+                <Link to={savedHousesPage}><div className={classNames('completed-homes', 'catalog-header__active' , {'catalog-header__active-active': !completedHousesActive})}>
                     <p>Не завершенные</p>
                 </div></Link>
             </div>

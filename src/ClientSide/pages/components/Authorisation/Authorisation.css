@@ -1,0 +1,145 @@
+.authorisation-wrapper{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+}
+
+.black-bg{
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0.45;
+    position: absolute;
+
+    z-index: 999;
+}
+
+.to-authorise{
+    width: 400px;
+    height: 232px;
+    position: fixed;
+    z-index: 1000;
+    margin-left: calc(50% - 200px);
+    margin-top: 235px;
+
+    background-color: #FFFFFF;
+}
+
+.to-authorise h2{
+    font-family: Open Sans Light;
+    margin-left: 64px;
+    margin-top: 32px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #262626;
+}
+
+.to-authorise p{
+    margin-left: 64px;
+    margin-top: 8px;
+    width: 300px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: #262626;
+}
+
+.to-authorise img{
+    position: absolute;
+    margin-left: 34px;
+    margin-top: 32px;
+}
+
+.authorise-btns{
+    display: flex;
+    flex-direction: row;
+
+    margin-left: 130px;
+    margin-top: 24px;
+    width: 220px;
+    justify-content: space-between;
+}
+
+.need-to-authorise p{
+    margin-left: -0px;
+}
+
+.need-to-authorise__p{
+    cursor: pointer;
+    position: absolute;
+    margin-left: 522px;
+    margin-top: -292px;
+    z-index: 1999;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+
+    color: #325FFF;
+}
+
+.authorise-form{
+    width: 450px;
+    height: 439px;
+
+    z-index: 1000;
+    background-color: #FFFFFF;
+    margin-left: calc(50% - 225px);
+    margin-top: 200px;
+    position: fixed;
+}
+
+.authorize-wrapper{
+    margin-top: 330px;
+    margin-left: -275px;
+}
+
+.login-wrapper{
+    background-color: #FFFFFF;
+    width: 400px;
+    height: 300px;
+    z-index: 1000;
+    margin-left: calc(50% - 200px);
+    margin-top: 200px;
+    position: fixed;
+}
+
+.login-wrapper .login {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.login-wrapper h1{
+    font-family: Open Sans Light;
+    margin-left: 40px;
+    margin-top: 24px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+
+    color: #000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
