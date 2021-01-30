@@ -203,6 +203,7 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         //правый клик | двойное касание - меняем режим редактирования
         if (e.button === 2 || (e.touches && e.touches.length === 2)) {
           appState.editMode = 'edit';
+          // alert('Активирован режим перемещения вершин');
           return null;
         } else
         //левый клик - добавляем новую точку
@@ -285,6 +286,7 @@ function chooseMouseFunction(e, editMode, mouseAction, data) {
         //правый клик | двойное касание - меняем режим редактирования
         if (e.button === 2 || (e.touches && e.touches.length === 2)) {
           appState.editMode = 'add';
+          // alert('Активирован режим добавления вершин');
           curveNumber = appState.house.innerWalls[activeFloor].wallsVertices.length;
           return {curveNumber};
         } else 
@@ -563,15 +565,15 @@ function checkInnerWallsPoint(mousePosition, activeFloor, curveNumber) {
   if (newPoint.minPointX && newPoint.minPointY) {
     pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
   }
-  for (let i in innerWalls[activeFloor].wallsVertices) {
-    if (i !== curveNumber) {
-      line = innerWalls[activeFloor].wallsVertices[i];
-      newPoint = pointToLineAttachment(line, pointPosition, 0.2);
-      if (newPoint.minPointX && newPoint.minPointY) {
-        pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
-      }
-    }
-  }
+  // for (let i in innerWalls[activeFloor].wallsVertices) {
+  //   if (i !== curveNumber) {
+  //     line = innerWalls[activeFloor].wallsVertices[i];
+  //     newPoint = pointToLineAttachment(line, pointPosition, 0.2);
+  //     if (newPoint.minPointX && newPoint.minPointY) {
+  //       pointPosition = [newPoint.minPointX, newPoint.minPointY, 0];
+  //     }
+  //   }
+  // }
   return pointPosition;
 }
 

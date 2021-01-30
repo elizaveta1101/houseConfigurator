@@ -307,10 +307,6 @@ function drawWideLine(vertices) {
         geometry.vertices.push(new THREE.Vector3(vertices[i], vertices[i + 1], vertices[i + 2]));
     }
 
-    // for (let i = 0; i < length/3-3; i += 2) {
-    //     geometry.faces.push(new THREE.Face3(i, i+1, i+2));
-    //     geometry.faces.push(new THREE.Face3(i+1, i+3, i+2));
-    // }
     let count = length/3;
     let lastNum = count-2
     for (let i = 0; i < (count-1)/2; i ++) {
@@ -318,7 +314,7 @@ function drawWideLine(vertices) {
         geometry.faces.push(new THREE.Face3(i, lastNum-1-i, lastNum-i));
     }
 
-    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
     const polygon = new THREE.Mesh(geometry, material);
     return polygon;
 }

@@ -387,6 +387,7 @@ class Display extends React.Component {
                         },
                         viewBtnsDisable: true,
                     });
+                    alert('Активирован режим добавления вершин');
                 }
                 else {
                     appState.editMode = 'edit';
@@ -397,6 +398,7 @@ class Display extends React.Component {
                         },
                         viewBtnsDisable: true,
                     });
+                    alert('Активирован режим перемещения вершин');
                 }
                 appState.changeState('planEditMode', {mode: 'T', stageName : 'innerWalls'} );
                 this.set2d();
@@ -417,7 +419,6 @@ class Display extends React.Component {
                 appState.changeState('planEditMode', {mode: 'N', stageName : 'innerWalls'}  );
                 this.set3d();
             }
-            console.log('редактируем межкомнатные стены');
         } else if (stages[this.state.stageId].name === 'veranda') {
             let linePointsCoords = appState.house.verandaBasement.vertices.slice();
             if (!this.state.editBtn.clicked) {

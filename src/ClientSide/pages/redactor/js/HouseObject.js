@@ -666,7 +666,7 @@ class HouseObject {
         }
         switch (stageInfo.name) {
             case 'basementShape':
-                appState.scene.remove(this.house2d, this.house3d);
+                // appState.scene.remove(this.house2d, this.house3d);
                 //очищаем все доп.построения
                 this.house3d.children.map(child => {
                     if (child.name === 'hole'+this.activeFloor) {
@@ -674,15 +674,21 @@ class HouseObject {
                     }
                 });
                 this.build();
-                this.house2d.remove(this.innerWalls.plan);
-                this.house3d.remove(this.innerWallsModel);
-                this.floorNames.map(floorName => {
-                    appState.scene.remove(this.models[floorName]);
-                    this.models[floorName] = null;
-                });
-                this.clearScene('innerWalls');
-                this.clearScene('veranda');
-                appState.scene.add(this.house2d, this.house3d);
+                if (this.innerWalls !== {}) {
+                    this.house2d.remove(this.innerWalls.plan);
+                    this.house3d.remove(this.innerWallsModel);
+                    this.clearScene('innerWalls');
+                }
+                if (this.models) {
+                    this.floorNames.map(floorName => {
+                        appState.scene.remove(this.models[floorName]);
+                        this.models[floorName] = null;
+                    });
+                }
+                if (this.veranda) {
+                    this.clearScene('veranda');
+                }
+                // appState.scene.add(this.house2d, this.house3d);
                 this.changeVisability(viewMode);
                 break;
             case 'basementHeight':
@@ -1169,8 +1175,10 @@ class HouseObject {
             this.setAllParametrs();
         } else if (stageName === 'innerWalls') {
             appState.scene.remove(this.house2d, this.house3d);
-            this.innerWalls.plan.remove(this.innerWalls[this.activeFloor].model2D);
-            this.innerWallsModel.remove(this.innerWalls[this.activeFloor].model3D);
+            if (this.innerWalls[this.activeFloor]) {
+                this.innerWalls.plan.remove(this.innerWalls[this.activeFloor].model2D);
+                this.innerWallsModel.remove(this.innerWalls[this.activeFloor].model3D);
+            }
             this.innerWalls[this.activeFloor] = new floorObject();
             this.innerWalls[this.activeFloor].model2D = new THREE.Group();
             this.innerWalls[this.activeFloor].model3D = new THREE.Group();
