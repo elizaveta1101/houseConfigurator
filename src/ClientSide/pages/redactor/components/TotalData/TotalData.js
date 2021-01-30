@@ -22,8 +22,6 @@ function TotalData() {
                     <span>Сроки, дней </span><p>{appState.houseTime}</p>
                 </div>
             </div>
-
-            <button className={classes.MoreInfoBtn}>Далее</button>
         </div>
     )
 }
