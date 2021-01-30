@@ -42,6 +42,7 @@ function StageFields(props) {
                 }
                 result=(
                     <button
+                        className={classes.houseElements}
                     key={fields[i].fieldId + 'Btn'} 
                     onClick={() => appState.changeState('addModel', {modelType})}
                     >{fields[i].label}</button>
@@ -115,9 +116,9 @@ function StageFields(props) {
                     const numberOfOptions = options.length;
                     const radioOptions = Array(numberOfOptions).fill(null).map((row, j) =>
                         <div className="field" key={fields[i].fieldId + fields[i].type + j}>
-                            <label className={fields[i].type +'Value'}>
+                            <label className={classes.checkboxLabel}>
                                 <input
-                                    className={fields[i].type}
+                                    className={classes.checkbox}
                                     type={fields[i].type}
                                     name={fields[i].fieldId}
                                     value={options[j]}

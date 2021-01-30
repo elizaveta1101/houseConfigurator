@@ -1,64 +1,80 @@
 const initialState = {
     category: [],
-    sortBy: 'onefloor',
-    sortByCost: 5000000,
-    sortBySquare: 400,
+    categoryHouses: [],
+    categoryInvest: [],
 
-    indices: [],
-    costArr: '',
+    costArrHouses: '',
+    costArrInvest: '',
+
     squareArr: '',
+    squareArrHouses: '',
+    squareArrInvest: '',
 
-    sortByCostProjects: 3000000,
-    sortBySquareProjects: 0,
+    currentPage: 1,
+    currentPageHouses: 1,
+    currentPageInvest: 1,
 }
 
 const filters = (state = initialState, action) => {
-    if(action.type === 'SET_SORT_BY'){
-        return {
-            ...state,
-            sortBy: action.payload,
-        }
-    }
     if(action.type === 'SET_CATEGORY'){
         return {
             ...state,
             category: action.payload,
         }
     }
-    if(action.type === 'SET_COST'){
+    if(action.type === 'SET_CATEGORY_HOUSES'){
         return {
             ...state,
-            sortByCost: action.payload.data.max_cost,
+            categoryHouses: action.payload,
         }
     }
-    if(action.type === 'SET_FILTER_COST'){
+    if(action.type === 'SET_CATEGORY_INVEST'){
         return {
             ...state,
-            costArr: action.payload,
+            categoryInvest: action.payload,
         }
     }
-    if(action.type === 'SET_FILTER_SQUARE'){
+    if(action.type === 'SET_CURRENT_PAGE'){
         return {
             ...state,
-            squareArr: action.payload,
+            currentPage: action.payload,
         }
     }
-    if(action.type === 'SET_SQUARE'){
+    if(action.type === 'SET_CURRENT_PAGE_HOUSES'){
         return {
             ...state,
-            sortBySquare: action.payload.data.max_square,
+            currentPageHouses: action.payload,
         }
     }
-    if(action.type === 'SET_COST_PROJECTS'){
+    if(action.type === 'SET_CURRENT_PAGE_INVEST'){
         return {
             ...state,
-            sortBySquareProjects: action.payload.data.max_square,
+            currentPageInvest: action.payload,
         }
     }
-    if(action.type === 'SET_SQUARE_PROJECTS'){
+
+    if(action.type === 'SET_FILTER_COST_HOUSES'){
         return {
             ...state,
-            sortBySquareProjects: action.payload.data.max_square,
+            costArrHouses: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_SQUARE_HOUSES'){
+        return {
+            ...state,
+            squareArrHouses: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_COST_INVEST'){
+        return {
+            ...state,
+            costArrInvest: action.payload,
+        }
+    }
+    if(action.type === 'SET_FILTER_SQUARE_INVEST'){
+        return {
+            ...state,
+            squareArrInvest: action.payload,
         }
     }
 

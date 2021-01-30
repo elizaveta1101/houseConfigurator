@@ -1,7 +1,11 @@
 const initialState = {
     compprojects: [],
-    comphouses: {},
-    investhouses: {},
+    comphouses: [],
+    investhouses: [],
+
+    projects_total: 1,
+    houses_total: 1,
+    invest_total: 1,
 }
 
 const cart = (state = initialState, action) => {
@@ -9,32 +13,20 @@ const cart = (state = initialState, action) => {
         case 'ADD_HOUSE_CART':
             return {
                 ...state,
-                compprojects: {
-                    ...state.compprojects,
-                    [action.payload.id]: !state.compprojects[action.payload.id]
-                        ? [action.payload]
-                        : [...state.compprojects[action.payload.id], action.payload]
-                }
+                compprojects: action.payload.data.query,
+                projects_total: action.payload.data.total,
             }
         case 'ADD_COMPLETED_HOUSE_CART':
             return {
                 ...state,
-                comphouses: {
-                    ...state.comphouses,
-                    [action.payload.id]: !state.comphouses[action.payload.id]
-                        ? [action.payload]
-                        : [...state.comphouses[action.payload.id], action.payload]
-                }
+                comphouses: action.payload.data.query,
+                houses_total: action.payload.data.total,
             }
         case 'ADD_INVESTORS_HOUSE_CART':
             return {
                 ...state,
-                investhouses: {
-                    ...state.investhouses,
-                    [action.payload.id]: !state.investhouses[action.payload.id]
-                        ? [action.payload]
-                        : [...state.investhouses[action.payload.id], action.payload]
-                }
+                investhouses: action.payload.data.query,
+                invest_total: action.payload.data.total,
             }
         default:
             return state;

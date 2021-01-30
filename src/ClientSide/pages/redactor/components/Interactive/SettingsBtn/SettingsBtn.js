@@ -32,15 +32,12 @@ class SettingsBtn extends React.Component {
 
     changeHatchSize(event) {
         let cellsize = Number(event.target.value);
-        // if (cellsize > 0.05) {
             appState.changeState('changeHatchCellSize', cellsize);
             this.setState({
                 hatchCellSize: appState.hatchProp.cellSize,
             });
-        // }
-        
     }
-    
+
 
     render() {
         return (
@@ -54,9 +51,9 @@ class SettingsBtn extends React.Component {
                     hidden={this.state.menuVisibility}
                 >
                     <div className="field" key='hatchSetting'>
-                        <label className='label'>
+                        <label className={classes.settingsLabel}>
                             <input
-                                className='settingsCheck'
+                                className={classes.settingsCheck}
                                 type='checkbox'
                                 name='settingsCheck'
                                 checked={this.state.hatchVisibility}
@@ -66,10 +63,10 @@ class SettingsBtn extends React.Component {
                         </label>
                     </div>
                     <div className='field' key='cellSetting'>
-                        <label className='label'>
+                        <label className={classes.settingsSizeLabel}>
                             Размер клетки
                             <input
-                                className='settingsSize'
+                                className={classes.settingsSize}
                                 type='number'
                                 min='0.1'
                                 max='5'

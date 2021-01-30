@@ -23,6 +23,7 @@
     display: none;
 }
 .filled-heart{
+    z-index: 1;
     position: absolute;
     margin-top: -15px;
     cursor: pointer;
@@ -104,12 +105,13 @@
 .house-name h1{
     margin-top: 13px;
     margin-left: 10px;
-    font-family: Gotham Pro;
+    font-family: Open Sans Light;
     font-style: normal;
-    font-weight: normal;
+    font-weight: 600;
     font-size: 18px;
     line-height: 110%;
     /* or 20px */
+    min-height: 40px;
 
     display: flex;
     align-items: center;
@@ -163,7 +165,7 @@
 
 .price p{
     margin-top: 12px;
-    font-family: Open Sans Light;
+    font-family: "Gotham Pro";
     font-style: normal;
     font-weight: 300;
     font-size: 12px;

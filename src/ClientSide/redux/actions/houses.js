@@ -1,3 +1,12 @@
+export const setPostInfo = (postinfo) => ({
+    type: 'SET_POST_INFO',
+    payload: postinfo,
+});
+
+export const setUserInfo = (userinfo) => ({
+    type: 'SET_USER_INFO',
+    payload: userinfo,
+});
 
 export const setCompletedProjects = (compprojects) => ({
     type: 'SET_COMPLETED_PROJECTS',
@@ -14,52 +23,68 @@ export const setInvestorsHouses = (investorshouses) => ({
     payload: investorshouses,
 });
 
-export const setPostInfo = (postinfo) => ({
-    type: 'SET_POST_INFO',
-    payload: postinfo,
+export const setHeartsArray = (heartArr) => ({
+    type: 'SET_HEARTS_ARRAY',
+    payload: heartArr,
 });
 
-export const setUserInfo = (userinfo) => ({
-    type: 'SET_USER_INFO',
-    payload: userinfo,
+export const setHouseHeartsArray = (heartArr) => ({
+    type: 'SET_HOUSE_HEARTS_ARRAY',
+    payload: heartArr,
 });
 
-export const setPostCost = (costinfo) => ({
-    type: 'SET_POST_COST',
-    payload: costinfo,
-});
-
-export const addHeartId = (id) => ({
-    type: 'SET_HEART_ID',
-    payload: id,
-});
-
-export const addHouseHeartId = (id) => ({
-    type: 'SET_HOUSE_HEART_ID',
-    payload: id,
-});
-
-export const addInvestHeartId = (id) => ({
-    type: 'SET_INVEST_HEART_ID',
-    payload: id,
+export const setInvestHeartsArray = (heartArr) => ({
+    type: 'SET_INVEST_HEARTS_ARRAY',
+    payload: heartArr,
 });
 
 
-export const setProjectsPage = (id) => ({
-    type: 'SET_PROJECTS_PAGE',
-    payload: id,
-});
+export const setFilterCost = (costArr) => ({
+    type: 'SET_FILTER_COST',
+    payload: costArr,
+})
 
-export const setHousesPage = (id) => ({
-    type: 'SET_HOUSES_PAGE',
-    payload: id,
-});
+export const setFilterSquare = (squareArr) => ({
+    type: 'SET_FILTER_SQUARE',
+    payload: squareArr,
+})
 
-export const setInvestPage = (id) => ({
-    type: 'SET_INVESTS_PAGE',
-    payload: id,
-});
+export const setFilterCostHouses = (costArr) => ({
+    type: 'SET_FILTER_COST_HOUSES',
+    payload: costArr,
+})
 
+export const setFilterSquareHouses = (squareArr) => ({
+    type: 'SET_FILTER_SQUARE_HOUSES',
+    payload: squareArr,
+})
 
+export const setFilterCostInvest = (costArr) => ({
+    type: 'SET_FILTER_COST_INVEST',
+    payload: costArr,
+})
 
+export const setFilterSquareInvest = (squareArr) => ({
+    type: 'SET_FILTER_SQUARE_INVEST',
+    payload: squareArr,
+})
+
+export const setActiveModal = (bool) => ({
+    type: 'SET_ACTIVE_MODAL',
+    payload: bool,
+})
+
+export const setActiveLogin = (bool) => ({
+    type: 'SET_ACTIVE_LOGIN',
+    payload: bool,
+})
+
+export const deleteToken = () => ({
+    type: 'DELETE_TOKEN',
+    payload: '',
+})
+
+export const setHousesDefault = () => ({
+    type: 'SET_HOUSES_DEFAULT',
+})
 

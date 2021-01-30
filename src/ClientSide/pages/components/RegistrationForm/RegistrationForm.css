@@ -1,0 +1,129 @@
+
+.registration-form{
+    margin-top: -315px;
+    margin-left: 285px;
+    z-index: 1000;
+
+    width: 440px;
+    height: 419px;
+
+    position: absolute;
+    clip-path: polygon(8% 0, 100% 0, 100% 80%, 77% 100%, 0 100%, 0 8%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: #FFFFFF;
+}
+.registration-form__header{
+    margin-bottom: 10px;
+    margin-top: 4px;
+    margin-left: -5px;
+    display: flex;
+    flex-direction: row;
+}
+.registration-form__header h1{
+    margin-left: -158px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+
+    color: #000000;
+}
+.registration-form__header p{
+    cursor: pointer;
+    margin-left: 60px;
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+
+    display: flex;
+    align-items: flex-end;
+
+    color: #325FFF;
+}
+.form{
+    margin-left: 160px;
+}
+.form p{
+    margin-bottom: 8px;
+
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+
+    color: #262626;
+}
+
+.btn__to-register{
+    outline: none;
+    border: none;
+    padding: 8px 16px;
+    background-color: #325FFF;
+
+    margin-left: -160px;
+
+    width: 192px;
+    height: 40px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.data__to-register Input{
+    margin-bottom: -5px;
+    width: 320px;
+    height: 40px;
+    padding: 8px 12px;
+
+    border: 1px solid #D9D9D9;
+
+    outline: none;
+}
+.data__to-register label{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+
+    position: absolute;
+    margin-top: -200px;
+
+    color: #262626;
+}
+
+.password__to-register Input{
+    margin-top: 8px;
+    margin-bottom: 5px;
+
+    height: 20px;
+    width: 440px;
+
+    border: 1px solid #D9D9D9;
+
+    outline: none;
+}
+.password__to-register label{
+    font-family: Open Sans Light;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+
+    color: #262626;
+}
+
+.show-password__to-register{
+}

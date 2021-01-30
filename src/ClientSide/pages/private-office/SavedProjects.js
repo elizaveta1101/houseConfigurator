@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CheckoutButton from "../components/CheckoutButton";
+import CheckoutButton from "../components/Buttons/CheckoutButton";
 import SavedCard from "./SavedCard";
 
 import './SavedProjects.css';
