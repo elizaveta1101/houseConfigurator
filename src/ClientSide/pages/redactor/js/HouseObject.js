@@ -692,10 +692,10 @@ class HouseObject {
                         this.models[floorName] = null;
                     });
                 }
-                if (this.veranda) {
-                    this.clearScene('veranda');
-                }
-                // appState.scene.add(this.house2d, this.house3d);
+                // if (this.verandaExistence) {
+                    //     this.clearScene('veranda');
+                    // }
+                    // appState.scene.add(this.house2d, this.house3d);
                 this.changeVisability(viewMode);
                 break;
             case 'basementHeight':
