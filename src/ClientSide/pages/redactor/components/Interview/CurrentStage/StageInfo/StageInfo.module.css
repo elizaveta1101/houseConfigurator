@@ -85,7 +85,10 @@
 }
 
 .houseElements{
-
+    border: 1px solid #325fff;
+  width: 100px;
+  color: #325fff;
+  cursor: pointerпше ;
 }
 
 .field{
