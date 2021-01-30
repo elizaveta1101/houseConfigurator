@@ -75,7 +75,7 @@ class SettingsBtn extends React.Component {
                                 max='5'
                                 step='0.1'
                                 name='settingsSize'
-                                value={this.state.hatchCellSize}
+                                placeholder={this.state.hatchCellSize}
                                 onChange={this.changeHatchSize}
                             />
                         </label>
