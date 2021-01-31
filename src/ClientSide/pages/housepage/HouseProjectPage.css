@@ -422,6 +422,11 @@
     color: #444444;
 }
 
+.relis-date-with-btn{
+    display: flex;
+    flex-direction: row;
+}
+
 .house-card__checkout-price h1{
     margin-top: 22px;
     font-family: Gotham Pro;
@@ -430,6 +435,7 @@
     font-size: 36px;
     line-height: 34px;
     letter-spacing: -0.02em;
+    width: max-content;
 
     color: #444444;
 }
@@ -820,6 +826,22 @@
         height: 250px;
         margin-top: 205px;
         margin-left: 90px;
+    }
+    .relis-date-with-btn{
+        display: flex;
+        flex-direction:column;
+        margin-top: -27px;
+
+    }
+    .relis-date{
+        flex-direction: row;
+        display: flex;
+        margin-bottom: -30px;
+        margin-left: -50px;
+    }
+    .relis-date span{
+        margin-left:5px;
+        margin-top: 25px;
     }
 }
 

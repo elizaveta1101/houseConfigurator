@@ -157,11 +157,13 @@ function HouseProjectPage(){
                     <p>Стоимость реализации проекта</p>
                     <h1><span>от</span>{pageInfo && pageInfo.cost} ₽</h1>
                 </div>
-                <div className="relis-date">
-                    <p>Сроки реализации:</p>
-                    <span>{pageInfo && pageInfo.time}</span>
+                <div className="relis-date-with-btn">
+                    <div className="relis-date">
+                        <p>Сроки реализации:</p>
+                        <span>{pageInfo && pageInfo.time}</span>
+                    </div>
+                    <CheckoutButton className="house-card__checkout-btn" children={'Оформить заказ'} active={true}/>
                 </div>
-                <CheckoutButton className="house-card__checkout-btn" children={'Оформить заказ'} active={true}/>
             </div>
             <div className="project-desription">
                 <h1>Описание проекта</h1>

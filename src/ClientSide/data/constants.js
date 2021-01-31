@@ -18,5 +18,5 @@ export const savedInvestsPage = '/saved_investors'
 
 export const constructorPage = '/constructor'
 
-export const HostURL = 'http://127.0.0.1:5000/'
-//export const HostURL = 'https://api.428155-ck47250.tmweb.ru/'
+//export const HostURL = 'http://127.0.0.1:5000/'
+export const HostURL = 'https://api.428155-ck47250.tmweb.ru/'

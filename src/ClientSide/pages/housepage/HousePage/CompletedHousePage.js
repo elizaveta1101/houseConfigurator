@@ -5,13 +5,14 @@ import HousePageSlider from "../PageSlider/HousePageSlider";
 import CheckoutButton from "../../components/Buttons/CheckoutButton";
 
 import {WrappedMap} from "../../components/Map/Map";
-import {setHouseHeartsArray} from "../../../redux/actions/houses";
-import {useDispatch, useSelector} from "react-redux";
-import {useLocation} from "react-router-dom";
-import {getProjectPageInfo} from "../../../redux/actions/housePage";
+import { HostURL } from "../../../data/constants";
+import { setHouseHeartsArray } from "../../../redux/actions/houses";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { getProjectPageInfo } from "../../../redux/actions/housePage";
+import { Link } from 'react-router-dom'
 
 import '../HouseProjectPage.css';
-import {HostURL} from "../../../data/constants";
 
 
 
@@ -168,7 +169,9 @@ function CompletedHousePage() {
                         />
                     </div>
                     <div className="map-btn-box">
-                        <CheckoutButton className="map-btn" children={'Открыть на карте'} active={true}/>
+                        <a href={`https://www.google.com/maps/@${55.755825},${37.617298},14.75z?hl=ru-RU`}>
+                            <CheckoutButton className="map-btn" children={'Открыть на карте'} active={true}/>
+                        </a>
                     </div>
                 </div>
             </div>
