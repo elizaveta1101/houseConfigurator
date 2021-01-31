@@ -9,7 +9,7 @@ import CompletedHouseImg from '../../../../../assets/img/CompletedHouse.png'
 import '../ProjectCard/HouseCard.css'
 import './CompletedCard.css'
 
-import {housePage} from "../../../../data/constants";
+import {HostURL, housePage} from "../../../../data/constants";
 import axios from "axios";
 import {setHouseHeartsArray} from "../../../../redux/actions/houses";
 
@@ -45,7 +45,7 @@ const CompletedCard = React.memo(function CompletedCard({onClickItem, address, s
   React.useEffect(() => {
     if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined") {
       axios
-          .get('http://127.0.0.1:5000/favorites/main_page',
+          .get(`${HostURL}favorites/main_page`,
               {
                 params: {category: 'house'},
                 headers: {Authorization: localStorage.token}

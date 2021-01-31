@@ -77,7 +77,7 @@ function CatalogCompletedProjects() {
 
         if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined"){
             axios
-                .get(`${HostURL}/favorites/main_page`,
+                .get(`${HostURL}favorites/main_page`,
                     {params: {category: 'project'},
                         headers: {Authorization: localStorage.token}})
                 .then(({data}) => {

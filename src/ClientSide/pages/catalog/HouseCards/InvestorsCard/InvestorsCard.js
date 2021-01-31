@@ -9,7 +9,7 @@ import InvestorsHouseImg from '../../../../../assets/img/InvestorsCard.png'
 import '../ProjectCard/HouseCard.css'
 import '../HouseCard/CompletedCard.css'
 import './InvestorsCard.css'
-import {investsPage} from "../../../../data/constants";
+import {HostURL, investsPage} from "../../../../data/constants";
 import axios from "axios";
 import {setInvestHeartsArray} from "../../../../redux/actions/houses";
 
@@ -44,7 +44,7 @@ const InvestorsCard = React.memo(function InvestorsCard({year_percent, style, co
   React.useEffect(() => {
     if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined") {
       axios
-          .get('http://127.0.0.1:5000/favorites/main_page',
+          .get(`${HostURL}favorites/main_page`,
               {
                 params: {category: 'invest'},
                 headers: {Authorization: localStorage.token}

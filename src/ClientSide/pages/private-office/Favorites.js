@@ -12,6 +12,7 @@ import CheckoutButton from "../components/Buttons/CheckoutButton";
 
 import './Favorites.css';
 import '../housepage/HouseProjectPage.css'
+import {HostURL} from "../../data/constants";
 
 
 
@@ -22,65 +23,51 @@ function Favorites() {
     const dispatch = useDispatch()
 
     const onSelectCategory = React.useCallback((id) => {
-        axios.post('http://127.0.0.1:5000/favorites', {
+        axios.post(`${HostURL}favorites`, {
             id: id,
             category: 'house'
         }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
     const onSelectCategoryProjects = React.useCallback((id) => {
-        axios.post('http://127.0.0.1:5000/favorites', {
+        axios.post(`${HostURL}favorites`, {
             id: id,
             category: 'project'
         }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
     const onSelectCategoryInvests = React.useCallback((id) => {
-        axios.post('http://127.0.0.1:5000/favorites', {
+        axios.post(`${HostURL}favorites`, {
             id: id,
             category: 'invest'
         }, {headers: {'Content-Type': 'application/json', Authorization: localStorage.token}})
     }, [])
 
     React.useEffect(() => {
-        async function FetchPosts() {
             axios
-                .get('http://127.0.0.1:5000/favorites',
+                .get(`${HostURL}favorites`,
                     {params: {pagination: true, page: 1, per_page: 1, category: 'house'},
                         headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
                     dispatch(addCompletedHouseToCart(data))
                 })
-        }
-        FetchPosts()
-    }, [])
 
-    React.useEffect(() => {
-        async function FetchPosts() {
             axios
-                .get('http://127.0.0.1:5000/favorites',
-                    {params: {pagination: true, page: 1, per_page: 1, category: 'project'},
-                        headers: {Authorization: localStorage.token}})
-                .then(({data}) => {
-                    dispatch(addHouseToCart(data))
-                })
-        }
-        FetchPosts()
-    }, [])
-
-
-
-    React.useEffect(() => {
-        async function FetchPosts() {
-            axios
-                .get('http://127.0.0.1:5000/favorites',
+                .get(`${HostURL}favorites`,
                     {params: {pagination: true, page: 1, per_page: 1, category: 'invest'},
                         headers: {Authorization: localStorage.token}})
                 .then(({data}) => {
                     dispatch(addInvestorsHouseToCart(data))
                 })
-        }
-        FetchPosts()
+
+            axios
+                .get(`${HostURL}favorites`,
+                    {params: {pagination: true, page: 1, per_page: 1, category: 'project'},
+                        headers: {Authorization: localStorage.token}})
+                .then(({data}) => {
+                    dispatch(addHouseToCart(data))
+                })
+
     }, [])
 
     return (

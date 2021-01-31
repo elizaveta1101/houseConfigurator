@@ -11,6 +11,7 @@ import CatalogHeader from "../CatalogHeader";
 
 import './CatalogCompletedProjects.css';
 import {setProjectPageId} from "../../../redux/actions/housePage";
+import {HostURL} from "../../../data/constants";
 
 
 let heart_indices = [];
@@ -37,13 +38,13 @@ function CatalogCompletedHouses() {
     }
 
     const handleChange = value => {
-        axios.get('http://127.0.0.1:5000/house', {params: {pagination: true, page: value}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedHouses(data))})
+        axios.get(`${HostURL}house`, {params: {pagination: true, page: value}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedHouses(data))})
         dispatch(setHousesPage(value))
     };
 
     React.useEffect(() => {
         async function FetchPosts(){
-            await axios.get('http://127.0.0.1:5000/house', {params: {pagination: true, page: 1}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedHouses(data))})
+            await axios.get(`${HostURL}house`, {params: {pagination: true, page: 1}, headers: {Authorization: posts}}).then(({data}) => {dispatch(setCompletedHouses(data))})
         }
         FetchPosts()
     },[dispatch])

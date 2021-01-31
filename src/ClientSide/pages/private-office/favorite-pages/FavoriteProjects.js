@@ -16,7 +16,6 @@ import {HostURL} from "../../../data/constants";
 
 
 function FavoriteProjects() {
-    const posts = useSelector(({ houses }) => houses.postinfo)
     const dispatch = useDispatch()
     const favoriteProjects = useSelector(({ cart }) => cart.compprojects)
     const favoriteProjectsTotal = useSelector(({ cart }) => cart.projects_total)
@@ -39,7 +38,6 @@ function FavoriteProjects() {
     };
 
     React.useEffect(() => {
-        async function FetchPosts() {
             axios
                 .get(`${HostURL}favorites`,
                     {params: {pagination: true, page: 1, per_page: 9, category: 'project'},
@@ -47,8 +45,6 @@ function FavoriteProjects() {
                 .then(({data}) => {
                     dispatch(addHouseToCart(data))
                 })
-        }
-        FetchPosts()
     }, [])
 
     return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import {projectPage} from "../../../../data/constants";
+import {HostURL, projectPage} from "../../../../data/constants";
 import axios from "axios";
 
 import { Link } from 'react-router-dom'
@@ -42,7 +42,7 @@ const HouseCard = React.memo(function HouseCard({onClickItem, style, bedrooms, c
   React.useEffect(() => {
     if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== "undefined") {
       axios
-          .get('http://127.0.0.1:5000/favorites/main_page',
+          .get(`${HostURL}favorites/main_page`,
               {
                 params: {category: 'project'},
                 headers: {Authorization: localStorage.token}
