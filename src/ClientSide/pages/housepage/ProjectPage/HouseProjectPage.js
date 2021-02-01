@@ -148,7 +148,9 @@ function HouseProjectPage(){
                             <li>моментальный расчет стоимости</li>
                             <li>фиксация цены и сроков</li>
                         </ul>
-                        <CheckoutButton className="house-page__open-project-btn" children={'Открыть в редакторе'} active={true}/>
+                        <div className="projects-page__redactor-btn">
+                            <CheckoutButton className="house-page__open-project-btn" children={'Открыть в редакторе'} active={true}/>
+                        </div>
                     </div>
                 </div>
             </div>

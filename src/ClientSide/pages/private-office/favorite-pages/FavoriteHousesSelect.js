@@ -16,17 +16,25 @@ function FavoriteHousesSelect() {
     return (
         <div className="house-project-page-wrapper">
             <div className="choose-catalog">
-                <h1>Выбор избранного</h1>
+                <h1 className="favorite-header-h1">Выбор избранного</h1>
                 <div className="choose-catalog__buttons" >
-                    <Link to={savedProjectsPage}><div className={classNames('completed-projects', 'catalog-header__active' , {'catalog-header__active-active': !savedProjectsActive})}>
-                        <p>Готовые проекты</p>
-                    </div></Link>
-                    <Link to={savedHousesPage}><div className={classNames('completed-homes', 'catalog-header__active' , {'catalog-header__active-active': !savedHousesActive})}>
-                        <p>Готовые дома</p>
-                    </div></Link>
-                    <Link to={savedInvestsPage}><div className={classNames('for-investors', 'catalog-header__active' , {'catalog-header__active-active': !savedInvestorsActive})}>
-                        <p>Инвесторам</p>
-                    </div></Link>
+                    <div className="choose-catalog__buttons__favorites">
+                        <Link to={savedProjectsPage}>
+                            <div className={classNames('completed-projects', 'catalog-header__active' , {'catalog-header__active-active': !savedProjectsActive})}>
+                                <p>Готовые проекты</p>
+                            </div>
+                        </Link>
+                        <Link to={savedHousesPage}>
+                            <div className={classNames('completed-homes', 'catalog-header__active' , {'catalog-header__active-active': !savedHousesActive})}>
+                                <p>Готовые дома</p>
+                            </div>
+                        </Link>
+                        <Link to={savedInvestsPage}>
+                            <div className={classNames('for-investors', 'catalog-header__active' , {'catalog-header__active-active': !savedInvestorsActive})}>
+                                <p>Инвесторам</p>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
             </div>
 

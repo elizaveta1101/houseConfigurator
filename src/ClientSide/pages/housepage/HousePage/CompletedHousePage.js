@@ -146,7 +146,9 @@ function CompletedHousePage() {
                         </div>
                         <h2>Стоимость дома</h2>
                         <h1>{pageInfo && pageInfo.cost} ₽</h1>
-                        <CheckoutButton className="house-page__open-project-btn" children={'Оформить заказ'} active={true}/>
+                        <div className="house-page__order-btn">
+                            <CheckoutButton className="house-page__open-project-btn" children={'Оформить заказ'} active={true}/>
+                        </div>
                     </div>
                 </div>
             </div>

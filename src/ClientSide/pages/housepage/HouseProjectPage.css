@@ -1,6 +1,6 @@
 .house-project-page-wrapper{
     width: 1420px;
-    margin-left: -20px;
+
 
     justify-self: center;
     align-self: center;
@@ -253,6 +253,7 @@
 
     background-color: #FFFFFF;
     margin-top: 110px;
+    z-index: 22;
 }
 
 
@@ -535,7 +536,7 @@
 
 .project-desription__placeholder{
     margin-top: 80px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .project-desription__placeholder h1{
@@ -624,17 +625,12 @@
     position: absolute;
     display: flex;
     margin-left: 965px;
-    margin-top: -700px;
-
-    z-index: -1;
 }
 .investors-pre-btn-ellipse{
     position: absolute;
     display: flex;
     margin-left: 965px;
     margin-top: 200px;
-
-    z-index: -1;
 }
 
 
@@ -666,19 +662,26 @@
     }
     .project-desription{
         width: 660px;
+        margin-right: 20px;
     }
     .completed-page__ifrostructure{
         width: 660px;
     }
     .pre-btn-ellipse{
-        margin-left: 800px;
+        margin-left: 700px;
+    }
+    .investors-pre-btn-ellipse{
+        margin-left: 705px;
+    }
+    .completed-pre-btn-ellipse{
+        margin-left: 690px;
     }
 }
 
 
 @media (max-width: 1168px){
-    .completed-page__ifrostructure{
-        margin-left: 34px;
+    .completed-pre-btn-ellipse{
+        display: none;
     }
     .heart1 {
         margin-top: 590px;
@@ -703,13 +706,13 @@
     .invest-page__info-header__small{
         display: block;
         margin-top: -515px;
-        margin-left: 240px;
+        margin-left: 248px;
         width: 700px;
     }
     .investors-house-project-page__info h1{
         position: absolute;
         margin-top: -550px;
-        margin-left: 280px;
+        margin-left: 260px;
     }
     .house-project-page__info-header {
         margin-top: -570px;
@@ -717,7 +720,7 @@
     }
     .invest-page__info-header {
         margin-top: -550px;
-        margin-left: 280px;
+        margin-left: 260px;
     }
     .house-project-page__main-block{
         flex-direction: column;
@@ -726,9 +729,6 @@
         flex-direction: row;
         width: 700px;
         height: 400px;
-    }
-    .project-desription{
-        width: 650px;
     }
     .house-project-page__slider{
         width: 700px;
@@ -764,8 +764,9 @@
     }
     .house-page-id{
         position: absolute;
-        margin-left: 60px;
+        margin-left: 100px;
         margin-top: -480px;
+        z-index: 22;
     }
     .map{
         display: none;
@@ -782,7 +783,7 @@
     }
     .project-desription{
         width: 660px;
-
+        margin-left: -3px;
     }
     .house-page__info-header__small{
         display: block;
@@ -806,6 +807,7 @@
     }
     .investors-page-button{
         margin-top: 80px;
+        margin-left: -150px;
     }
     .condition_of_terms{
         width: 400px;
@@ -816,10 +818,7 @@
         margin-top: -200px;
     }
     .pre-btn-ellipse{
-        width: 300px;
-        height: 300px;
-        margin-top: -230px;
-        margin-left: 350px;
+        display: none;
     }
     .pre-btn-ellipse-abs-2{
         width: 250px;
@@ -842,6 +841,26 @@
     .relis-date span{
         margin-left:5px;
         margin-top: 25px;
+    }
+    .invest-page__info-params{
+        height: 200px;
+        background-color: black;
+    }
+    .projects-page__redactor-btn{
+        margin-left: -150px;
+        margin-top: -40px;
+    }
+    .house-page__order-btn{
+        margin-left: -150px;
+    }
+    .invest-page-id{
+        z-index: 22;
+        position: absolute;
+        margin-top: -480px;
+        margin-left: 100px;
+    }
+    .investors-pre-btn-ellipse{
+        display: none;
     }
 }
 

@@ -120,7 +120,7 @@ function InvestorsHousePage() {
                         </div>
                     </div>
                     <div className="house-project-page__pre-btn-text">
-                        <div className="house-page-id">
+                        <div className="invest-page-id">
                             <p>id проекта:<span> {pageInfo && pageInfo.id}</span></p>
                         </div>
                         <div className="investors-page-button">

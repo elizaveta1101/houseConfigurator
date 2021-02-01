@@ -12,6 +12,7 @@ import './PrivateCab.css';
 function PrivateCab() {
     return (
         <div className="house-project-page-wrapper">
+            <div className="lk-wrapper">
             <div className="lk-first-block">
                 <div className="private-cab-circles">
                     <svg width="453" height="533" viewBox="0 0 453 533" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,6 +90,7 @@ function PrivateCab() {
             </div>
             <SavedProjects />
             <Favorites />
+            </div>
         </div>
     );
 }

@@ -189,7 +189,7 @@
     width: 220px;
     height: 40px;
 
-
+    z-index: 22;
 
     background-color: transparent;
     border: 1px solid #325FFF;
@@ -363,11 +363,20 @@
     line-height: 22px;
 }
 
+@media (max-width: 1800px){
+    .house-page__open-project-btn{
+        width: 392px;
+    }
+}
+
 @media (max-width: 1168px){
     .house-page__open-project-btn{
-        clip-path: polygon(13% 0, 87% 0, 100% 22%, 100% 78%, 87% 100%, 13% 100%, 0 76%, 0% 22%);
-        width: 170px;
-        height: 100px;
+        clip-path: polygon(0% 0, 0% 0, 100% 0%, 100% 78%, 100% 100%, 0% 100%, 0 76%, 0% 0%);
+        width: 212px;
+        height: 36px;
+        font-size: 14px;
+        margin-top: 70px;
+        margin-left: 153px;
     }
     .house-card__checkout-btn{
         margin-top: 40px;

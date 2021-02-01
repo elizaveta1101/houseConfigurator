@@ -74,5 +74,6 @@
     }
     .house-project-page-wrapper{
         width: 700px;
+        margin-left: -20px;
     }
 }

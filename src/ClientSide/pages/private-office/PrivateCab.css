@@ -6,7 +6,6 @@
 }
 
 .private-cab-circles{
-    z-index: -1;
     margin-left: 1020px;
     position: absolute;
 }
@@ -173,19 +172,22 @@
 
 @media (max-width: 1818px){
     .house-page__open-project-btn-block{
-        margin-left: -80px;
+        margin-left: -190px;
     }
     .private-cab-info{
         width: 660px;
-        margin-right: 20px;
         background-color: #FFFFFF;
         padding: 40px;
     }
     .lk-btns__right{
-        margin-left: -110px;
+        margin-left: -35px;
         width: 310px;
         display: flex;
         justify-content: flex-start;
+    }
+    .private-cab-circles{
+        margin-left: 720px;
+        position: absolute;
     }
 
 }
@@ -193,8 +195,27 @@
 @media (max-width: 1168px){
     .house-page__open-project-btn-block{
         position: absolute;
-        margin-left: 283px;
+        margin-left: 203px;
         margin-top: 260px;
+    }
+    .private-cab-block{
+        margin-left: -50px;
+        width: 670px;
+    }
+    .private-cab-info{
+        width: 590px;
+    }
+    .private-cab-info h1{
+        font-size: 20px;
+    }
+    .orders{
+        margin-left: -90px;
+    }
+    .lk-wrapper{
+        margin-left: 80px;
+    }
+    .private-cab-circles{
+        display: none;
     }
 }
 

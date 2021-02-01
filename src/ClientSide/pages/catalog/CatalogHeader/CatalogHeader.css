@@ -385,12 +385,12 @@
         width: 149px;
         height: 40px;
         border: 1px solid #C8C8C8;
+        border-bottom: none;
     }
-    .completed-homes{
-        border-top: none;
-        width: 149px;
-        height: 40px;
+    .completed-homes {
         border: 1px solid #C8C8C8;
+        height: 40px;
+        width: 149px;
     }
     .for-investors{
         border-top: none;
