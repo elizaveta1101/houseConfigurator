@@ -1,13 +1,13 @@
 .totalData {
-    margin-top: 8px;
-    margin-right: 8px;
+    margin-top: 68px;
+    /* margin-right: 8px; */
     display: grid;
     grid-auto-flow: row;
     align-content: space-around;
     position: absolute;
     right: 0;
     top: 0;
-    width: 256px;
+    width: 200px;
 
     height: 231px;
     background-color: #fff;

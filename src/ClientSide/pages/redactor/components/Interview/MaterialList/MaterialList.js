@@ -6,7 +6,7 @@ import {MaterialCard} from './MaterialCard/MaterialCard';
 
 function MaterialList(props) {
     return (
-        <div className={classes.matlist}>
+        // <div className={classes.matlist}>
         <div className = {classes.list}
         style = {{display: props.visibility ? "grid" : "none"}} 
         >
@@ -46,7 +46,7 @@ function MaterialList(props) {
                 disabled={props.shownIndex+2>=props.materialCount-1 ? true : false}
             />
         </div>
-        </div>
+        // </div>
     );
 }
 

@@ -1,8 +1,10 @@
 .viewBtns {
   position: absolute;
-  bottom: 0;
-  justify-self: center;
-
+  /* bottom: 0;
+  justify-self: center; */
+  bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
 }
 @media (min-width: 768px) {
   .viewBtns {

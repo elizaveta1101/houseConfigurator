@@ -13,14 +13,15 @@
             "interview interactive"
             "materialList materialList";
         grid-gap: 0px;
-        grid-template-columns: 1fr 4fr;
-        grid-template-rows: minmax(max-content, 100%) minmax(0, max-content);
+        /* grid-template-columns: 1fr 5fr; */
+        grid-template-columns: 300px 1fr;
+        grid-template-rows: minmax(0, 100%) minmax(0, max-content);
         grid-auto-flow: row;
     }
 }
 
-.display_box{
+/* .display_box{
     overflow: hidden;
     position: absolute;
     width: 100vw;
-}
+} */

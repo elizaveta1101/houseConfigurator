@@ -5,7 +5,7 @@ import classes from './Interview.module.css';
 
 function Interview (props) {
     return (
-        <div className={classes.interviewdiv}>
+        // <div className={classes.interviewdiv}>
             <div className={classes.interview}>
                 <CurrentStage
                     stageInfo={props.stageInfo}
@@ -27,7 +27,7 @@ function Interview (props) {
                     onClick={props.nextOnClick}
                 />
             </div>
-        </div>
+        // </div>
     );
 }
 

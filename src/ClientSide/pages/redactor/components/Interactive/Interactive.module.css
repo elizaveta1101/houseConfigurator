@@ -1,13 +1,13 @@
 .interactive {
     /* grid-column: content;
     grid-row: interactive; */
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
     position: relative;
     min-height: min-content;
-    width: 100vw;
-    overflow: hidden;
-    min-width: 880px;
+    /* width: 100vw; */
+    /* overflow: hidden;
+    min-width: 880px; */
 
   }
   @media (min-width: 768px) {

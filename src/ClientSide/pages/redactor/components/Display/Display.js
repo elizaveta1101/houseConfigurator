@@ -556,7 +556,7 @@ class Display extends React.Component {
     //------------конец функций для работы со списокм материалов--------------------//
     render() {
         return (
-            <div className={classes.display_box}>
+            // <div className={classes.display_box}>
             <div className={classes.content}>
                 <Interview
                     stageInfo={stages[this.state.stageId]}
@@ -595,7 +595,7 @@ class Display extends React.Component {
                     chooseCard={this.chooseCard}
                 />
             </div>
-            </div>
+            // </div>
         );
     }
 }

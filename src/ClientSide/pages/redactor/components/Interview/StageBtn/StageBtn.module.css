@@ -1,7 +1,9 @@
 .nextStageBtn {
   position: absolute;
-  bottom: 30px;
-  right: 30px;
+  /* bottom: 30px;
+  right: 30px; */
+  bottom: 3vh;
+  right: 3vh;
   padding: 3px 6px;
   cursor: pointer;
   outline: none;
@@ -30,8 +32,10 @@
   cursor: pointer;
   outline: none;
   position: absolute;
-  bottom: 30px;
-  left: 30px;
+  /* bottom: 30px;
+  left: 30px; */
+  bottom: 3vh;
+  left: 3vh;
   padding: 3px 6px;
 
   width: 80px;
