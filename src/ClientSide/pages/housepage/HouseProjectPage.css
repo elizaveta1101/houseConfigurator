@@ -665,7 +665,7 @@
         margin-right: 20px;
     }
     .completed-page__ifrostructure{
-        width: 660px;
+        width: 650px;
     }
     .pre-btn-ellipse{
         margin-left: 700px;
@@ -778,6 +778,7 @@
         margin-left: 420px;
     }
     .completed-page__info{
+        width: 710px;
         margin-top: 0px;
         flex-direction: column;
     }
